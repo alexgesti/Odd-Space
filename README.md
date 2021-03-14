@@ -1,4 +1,4 @@
-# Odd space
+# Odd Space
 
 ## Welcome to a crazy and strange galaxy!
 ![](https://github.com/alexgesti/PROYECTO-2/blob/main/docs/wikiResources/home/odd_space_logo.png)
