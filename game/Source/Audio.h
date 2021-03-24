@@ -3,7 +3,11 @@
 
 #include "Module.h"
 
+#include "List.h"
+
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
+
+
 
 struct _Mix_Music;
 struct Mix_Chunk;
@@ -12,16 +16,20 @@ class Audio : public Module
 {
 public:
 
+	// Constructor
 	Audio();
-
 	// Destructor
 	virtual ~Audio();
+
 
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
 
+
 	// Called before quitting
 	bool CleanUp();
+
+
 
 	// Play a music file
 	bool PlayMusic(const char* path, float fadeTime = DEFAULT_MUSIC_FADE_TIME);
@@ -35,7 +43,7 @@ public:
 private:
 
 	_Mix_Music* music;
-	List<Mix_Chunk *>	fx;
+	List<Mix_Chunk *> fx;
 };
 
 #endif // __AUDIO_H__

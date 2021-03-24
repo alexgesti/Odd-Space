@@ -7,20 +7,27 @@
 
 #include "SDL/include/SDL.h"
 
+#define VSYNC true
+
+
+
+class Window;
+
 class Render : public Module
 {
 public:
 
-	Render();
-
+	// Constructor
+	Render(Window* win);
 	// Destructor
 	virtual ~Render();
 
+
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
-
 	// Called before the first frame
 	bool Start();
+
 
 	// Called each loop iteration
 	bool PreUpdate();
@@ -30,6 +37,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
+
+	// Viewport
 	void SetViewPort(const SDL_Rect& rect);
 	void ResetViewPort();
 
@@ -48,6 +58,12 @@ public:
 	SDL_Rect camera;
 	SDL_Rect viewport;
 	SDL_Color background;
+
+	uint scale;
+
+private:
+
+	Window* win;
 };
 
 #endif // __RENDER_H__

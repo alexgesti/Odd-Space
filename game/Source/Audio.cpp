@@ -1,4 +1,3 @@
-#include "App.h"
 #include "Audio.h"
 
 #include "Defs.h"
@@ -12,15 +11,18 @@
 // NOTE: Library linkage is configured in Linker Options
 //#pragma comment(lib, "../Game/Source/External/SDL_mixer/libx86/SDL2_mixer.lib")
 
+
+
+// Constructor
 Audio::Audio() : Module()
 {
 	music = NULL;
 	name.Create("audio");
 }
-
 // Destructor
 Audio::~Audio()
 {}
+
 
 // Called before render is available
 bool Audio::Awake(pugi::xml_node& config)
@@ -58,6 +60,7 @@ bool Audio::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+
 // Called before quitting
 bool Audio::CleanUp()
 {
@@ -83,6 +86,7 @@ bool Audio::CleanUp()
 
 	return true;
 }
+
 
 // Play a music file
 bool Audio::PlayMusic(const char* path, float fadeTime)

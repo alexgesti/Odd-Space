@@ -5,6 +5,10 @@
 
 #include "List.h"
 
+
+
+class Render;
+
 struct SDL_Texture;
 struct SDL_Surface;
 
@@ -12,19 +16,22 @@ class Textures : public Module
 {
 public:
 
-	Textures();
-
+	// Constructor
+	Textures(Render* render);
 	// Destructor
 	virtual ~Textures();
 
+
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
-
 	// Called before the first frame
 	bool Start();
 
+
 	// Called before quitting
 	bool CleanUp();
+
+
 
 	// Load Texture
 	SDL_Texture* const Load(const char* path);
@@ -35,6 +42,10 @@ public:
 public:
 
 	List<SDL_Texture*> textures;
+
+private:
+
+	Render* render;
 };
 
 

@@ -2,7 +2,6 @@
 <!-- L01: DONE 1: Create configuration file-->
 <config>
   <app>
-    <title>Game Development Testbed</title>
     <organization>UPC</organization>
   </app>
 
@@ -11,6 +10,7 @@
   </renderer>
 
   <window>
+	<title>Odd Space - Chaotic Evil</title>
     <resolution width="1280" height="720" scale="1"/>
     <fullscreen value="false"/>
     <borderless value="false"/>

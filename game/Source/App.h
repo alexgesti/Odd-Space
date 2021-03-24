@@ -20,21 +20,23 @@ public:
 
 	// Constructor
 	App(int argc, char* args[]);
-
 	// Destructor
 	virtual ~App();
 
+
 	// Called before render is available
 	bool Awake();
-
 	// Called before the first frame
 	bool Start();
+
 
 	// Called each loop iteration
 	bool Update();
 
 	// Called before quitting
 	bool CleanUp();
+
+
 
 	// Add a new module to handle
 	void AddModule(Module* module);
@@ -94,7 +96,5 @@ private:
 	uint frames;
 	float dt;
 };
-
-extern App* app;
 
 #endif	// __APP_H__

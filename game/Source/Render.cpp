@@ -1,24 +1,26 @@
-#include "App.h"
-#include "Window.h"
 #include "Render.h"
+
+#include "Window.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-#define VSYNC true
 
-Render::Render() : Module()
+
+Render::Render(Window* win) : Module()
 {
 	name.Create("renderer");
 	background.r = 0;
 	background.g = 0;
 	background.b = 0;
 	background.a = 0;
-}
 
+	this->win = win;
+}
 // Destructor
 Render::~Render()
 {}
+
 
 // Called before render is available
 bool Render::Awake(pugi::xml_node& config)
@@ -34,7 +36,8 @@ bool Render::Awake(pugi::xml_node& config)
 		LOG("Using vsync");
 	}
 
-	renderer = SDL_CreateRenderer(app->win->window, -1, flags);
+	renderer = SDL_CreateRenderer(win->window, -1, flags);
+	scale = win->GetScale();
 
 	if(renderer == NULL)
 	{
@@ -43,15 +46,14 @@ bool Render::Awake(pugi::xml_node& config)
 	}
 	else
 	{
-		camera.w = app->win->screenSurface->w;
-		camera.h = app->win->screenSurface->h;
+		camera.w = win->screenSurface->w;
+		camera.h = win->screenSurface->h;
 		camera.x = 0;
 		camera.y = 0;
 	}
 
 	return ret;
 }
-
 // Called before the first frame
 bool Render::Start()
 {
@@ -60,6 +62,7 @@ bool Render::Start()
 	SDL_RenderGetViewport(renderer, &viewport);
 	return true;
 }
+
 
 // Called each loop iteration
 bool Render::PreUpdate()
@@ -88,6 +91,8 @@ bool Render::CleanUp()
 	return true;
 }
 
+
+// Set background color
 void Render::SetBackgroundColor(SDL_Color color)
 {
 	background = color;
@@ -107,7 +112,7 @@ void Render::ResetViewPort()
 bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* section, float speed, double angle, int pivotX, int pivotY) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = win->GetScale();
 
 	SDL_Rect rect;
 	rect.x = (int)(camera.x * speed) + x * scale;
@@ -148,7 +153,7 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool filled, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -166,7 +171,7 @@ bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		LOG("Cannot draw rectangle to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 
@@ -176,7 +181,7 @@ bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint
 bool Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -190,7 +195,7 @@ bool Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b,
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		LOG("Cannot draw line to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 
@@ -200,7 +205,7 @@ bool Render::DrawLine(int x1, int y1, int x2, int y2, Uint8 r, Uint8 g, Uint8 b,
 bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uint8 a, bool use_camera) const
 {
 	bool ret = true;
-	uint scale = app->win->GetScale();
+	uint scale = win->GetScale();
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
@@ -220,7 +225,7 @@ bool Render::DrawCircle(int x, int y, int radius, Uint8 r, Uint8 g, Uint8 b, Uin
 
 	if(result != 0)
 	{
-		LOG("Cannot draw quad to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+		LOG("Cannot draw circle to screen. SDL_RenderFillRect error: %s", SDL_GetError());
 		ret = false;
 	}
 

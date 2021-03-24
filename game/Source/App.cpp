@@ -1,4 +1,5 @@
 #include "App.h"
+
 #include "Window.h"
 #include "Input.h"
 #include "Render.h"
@@ -12,17 +13,19 @@
 #include <iostream>
 #include <sstream>
 
+
+
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
 	frames = 0;
 
 	win = new Window();
-	input = new Input();
-	render = new Render();
-	tex = new Textures();
+	input = new Input(win);
+	render = new Render(win);
+	tex = new Textures(render);
 	audio = new Audio();
-	scene = new Scene();
+	scene = new Scene(win, input, render, tex, audio);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -265,5 +268,3 @@ const char* App::GetOrganization() const
 {
 	return organization.GetString();
 }
-
-

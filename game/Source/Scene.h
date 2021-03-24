@@ -3,22 +3,31 @@
 
 #include "Module.h"
 
+
+
+class Window;
+class Input;
+class Render;
+class Textures;
+class Audio;
+
 struct SDL_Texture;
 
 class Scene : public Module
 {
 public:
 
-	Scene();
-
+	// Constructor
+	Scene(Window* win, Input* input, Render* render, Textures* tex, Audio* audio);
 	// Destructor
 	virtual ~Scene();
 
+
 	// Called before render is available
 	bool Awake();
-
 	// Called before the first frame
 	bool Start();
+
 
 	// Called before all Updates
 	bool PreUpdate();
@@ -33,7 +42,16 @@ public:
 	bool CleanUp();
 
 private:
+
 	SDL_Texture* img;
+
+private:
+
+	Window* win;
+	Input* input;
+	Render* render;
+	Textures* tex;
+	Audio* audio;
 };
 
 #endif // __SCENE_H__

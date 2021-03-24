@@ -1,5 +1,4 @@
 #include "Window.h"
-#include "App.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -7,17 +6,19 @@
 #include "SDL/include/SDL.h"
 
 
+
+// Constructor
 Window::Window() : Module()
 {
 	window = NULL;
 	screenSurface = NULL;
 	name.Create("window");
 }
-
 // Destructor
 Window::~Window()
 {
 }
+
 
 // Called before render is available
 bool Window::Awake(pugi::xml_node& config)
@@ -35,6 +36,7 @@ bool Window::Awake(pugi::xml_node& config)
 		// Create window
 		// L01: DONE 6: Load all required configurations from config.xml
 		Uint32 flags = SDL_WINDOW_SHOWN;
+		title = config.child("title").child_value();
 		bool fullscreen = config.child("fullscreen").attribute("value").as_bool(false);
 		bool borderless = config.child("borderless").attribute("value").as_bool(false);
 		bool resizable = config.child("resizable").attribute("value").as_bool(false);
@@ -49,7 +51,7 @@ bool Window::Awake(pugi::xml_node& config)
 		if(resizable == true) flags |= SDL_WINDOW_RESIZABLE;
 		if(fullscreen_window == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 
-		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
+		window = SDL_CreateWindow(title.GetString(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
 		if(window == NULL)
 		{
@@ -81,6 +83,7 @@ bool Window::CleanUp()
 	SDL_Quit();
 	return true;
 }
+
 
 // Set new window title
 void Window::SetTitle(const char* new_title)
