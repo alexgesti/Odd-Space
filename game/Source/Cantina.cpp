@@ -12,8 +12,9 @@
 
 
 // Constructor
-Cantina::Cantina() : Scene()
+Cantina::Cantina(Window* win) : Scene()
 {
+	this->win = win;
 	name.Create("cantina");
 }
 // Destructor
@@ -93,7 +94,7 @@ bool Cantina::Update(Input* input, float dt)
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
 	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		this->fullscreenChange = true;
+		win->ToggleFullscreen(win->window);
 
 	return true;
 }

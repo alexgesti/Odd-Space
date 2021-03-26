@@ -89,11 +89,6 @@ bool SceneManager::PreUpdate()
 // Called each loop iteration
 bool SceneManager::Update(float dt)
 {
-	if (current->fullscreenChange)
-	{
-		ToggleFullscreen(win->window);
-		current->fullscreenChange = false;
-	}
 
 	if (!onTransition)
 	{
@@ -174,8 +169,8 @@ bool SceneManager::Update(float dt)
 		switch (current->nextScene)
 		{
 		case SceneType::LOGO: next = new Logo(); break;
-		case SceneType::TITLE: next = new Title(); break;
-		case SceneType::CANTINA: next = new Cantina(); break;
+		case SceneType::TITLE: next = new Title(win); break;
+		case SceneType::CANTINA: next = new Cantina(win); break;
 		default: break;
 		}
 
@@ -202,11 +197,4 @@ bool SceneManager::CleanUp()
 	if (current != nullptr) current->Unload();
 
 	return true;
-}
-
-void SceneManager::ToggleFullscreen(SDL_Window* Window)
-{
-	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
-	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
-	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
 }

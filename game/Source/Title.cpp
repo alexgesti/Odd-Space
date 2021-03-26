@@ -7,8 +7,9 @@
 #include "SDL/include/SDL.h"
 
 
-Title::Title()
+Title::Title(Window* win)
 {
+    this->win = win;
     // GUI: Initialize required controls for the screen
 }
 
@@ -26,8 +27,8 @@ bool Title::Update(Input* input, float dt)
     if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) TransitionToScene(SceneType::CANTINA);
         bool ret = false;
 
-    if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-        this->fullscreenChange = true;
+        if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+            win->ToggleFullscreen(win->window);
 
     return ret;
 }

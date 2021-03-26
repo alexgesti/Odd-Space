@@ -65,8 +65,6 @@ public:
 
     bool transitionRequired;
     SceneType nextScene;
-
-    bool fullscreenChange = false;
 };
 
 #endif // __SCENE_H__

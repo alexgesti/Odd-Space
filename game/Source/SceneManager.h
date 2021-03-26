@@ -4,8 +4,6 @@
 #include "Module.h"
 #include "Scene.h"
 
-struct SDL_Window;
-
 class GuiButton;
 
 class Input;
@@ -39,9 +37,6 @@ public:
 
 	// Called before quitting
 	bool CleanUp();
-
-	// Fullscreen
-	void ToggleFullscreen(SDL_Window* Window);
 
 private:
 

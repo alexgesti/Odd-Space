@@ -2,6 +2,7 @@
 #define __CANTINA_H__
 
 #include "Scene.h"
+#include "Window.h"
 
 //#include "Map.h"
 //#include "Player.h"
@@ -10,7 +11,7 @@ class Cantina : public Scene
 {
 public:
 
-    Cantina();
+    Cantina(Window* win);
     virtual ~Cantina();
 
     bool Load(Textures* tex);
@@ -23,6 +24,7 @@ public:
 
 private:
 
+    Window* win;
     //Map* map;
     //Player* player;
 };

@@ -24,8 +24,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-
-
 	// Changae title
 	void SetTitle(const char* title);
 
@@ -34,6 +32,9 @@ public:
 
 	// Retrieve window scale
 	uint GetScale() const;
+
+	// Fullscreen
+	void ToggleFullscreen(SDL_Window* Window);
 
 public:
 
