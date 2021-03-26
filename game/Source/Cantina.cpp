@@ -92,6 +92,9 @@ bool Cantina::Update(Input* input, float dt)
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
+	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		this->fullscreenChange = true;
+
 	return true;
 }
 

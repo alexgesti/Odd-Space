@@ -4,17 +4,20 @@
 #include "Module.h"
 #include "Scene.h"
 
+struct SDL_Window;
+
 class GuiButton;
 
 class Input;
 class Render;
 class Textures;
+class Window;
 
 class SceneManager : public Module
 {
 public:
 
-	SceneManager(Input* input, Render* render, Textures* tex);
+	SceneManager(Input* input, Render* render, Textures* tex, Window* win);
 
 	// Destructor
 	virtual ~SceneManager();
@@ -37,11 +40,15 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Fullscreen
+	void ToggleFullscreen(SDL_Window* Window);
+
 private:
 
 	Input* input;
 	Render* render;
 	Textures* tex;
+	Window* win;
 
 	Scene* current;
 	Scene* next;

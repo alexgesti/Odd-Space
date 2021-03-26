@@ -7,7 +7,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Textures.h"
-
+#include "Window.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -17,7 +17,7 @@
 #define FADEOUT_TRANSITION_SPEED	2.0f
 #define FADEIN_TRANSITION_SPEED		2.0f
 
-SceneManager::SceneManager(Input* input, Render* render, Textures* tex) : Module()
+SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win) : Module()
 {
 	name.Create("scenemanager");
 
@@ -28,6 +28,7 @@ SceneManager::SceneManager(Input* input, Render* render, Textures* tex) : Module
 	this->input = input;
 	this->render = render;
 	this->tex = tex;
+	this->win = win;
 }
 
 // Destructor
@@ -88,6 +89,12 @@ bool SceneManager::PreUpdate()
 // Called each loop iteration
 bool SceneManager::Update(float dt)
 {
+	if (current->fullscreenChange)
+	{
+		ToggleFullscreen(win->window);
+		current->fullscreenChange = false;
+	}
+
 	if (!onTransition)
 	{
 		//if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) render->camera.y -= 1;
@@ -195,4 +202,11 @@ bool SceneManager::CleanUp()
 	if (current != nullptr) current->Unload();
 
 	return true;
+}
+
+void SceneManager::ToggleFullscreen(SDL_Window* Window)
+{
+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
 }

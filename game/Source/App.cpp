@@ -26,7 +26,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render(win);
 	tex = new Textures(render);
 	audio = new Audio();
-	sceneManager = new SceneManager(input, render, tex);
+	sceneManager = new SceneManager(input, render, tex, win);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

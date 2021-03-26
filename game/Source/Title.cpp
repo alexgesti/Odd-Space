@@ -24,7 +24,10 @@ bool Title::Load(Textures* tex)
 bool Title::Update(Input* input, float dt)
 {
     if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) TransitionToScene(SceneType::CANTINA);
-    bool ret = false;
+        bool ret = false;
+
+    if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+        this->fullscreenChange = true;
 
     return ret;
 }
