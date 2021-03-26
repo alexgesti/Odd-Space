@@ -81,8 +81,8 @@ public:
 	Audio* audio;
 	Scene* scene;
 
+	uint32 cappedms;
 	uint64 framecount = 0;
-	uint32 cappedms = 60;
 
 private:
 
@@ -94,7 +94,6 @@ private:
 	List<Module *> modules;
 
 	uint frames;
-
 	PerfTimer ptimer;
 	PerfTimer delayTimer;
 
@@ -102,7 +101,7 @@ private:
 	float secondssincestartup = 0.0f;
 	uint32 lastframems = 0;
 	uint32 framesonlastupdate = 0;
-	uint32 delaytime = 0;
+	//uint32 delaytime = 0;
 
 	Timer startuptime;
 	Timer frametime;

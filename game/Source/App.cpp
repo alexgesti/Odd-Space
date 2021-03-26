@@ -161,6 +161,7 @@ void App::PrepareUpdate()
 	framecount++;
 	lastsecframecount++;
 
+	// L08: DONE 4: Calculate the dt: differential time since last frame
 	dt = frametime.ReadSec();
 	frametime.Start();
 	delayTimer.Start();
@@ -173,8 +174,8 @@ void App::FinishUpdate()
 	FramerateLogic();
 
 	static char title[256];
-	sprintf_s(title, 256, "Platformer Game (The Crossing) (FPS: %i / Av.FPS: %.2f / Last Frame Ms: %02u ms / Last dt: %.3f / Play Time: %.3f / Frame Count: %I64u)",
-	prevlastsecframecount, averagefps, lastframems, dt, secondssincestartup, framecount);
+	sprintf_s(title, 256, "Platformer Game (The Crossing) (FPS: %i / Av.FPS: %.2f / Last Frame Ms: %02u ms / Last dt: %.3f / Play Time: %.3f / Frame Count: %I64u",
+		prevlastsecframecount, averagefps, lastframems, dt, secondssincestartup, framecount);
 
 	win->SetTitle(title);
 }
@@ -191,7 +192,8 @@ bool App::PreUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false) {
+		if(pModule->active == false) 
+		{
 			continue;
 		}
 
@@ -213,7 +215,8 @@ bool App::DoUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false) {
+		if(pModule->active == false) 
+		{
 			continue;
 		}
 
@@ -234,7 +237,8 @@ bool App::PostUpdate()
 	{
 		pModule = item->data;
 
-		if(pModule->active == false) {
+		if(pModule->active == false) 
+		{ 
 			continue;
 		}
 
@@ -269,10 +273,8 @@ int App::GetArgc() const
 // ---------------------------------------
 const char* App::GetArgv(int index) const
 {
-	if(index < argc)
-		return args[index];
-	else
-		return NULL;
+	if(index < argc) return args[index];
+	else return NULL;
 }
 
 // ---------------------------------------
@@ -300,9 +302,9 @@ void App::FramerateLogic()
 	secondssincestartup = startuptime.ReadSec();
 	lastframems = frametime.Read();
 
-	delaytime = (1000 / cappedms) - lastframems;
-	if (delaytime > 0)
+	int delayTime = (1000 / cappedms) - lastframems;
+	if (delayTime > 0)
 	{
-		SDL_Delay((Uint32)delaytime);
+		SDL_Delay((Uint32)delayTime);
 	}
 }
