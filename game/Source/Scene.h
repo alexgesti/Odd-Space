@@ -12,6 +12,7 @@ class Textures;
 class Audio;
 
 struct SDL_Texture;
+struct SDL_Window;
 
 class Scene : public Module
 {
@@ -41,6 +42,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	// Fullscreen
+	void ToggleFullscreen(SDL_Window* Window);
+
 private:
 
 	SDL_Texture* img;
@@ -52,6 +56,8 @@ private:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
+
+	bool fullscreen = false;
 };
 
 #endif // __SCENE_H__

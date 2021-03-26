@@ -65,6 +65,9 @@ bool Scene::Update(float dt)
 	if(input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		render->camera.x += 1;
 
+	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		ToggleFullscreen(win->window);
+
 	render->DrawTexture(img, 380, 100);
 
 	return true;
@@ -87,4 +90,11 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 
 	return true;
+}
+
+void Scene::ToggleFullscreen(SDL_Window* Window)
+{
+	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+	bool IsFullscreen = SDL_GetWindowFlags(Window) & FullscreenFlag;
+	SDL_SetWindowFullscreen(Window, IsFullscreen ? 0 : FullscreenFlag);
 }

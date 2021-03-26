@@ -3,6 +3,8 @@
 
 #include "Module.h"
 #include "List.h"
+#include "PerfTimer.h"
+#include "Timer.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -67,6 +69,8 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+	void FramerateLogic();
+
 public:
 
 	// Modules
@@ -77,6 +81,9 @@ public:
 	Audio* audio;
 	Scene* scene;
 
+	uint64 framecount = 0;
+	uint32 cappedms = 60;
+
 private:
 
 	int argc;
@@ -86,15 +93,30 @@ private:
 
 	List<Module *> modules;
 
+	uint frames;
+
+	PerfTimer ptimer;
+	PerfTimer delayTimer;
+
+	float averagefps = 0.0f;
+	float secondssincestartup = 0.0f;
+	uint32 lastframems = 0;
+	uint32 framesonlastupdate = 0;
+	uint32 delaytime = 0;
+
+	Timer startuptime;
+	Timer frametime;
+	Timer lastsecframetime;
+	uint32 lastsecframecount = 0;
+	uint32 prevlastsecframecount = 0;
+	float dt = 0.0f;
+
 	// TODO 2: Create new variables from pugui namespace:
 	// a xml_document to store the config file and
 	// two xml_node to read specific branches of the xml
 	pugi::xml_document configFile;
 	pugi::xml_node config;
 	pugi::xml_node configApp;
-
-	uint frames;
-	float dt;
 };
 
 #endif	// __APP_H__

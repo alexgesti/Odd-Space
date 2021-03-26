@@ -18,6 +18,7 @@
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
+	PERF_START(ptimer);
 	frames = 0;
 
 	win = new Window();
@@ -37,6 +38,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 
 	// Render last to swap buffer
 	AddModule(render);
+
+	PERF_PEEK(ptimer);
 }
 
 // Destructor
@@ -71,6 +74,8 @@ bool App::Awake()
 		// TODO 4: Read the title from the config file
 		title.Create(configApp.child("title").child_value());
 		win->SetTitle(title.GetString());
+
+		cappedms = configApp.attribute("framerate_cap").as_uint();
 
 		ListItem<Module*>* item;
 		item = modules.start;
@@ -153,12 +158,25 @@ bool App::LoadConfig()
 // ---------------------------------------------
 void App::PrepareUpdate()
 {
+	framecount++;
+	lastsecframecount++;
+
+	dt = frametime.ReadSec();
+	frametime.Start();
+	delayTimer.Start();
 }
 
 // ---------------------------------------------
 void App::FinishUpdate()
 {
 	// This is a good place to call Load / Save functions
+	FramerateLogic();
+
+	static char title[256];
+	sprintf_s(title, 256, "Platformer Game (The Crossing) (FPS: %i / Av.FPS: %.2f / Last Frame Ms: %02u ms / Last dt: %.3f / Play Time: %.3f / Frame Count: %I64u)",
+	prevlastsecframecount, averagefps, lastframems, dt, secondssincestartup, framecount);
+
+	win->SetTitle(title);
 }
 
 // Call modules before each loop iteration
@@ -267,4 +285,24 @@ const char* App::GetTitle() const
 const char* App::GetOrganization() const
 {
 	return organization.GetString();
+}
+
+void App::FramerateLogic()
+{
+	if (lastsecframetime.Read() > 1000)
+	{
+		lastsecframetime.Start();
+		prevlastsecframecount = lastsecframecount;
+		lastsecframecount = 0;
+	}
+
+	averagefps = float(framecount) / startuptime.ReadSec();
+	secondssincestartup = startuptime.ReadSec();
+	lastframems = frametime.Read();
+
+	delaytime = (1000 / cappedms) - lastframems;
+	if (delaytime > 0)
+	{
+		SDL_Delay((Uint32)delaytime);
+	}
 }
