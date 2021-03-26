@@ -5,7 +5,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
-#include "Scene.h"
+#include "SceneManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -26,7 +26,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render(win);
 	tex = new Textures(render);
 	audio = new Audio();
-	scene = new Scene(win, input, render, tex, audio);
+	sceneManager = new SceneManager(input, render, tex);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -34,7 +34,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(input);
 	AddModule(tex);
 	AddModule(audio);
-	AddModule(scene);
+	AddModule(sceneManager);
 
 	// Render last to swap buffer
 	AddModule(render);

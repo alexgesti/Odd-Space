@@ -1,63 +1,70 @@
 #ifndef __SCENE_H__
 #define __SCENE_H__
 
-#include "Module.h"
+#include "SString.h"
 
-
-
-class Window;
 class Input;
 class Render;
 class Textures;
-class Audio;
 
-struct SDL_Texture;
-struct SDL_Window;
+class GuiControl;
 
-class Scene : public Module
+enum class SceneType
+{
+    LOGO,
+    TITLE,
+    CANTINA
+};
+
+class Scene
 {
 public:
 
-	// Constructor
-	Scene(Window* win, Input* input, Render* render, Textures* tex, Audio* audio);
-	// Destructor
-	virtual ~Scene();
+    Scene() : active(true), loaded(false), transitionRequired(false) {}
 
+    virtual bool Load(Textures* tex)
+    {
+        return true;
+    }
 
-	// Called before render is available
-	bool Awake();
-	// Called before the first frame
-	bool Start();
+    virtual bool Update(Input* input, float dt)
+    {
+        return true;
+    }
 
+    virtual bool Draw(Render* render)
+    {
+        return true;
+    }
 
-	// Called before all Updates
-	bool PreUpdate();
+    virtual bool Unload()
+    {
+        return true;
+    }
 
-	// Called each loop iteration
-	bool Update(float dt);
+    void TransitionToScene(SceneType scene)
+    {
+        transitionRequired = true;
+        nextScene = scene;
+    }
 
-	// Called before all Updates
-	bool PostUpdate();
+    // Define multiple Gui Event methods
+    virtual bool OnGuiMouseClickEvent(GuiControl* control)
+    {
+        return true;
+    }
 
-	// Called before quitting
-	bool CleanUp();
+public:
 
-	// Fullscreen
-	void ToggleFullscreen(SDL_Window* Window);
+    bool active = true;
+    SString name;         // Scene name identifier?
 
-private:
+    // Possible properties
+    bool loaded = false;
+    // TODO: Transition animation properties
 
-	SDL_Texture* img;
-
-private:
-
-	Window* win;
-	Input* input;
-	Render* render;
-	Textures* tex;
-	Audio* audio;
-
-	bool fullscreen = false;
+    bool transitionRequired;
+    SceneType nextScene;
 };
 
 #endif // __SCENE_H__
