@@ -14,6 +14,7 @@ class Input;
 class Render;
 class Textures;
 class Audio;
+class EntityManager;
 class SceneManager;
 
 class App
@@ -79,6 +80,7 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
+	EntityManager* entityManager;
 	SceneManager* sceneManager;
 
 	uint32 cappedms;

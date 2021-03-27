@@ -17,7 +17,7 @@
 #define FADEOUT_TRANSITION_SPEED	2.0f
 #define FADEIN_TRANSITION_SPEED		2.0f
 
-SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win) : Module()
+SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager) : Module()
 {
 	name.Create("scenemanager");
 
@@ -29,6 +29,7 @@ SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* 
 	this->render = render;
 	this->tex = tex;
 	this->win = win;
+	this->entityManager = entityManager;
 }
 
 // Destructor
@@ -48,6 +49,8 @@ bool SceneManager::Awake()
 bool SceneManager::Start()
 {
 	current = new Logo();
+	//current = new Title(win);
+	//current = new Cantina(win, entityManager);
 	current->Load(tex);
 
 	next = nullptr;
@@ -111,7 +114,7 @@ bool SceneManager::Update(float dt)
 			{
 				transitionAlpha = 1.0f;
 
-				current->Unload();	// Unload current screen
+				current->Unload(tex);	// Unload current screen
 				next->Load(tex);	// Load next screen
 
 				RELEASE(current);	// Free current pointer
@@ -170,7 +173,7 @@ bool SceneManager::Update(float dt)
 		{
 		case SceneType::LOGO: next = new Logo(); break;
 		case SceneType::TITLE: next = new Title(win); break;
-		case SceneType::CANTINA: next = new Cantina(win); break;
+		case SceneType::CANTINA: next = new Cantina(win, entityManager); break;
 		default: break;
 		}
 
@@ -194,7 +197,7 @@ bool SceneManager::CleanUp()
 {
 	LOG("Freeing scene");
 
-	if (current != nullptr) current->Unload();
+	if (current != nullptr) current->Unload(tex);
 
 	return true;
 }

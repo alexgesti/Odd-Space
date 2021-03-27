@@ -6,6 +6,8 @@
 class Input;
 class Render;
 class Textures;
+class Window;
+class EntityManager;
 
 class GuiControl;
 
@@ -37,7 +39,7 @@ public:
         return true;
     }
 
-    virtual bool Unload()
+    virtual bool Unload(Textures* tex)
     {
         return true;
     }

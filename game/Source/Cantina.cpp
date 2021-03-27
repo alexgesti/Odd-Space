@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -12,9 +13,11 @@
 
 
 // Constructor
-Cantina::Cantina(Window* win) : Scene()
+Cantina::Cantina(Window* win, EntityManager* entityManager) : Scene()
 {
 	this->win = win;
+	this->entityManager = entityManager;
+	entityManager->CreateEntity(EntityType::PLAYER);
 	name.Create("cantina");
 }
 // Destructor
@@ -50,6 +53,7 @@ bool Cantina::Load(Textures* tex) /*EntityManager entityManager)*/
 	//entityManager->CreateEntity(EntityType::ITEM);
 
 	// Initialize player
+	
 	//player = new Player();
 	//player->position = iPoint(200, 400);
 
@@ -101,17 +105,19 @@ bool Cantina::Update(Input* input, float dt)
 
 bool Cantina::Draw(Render* render)
 {
+	render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 0, 0, 255);
+
 	// Draw map
 	//map->Draw(render);
 
 	//player->Draw(render);
 
-	render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 0, 0, 255);
+	entityManager->Draw(render);
 
 	return false;
 }
 
-bool Cantina::Unload()
+bool Cantina::Unload(Textures* tex)
 {
 	// TODO: Unload all resources
 

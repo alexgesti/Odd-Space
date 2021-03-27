@@ -8,8 +8,6 @@
 
 Logo::Logo()
 {
-    logo = { 640 - 150, 180, 300, 300 };
-
     state = 0;
     timeCounter = 0.0f;
     logoAlpha = 0.0f;
@@ -21,6 +19,7 @@ Logo::~Logo()
 
 bool Logo::Load(Textures* tex)
 {
+    logo = tex->Load("assets/textures/odd_space_logo.png");
     return true;
 }
 
@@ -62,14 +61,16 @@ bool Logo::Update(Input* input, float dt)
 
 bool Logo::Draw(Render* render)
 {
-    render->DrawRectangle({ 0, 0, 1280, 720 }, 100, 200, 200, 255);
+    render->DrawRectangle({ 0, 0, 1280, 720 }, 0, 0, 0, 255);
 
-    render->DrawRectangle(logo, 255, 0, 0, (uchar)(255.0f * logoAlpha));
+    SDL_SetTextureAlphaMod(logo, logoAlpha * 255);
+    render->DrawTexture(logo, render->camera.w / 2 - 718/2, render->camera.h / 2 - 286 / 2, NULL);
 
     return true;
 }
 
-bool Logo::Unload()
+bool Logo::Unload(Textures* tex)
 {
+    tex->UnLoad(logo);
     return true;
 }
