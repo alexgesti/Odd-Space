@@ -2,31 +2,50 @@
 #define __SCENETITLE_H__
 
 #include "Scene.h"
-#include "Window.h"
 
 #define MAX_ZOOM 3.0f
 #define MIN_ZOOM 0.3f
+
+
+
+class Window;
+class Input;
+class Render;
+class Textures;
 
 class Title : public Scene
 {
 public:
 
-    Title(Window* win);
+    // Constructor
+    Title(Window* win, Input* input, Render* render, Textures* tex);
+    // Destructor
     virtual ~Title();
 
-    bool Load(Textures* tex);
 
-    bool Update(Input* input, float dt);
+    // Load this scene
+    bool Load();
 
-    bool Draw(Render* render);
+    // Update this scene
+    bool Update(float dt);
 
-    bool Unload(Textures* tex);
+    // Draw this scene
+    bool Draw();
+
+    // Unload this scene
+    bool Unload();
+
+
 
     // Declare on mouse click event
     //bool OnGuiMouseClickEvent(GuiControl* control);
 
 private:
+
     Window* win;
+    Input* input;
+    Render* render;
+    Textures* tex;
 };
 
 #endif // __SCENETITLE_H__

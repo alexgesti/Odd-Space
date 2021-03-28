@@ -3,11 +3,7 @@
 
 #include "SString.h"
 
-class Input;
-class Render;
-class Textures;
-class Window;
-class EntityManager;
+
 
 class GuiControl;
 
@@ -24,22 +20,22 @@ public:
 
     Scene() : active(true), loaded(false), transitionRequired(false) {}
 
-    virtual bool Load(Textures* tex)
+    virtual bool Load()
     {
         return true;
     }
 
-    virtual bool Update(Input* input, float dt)
+    virtual bool Update(float dt)
     {
         return true;
     }
 
-    virtual bool Draw(Render* render)
+    virtual bool Draw()
     {
         return true;
     }
 
-    virtual bool Unload(Textures* tex)
+    virtual bool Unload()
     {
         return true;
     }

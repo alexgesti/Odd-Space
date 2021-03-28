@@ -1,5 +1,8 @@
 #include "EntityManager.h"
 
+#include "Input.h"
+#include "Render.h"
+
 #include "Player.h"
 //#include "Enemy.h"
 //#include "Item.h"
@@ -7,15 +10,20 @@
 #include "Defs.h"
 #include "Log.h"
 
-EntityManager::EntityManager(Input* input) : Module()
+
+
+// Constructor
+EntityManager::EntityManager(Input* input, Render* render) : Module()
 {
 	this->input = input;
+	this->render = render;
+
 	name.Create("entitymanager");
 }
-
 // Destructor
 EntityManager::~EntityManager()
 {}
+
 
 // Called before render is available
 bool EntityManager::Awake(pugi::xml_node& config)
@@ -26,6 +34,25 @@ bool EntityManager::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+
+// Called each loop iteration
+bool EntityManager::Update(float dt)
+{
+	accumulatedTime += dt;
+	if (accumulatedTime >= updateMsCycle) doLogic = true;
+
+	UpdateAll(dt, doLogic);
+
+	if (doLogic == true)
+	{
+		accumulatedTime = 0.0f;
+		doLogic = false;
+	}
+
+	return true;
+}
+
+
 // Called before quitting
 bool EntityManager::CleanUp()
 {
@@ -34,6 +61,9 @@ bool EntityManager::CleanUp()
 	return true;
 }
 
+
+
+
 Entity* EntityManager::CreateEntity(EntityType type)
 {
 	Entity* ret = nullptr;
@@ -41,7 +71,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	switch (type)
 	{
 		// L13: Create the corresponding type entity
-	case EntityType::PLAYER: ret = Player::GetInstance(input);  break;
+	case EntityType::PLAYER: ret = Player::GetInstance(input, render);  break;
 		//case EntityType::ENEMY: ret = new Enemy();  break;
 		//case EntityType::ITEM: ret = new Item();  break;
 		default: break;
@@ -53,23 +83,8 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	return ret;
 }
 
-bool EntityManager::Update(float dt)
-{
-	accumulatedTime += dt;
-	if (accumulatedTime >= updateMsCycle) doLogic = true;
 
-	UpdateAll(input, dt, doLogic);
-
-	if (doLogic == true)
-	{
-		accumulatedTime = 0.0f;
-		doLogic = false;
-	}
-
-	return true;
-}
-
-bool EntityManager::UpdateAll(Input* input, float dt, bool doLogic)
+bool EntityManager::UpdateAll(float dt, bool doLogic)
 {
 	if (doLogic)
 	{
@@ -87,14 +102,14 @@ bool EntityManager::UpdateAll(Input* input, float dt, bool doLogic)
 	return true;
 }
 
-bool EntityManager::Draw(Render* render)
+bool EntityManager::Draw()
 {
 	ListItem<Entity*>* list;
 	list = entities.start;
 
 	while (list != NULL)
 	{
-		list->data->Draw(render);
+		list->data->Draw();
 		list = list->next;
 	}
 	return true;

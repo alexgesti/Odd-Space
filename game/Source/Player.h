@@ -2,13 +2,17 @@
 #define __PLAYER_H__
 
 #include "Entity.h"
-#include "Input.h"
-#include "Render.h"
 
 #include "Point.h"
 #include "SString.h"
 
 #include "SDL/include/SDL.h"
+
+
+
+class Input;
+class Render;
+class Textures;
 
 enum class PlayerAnim
 {
@@ -22,13 +26,17 @@ class Player: public Entity
 {
 public:
 
-    static Player* GetInstance(Input* input);
-
+    // Get unique instance of the class
+    static Player* GetInstance(Input* input, Render* render);
+    // Delete the instance
     static void ResetInstance();
+
 
     bool Update(float dt);
 
-    bool Draw(Render* render);
+    bool Draw();
+
+
 
     void SetTexture(SDL_Texture *tex);
 
@@ -49,19 +57,23 @@ public:
 
 private:
 
-    Input* input;
-
-    //SINGLETONE
-
-    Player(Input* input);
-
-    virtual ~Player();
-
-    Player(const Player&);
-
-    Player& operator=(const Player&);
-
+    // ----- SINGLETON METHODS ----- //
+    // Singleton instance
     static Player* instance;
+    // Private Constructor
+    Player(Input* input, Render* render);
+    // Private Destructor
+    virtual ~Player();
+    // Declare the copy constructor and the assignment operator
+    // as private (or delete them explicitly) to prevent cloning your object
+    Player(const Player&);
+    Player& operator=(const Player&);
+    // ----------------------------- //
+
+private:
+
+    Input* input;
+    Render* render;
 };
 
 #endif // __PLAYER_H__

@@ -48,10 +48,10 @@ bool SceneManager::Awake()
 // Called before the first frame
 bool SceneManager::Start()
 {
-	current = new Logo();
+	current = new Logo(input, render, tex);
 	//current = new Title(win);
 	//current = new Cantina(win, entityManager);
-	current->Load(tex);
+	current->Load();
 
 	next = nullptr;
 
@@ -100,7 +100,7 @@ bool SceneManager::Update(float dt)
 		//if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) render->camera.x -= 1;
 		//if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) render->camera.x += 1;
 
-		current->Update(input, dt);
+		current->Update(dt);
 	}
 	else
 	{
@@ -114,8 +114,8 @@ bool SceneManager::Update(float dt)
 			{
 				transitionAlpha = 1.0f;
 
-				current->Unload(tex);	// Unload current screen
-				next->Load(tex);	// Load next screen
+				current->Unload();	// Unload current screen
+				next->Load();	// Load next screen
 
 				RELEASE(current);	// Free current pointer
 				current = next;		// Assign next pointer
@@ -139,7 +139,7 @@ bool SceneManager::Update(float dt)
 	}
 
 	// Draw current scene
-	current->Draw(render);
+	current->Draw();
 
 	// Draw full screen rectangle in front of everything
 	if (onTransition)
@@ -171,9 +171,9 @@ bool SceneManager::Update(float dt)
 
 		switch (current->nextScene)
 		{
-		case SceneType::LOGO: next = new Logo(); break;
-		case SceneType::TITLE: next = new Title(win); break;
-		case SceneType::CANTINA: next = new Cantina(win, entityManager); break;
+		case SceneType::LOGO: next = new Logo(input, render, tex); break;
+		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
+		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager); break;
 		default: break;
 		}
 
@@ -197,7 +197,7 @@ bool SceneManager::CleanUp()
 {
 	LOG("Freeing scene");
 
-	if (current != nullptr) current->Unload(tex);
+	if (current != nullptr) current->Unload();
 
 	return true;
 }

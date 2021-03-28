@@ -13,19 +13,25 @@
 
 
 // Constructor
-Cantina::Cantina(Window* win, EntityManager* entityManager) : Scene()
+Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager) : Scene()
 {
 	this->win = win;
+	this->input = input;
+	this->render = render;
+	this->tex = tex;
 	this->entityManager = entityManager;
-	entityManager->CreateEntity(EntityType::PLAYER);
+
+
 	name.Create("cantina");
 }
 // Destructor
 Cantina::~Cantina()
 {}
 
-bool Cantina::Load(Textures* tex) /*EntityManager entityManager)*/
+bool Cantina::Load() /*EntityManager entityManager)*/
 {
+	entityManager->CreateEntity(EntityType::PLAYER);
+
 	//map = new Map(tex);
 
 	// L03: DONE: Load map
@@ -68,7 +74,7 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 	else return false;
 }
 
-bool Cantina::Update(Input* input, float dt)
+bool Cantina::Update(float dt)
 {
 	// Collision detection: map vs player
 	//iPoint tempPlayerPosition = player->position;
@@ -103,7 +109,7 @@ bool Cantina::Update(Input* input, float dt)
 	return true;
 }
 
-bool Cantina::Draw(Render* render)
+bool Cantina::Draw()
 {
 	render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 0, 0, 255);
 
@@ -112,12 +118,12 @@ bool Cantina::Draw(Render* render)
 
 	//player->Draw(render);
 
-	entityManager->Draw(render);
+	entityManager->Draw();
 
 	return false;
 }
 
-bool Cantina::Unload(Textures* tex)
+bool Cantina::Unload()
 {
 	// TODO: Unload all resources
 

@@ -1,5 +1,6 @@
 #include "Title.h"
 
+#include "Window.h"
 #include "Input.h"
 #include "Render.h"
 #include "Textures.h"
@@ -7,22 +8,30 @@
 #include "SDL/include/SDL.h"
 
 
-Title::Title(Window* win)
+
+// Constructor
+Title::Title(Window* win, Input* input, Render* render, Textures* tex)
 {
     this->win = win;
+    this->input = input;
+    this->render = render;
+    this->tex = tex;
+
     // GUI: Initialize required controls for the screen
 }
-
+// Destructor
 Title::~Title()
 {
 }
 
-bool Title::Load(Textures* tex)
+
+
+bool Title::Load()
 {
     return false;
 }
 
-bool Title::Update(Input* input, float dt)
+bool Title::Update(float dt)
 {
     if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) TransitionToScene(SceneType::CANTINA);
         bool ret = false;
@@ -33,17 +42,19 @@ bool Title::Update(Input* input, float dt)
     return ret;
 }
 
-bool Title::Draw(Render* render)
+bool Title::Draw()
 {
     render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 255, 0, 255);
     return false;
 }
 
-bool Title::Unload(Textures* tex)
+bool Title::Unload()
 {
     // Delete buttons and textures
     return false;
 }
+
+
 
 //----------------------------------------------------------
 // Manage GUI events for this screen

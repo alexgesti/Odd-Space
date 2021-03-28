@@ -5,20 +5,33 @@
 
 #include "SDL/include/SDL.h"
 
+
+
+class Input;
+class Render;
+class Textures;
+
 class Logo : public Scene
 {
 public:
 
-    Logo();
+    // Constructor
+    Logo(Input* input, Render* render, Textures* tex);
+    // Destructor
     virtual ~Logo();
 
-    bool Load(Textures* tex);
 
-    bool Update(Input* input, float dt);
+    // Load this scene
+    bool Load();
 
-    bool Draw(Render* render);
+    // Update this scene
+    bool Update(float dt);
 
-    bool Unload(Textures* tex);
+    // Draw this scene
+    bool Draw();
+
+    // Unload this scene
+    bool Unload();
 
 private:
 
@@ -27,6 +40,12 @@ private:
     int state;
     float timeCounter;
     float logoAlpha;
+
+private:
+
+    Input* input;
+    Render* render;
+    Textures* tex;
 };
 
 #endif // __SCENELOGO_H__

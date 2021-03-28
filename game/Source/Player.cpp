@@ -2,10 +2,34 @@
 
 #include "Log.h"
 
-Player::Player(Input* input) : Entity(EntityType::PLAYER)
+#include "Input.h"
+#include "Render.h"
+//#include "Textures.h"
+
+
+
+Player* Player::instance = nullptr;
+// Instance creator
+Player* Player::GetInstance(Input* input, Render* render)
+{
+    if (instance == nullptr) instance = new Player(input, render);
+    else LOG("Returning player instance");
+
+    return instance;
+}
+// Instance reseter
+void Player::ResetInstance()
+{
+    delete instance;
+    instance = nullptr;
+}
+// Constructor
+Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
 {
     this->input = input;
-    
+    this->render = render;
+
+
     texture = NULL;
     position = iPoint(12 * 16, 27 * 16);
 
@@ -14,24 +38,11 @@ Player::Player(Input* input) : Entity(EntityType::PLAYER)
 
     // Define Player animations
 }
+// Destructor
+Player::~Player()
+{}
 
-Player::~Player(){}
 
-Player* Player::instance = nullptr;
-
-Player* Player::GetInstance(Input* input)
-{
-    if (instance == nullptr) instance = new Player(input);
-    else LOG("Returning player instance");
-
-    return instance;
-}
-
-void Player::ResetInstance()
-{
-    delete instance;
-    instance = nullptr;
-}
 
 bool Player::Update(float dt)
 {
@@ -48,7 +59,8 @@ bool Player::Update(float dt)
     return true;
 }
 
-bool Player::Draw(Render* render)
+
+bool Player::Draw()
 {
     // TODO: Calculate the corresponding rectangle depending on the
     // animation state and animation frame
@@ -59,6 +71,8 @@ bool Player::Draw(Render* render)
 
     return false;
 }
+
+
 
 void Player::SetTexture(SDL_Texture *tex)
 {

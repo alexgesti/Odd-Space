@@ -6,18 +6,18 @@
 
 class GuiButton;
 
+class Window;
 class Input;
 class Render;
 class Textures;
-class Window;
 class EntityManager;
 
 class SceneManager : public Module
 {
 public:
 
+	// Constructor
 	SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager);
-
 	// Destructor
 	virtual ~SceneManager();
 
@@ -41,10 +41,10 @@ public:
 
 private:
 
+	Window* win;
 	Input* input;
 	Render* render;
 	Textures* tex;
-	Window* win;
 	EntityManager* entityManager;
 
 	Scene* current;

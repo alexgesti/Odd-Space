@@ -6,24 +6,34 @@
 
 #define LOGO_FADE_SPEED 1.0f
 
-Logo::Logo()
+
+
+// Constructor
+Logo::Logo(Input* input, Render* render, Textures* tex)
 {
+    this->input = input;
+    this->render = render;
+    this->tex = tex;
+
+
     state = 0;
     timeCounter = 0.0f;
     logoAlpha = 0.0f;
 }
-
+// Destructor
 Logo::~Logo()
 {
 }
 
-bool Logo::Load(Textures* tex)
+
+
+bool Logo::Load()
 {
     logo = tex->Load("assets/textures/odd_space_logo.png");
     return true;
 }
 
-bool Logo::Update(Input* input, float dt)
+bool Logo::Update(float dt)
 {
     if (state == 0)
     {
@@ -59,7 +69,7 @@ bool Logo::Update(Input* input, float dt)
     return true;
 }
 
-bool Logo::Draw(Render* render)
+bool Logo::Draw()
 {
     render->DrawRectangle({ 0, 0, 1280, 720 }, 0, 0, 0, 255);
 
@@ -69,7 +79,7 @@ bool Logo::Draw(Render* render)
     return true;
 }
 
-bool Logo::Unload(Textures* tex)
+bool Logo::Unload()
 {
     tex->UnLoad(logo);
     return true;

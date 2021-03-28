@@ -3,27 +3,42 @@
 
 #include "Scene.h"
 
-//#include "Map.h"
-//#include "Player.h"
+
+
+class Window;
+class Input;
+class Render;
+class Textures;
+class EntityManager;
 
 class Cantina : public Scene
 {
 public:
 
-    Cantina(Window* win, EntityManager* entityManager);
+    // Constructor
+    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager);
+    // Destructor
     virtual ~Cantina();
 
-    bool Load(Textures* tex);
 
-    bool Update(Input* input, float dt);
+    // Load this scene
+    bool Load();
 
-    bool Draw(Render* render);
+    // Update this scene
+    bool Update(float dt);
 
-    bool Unload(Textures* tex);
+    // Draw this scene
+    bool Draw();
+
+    // Unload this scene
+    bool Unload();
 
 private:
 
     Window* win;
+    Input* input;
+    Render* render;
+    Textures* tex;
     EntityManager* entityManager;
     //Map* map;
 };

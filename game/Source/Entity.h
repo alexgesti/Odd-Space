@@ -4,8 +4,7 @@
 #include "Point.h"
 #include "SString.h"
 
-class Render;
-class Input;
+
 
 enum class EntityType
 {
@@ -27,7 +26,7 @@ public:
         return true;
     }
 
-    virtual bool Draw(Render* render)
+    virtual bool Draw()
     {
         return true;
     }
