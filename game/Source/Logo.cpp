@@ -35,6 +35,11 @@ bool Logo::Load()
 
 bool Logo::Update(float dt)
 {
+    if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+    {
+        TransitionToScene(SceneType::TITLE);
+    }
+
     if (state == 0)
     {
         state = 1;
