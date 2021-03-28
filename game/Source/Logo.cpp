@@ -29,7 +29,7 @@ Logo::~Logo()
 
 bool Logo::Load()
 {
-    logo = tex->Load("assets/textures/odd_space_logo.png");
+    logo = tex->Load("assets/sprites/Logo/logo_chaoticevil.png");
     return true;
 }
 
@@ -79,7 +79,7 @@ bool Logo::Draw()
     render->DrawRectangle({ 0, 0, 1280, 720 }, 0, 0, 0, 255);
 
     SDL_SetTextureAlphaMod(logo, logoAlpha * 255);
-    render->DrawTexture(logo, render->camera.w / 2 - 718/2, render->camera.h / 2 - 286 / 2, NULL);
+    render->DrawTexture(logo, render->camera.w / 2 - 600 / 2, render->camera.h / 2 - 561 / 2, NULL);
 
     return true;
 }
