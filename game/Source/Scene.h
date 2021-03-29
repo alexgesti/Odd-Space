@@ -11,7 +11,8 @@ enum class SceneType
 {
     LOGO,
     TITLE,
-    CANTINA
+    CANTINA,
+    BATTLE
 };
 
 class Scene

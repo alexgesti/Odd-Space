@@ -3,6 +3,7 @@
 #include "Logo.h"
 #include "Title.h"
 #include "Cantina.h"
+#include "Battle.h"
 
 #include "Input.h"
 #include "Render.h"
@@ -48,9 +49,10 @@ bool SceneManager::Awake()
 // Called before the first frame
 bool SceneManager::Start()
 {
-	current = new Logo(input, render, tex);
+	//current = new Logo(input, render, tex);
 	//current = new Title(win);
 	//current = new Cantina(win, entityManager);
+	current = new Battle(win, input, render, tex);
 	current->Load();
 
 	next = nullptr;
