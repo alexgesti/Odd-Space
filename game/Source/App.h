@@ -13,6 +13,7 @@ class Window;
 class Input;
 class Render;
 class Textures;
+class Fonts;
 class Audio;
 class EntityManager;
 class SceneManager;
@@ -76,9 +77,10 @@ public:
 
 	// Modules
 	Window* win;
-	Input* input;
 	Render* render;
 	Textures* tex;
+	Fonts* fonts;
+	Input* input;
 	Audio* audio;
 	EntityManager* entityManager;
 	SceneManager* sceneManager;

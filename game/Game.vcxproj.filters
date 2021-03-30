@@ -63,6 +63,9 @@
     <ClCompile Include="Source\GuiSlider.cpp">
       <Filter>GuiControl</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Fonts.cpp">
+      <Filter>Modules</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -158,6 +161,9 @@
     </ClInclude>
     <ClInclude Include="Source\GuiSlider.h">
       <Filter>GuiControl</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Fonts.h">
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

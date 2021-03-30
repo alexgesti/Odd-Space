@@ -20,16 +20,18 @@ Battle::Battle(Window* win, Input* input, Render* render, Textures* tex)
     this->tex = tex;
 
     // GUI: Initialize required controls for the screen
-    buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "MENU");
+    buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "menuBattle");
     buttonAttack->SetObserver(this);
-    buttonGuard = new GuiButton(2, { 300, 0, 300, 80 }, "MENU");
+    buttonGuard = new GuiButton(2, { 300, 0, 300, 80 }, "menuBattle");
     buttonGuard->SetObserver(this);
-    buttonSkills = new GuiButton(3, { 0, 80, 300, 80 }, "MENU");
+    buttonSkills = new GuiButton(3, { 600, 0, 300, 80 }, "menuBattle");
     buttonSkills->SetObserver(this);
-    buttonRun = new GuiButton(4, { 600, 0, 300, 80 }, "MENU");
+    buttonRun = new GuiButton(4, { 0, 80, 300, 80 }, "menuBattle");
     buttonRun->SetObserver(this);
-    buttonItem = new GuiButton(5, { 0, 160, 300, 80 }, "MENU");
+    buttonItem = new GuiButton(5, { 300, 80, 300, 80 }, "menuBattle");
     buttonItem->SetObserver(this);
+    buttonBack1 = new GuiButton(6, { 600, 80, 300, 80 }, "menuBattle");
+    buttonBack1->SetObserver(this);
 
 }
 // Destructor
@@ -58,42 +60,70 @@ bool Battle::Update(float dt)
 {
     bool ret = false;
 
+    //Player Turn
     if (playerTurn)
     {
-        if (input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN) buttonSupport++;
-        if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) buttonSupport =+ 3;
-        if (buttonSupport > 6) buttonSupport = 1;
-        if (buttonSupport < 1) buttonSupport = 6;
+        if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || input->pads[0].right > 0) controllerMenuSupport[f][c++];
+        if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || input->pads[0].left < 0) controllerMenuSupport[f][c--];
+        if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || input->pads[0].down > 0) controllerMenuSupport[f++][c];
+        if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || input->pads[0].up < 0) controllerMenuSupport[f--][c];
+        //Establecer limites fila/columna botones
+        if (f > 1) f = 0;
+        if (f < 0) f = 1;
+        if (c > 2) c = 0;
+        if (c < 0) c = 2;
 
-        switch (buttonSupport)
+        LOG("%d", input->pads[0].right);
+
+        //Skill Pickup
+        /*if (chooseSkill)
         {
-        case 1:
-            buttonAttack->state = GuiControlState::FOCUSED;
-            break;
-        case 2:
-            buttonGuard->state = GuiControlState::FOCUSED;
-            break;
-        case 3:
-            buttonSkills->state = GuiControlState::FOCUSED;
-            break;
-        case 4:
-            buttonRun->state = GuiControlState::FOCUSED;
-            break;
-        case 5:
-            buttonItem->state = GuiControlState::FOCUSED;
-            break;
+            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) controllerSkillSupport[f][c++];
+            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) controllerSkillSupport[f][c--];
+            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) controllerSkillSupport[f++][c];
+            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) controllerSkillSupport[f--][c];
+            //Establecer limites fila/columna botones
+            if (f > 1) f = 0;
+            if (f < 0) f = 1;
+            if (c > 2) c = 0;
+            if (c < 0) c = 2;
+
+            buttonSkill1->Update(input, controllerMenuSupport[f][c], dt);
+            buttonSkill2->Update(input, controllerMenuSupport[f][c], dt);
+            buttonSkill3->Update(input, controllerMenuSupport[f][c], dt);
+            buttonSkill4->Update(input, controllerMenuSupport[f][c], dt);
+            buttonSkill5->Update(input, controllerMenuSupport[f][c], dt);
+            buttonBack2->Update(input, controllerMenuSupport[f][c], dt);
+        }
+        //Enemy Pickup
+        else if (chooseEnemy)
+        {
+            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN) controllerEnemySupport[f][c++];
+            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN) controllerEnemySupport[f][c--];
+            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) controllerEnemySupport[f++][c];
+            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) controllerEnemySupport[f--][c];
+            //Establecer limites fila/columna botones
+            if (f > 1) f = 0;
+            if (f < 0) f = 1;
+            if (c > 2) c = 0;
+            if (c < 0) c = 2;
+            DamageCalculator();
+        }
+        else*/
+        {
+            buttonAttack->Update(input, controllerMenuSupport[f][c], dt);
+            buttonGuard->Update(input, controllerMenuSupport[f][c], dt);
+            buttonSkills->Update(input, controllerMenuSupport[f][c], dt);
+            buttonRun->Update(input, controllerMenuSupport[f][c], dt);
+            buttonItem->Update(input, controllerMenuSupport[f][c], dt);
+            buttonBack1->Update(input, controllerMenuSupport[f][c], dt);
         }
 
-        buttonAttack->Update(input, dt);
-        buttonGuard->Update(input, dt);
-        buttonSkills->Update(input, dt);
-        buttonRun->Update(input, dt);
-        buttonItem->Update(input, dt);
     }
+    //Enemy Turn
     if (!playerTurn)
     {
-
-        playerTurn = !playerTurn;
+        playerTurn = true;
     }
 
     return ret;
@@ -114,6 +144,8 @@ bool Battle::Draw()
     buttonSkills->Draw(render);
     buttonRun->Draw(render);
     buttonItem->Draw(render);
+    buttonBack1->Draw(render);
+
     return false;
 }
 
@@ -144,15 +176,23 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
             switch (control->id)
             {
             case 1:
-                DamageCalculator();
+                chooseEnemy = true;
+                f = 0;
+                c = 0;
                 break;
             case 2:
+                DamageCalculator();              
                 break;
             case 3:
+                chooseSkill = true;
+                f = 0;
+                c = 0;
                 break;
             case 4:
                 break;
             case 5:
+                break;
+            case 6:
                 break;
             default: break;
             }

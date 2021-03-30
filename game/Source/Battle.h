@@ -57,12 +57,18 @@ private:
     GuiButton* buttonSkills;
     GuiButton* buttonRun;
     GuiButton* buttonItem;
+    GuiButton* buttonBack1;
 
     SDL_Texture* cantinaBattle;
 
-
     bool playerTurn;
-    int buttonSupport = 1;
+    bool chooseEnemy;
+    bool chooseSkill;
+    int f = 0;
+    int c = 0;
+    int controllerMenuSupport[2][3] = { {1, 2, 3}, {4, 5, 6} };
+    int controllerSkillSupport[2][3] = { {1, 2, 3}, {4, 5, 6} };
+    int controllerEnemySupport[2][3] = { {1, 2, 3}, {4, 5, 6} };
 
 };
 

@@ -4,13 +4,14 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 {
     this->bounds = bounds;
     this->text = text;
+    this->id = id;
 }
 
 GuiButton::~GuiButton()
 {
 }
 
-bool GuiButton::Update(Input* input, float dt)
+bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 {
     if (state != GuiControlState::DISABLED)
     {
@@ -19,7 +20,8 @@ bool GuiButton::Update(Input* input, float dt)
 
         // Check collision between mouse and button bounds
         if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
-            (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
+            (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h))
+            || id == buttonSelected)
         {
             state = GuiControlState::FOCUSED;
 

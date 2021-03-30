@@ -13,7 +13,7 @@ public:
     GuiButton(uint32 id, SDL_Rect bounds, const char *text);
     virtual ~GuiButton();
 
-    bool Update(Input* input, float dt);
+    bool Update(Input* input, int buttonSelected, float dt);
     bool Draw(Render* render);
 
 private:
