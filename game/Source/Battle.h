@@ -52,23 +52,49 @@ private:
     Render* render;
     Textures* tex;
 
-    GuiButton* buttonAttack;
-    GuiButton* buttonGuard;
-    GuiButton* buttonSkills;
-    GuiButton* buttonRun;
-    GuiButton* buttonItem;
-    GuiButton* buttonBack1;
+    struct ButtonsMenu
+    {
+        GuiButton* buttonAttack;
+        GuiButton* buttonGuard;
+        GuiButton* buttonSkills;
+        GuiButton* buttonRun;
+        GuiButton* buttonItem;
+        GuiButton* buttonBack;
+    } buttonsMenu;
+
+    struct ButtonsSkills
+    {
+        GuiButton* buttonSkill1;
+        GuiButton* buttonSkill2;
+        GuiButton* buttonSkill3;
+        GuiButton* buttonSkill4;
+        GuiButton* buttonSkill5;
+        GuiButton* buttonBack;
+    } buttonsSkills;
+
+    struct ButtonsEnemy
+    {
+        GuiButton* buttonEnemy1;
+        GuiButton* buttonEnemy2;
+        GuiButton* buttonEnemy3;
+        GuiButton* buttonEnemy4;
+        GuiButton* buttonEnemy5;
+    } buttonsEnemies;
 
     SDL_Texture* cantinaBattle;
 
     bool playerTurn;
-    bool chooseEnemy;
-    bool chooseSkill;
+    bool chooseAction = true;
+    bool chooseEnemy = false;
+    bool chooseSkill = false;
+
+    int random;
+
     int f = 0;
     int c = 0;
-    int controllerMenuSupport[2][3] = { {1, 2, 3}, {4, 5, 6} };
-    int controllerSkillSupport[2][3] = { {1, 2, 3}, {4, 5, 6} };
-    int controllerEnemySupport[2][3] = { {1, 2, 3}, {4, 5, 6} };
+    int controllerMenu[2][3] = { {1, 2, 3}, {4, 5, 6} };
+    int controllerSkill[2][3] = { {7, 8, 9}, {10, 11, 12} };
+    int controllerEnemy[];
 
 };
 

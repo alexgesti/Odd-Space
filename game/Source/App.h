@@ -77,10 +77,10 @@ public:
 
 	// Modules
 	Window* win;
+	Input* input;
 	Render* render;
 	Textures* tex;
 	Fonts* fonts;
-	Input* input;
 	Audio* audio;
 	EntityManager* entityManager;
 	SceneManager* sceneManager;

@@ -11,7 +11,7 @@
 
 
 // Constructor
-Input::Input(Window* win, Fonts* fonts) : Module()
+Input::Input(Window* win) : Module()
 {
 	name.Create("input");
 
@@ -21,7 +21,6 @@ Input::Input(Window* win, Fonts* fonts) : Module()
 	memset(&pads[0], 0, sizeof(GamePad) * MAX_PADS);
 
 	this->win = win;
-	this->fonts = fonts;
 }
 // Destructor
 Input::~Input()
@@ -170,7 +169,7 @@ bool Input::CleanUp()
 		if (pads[i].controller != nullptr) SDL_GameControllerClose(pads[i].controller);
 	}
 
-	fonts->UnLoad(Font);
+	//fonts->UnLoad(Font);
 
 	SDL_QuitSubSystem(SDL_INIT_HAPTIC);
 	SDL_QuitSubSystem(SDL_INIT_GAMECONTROLLER);
@@ -325,7 +324,7 @@ const char* Input::GetControllerName(int id) const
 	return "unplugged";
 }
 
-void Input::DebugDrawGamepadInfo()
+/*void Input::DebugDrawGamepadInfo()
 {
 	GamePad& pad = pads[0];
 
@@ -371,4 +370,4 @@ void Input::DebugDrawGamepadInfo()
 
 	sprintf_s(Text, 150, "   deadzone   %0.2f", pad.r_dz);
 	fonts->BlitText(5, 90, Font, Text);
-}
+}*/

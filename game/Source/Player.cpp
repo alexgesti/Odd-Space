@@ -36,6 +36,26 @@ Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
     width = 16;
     height = 32;
 
+    //Hero stats
+  /*stats[1].HP = 15;
+    stats[1].SP = 10;
+    stats[1].ATK = 6;
+    stats[1].DEF = 3;
+    stats[1].SPL = 5;
+    stats[1].SPD = 7;
+    stats[1].AGL = 8;
+    stats[1].LCK = 2;
+
+    //Old captain stats
+    stats[2].HP = 20;
+    stats[2].SP = 16;
+    stats[2].ATK = 3;
+    stats[2].DEF = 6;
+    stats[2].SPL = 5;
+    stats[2].SPD = 3;
+    stats[2].AGL = 2;
+    stats[2].LCK = 1;*/
+
     // Define Player animations
 }
 // Destructor

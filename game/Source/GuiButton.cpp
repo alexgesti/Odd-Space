@@ -19,12 +19,13 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
         input->GetMousePosition(mouseX, mouseY);
 
         // Check collision between mouse and button bounds
-        if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
-            (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h))
-            || id == buttonSelected)
+        /*if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
+            (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
         {
+            buttonSelected = id;
+            
             state = GuiControlState::FOCUSED;
-
+             
             if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
             {
                 state = GuiControlState::PRESSED;
@@ -32,6 +33,21 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 
             // If mouse button pressed -> Generate event!
             if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_UP)
+            {
+                NotifyObserver();
+            }
+        }*/
+        if (id == buttonSelected)
+        {
+            state = GuiControlState::FOCUSED;
+
+            if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+            {
+                state = GuiControlState::PRESSED;
+            }
+
+            // If mouse button pressed -> Generate event!
+            if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
             {
                 NotifyObserver();
             }

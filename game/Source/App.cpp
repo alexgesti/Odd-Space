@@ -24,10 +24,10 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	frames = 0;
 
 	win = new Window();
+	input = new Input(win);
 	render = new Render(win);
 	tex = new Textures(render);
 	fonts = new Fonts(input, render, tex);
-	input = new Input(win, fonts);
 	audio = new Audio();
 	entityManager = new EntityManager(input, render);
 	sceneManager = new SceneManager(input, render, tex, win, entityManager);
@@ -35,8 +35,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
 	AddModule(win);
-	AddModule(tex);
 	AddModule(input);
+	AddModule(tex);
 	AddModule(fonts);
 	AddModule(audio);
 	AddModule(entityManager);

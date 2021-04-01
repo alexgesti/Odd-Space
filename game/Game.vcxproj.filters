@@ -66,6 +66,9 @@
     <ClCompile Include="Source\Fonts.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StandardPirates.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -165,6 +168,12 @@
     <ClInclude Include="Source\Fonts.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\StandardPirates.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Enemy.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -187,6 +196,9 @@
     </Filter>
     <Filter Include="GuiControl">
       <UniqueIdentifier>{b5df4405-b085-46e4-9abb-378054332e7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Enemies">
+      <UniqueIdentifier>{d2364ebb-34b6-4d31-a6af-b80b2f7d8a57}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -4,7 +4,7 @@
 #include "Render.h"
 
 #include "Player.h"
-//#include "Enemy.h"
+#include "Enemy.h"
 //#include "Item.h"
 
 #include "Defs.h"

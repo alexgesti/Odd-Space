@@ -1,47 +1,26 @@
-#ifndef __ENTITY_H__
-#define __ENTITY_H__
+#ifndef __ENEMY_H__
+#define __ENEMY_H__
+
+#include "Entity.h"
 
 #include "Point.h"
 #include "SString.h"
 
 
-struct Stat
+enum class EnemyType
 {
-    int HP;
-    int SP;
-    int ATK;
-    int DEF;
-    int SPL;
-    int SPD;
-    int AGL;
-    int LCK;
-};
-struct Stat stats[];
-
-struct Skill
-{
-    int skill1;
-    int skill2;
-    int skill3;
-    int skill4;
-    int skill5;
-};
-struct Skill skills [];
-
-enum class EntityType
-{
-    PLAYER,
-    ENEMY,
-    ITEM,
-    MAP,
-    UNKNOWN
+    STANDARTPIRATE,
+    MUTANTRAT,
+    GIANTBAT,
+    DRUNKCUSTOMER,
+    CAPTAINRATEYE
 };
 
-class Entity
+class Enemy : public Entity
 {
 public:
 
-    Entity(EntityType type) : type(type), active(true) {}
+    Enemy(EnemyType type) : Entity(EntityType::ENEMY), type(type), active(true) {}
 
     virtual bool Update(float dt)
     {
@@ -55,7 +34,7 @@ public:
 
 public:
 
-    EntityType type;
+    EnemyType type;
     bool active = true;
     //SString name;         // Entity name identifier?
     //uint32 id;            // Entity identifier?

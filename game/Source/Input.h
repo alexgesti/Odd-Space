@@ -11,7 +11,6 @@
 
 
 class Window;
-class Fonts;
 
 struct SDL_Rect;
 struct _SDL_GameController;
@@ -59,7 +58,7 @@ class Input : public Module
 public:
 
 	//Constructor
-	Input(Window* win, Fonts* font);
+	Input(Window* win);
 	// Destructor
 	virtual ~Input();
 
@@ -110,7 +109,7 @@ public:
 	const char* GetControllerName(int id) const;
 
 	// Draws gamepad debug info in the screen
-	void DebugDrawGamepadInfo();
+	//void DebugDrawGamepadInfo();
 
 private:
 
@@ -125,7 +124,6 @@ private:
 private:
 
 	Window* win;
-	Fonts* fonts;
 
 public:
 
