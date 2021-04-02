@@ -119,6 +119,7 @@
     <ClCompile Include="Source\Title.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Battle.h" />
+    <ClInclude Include="Source\Collision.h" />
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />

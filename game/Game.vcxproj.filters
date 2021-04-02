@@ -180,6 +180,9 @@
     <ClInclude Include="Source\Player.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Collision.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

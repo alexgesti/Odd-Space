@@ -3,10 +3,9 @@
 
 #include "Module.h"
 #include "Entity.h"
+#include "Collision.h"
 
 #include "List.h"
-
-
 
 class Input;
 class Render;
@@ -51,6 +50,8 @@ public:
 	float accumulatedTime = 0.0f;
 	float updateMsCycle = 0.0f;
 	bool doLogic = false;
+
+	Collision collision;
 
 private:
 

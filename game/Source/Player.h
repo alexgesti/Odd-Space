@@ -8,11 +8,11 @@
 
 #include "SDL/include/SDL.h"
 
-
-
 class Input;
 class Render;
 class Textures;
+
+class Collision;
 
 enum class PlayerAnim
 {
@@ -42,6 +42,8 @@ public:
 
     SDL_Rect GetBounds();
 
+    static void SetCollision(Collision* collision, Player* player);
+
 public:
 
     SDL_Texture* texture;   // Player spritesheet
@@ -54,6 +56,10 @@ public:
     float jumpSpeed = 0.0f;
     bool readyToJump = true;
     bool hitObstacle = false;
+
+    iPoint temPos;
+
+    iPoint playerCollision[4];
 
 private:
 
@@ -74,6 +80,8 @@ private:
 
     Input* input;
     Render* render;
+
+    Collision* collision;
 };
 
 #endif // __PLAYER_H__

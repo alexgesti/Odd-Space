@@ -9,9 +9,12 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Window.h"
+#include "EntityManager.h"
 
 #include "Defs.h"
 #include "Log.h"
+
+#include "Collision.h"
 
 #include "SDL/include/SDL.h"
 
@@ -24,13 +27,15 @@ SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* 
 
 	onTransition = false;
 	fadeOutCompleted = false;
-	transitionAlpha = 0.0f;;
+	transitionAlpha = 0.0f;
 
 	this->input = input;
 	this->render = render;
 	this->tex = tex;
 	this->win = win;
 	this->entityManager = entityManager;
+
+	this->collision = &entityManager->collision;
 }
 
 // Destructor
@@ -52,7 +57,7 @@ bool SceneManager::Start()
 	//current = new Logo(input, render, tex);
 	//current = new Title(win);
 	//current = new Cantina(win, entityManager);
-	current = new Cantina(win, input, render, tex, entityManager);
+	current = new Cantina(win, input, render, tex, entityManager, collision);
 	current->Load();
 
 	next = nullptr;
@@ -175,7 +180,7 @@ bool SceneManager::Update(float dt)
 		{
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
-		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager); break;
+		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision); break;
 		default: break;
 		}
 

@@ -11,12 +11,14 @@ class Render;
 class Textures;
 class EntityManager;
 
+class Collision;
+
 class Cantina : public Scene
 {
 public:
 
     // Constructor
-    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager);
+    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision);
     // Destructor
     virtual ~Cantina();
 
@@ -41,6 +43,8 @@ private:
     Render* render;
     Textures* tex;
     EntityManager* entityManager;
+
+    Collision* collision;
 };
 
 #endif // __CANTINA_H__

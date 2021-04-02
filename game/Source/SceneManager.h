@@ -11,6 +11,7 @@ class Input;
 class Render;
 class Textures;
 class EntityManager;
+class Collision;
 
 class SceneManager : public Module
 {
@@ -46,6 +47,8 @@ private:
 	Render* render;
 	Textures* tex;
 	EntityManager* entityManager;
+
+	Collision* collision;
 
 	Scene* current;
 	Scene* next;
