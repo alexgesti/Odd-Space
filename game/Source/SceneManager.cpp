@@ -52,7 +52,7 @@ bool SceneManager::Start()
 	//current = new Logo(input, render, tex);
 	//current = new Title(win);
 	//current = new Cantina(win, entityManager);
-	current = new Battle(win, input, render, tex);
+	current = new Cantina(win, input, render, tex, entityManager);
 	current->Load();
 
 	next = nullptr;

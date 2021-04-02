@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Audio.h"
 #include "EntityManager.h"
+#include "Map.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -21,6 +22,19 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 	this->tex = tex;
 	this->entityManager = entityManager;
 
+	map = new Map(tex);
+
+	// L03: DONE: Load map
+	// L12b: Create walkability map on map loading
+	if (map->Load("world_cantina_interior.tmx") == true)
+	{
+		int w, h;
+		uchar* data = NULL;
+
+		//if (map->CreateWalkabilityMap(w, h, &data)) pathFinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+	}
 
 	name.Create("cantina");
 }
@@ -111,10 +125,8 @@ bool Cantina::Update(float dt)
 
 bool Cantina::Draw()
 {
-	render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 0, 0, 255);
-
 	// Draw map
-	//map->Draw(render);
+	map->Draw(render);
 
 	//player->Draw(render);
 

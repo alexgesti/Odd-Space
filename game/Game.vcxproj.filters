@@ -45,9 +45,6 @@
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Player.cpp">
-      <Filter>Entities</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Battle.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
@@ -67,6 +64,12 @@
       <Filter>Modules</Filter>
     </ClCompile>
     <ClCompile Include="Source\StandardPirates.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Map.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
@@ -141,12 +144,6 @@
     <ClInclude Include="Source\EntityManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Player.h">
-      <Filter>Entities</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Battle.h">
       <Filter>Scenes</Filter>
     </ClInclude>
@@ -172,6 +169,15 @@
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Source\Enemy.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Map.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>

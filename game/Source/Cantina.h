@@ -3,7 +3,7 @@
 
 #include "Scene.h"
 
-
+class Map;
 
 class Window;
 class Input;
@@ -34,13 +34,13 @@ public:
     bool Unload();
 
 private:
+    Map* map;
 
     Window* win;
     Input* input;
     Render* render;
     Textures* tex;
     EntityManager* entityManager;
-    //Map* map;
 };
 
 #endif // __CANTINA_H__

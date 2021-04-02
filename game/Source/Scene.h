@@ -3,8 +3,6 @@
 
 #include "SString.h"
 
-
-
 class GuiControl;
 
 enum class SceneType
