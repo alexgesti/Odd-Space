@@ -197,8 +197,8 @@ void Map::Draw(Render* render)
 {
 	if (mapLoaded == false) return;
 
-	camOffset.x = render->camera.x;
-	camOffset.y = render->camera.y;
+	camOffset.x = -render->camera.x;
+	camOffset.y = -render->camera.y;
 
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one
 	for (int i = 0; i < data.layers.Count(); i++)
@@ -478,6 +478,8 @@ bool Map::LoadMap()
 		data.backgroundColor.g = 0;
 		data.backgroundColor.b = 0;
 		data.backgroundColor.a = 0;
+
+		LoadProperties(map, this->properties);
 		/*
 		if (bg_color.Length() > 0)
 		{
@@ -526,8 +528,8 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 
 	if (offset != NULL)
 	{
-		//set->offsetX = offset.attribute("x").as_int();
-		//set->offsetY = offset.attribute("y").as_int();
+		set->offsetX = offset.attribute("x").as_int();
+		set->offsetY = offset.attribute("y").as_int();
 	}
 	else
 	{

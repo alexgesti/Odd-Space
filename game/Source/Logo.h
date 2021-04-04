@@ -5,8 +5,6 @@
 
 #include "SDL/include/SDL.h"
 
-
-
 class Input;
 class Render;
 class Textures;

@@ -1,8 +1,6 @@
 #ifndef __COLLISION_H__
 #define __COLLISION_H__
 
-#include "Log.h"
-
 #include "Point.h"
 #include "Map.h"
 #include "Player.h"
@@ -25,11 +23,10 @@ public:
 			{
 				for (int x = 0; x < map->data.width; x++)
 				{
-					if (map->data.layers.At(9)->data->Get(pos[i].x, pos[i].y) != 0 &&
+					if (map->data.layers.At(map->properties.list.At(1)->data->value)->data->Get(pos[i].x, pos[i].y) != 0 &&
 						Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 					{
 						player->position = player->temPos;
-						LOG("Aqui");
 						break;
 					}
 				}

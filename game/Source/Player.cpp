@@ -35,7 +35,7 @@ Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
     texture = NULL;
     position = iPoint(12 * 16, 27 * 16);
 
-    width = 16;
+    width = 32;
     height = 32;
 
     playerCollision[0] = { 0, 0 };
@@ -77,18 +77,15 @@ bool Player::Update(float dt)
 {
     if (collision->player == nullptr) collision->player = this;
 
-    #define PLAYER_MOVE_SPEED 150.0f
-
     // Temporary position used for collisions
     temPos = position;
 
-    //if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt);
-    //if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
+    // +1 makes velocities equal on both directions
     if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) position.x -= (PLAYER_MOVE_SPEED * dt);
-    if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt);
+    if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt + 1);
 
     if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
-    if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt);
+    if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt + 1);
 
     return true;
 }

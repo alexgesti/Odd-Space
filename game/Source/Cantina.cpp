@@ -38,6 +38,9 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 		RELEASE_ARRAY(data);
 	}
 
+	render->camera.x = 80;
+	render->camera.y = -110;
+
 	name.Create("cantina");
 }
 // Destructor
@@ -103,6 +106,13 @@ bool Cantina::Update(float dt)
 
 	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		win->ToggleFullscreen(win->window);
+	
+	// Camera moves with player when it is at the middle of the screen
+	render->camera.y = -entityManager->entities.At(0)->data->position.y + render->camera.h / 2;
+
+	// Camera stops at limits
+	if (render->camera.y < BOTTOM_CAMERA_LIMIT) render->camera.y = BOTTOM_CAMERA_LIMIT;
+	else if (render->camera.y > TOP_CAMERA_LIMIT) render->camera.y = TOP_CAMERA_LIMIT;
 
 	return true;
 }

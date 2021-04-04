@@ -1,6 +1,9 @@
 #ifndef __CANTINA_H__
 #define __CANTINA_H__
 
+#define BOTTOM_CAMERA_LIMIT -110
+#define TOP_CAMERA_LIMIT 0
+
 #include "Scene.h"
 
 class Map;

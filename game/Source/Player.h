@@ -1,6 +1,8 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
+#define PLAYER_MOVE_SPEED 100.0f
+
 #include "Entity.h"
 
 #include "Point.h"

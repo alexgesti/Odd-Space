@@ -193,6 +193,10 @@ public:
 
 	bool drawColliders = false;
 
+	Properties properties;
+
+	iPoint camOffset = { 0, 0 };
+
 private:
 
 	Textures* tex;
@@ -202,7 +206,6 @@ private:
 	bool mapLoaded;
 
 	uint32 scale;
-	iPoint camOffset;
 
 	// BFS/Dijkstra variables not required any more: Using PathFinding class
 	/*
