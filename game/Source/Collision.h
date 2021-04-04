@@ -26,7 +26,8 @@ public:
 					if (map->data.layers.At(map->properties.list.At(1)->data->value)->data->Get(pos[i].x, pos[i].y) != 0 &&
 						Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 					{
-						player->position = player->temPos;
+						if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;
+						if (player->temPos.y != player->position.y) player->position.y = player->temPos.y;
 						break;
 					}
 				}

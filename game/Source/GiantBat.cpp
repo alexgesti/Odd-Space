@@ -1,4 +1,4 @@
-#include "StandardPirates.h"
+#include "GiantBat.h"
 
 #include "Log.h"
 
@@ -8,23 +8,23 @@
 
 
 
-StandardPirates* StandardPirates::instance = nullptr;
+GiantBat* GiantBat::instance = nullptr;
 // Instance creator
-StandardPirates* StandardPirates::GetInstance(Input* input, Render* render)
+GiantBat* GiantBat::GetInstance(Input* input, Render* render)
 {
-    if (instance == nullptr) instance = new StandardPirates(input, render);
+    if (instance == nullptr) instance = new GiantBat(input, render);
     else LOG("Returning standart pirate instance");
 
     return instance;
 }
 // Instance reseter
-void StandardPirates::ResetInstance()
+void GiantBat::ResetInstance()
 {
     delete instance;
     instance = nullptr;
 }
 // Constructor
-StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRATE)
+GiantBat::GiantBat(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRATE)
 {
     this->input = input;
     this->render = render;
@@ -37,30 +37,30 @@ StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType
     height = 32;
 
     //Hero stats
-    standardPirate.stats.HP = 15;
-    standardPirate.stats.SP = 10;
-    standardPirate.stats.ATK = 6;
-    standardPirate.stats.DEF = 3;
-    standardPirate.stats.SPL = 5;
-    standardPirate.stats.SPD = 7;
-    standardPirate.stats.AGL = 8;
-    standardPirate.stats.LCK = 2;
+    giantBat.stats.HP = 60;
+    giantBat.stats.SP = 0;
+    giantBat.stats.ATK = 20;
+    giantBat.stats.DEF = 24;
+    giantBat.stats.SPL = 40;
+    giantBat.stats.SPD = 32;
+    giantBat.stats.AGL = 16;
+    giantBat.stats.LCK = 12;
 
     // Define Player animations
 }
 // Destructor
-StandardPirates::~StandardPirates()
+GiantBat::~GiantBat()
 {}
 
 
 
-bool StandardPirates::Update(float dt)
+bool GiantBat::Update(float dt)
 {
     return true;
 }
 
 
-bool StandardPirates::Draw()
+bool GiantBat::Draw()
 {
     // TODO: Calculate the corresponding rectangle depending on the
     // animation state and animation frame
@@ -74,12 +74,12 @@ bool StandardPirates::Draw()
 
 
 
-void StandardPirates::SetTexture(SDL_Texture *tex)
+void GiantBat::SetTexture(SDL_Texture *tex)
 {
     texture = tex;
 }
 
-SDL_Rect StandardPirates::GetBounds()
+SDL_Rect GiantBat::GetBounds()
 {
     return { position.x, position.y, width, height };
 }

@@ -16,17 +16,20 @@ struct Stat
     int AGL;
     int LCK;
 };
-struct Stat stats[];
 
 struct Skill
 {
-    int skill1;
-    int skill2;
-    int skill3;
-    int skill4;
-    int skill5;
+    SString name;
+    SString description;
+    int cost;
 };
-struct Skill skills [];
+
+struct Entities
+{
+    SString name;
+    Stat stats;
+    Skill skills[5];
+};
 
 enum class EntityType
 {

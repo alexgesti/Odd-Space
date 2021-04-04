@@ -13,17 +13,17 @@ class Input;
 class Render;
 class Textures;
 
-enum class StandardPiratesAnim
+enum class GiantBatAnim
 {
     IDLE
 };
 
-class StandardPirates : public Enemy
+class GiantBat : public Enemy
 {
 public:
 
     // Get unique instance of the class
-    static StandardPirates* GetInstance(Input* input, Render* render);
+    static GiantBat* GetInstance(Input* input, Render* render);
     // Delete the instance
     static void ResetInstance();
 
@@ -42,7 +42,7 @@ public:
 
     SDL_Texture* texture;   // StandartPirates spritesheet
 
-    StandardPiratesAnim currentAnim;
+    GiantBatAnim currentAnim;
 
     int width, height;
 
@@ -50,15 +50,15 @@ private:
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
-    static StandardPirates* instance;
+    static GiantBat* instance;
     // Private Constructor
-    StandardPirates(Input* input, Render* render);
+    GiantBat(Input* input, Render* render);
     // Private Destructor
-    virtual ~StandardPirates();
+    virtual ~GiantBat();
     // Declare the copy constructor and the assignment operator
     // as private (or delete them explicitly) to prevent cloning your object
-    StandardPirates(const StandardPirates&);
-    StandardPirates& operator=(const StandardPirates&);
+    GiantBat(const GiantBat&);
+    GiantBat& operator=(const GiantBat&);
     // ----------------------------- //
 
 private:
@@ -66,7 +66,7 @@ private:
     Input* input;
     Render* render;
 
-    Entities standardPirate;
+    Entities giantBat;
 };
 
 #endif // __STANDARDPIRATES_H__
