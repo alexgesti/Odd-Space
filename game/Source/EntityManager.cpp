@@ -75,7 +75,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		ret = Player::GetInstance(input, render);
 		Player::SetCollision(&collision, (Player*)ret);
 		break;
-		//case EntityType::ENEMY: ret = new Enemy;  break;
+		//case EntityType::ENEMY: ret = new Enemy();  break;
 		//case EntityType::ITEM: ret = new Item();  break;
 		default: break;
 	}

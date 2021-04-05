@@ -37,14 +37,14 @@ StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType
     height = 32;
 
     //Hero stats
-    standardPirate.stats.HP = 15;
-    standardPirate.stats.SP = 10;
-    standardPirate.stats.ATK = 6;
-    standardPirate.stats.DEF = 3;
-    standardPirate.stats.SPL = 5;
-    standardPirate.stats.SPD = 7;
-    standardPirate.stats.AGL = 8;
-    standardPirate.stats.LCK = 2;
+    /*stats[3].HP = 15;
+    stats[3].SP = 10;
+    stats[3].ATK = 6;
+    stats[3].DEF = 3;
+    stats[3].SPL = 5;
+    stats[3].SPD = 7;
+    stats[3].AGL = 8;
+    stats[3].LCK = 2;*/
 
     // Define Player animations
 }

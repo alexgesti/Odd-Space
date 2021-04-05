@@ -65,8 +65,6 @@ private:
 
     Input* input;
     Render* render;
-
-    Entities standardPirate;
 };
 
 #endif // __STANDARDPIRATES_H__

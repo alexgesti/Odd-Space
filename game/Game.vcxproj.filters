@@ -72,15 +72,6 @@
     <ClCompile Include="Source\Player.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
-    <ClCompile Include="Source\MutantRat.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\GiantBat.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\DrunkCustomer.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -191,15 +182,6 @@
     </ClInclude>
     <ClInclude Include="Source\Player.h">
       <Filter>Entities</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\MutantRat.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GiantBat.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\DrunkCustomer.h">
-      <Filter>Entities\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
