@@ -5,6 +5,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "GuiButton.h"
+#include "EntityManager.h"
 #include <time.h> 
 #include "Log.h"
 
@@ -13,12 +14,13 @@
 
 
 // Constructor
-Battle::Battle(Window* win, Input* input, Render* render, Textures* tex)
+Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager)
 {
     this->win = win;
     this->input = input;
     this->render = render;
     this->tex = tex;
+    this->entityManager = entityManager;
 
     // GUI: Initialize required controls for the screen
     buttonsMenu.buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "menuBattle");

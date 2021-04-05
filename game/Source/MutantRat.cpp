@@ -1,4 +1,4 @@
-#include "StandardPirates.h"
+#include "MutantRat.h"
 
 #include "Log.h"
 
@@ -8,23 +8,23 @@
 
 
 
-StandardPirates* StandardPirates::instance = nullptr;
+MutantRat* MutantRat::instance = nullptr;
 // Instance creator
-StandardPirates* StandardPirates::GetInstance(Input* input, Render* render)
+MutantRat* MutantRat::GetInstance(Input* input, Render* render)
 {
-    if (instance == nullptr) instance = new StandardPirates(input, render);
+    if (instance == nullptr) instance = new MutantRat(input, render);
     else LOG("Returning standart pirate instance");
 
     return instance;
 }
 // Instance reseter
-void StandardPirates::ResetInstance()
+void MutantRat::ResetInstance()
 {
     delete instance;
     instance = nullptr;
 }
 // Constructor
-StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRATE)
+MutantRat::MutantRat(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRATE)
 {
     this->input = input;
     this->render = render;
@@ -37,30 +37,30 @@ StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType
     height = 32;
 
     //Hero stats
-    standardPirate.stats.HP = 15;
-    standardPirate.stats.SP = 10;
-    standardPirate.stats.ATK = 6;
-    standardPirate.stats.DEF = 3;
-    standardPirate.stats.SPL = 5;
-    standardPirate.stats.SPD = 7;
-    standardPirate.stats.AGL = 8;
-    standardPirate.stats.LCK = 2;
+    mutantRat.stats.HP = 45;
+    mutantRat.stats.SP = 0;
+    mutantRat.stats.ATK = 30;
+    mutantRat.stats.DEF = 12;
+    mutantRat.stats.SPL = 3;
+    mutantRat.stats.SPD = 18;
+    mutantRat.stats.AGL = 21;
+    mutantRat.stats.LCK = 9;
 
     // Define Player animations
 }
 // Destructor
-StandardPirates::~StandardPirates()
+MutantRat::~MutantRat()
 {}
 
 
 
-bool StandardPirates::Update(float dt)
+bool MutantRat::Update(float dt)
 {
     return true;
 }
 
 
-bool StandardPirates::Draw()
+bool MutantRat::Draw()
 {
     // TODO: Calculate the corresponding rectangle depending on the
     // animation state and animation frame
@@ -74,12 +74,12 @@ bool StandardPirates::Draw()
 
 
 
-void StandardPirates::SetTexture(SDL_Texture *tex)
+void MutantRat::SetTexture(SDL_Texture *tex)
 {
     texture = tex;
 }
 
-SDL_Rect StandardPirates::GetBounds()
+SDL_Rect MutantRat::GetBounds()
 {
     return { position.x, position.y, width, height };
 }

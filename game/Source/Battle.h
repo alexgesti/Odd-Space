@@ -20,7 +20,7 @@ class Battle : public Scene
 public:
 
     // Constructor
-    Battle(Window* win, Input* input, Render* render, Textures* tex);
+    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager);
     // Destructor
     virtual ~Battle();
 
@@ -51,6 +51,7 @@ private:
     Input* input;
     Render* render;
     Textures* tex;
+    EntityManager* entityManager;
 
     struct ButtonsMenu
     {

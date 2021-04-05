@@ -55,10 +55,6 @@ public:
 
     int width, height;
 
-    float jumpSpeed = 0.0f;
-    bool readyToJump = true;
-    bool hitObstacle = false;
-
     iPoint temPos;
 
     iPoint playerCollision[4];
@@ -82,6 +78,9 @@ private:
 
     Input* input;
     Render* render;
+
+    Entities hero;
+    Entities oldCaptain;
 
     Collision* collision;
 };

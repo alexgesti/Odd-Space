@@ -1,5 +1,5 @@
-#ifndef __STANDARDPIRATES_H__
-#define __STANDARDPIRATES_H__
+#ifndef __DRUNKCUSTOMER_H__
+#define __DRUNKCUSTOMER_H__
 
 #include "Enemy.h"
 
@@ -13,17 +13,17 @@ class Input;
 class Render;
 class Textures;
 
-enum class StandardPiratesAnim
+enum class DrunkCustomerAnim
 {
     IDLE
 };
 
-class StandardPirates : public Enemy
+class DrunkCustomer : public Enemy
 {
 public:
 
     // Get unique instance of the class
-    static StandardPirates* GetInstance(Input* input, Render* render);
+    static DrunkCustomer* GetInstance(Input* input, Render* render);
     // Delete the instance
     static void ResetInstance();
 
@@ -42,7 +42,7 @@ public:
 
     SDL_Texture* texture;   // StandartPirates spritesheet
 
-    StandardPiratesAnim currentAnim;
+    DrunkCustomerAnim currentAnim;
 
     int width, height;
 
@@ -50,15 +50,15 @@ private:
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
-    static StandardPirates* instance;
+    static DrunkCustomer* instance;
     // Private Constructor
-    StandardPirates(Input* input, Render* render);
+    DrunkCustomer(Input* input, Render* render);
     // Private Destructor
-    virtual ~StandardPirates();
+    virtual ~DrunkCustomer();
     // Declare the copy constructor and the assignment operator
     // as private (or delete them explicitly) to prevent cloning your object
-    StandardPirates(const StandardPirates&);
-    StandardPirates& operator=(const StandardPirates&);
+    DrunkCustomer(const DrunkCustomer&);
+    DrunkCustomer& operator=(const DrunkCustomer&);
     // ----------------------------- //
 
 private:
@@ -66,7 +66,7 @@ private:
     Input* input;
     Render* render;
 
-    Entities standardPirate;
+    Entities drunkCustomer;
 };
 
-#endif // __STANDARDPIRATES_H__
+#endif // __DRUNKCUSTOMER_H__

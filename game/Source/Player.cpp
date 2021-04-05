@@ -44,24 +44,26 @@ Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
     playerCollision[3] = {  width, height };
 
     //Hero stats
-  /*stats[1].HP = 15;
-    stats[1].SP = 10;
-    stats[1].ATK = 6;
-    stats[1].DEF = 3;
-    stats[1].SPL = 5;
-    stats[1].SPD = 7;
-    stats[1].AGL = 8;
-    stats[1].LCK = 2;
+    hero.name = "Hero";
+    hero.stats.HP = 15;
+    hero.stats.SP = 10;
+    hero.stats.ATK = 6;
+    hero.stats.DEF = 3;
+    hero.stats.SPL = 5;
+    hero.stats.SPD = 7;
+    hero.stats.AGL = 8;
+    hero.stats.LCK = 2;
 
     //Old captain stats
-    stats[2].HP = 20;
-    stats[2].SP = 16;
-    stats[2].ATK = 3;
-    stats[2].DEF = 6;
-    stats[2].SPL = 5;
-    stats[2].SPD = 3;
-    stats[2].AGL = 2;
-    stats[2].LCK = 1;*/
+    oldCaptain.name = "Old Captain";
+    oldCaptain.stats.HP = 20;
+    oldCaptain.stats.SP = 16;
+    oldCaptain.stats.ATK = 3;
+    oldCaptain.stats.DEF = 6;
+    oldCaptain.stats.SPL = 5;
+    oldCaptain.stats.SPD = 3;
+    oldCaptain.stats.AGL = 2;
+    oldCaptain.stats.LCK = 1;
 
     // Define Player animations
 
