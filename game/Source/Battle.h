@@ -20,7 +20,7 @@ class Battle : public Scene
 public:
 
     // Constructor
-    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager);
+    Battle(Window* win, Input* input, Render* render, Textures* tex);
     // Destructor
     virtual ~Battle();
 
@@ -51,7 +51,6 @@ private:
     Input* input;
     Render* render;
     Textures* tex;
-    EntityManager* entityManager;
 
     struct ButtonsMenu
     {
@@ -81,8 +80,6 @@ private:
         GuiButton* buttonEnemy4;
         GuiButton* buttonEnemy5;
     } buttonsEnemies;
-
-    SDL_Texture* cantinaBattle;
 
     bool playerTurn;
     bool chooseAction = true;

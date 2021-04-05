@@ -4,24 +4,49 @@
 #include "Input.h"
 #include "Render.h"
 #include "Textures.h"
-#include "GuiButton.h"
+#include "Audio.h"
 #include "EntityManager.h"
+#include "GuiButton.h"
+
+
 #include <time.h> 
 #include "Log.h"
-
-#include "SDL/include/SDL.h"
 
 
 
 // Constructor
-Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager)
+Battle::Battle(Window* win, Input* input, Render* render, Textures* tex)
 {
     this->win = win;
     this->input = input;
     this->render = render;
     this->tex = tex;
-    this->entityManager = entityManager;
 
+    /*map = new Map(tex);
+
+    // L03: DONE: Load map
+    // L12b: Create walkability map on map loading
+    if (map->Load("world_cantina_interior.tmx") == true)
+    {
+        int w, h;
+        uchar* data = NULL;
+
+        //if (map->CreateWalkabilityMap(w, h, &data)) pathFinding->SetMap(w, h, data);
+
+        RELEASE_ARRAY(data);
+    }*/
+
+    name.Create("cantina");
+}
+// Destructor
+Battle::~Battle()
+{
+}
+
+
+
+bool Battle::Load()
+{
     // GUI: Initialize required controls for the screen
     buttonsMenu.buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "menuBattle");
     buttonsMenu.buttonAttack->SetObserver(this);
@@ -35,7 +60,7 @@ Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityM
     buttonsMenu.buttonItem->SetObserver(this);
     buttonsMenu.buttonBack = new GuiButton(6, { 600, 80, 300, 80 }, "menuBattle");
     buttonsMenu.buttonBack->SetObserver(this);
-    
+
     buttonsSkills.buttonSkill1 = new GuiButton(7, { 0, 160, 300, 80 }, "skillsBattle");
     buttonsSkills.buttonSkill1->SetObserver(this);
     buttonsSkills.buttonSkill2 = new GuiButton(8, { 300, 160, 300, 80 }, "skillsBattle");
@@ -77,25 +102,8 @@ Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityM
             break;
         default:break;
         }
-       controllerEnemy[enemies] = { 13 + (1 * enemies) };
+        controllerEnemy[enemies] = { 13 + (1 * enemies) };
     }
-}
-// Destructor
-Battle::~Battle()
-{
-}
-
-
-
-bool Battle::Load()
-{
-    //Escogedor de textura
-    /*switch (current)
-    {
-    case CANTINA:
-    cantinaBattle = app->tex->Load("");
-        break;
-    }*/
 
     //Calculo de turno
 
