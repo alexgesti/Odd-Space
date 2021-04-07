@@ -55,11 +55,12 @@ bool SceneManager::Awake()
 // Called before the first frame
 bool SceneManager::Start()
 {
+	previousScene = new SceneType;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win);
 	//current = new Battle(win, input, render, tex);
-	//current = new Cantina(win, input, render, tex, entityManager, collision);
-	current = new Wc(win, input, render, tex, entityManager, collision);
+	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene);
+	current = new Wc(win, input, render, tex, entityManager, collision, previousScene);
 	current->Load();
 
 	next = nullptr;
@@ -182,8 +183,8 @@ bool SceneManager::Update(float dt)
 		{
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
-		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision); break;
-		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision); break;
+		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene); break;
+		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, previousScene); break;
 		default: break;
 		}
 

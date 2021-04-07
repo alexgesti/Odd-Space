@@ -14,7 +14,7 @@
 
 
 // Constructor
-Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision) : Scene()
+Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -23,6 +23,8 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 	this->entityManager = entityManager;
 
 	this->collision = collision;
+
+	this->previousScene = previousScene;
 
 	map = new Map(tex);
 
@@ -38,12 +40,6 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 		RELEASE_ARRAY(data);
 	}
 
-	render->camera.x = 80;
-	render->camera.y = -110;
-
-	entityManager->GetPlayer()->position.x = 768;
-	entityManager->GetPlayer()->position.y = 750;
-
 	name.Create("cantina");
 }
 // Destructor
@@ -52,6 +48,24 @@ Cantina::~Cantina()
 
 bool Cantina::Load() /*EntityManager entityManager)*/
 {
+
+	if (*previousScene == SceneType::WC)
+	{
+		render->camera.x = 80;
+		render->camera.y = TOP_CAMERA_LIMIT;
+
+		entityManager->GetPlayer()->position.x = 128;
+		entityManager->GetPlayer()->position.y = 195;
+	}
+
+	else
+	{
+		render->camera.x = 80;
+		render->camera.y = BOTTOM_CAMERA_LIMIT;
+
+		entityManager->GetPlayer()->position.x = 768;
+		entityManager->GetPlayer()->position.y = 750;
+	}
 
 	//map = new Map(tex);
 
@@ -140,6 +154,7 @@ bool Cantina::Draw()
 bool Cantina::Unload()
 {
 	// TODO: Unload all resources
+	*previousScene = SceneType::CANTINA;
 
 	map->Unload();
 	delete map;

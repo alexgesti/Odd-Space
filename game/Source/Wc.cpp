@@ -14,7 +14,7 @@
 
 
 // Constructor
-Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision) : Scene()
+Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -23,6 +23,8 @@ Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* 
 	this->entityManager = entityManager;
 
 	this->collision = collision;
+
+	this->previousScene = previousScene;
 
 	map = new Map(tex);
 
@@ -38,12 +40,6 @@ Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* 
 		RELEASE_ARRAY(data);
 	}
 
-	render->camera.x = 530;
-	render->camera.y = 130;
-
-	entityManager->GetPlayer()->position.x = 64;
-	entityManager->GetPlayer()->position.y = 285;
-
 	name.Create("cantina");
 }
 // Destructor
@@ -52,6 +48,11 @@ Wc::~Wc()
 
 bool Wc::Load() /*EntityManager entityManager)*/
 {
+	render->camera.x = 530;
+	render->camera.y = 130;
+
+	entityManager->GetPlayer()->position.x = 64;
+	entityManager->GetPlayer()->position.y = 285;
 
 	//map = new Map(tex);
 
@@ -133,6 +134,7 @@ bool Wc::Draw()
 bool Wc::Unload()
 {
 	// TODO: Unload all resources
+	*previousScene = SceneType::WC;
 
 	map->Unload();
 	delete map;

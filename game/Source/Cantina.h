@@ -24,7 +24,7 @@ class Cantina : public Scene
 public:
 
     // Constructor
-    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision);
+    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene);
     // Destructor
     virtual ~Cantina();
 
@@ -51,6 +51,8 @@ private:
     EntityManager* entityManager;
 
     Collision* collision;
+
+    SceneType* previousScene;
 };
 
 #endif // __CANTINA_H__

@@ -50,6 +50,7 @@ private:
 
 	Collision* collision;
 
+	SceneType* previousScene;
 	Scene* current;
 	Scene* next;
 

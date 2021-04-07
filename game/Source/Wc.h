@@ -21,7 +21,7 @@ class Wc : public Scene
 public:
 
     // Constructor
-    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision);
+    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene);
     // Destructor
     virtual ~Wc();
 
@@ -48,6 +48,8 @@ private:
     EntityManager* entityManager;
 
     Collision* collision;
+
+    SceneType* previousScene;
 };
 
 #endif // __WC_H__

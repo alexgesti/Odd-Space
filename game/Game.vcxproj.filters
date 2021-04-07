@@ -82,7 +82,7 @@
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Source\Wc.cpp">
-      <Filter>Modules</Filter>
+      <Filter>Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
