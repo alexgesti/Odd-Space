@@ -1,11 +1,8 @@
-#ifndef __CANTINA_H__
-#define __CANTINA_H__
+#ifndef __WC_H__
+#define __WC_H__
 
-#define BOTTOM_CAMERA_LIMIT -110
-#define TOP_CAMERA_LIMIT 0
-
-#define UPPER_DOOR 200
-#define LOWER_DOOR 760
+#define BOTTOM_CAMERA_LIMIT -1100
+#define TOP_CAMERA_LIMIT 1000
 
 #include "Scene.h"
 
@@ -19,14 +16,14 @@ class EntityManager;
 
 class Collision;
 
-class Cantina : public Scene
+class Wc : public Scene
 {
 public:
 
     // Constructor
-    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision);
+    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision);
     // Destructor
-    virtual ~Cantina();
+    virtual ~Wc();
 
 
     // Load this scene
@@ -53,4 +50,4 @@ private:
     Collision* collision;
 };
 
-#endif // __CANTINA_H__
+#endif // __WC_H__

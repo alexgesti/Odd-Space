@@ -141,6 +141,9 @@ public:
 	// Load new map
 	bool Load(const char* path);
 
+	// Unload current map
+	bool Unload();
+
 	// L04: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
 
@@ -195,7 +198,9 @@ public:
 
 	Properties properties;
 
-	iPoint camOffset = { 0, 0 };
+	bool doorHit = false;
+
+	//iPoint camOffset = { 0, 0 };
 
 private:
 

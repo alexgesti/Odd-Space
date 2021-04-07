@@ -120,6 +120,7 @@
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Title.cpp" />
+    <ClCompile Include="Source\Wc.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Battle.h" />
     <ClInclude Include="Source\Collision.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Title.h" />
+    <ClInclude Include="Source\Wc.h" />
     <ClInclude Include="Source\Window.h" />
     <ClInclude Include="Source\Defs.h" />
     <ClInclude Include="Source\List.h" />

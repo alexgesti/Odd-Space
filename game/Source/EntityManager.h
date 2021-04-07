@@ -9,6 +9,7 @@
 
 class Input;
 class Render;
+class Player;
 
 class EntityManager : public Module
 {
@@ -31,7 +32,7 @@ public:
 	bool CleanUp();
 
 
-
+	Player* GetPlayer();
 
 	// Additional methods
 	Entity* CreateEntity(EntityType type);

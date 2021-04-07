@@ -10,6 +10,7 @@ enum class SceneType
     LOGO,
     TITLE,
     CANTINA,
+    WC,
     BATTLE
 };
 

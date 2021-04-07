@@ -3,6 +3,7 @@
 #include "Logo.h"
 #include "Title.h"
 #include "Cantina.h"
+#include "Wc.h"
 #include "Battle.h"
 
 #include "Input.h"
@@ -56,8 +57,9 @@ bool SceneManager::Start()
 {
 	//current = new Logo(input, render, tex);
 	//current = new Title(win);
-	current = new Battle(win, input, render, tex);
+	//current = new Battle(win, input, render, tex);
 	//current = new Cantina(win, input, render, tex, entityManager, collision);
+	current = new Wc(win, input, render, tex, entityManager, collision);
 	current->Load();
 
 	next = nullptr;
@@ -181,6 +183,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
 		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision); break;
+		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision); break;
 		default: break;
 		}
 

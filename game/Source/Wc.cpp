@@ -1,4 +1,4 @@
-#include "Cantina.h"
+#include "Wc.h"
 
 #include "Window.h"
 #include "Input.h"
@@ -14,7 +14,7 @@
 
 
 // Constructor
-Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision) : Scene()
+Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -28,7 +28,7 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 
 	// L03: DONE: Load map
 	// L12b: Create walkability map on map loading
-	if (map->Load("world_cantina_interior.tmx") == true)
+	if (map->Load("world_cantina_wc.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
@@ -38,19 +38,19 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 		RELEASE_ARRAY(data);
 	}
 
-	render->camera.x = 80;
-	render->camera.y = -110;
+	render->camera.x = 530;
+	render->camera.y = 130;
 
-	entityManager->GetPlayer()->position.x = 768;
-	entityManager->GetPlayer()->position.y = 750;
+	entityManager->GetPlayer()->position.x = 64;
+	entityManager->GetPlayer()->position.y = 285;
 
 	name.Create("cantina");
 }
 // Destructor
-Cantina::~Cantina()
+Wc::~Wc()
 {}
 
-bool Cantina::Load() /*EntityManager entityManager)*/
+bool Wc::Load() /*EntityManager entityManager)*/
 {
 
 	//map = new Map(tex);
@@ -80,7 +80,7 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 	//entityManager->CreateEntity(EntityType::ITEM);
 
 	// Initialize player
-	
+
 	//player = new Player();
 	//player->position = iPoint(200, 400);
 
@@ -95,7 +95,7 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 	else return false;
 }
 
-bool Cantina::Update(float dt)
+bool Wc::Update(float dt)
 {
 	collision->CheckCollision(map);
 
@@ -108,24 +108,17 @@ bool Cantina::Update(float dt)
 
 	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		win->ToggleFullscreen(win->window);
-	
-	// Camera moves with player when it is at the middle of the screen
-	render->camera.y = -entityManager->entities.At(0)->data->position.y + render->camera.h / 2;
-
-	// Camera stops at limits
-	if (render->camera.y < BOTTOM_CAMERA_LIMIT) render->camera.y = BOTTOM_CAMERA_LIMIT;
-	else if (render->camera.y > TOP_CAMERA_LIMIT) render->camera.y = TOP_CAMERA_LIMIT;
 
 	if (map->doorHit)
 	{
-		if (entityManager->GetPlayer()->position.y < UPPER_DOOR) TransitionToScene(SceneType::WC);
+		TransitionToScene(SceneType::CANTINA);
 		map->doorHit = false;
 	}
 
 	return true;
 }
 
-bool Cantina::Draw()
+bool Wc::Draw()
 {
 	// Draw map
 	map->Draw(render);
@@ -137,7 +130,7 @@ bool Cantina::Draw()
 	return false;
 }
 
-bool Cantina::Unload()
+bool Wc::Unload()
 {
 	// TODO: Unload all resources
 

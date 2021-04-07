@@ -11,7 +11,7 @@ Map::Map(Textures* texture) : Entity(EntityType::MAP)
 	folder.Create("Assets/Maps/");
 
 	tex = texture;
-	scale = 2;
+	scale = 1;
 }
 
 // Destructor
@@ -197,8 +197,8 @@ void Map::Draw(Render* render)
 {
 	if (mapLoaded == false) return;
 
-	camOffset.x = -render->camera.x;
-	camOffset.y = -render->camera.y;
+	//camOffset.x = -render->camera.x;
+	//camOffset.y = -render->camera.y;
 
 	// L06: DONE 4: Make sure we draw all the layers and not just the first one
 	for (int i = 0; i < data.layers.Count(); i++)
@@ -296,7 +296,7 @@ iPoint Map::WorldToMap(int x, int y) const
 SDL_Rect Map::GetTilemapRec(int x, int y) const
 {
 	iPoint pos = MapToWorld(x, y);
-	SDL_Rect rec = { pos.x * scale + camOffset.x, pos.y * scale + camOffset.y,
+	SDL_Rect rec = { pos.x * scale /*+ camOffset.x*/, pos.y * scale /*+ camOffset.y*/,
 					 data.tileWidth * scale, data.tileHeight * scale };
 
 	return rec;
@@ -634,6 +634,18 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 			properties.list.Add(p);
 		}
 	}
+
+	return ret;
+}
+
+bool Map::Unload()
+{
+	bool ret = true;
+
+	data.tilesets.Clear();
+	data.layers.Clear();
+
+	mapLoaded = false;
 
 	return ret;
 }

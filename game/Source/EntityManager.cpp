@@ -61,7 +61,13 @@ bool EntityManager::CleanUp()
 	return true;
 }
 
-
+Player* EntityManager::GetPlayer()
+{
+	Player* ret;
+	if ((Player*)entities.start == nullptr) ret = (Player*) CreateEntity(EntityType::PLAYER);
+	else ret = Player::GetInstance(input, render);
+	return ret;
+}
 
 
 Entity* EntityManager::CreateEntity(EntityType type)
