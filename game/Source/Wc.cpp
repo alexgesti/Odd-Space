@@ -114,7 +114,7 @@ bool Wc::Update(float dt)
 	{
 		if (collision->currentInteraction == "flush")
 		{
-			TransitionToScene(SceneType::CANTINA);
+			//TransitionToScene(SceneType::CANTINA);
 			collision->currentInteraction = '/0';
 		}
 	}

@@ -17,9 +17,9 @@ public:
 		// Check if updated player position collides with next tile
 
 		int doorLayer = map->properties.list.At(0)->data->value;
-		int interactLayer = map->properties.list.At(1)->data->value;
-		int interactions = map->properties.list.At(2)->data->value;
-		int wallLayer = map->properties.list.At(3)->data->value;
+		//int interactLayer = map->properties.list.At(1)->data->value;
+		int interactions = map->properties.list.At(1)->data->value;
+		int wallLayer = map->properties.list.At(2)->data->value;
 		
 		if (player != nullptr)
 		{
@@ -64,20 +64,22 @@ public:
 								{
 									currentInteraction.Clear();
 									currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString());
-									//strcpy_s((char*)currentInteraction.GetString(), currentInteraction.Length(), (char*)list->data->properties.list.start->data->value);
+
+									if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;
+									if (player->temPos.y != player->position.y) player->position.y = player->temPos.y;
 								}
 
 								list = list->next;
 							}
 						}
 
-						else if (interactLayer != -1 && map->data.layers.At(interactLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
+						/*else if (interactLayer != -1 && map->data.layers.At(interactLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 						{
 							if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;
 							if (player->temPos.y != player->position.y) player->position.y = player->temPos.y;
 							break;
-						}
+						}*/
 					}
 				}
 			}
