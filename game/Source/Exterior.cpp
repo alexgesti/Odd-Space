@@ -1,4 +1,4 @@
-#include "Cantina.h"
+#include "Exterior.h"
 
 #include "Window.h"
 #include "Input.h"
@@ -14,7 +14,7 @@
 
 
 // Constructor
-Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene) : Scene()
+Exterior::Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -30,7 +30,7 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 
 	// L03: DONE: Load map
 	// L12b: Create walkability map on map loading
-	if (map->Load("world_cantina_interior.tmx") == true)
+	if (map->Load("world_cantina_exterior.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
@@ -43,19 +43,19 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 	name.Create("cantina");
 }
 // Destructor
-Cantina::~Cantina()
+Exterior::~Exterior()
 {}
 
-bool Cantina::Load() /*EntityManager entityManager)*/
+bool Exterior::Load() /*EntityManager entityManager)*/
 {
 
-	if (*previousScene == SceneType::WC)
+	if (*previousScene == SceneType::CANTINA)
 	{
-		render->camera.x = 80;
+		render->camera.x = 30;
 		render->camera.y = TOP_CAMERA_LIMIT;
 
-		entityManager->GetPlayer()->position.x = 128;
-		entityManager->GetPlayer()->position.y = 195;
+		entityManager->GetPlayer()->position.x = 930;
+		entityManager->GetPlayer()->position.y = 325;
 	}
 
 	else
@@ -63,8 +63,8 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		render->camera.x = 80;
 		render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		entityManager->GetPlayer()->position.x = 768;
-		entityManager->GetPlayer()->position.y = 750;
+		entityManager->GetPlayer()->position.x = 900;
+		entityManager->GetPlayer()->position.y = 650;
 	}
 
 	//map = new Map(tex);
@@ -94,7 +94,7 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 	//entityManager->CreateEntity(EntityType::ITEM);
 
 	// Initialize player
-	
+
 	//player = new Player();
 	//player->position = iPoint(200, 400);
 
@@ -109,7 +109,7 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 	else return false;
 }
 
-bool Cantina::Update(float dt)
+bool Exterior::Update(float dt)
 {
 	collision->CheckCollision(map);
 
@@ -122,7 +122,7 @@ bool Cantina::Update(float dt)
 
 	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		win->ToggleFullscreen(win->window);
-	
+
 	// Camera moves with player when it is at the middle of the screen
 	render->camera.y = -entityManager->entities.At(0)->data->position.y + render->camera.h / 2;
 
@@ -132,15 +132,14 @@ bool Cantina::Update(float dt)
 
 	if (map->doorHit)
 	{
-		if (entityManager->GetPlayer()->position.y < UPPER_DOOR) TransitionToScene(SceneType::WC);
-		else TransitionToScene(SceneType::EXTERIOR);
+		TransitionToScene(SceneType::CANTINA);
 		map->doorHit = false;
 	}
 
 	return true;
 }
 
-bool Cantina::Draw()
+bool Exterior::Draw()
 {
 	// Draw map
 	map->Draw(render);
@@ -152,10 +151,10 @@ bool Cantina::Draw()
 	return false;
 }
 
-bool Cantina::Unload()
+bool Exterior::Unload()
 {
 	// TODO: Unload all resources
-	*previousScene = SceneType::CANTINA;
+	*previousScene = SceneType::EXTERIOR;
 
 	map->Unload();
 	delete map;

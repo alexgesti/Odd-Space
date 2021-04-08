@@ -11,6 +11,7 @@ enum class SceneType
     TITLE,
     CANTINA,
     WC,
+    EXTERIOR,
     BATTLE
 };
 

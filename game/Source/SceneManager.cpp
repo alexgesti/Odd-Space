@@ -5,6 +5,7 @@
 #include "Cantina.h"
 #include "Wc.h"
 #include "Battle.h"
+#include "Exterior.h"
 
 #include "Input.h"
 #include "Render.h"
@@ -60,7 +61,8 @@ bool SceneManager::Start()
 	//current = new Title(win);
 	//current = new Battle(win, input, render, tex);
 	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene);
-	current = new Wc(win, input, render, tex, entityManager, collision, previousScene);
+	//current = new Wc(win, input, render, tex, entityManager, collision, previousScene);
+	current = new Exterior(win, input, render, tex, entityManager, collision, previousScene);
 	current->Load();
 
 	next = nullptr;
@@ -133,6 +135,7 @@ bool SceneManager::Update(float dt)
 
 				// Activate fade out effect to next loaded screen
 				fadeOutCompleted = true;
+				entityManager->GetPlayer()->transitioning = false;
 			}
 		}
 		else  // Transition fade out logic
@@ -175,6 +178,7 @@ bool SceneManager::Update(float dt)
 
 	if (current->transitionRequired)
 	{
+		entityManager->GetPlayer()->transitioning = true;
 		onTransition = true;
 		fadeOutCompleted = false;
 		transitionAlpha = 0.0f;
@@ -185,6 +189,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
 		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene); break;
 		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, previousScene); break;
+		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene); break;
 		default: break;
 		}
 

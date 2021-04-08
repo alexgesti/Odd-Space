@@ -1,13 +1,8 @@
-#ifndef __CANTINA_H__
-#define __CANTINA_H__
+#ifndef __EXTERIOR_H__
+#define __EXTERIOR_H__
 
-#define BOTTOM_CAMERA_LIMIT -110
+#define BOTTOM_CAMERA_LIMIT -15
 #define TOP_CAMERA_LIMIT 0
-
-#define UPPER_DOOR 200
-
-//Quiza no hace falta un LOWER_DOOR, si no es el UPPER_DOOR hacemos un else y ya
-#define LOWER_DOOR 760
 
 #include "Scene.h"
 
@@ -21,14 +16,14 @@ class EntityManager;
 
 class Collision;
 
-class Cantina : public Scene
+class Exterior : public Scene
 {
 public:
 
     // Constructor
-    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene);
+    Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene);
     // Destructor
-    virtual ~Cantina();
+    virtual ~Exterior();
 
 
     // Load this scene
@@ -57,4 +52,4 @@ private:
     SceneType* previousScene;
 };
 
-#endif // __CANTINA_H__
+#endif // __EXTERIOR_H__

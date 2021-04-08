@@ -81,6 +81,7 @@ bool Map::LoadObjLayer(pugi::xml_node& node, ObjectLayer* layer)
 		}
 
 		layer->data.Add(objData);
+
 	}
 
 	return ret;
@@ -697,8 +698,17 @@ bool Map::Unload()
 {
 	bool ret = true;
 
+	ListItem<TileSet*>* item;
+	item = data.tilesets.start;
+
+	for (item; item != NULL; item = item->next)
+	{
+		tex->UnLoad(item->data->texture);
+	}
+
 	data.tilesets.Clear();
 	data.layers.Clear();
+	data.objLayers.Clear();
 
 	mapLoaded = false;
 
@@ -712,7 +722,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 	ListItem<MapLayer*>* item;
 	item = data.layers.start;
 
-	for (item = data.layers.start; item != NULL; item = item->next)
+	for (item; item != NULL; item = item->next)
 	{
 		MapLayer* layer = item->data;
 
@@ -741,6 +751,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
 		*buffer = map;
 		width = data.width;
 		height = data.height;
+
 		ret = true;
 
 		break;

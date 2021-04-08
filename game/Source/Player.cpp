@@ -82,13 +82,16 @@ bool Player::Update(float dt)
     // Temporary position used for collisions
     temPos = position;
 
-    // +1 makes velocities equal on both directions
-    if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-        position.x -= (PLAYER_MOVE_SPEED * dt);
-    if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt + 1);
+    if (!transitioning) // Don't move while transitioning between scenes
+    {
+        // +1 makes velocities equal on both directions
+        if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+            position.x -= (PLAYER_MOVE_SPEED * dt);
+        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt + 1);
 
-    if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
-    if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt + 1);
+        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
+        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt + 1);
+    }
 
     return true;
 }

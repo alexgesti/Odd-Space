@@ -98,6 +98,7 @@
     <ClCompile Include="Source\Battle.cpp" />
     <ClCompile Include="Source\DrunkCustomer.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\Exterior.cpp" />
     <ClCompile Include="Source\Fonts.cpp" />
     <ClCompile Include="Source\GiantBat.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
@@ -123,6 +124,7 @@
     <ClCompile Include="Source\Wc.cpp" />
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Battle.h" />
+    <ClInclude Include="Source\Exterior.h" />
     <ClInclude Include="Source\Collision.h" />
     <ClInclude Include="Source\DrunkCustomer.h" />
     <ClInclude Include="Source\Enemy.h" />
