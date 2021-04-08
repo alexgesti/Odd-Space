@@ -18,7 +18,8 @@ public:
 
 		int doorLayer = map->properties.list.At(0)->data->value;
 		int interactLayer = map->properties.list.At(1)->data->value;
-		int wallLayer = map->properties.list.At(2)->data->value;
+		int interactions = map->properties.list.At(2)->data->value;
+		int wallLayer = map->properties.list.At(3)->data->value;
 		
 		if (player != nullptr)
 		{
@@ -47,6 +48,29 @@ public:
 							break;
 						}
 
+						else if (interactions != -1)
+						{
+							ListItem<ObjectData*>* list;
+							list = map->data.objLayers.At(0)->data->data.start;
+
+							while (list != NULL)
+							{
+								iPoint tile = map->WorldToMap(list->data->rect.x, list->data->rect.y);
+								iPoint tilePos = map->MapToWorld(tile.x, tile.y);
+
+								SDL_Rect tileRect = { tilePos.x, tilePos.y, list->data->rect.w, list->data->rect.h };
+
+								if (Detect(tileRect, player->GetBounds()))
+								{
+									currentInteraction.Clear();
+									currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString());
+									//strcpy_s((char*)currentInteraction.GetString(), currentInteraction.Length(), (char*)list->data->properties.list.start->data->value);
+								}
+
+								list = list->next;
+							}
+						}
+
 						else if (interactLayer != -1 && map->data.layers.At(interactLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 						{
@@ -68,6 +92,8 @@ public:
 	}
 
 	Player* player;
+
+	SString currentInteraction = '/0';
 };
 
 #endif // __COLLISION_H__

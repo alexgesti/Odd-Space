@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="5" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="14" nextobjectid="1">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="5" height="12" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="8">
  <editorsettings>
   <export target="world_cantina_wc.tmx" format="tmx"/>
  </editorsettings>
  <properties>
   <property name="doorLayer" type="int" value="3"/>
   <property name="interactLayer" type="int" value="4"/>
+  <property name="interactions" type="int" value="5"/>
   <property name="wallLayer" type="int" value="2"/>
  </properties>
  <tileset firstgid="1" name="Collisions" tilewidth="32" tileheight="32" tilecount="3" columns="3">
@@ -343,4 +344,21 @@
    <tile/>
   </data>
  </layer>
+ <objectgroup id="14" name="Interactuable">
+  <object id="5" x="64" y="224" width="32" height="32">
+   <properties>
+    <property name="interaction" value="flush"/>
+   </properties>
+  </object>
+  <object id="6" x="32" y="192" width="32" height="32">
+   <properties>
+    <property name="interaction" value="flush"/>
+   </properties>
+  </object>
+  <object id="7" x="96" y="192" width="32" height="32">
+   <properties>
+    <property name="interaction" value="flush"/>
+   </properties>
+  </object>
+ </objectgroup>
 </map>

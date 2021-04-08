@@ -55,6 +55,7 @@ struct Properties
 	{
 		SString name;
 		int value;
+		SString valueString;
 	};
 
 	~Properties()
@@ -103,6 +104,22 @@ struct MapLayer
 	}
 };
 
+struct ObjectData {
+	SString name;
+	int x;
+	int y;
+	int w;
+	int h;
+	SDL_Rect rect;
+
+	Properties properties;
+};
+
+struct ObjectLayer {
+	SString name;
+	List<ObjectData*> data;
+};
+
 // L03: DONE 1: Create a struct needed to hold the information to Map node
 struct MapData
 {
@@ -116,6 +133,8 @@ struct MapData
 
 	// L04: DONE 2: Add a list/array of layers to the map
 	List<MapLayer*> layers;
+
+	List<ObjectLayer*> objLayers;
 };
 
 class Map : public Entity
@@ -182,6 +201,7 @@ private:
 	bool LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadTilesetImage(pugi::xml_node& tileset_node, TileSet* set);
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
+	bool LoadObjLayer(pugi::xml_node& node, ObjectLayer* layer);
 
 	// L06: TODO 6: Load a group of properties 
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);

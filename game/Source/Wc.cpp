@@ -110,6 +110,15 @@ bool Wc::Update(float dt)
 	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		win->ToggleFullscreen(win->window);
 
+	if (collision->currentInteraction != '/0')
+	{
+		if (collision->currentInteraction == "flush")
+		{
+			TransitionToScene(SceneType::CANTINA);
+			collision->currentInteraction = '/0';
+		}
+	}
+
 	if (map->doorHit)
 	{
 		TransitionToScene(SceneType::CANTINA);

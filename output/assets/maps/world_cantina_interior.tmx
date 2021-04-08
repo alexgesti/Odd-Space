@@ -6,6 +6,7 @@
  <properties>
   <property name="doorLayer" type="int" value="10"/>
   <property name="interactLayer" type="int" value="-1"/>
+  <property name="interactions" type="int" value="-1"/>
   <property name="wallLayer" type="int" value="9"/>
  </properties>
  <tileset firstgid="1" name="Cantina_interior" tilewidth="32" tileheight="32" tilecount="315" columns="21">

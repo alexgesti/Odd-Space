@@ -44,6 +44,48 @@ bool Map::Awake(pugi::xml_node& config)
 	return ret;
 }
 
+bool Map::LoadObjLayer(pugi::xml_node& node, ObjectLayer* layer)
+{
+	bool ret = true;
+
+	layer->name = node.attribute("name").as_string();
+
+	pugi::xml_node object;
+	for (object = node.child("object"); object; object = object.next_sibling("object"))
+	{
+		ObjectData* objData = new ObjectData();
+
+		objData->name = object.attribute("name").as_string();
+		objData->x = object.attribute("x").as_int();
+		objData->y = object.attribute("y").as_int();
+		objData->w = object.attribute("width").as_int();
+		objData->h = object.attribute("height").as_int();
+
+		objData->rect = { objData->x, objData->y, objData->w, objData->h };
+
+		pugi::xml_node data = object.child("properties");
+
+		if (data != NULL)
+		{
+			pugi::xml_node prop;
+
+			for (prop = data.child("property"); prop; prop = prop.next_sibling("property"))
+			{
+				Properties::Property* p = new Properties::Property();
+
+				p->name = prop.attribute("name").as_string();
+				p->valueString = prop.attribute("value").as_string();
+
+				objData->properties.list.Add(p);
+			}
+		}
+
+		layer->data.Add(objData);
+	}
+
+	return ret;
+}
+
 // L12a: Methods not required anymore -> Using PathFinding class
 /*
 bool Map::Start()
@@ -417,6 +459,19 @@ bool Map::Load(const char* filename)
 		ret = LoadLayer(layer, lay);
 
 		if (ret == true) data.layers.Add(lay);
+	}
+
+	pugi::xml_node object;
+	for (object = mapFile.child("map").child("objectgroup"); object && ret; object = object.next_sibling("objectgroup"))
+	{
+		if (object.child("properties").child("property").attribute("name").as_string("interaction") == "interaction")
+		{
+			ObjectLayer* set = new ObjectLayer;
+
+			if (ret == true) ret = LoadObjLayer(object, set);
+
+			data.objLayers.Add(set);
+		}
 	}
 
 	if (ret == true)
