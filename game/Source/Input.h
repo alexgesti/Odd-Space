@@ -5,6 +5,7 @@
 
 //#define NUM_KEYS 352
 #define NUM_MOUSE_BUTTONS 5
+#define NUM_PAD_BUTTONS 15
 //#define LAST_KEYS_PRESSED_BUFFER 50
 #define MAX_KEYS 300
 #define MAX_PADS 1
@@ -35,9 +36,13 @@ enum KeyState
 struct GamePad
 {
 	//Input data
-	bool start, back, guide;
-	bool x, y, a, b, l1, r1, l3, r3;
-	bool up, down, left, right;
+	KeyState padButtons[NUM_PAD_BUTTONS];
+
+	KeyState GetPadKey(int id) const
+	{
+		return padButtons[id];
+	}
+
 	float l2, r2;
 	float l_x, l_y, r_x, r_y, l_dz, r_dz;
 
@@ -50,7 +55,7 @@ struct GamePad
 	//Rumble controller
 	int rumble_countdown;
 	float rumble_strength;
-};
+} ;
 
 class Input : public Module
 {

@@ -126,10 +126,10 @@ bool Battle::Update(float dt)
     {
         if (chooseAction)
         {
-            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.right) controllerMenu[f][c++];
-            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.left) controllerMenu[f][c--];
-            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.down) controllerMenu[f++][c];
-            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.up) controllerMenu[f--][c];
+            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[f][c++];
+            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[f][c--];
+            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
             //Establecer limites fila/columna botones
             if (f > 1) f = 0;
             if (f < 0) f = 1;
@@ -144,12 +144,12 @@ bool Battle::Update(float dt)
             buttonsMenu.buttonBack->Update(input, controllerMenu[f][c], dt);
         }
         //Skill Pickup
-        /*else if (chooseSkill)
+        else if (chooseSkill)
         {
-            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || input->pads[0].right) controllerSkill[f][c++];
-            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || input->pads[0].left) controllerSkill[f][c--];
-            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || input->pads[0].down) controllerSkill[f++][c];
-            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || input->pads[0].up) controllerSkill[f--][c];
+            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[f][c++];
+            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[f][c--];
+            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
             //Establecer limites fila/columna botones
             if (f > 1) f = 0;
             if (f < 0) f = 1;
@@ -166,8 +166,8 @@ bool Battle::Update(float dt)
         //Enemy Pickup
         else if (chooseEnemy)
         {
-            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || input->pads[0].down) controllerEnemy[f++];
-            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || input->pads[0].up) controllerEnemy[f--];
+            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
             //Establecer limites fila/columna botones
             if (f > random + 1) f = 0;
             if (f < 0) f = random + 1;
@@ -190,7 +190,7 @@ bool Battle::Update(float dt)
             default:break;
             }
             buttonsEnemies.buttonBack->Update(input, controllerEnemy[f], dt);
-        }*/
+        }
     }
     //Enemy Turn
     if (!playerTurn)
