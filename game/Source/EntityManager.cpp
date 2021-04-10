@@ -2,9 +2,11 @@
 
 #include "Input.h"
 #include "Render.h"
+#include "SceneManager.h"
 
 #include "Player.h"
 #include "Enemy.h"
+#include "MutantRat.h"
 //#include "Item.h"
 
 #include "Defs.h"
@@ -81,7 +83,19 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		ret = Player::GetInstance(input, render);
 		Player::SetCollision(&collision, (Player*)ret);
 		break;
-		//case EntityType::ENEMY: ret = new Enemy;  break;
+		case EntityType::ENEMY:
+			switch (*previousScene)
+			{
+			case SceneType::CANTINA: 
+				break;
+			case SceneType::WC: 
+				ret = MutantRat::GetInstance(input, render);
+				break;
+			case SceneType::EXTERIOR: 
+				break;
+			default: break;
+			}
+			break;
 		//case EntityType::ITEM: ret = new Item();  break;
 		default: break;
 	}

@@ -10,6 +10,7 @@
 class Input;
 class Render;
 class Player;
+enum class SceneType;
 
 class EntityManager : public Module
 {
@@ -58,6 +59,9 @@ private:
 
 	Input* input;
 	Render* render;
+
+public:
+	SceneType* previousScene;
 };
 
 #endif // __ENTITYMANAGER_H__

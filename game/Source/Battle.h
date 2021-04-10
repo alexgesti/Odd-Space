@@ -12,6 +12,7 @@ class Window;
 class Input;
 class Render;
 class Textures;
+class EntityManager;
 class SDL_Texture;
 class GuiButton;
 
@@ -20,7 +21,7 @@ class Battle : public Scene
 public:
 
     // Constructor
-    Battle(Window* win, Input* input, Render* render, Textures* tex);
+    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager);
     // Destructor
     virtual ~Battle();
 
@@ -51,6 +52,7 @@ private:
     Input* input;
     Render* render;
     Textures* tex;
+    EntityManager* entityManager;
 
     struct ButtonsMenu
     {
@@ -79,6 +81,7 @@ private:
         GuiButton* buttonEnemy3;
         GuiButton* buttonEnemy4;
         GuiButton* buttonEnemy5;
+        GuiButton* buttonBack;
     } buttonsEnemies;
 
     bool playerTurn;

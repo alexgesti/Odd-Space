@@ -106,6 +106,16 @@ bool Input::PreUpdate()
 				windowEvents[WE_QUIT] = true;
 			break;
 
+			case(SDL_CONTROLLERDEVICEADDED):
+			
+				HandleDeviceConnection(event.cdevice.which);
+				break;
+			
+			case(SDL_CONTROLLERDEVICEREMOVED):
+			
+				HandleDeviceRemoval(event.cdevice.which);
+				break;
+
 			case SDL_WINDOWEVENT:
 				switch(event.window.event)
 				{

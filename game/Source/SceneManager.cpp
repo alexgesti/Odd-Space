@@ -57,12 +57,13 @@ bool SceneManager::Awake()
 bool SceneManager::Start()
 {
 	previousScene = new SceneType;
+	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win);
-	//current = new Battle(win, input, render, tex);
+	current = new Battle(win, input, render, tex, entityManager);
 	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene);
 	//current = new Wc(win, input, render, tex, entityManager, collision, previousScene);
-	current = new Exterior(win, input, render, tex, entityManager, collision, previousScene);
+	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene);
 	current->Load();
 
 	next = nullptr;

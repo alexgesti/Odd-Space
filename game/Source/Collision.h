@@ -42,8 +42,7 @@ public:
 						else if (doorLayer != -1 && map->data.layers.At(doorLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 						{
-							if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;
-							if (player->temPos.y != player->position.y) player->position.y = player->temPos.y;
+							if (player->temPos != player->position) player->position = player->temPos;
 							map->doorHit = true;
 							break;
 						}
@@ -65,8 +64,7 @@ public:
 									currentInteraction.Clear();
 									currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString());
 
-									if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;
-									if (player->temPos.y != player->position.y) player->position.y = player->temPos.y;
+									if (player->temPos != player->position) player->position = player->temPos;
 								}
 
 								list = list->next;
