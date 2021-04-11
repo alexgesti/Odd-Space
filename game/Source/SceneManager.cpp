@@ -12,6 +12,7 @@
 #include "Textures.h"
 #include "Window.h"
 #include "EntityManager.h"
+#include "Audio.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -23,7 +24,7 @@
 #define FADEOUT_TRANSITION_SPEED	2.0f
 #define FADEIN_TRANSITION_SPEED		2.0f
 
-SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager) : Module()
+SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio) : Module()
 {
 	name.Create("scenemanager");
 
@@ -36,6 +37,7 @@ SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* 
 	this->tex = tex;
 	this->win = win;
 	this->entityManager = entityManager;
+	this->audio = audio;
 
 	this->collision = &entityManager->collision;
 }
@@ -62,9 +64,9 @@ bool SceneManager::Start()
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
-	current = new Battle(win, input, render, tex, entityManager, font);
+	//current = new Battle(win, input, render, tex, entityManager, font);
 	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font);
-	//current = new Wc(win, input, render, tex, entityManager, collision, previousScene, font);
+	current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font);
 	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font);
 	current->Load();
 
@@ -191,7 +193,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
 		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font); break;
-		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, previousScene, font); break;
+		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font); break;
 		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font); break;
 		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, font); break;
 		default: break;

@@ -53,7 +53,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 
 	if (*previousScene == SceneType::CANTINA)
 	{
-		render->camera.x = 0;
+		render->camera.x = -32;
 		render->camera.y = TOP_CAMERA_LIMIT;
 
 		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint (990, 325);
@@ -61,7 +61,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 
 	else
 	{
-		render->camera.x = 0;
+		render->camera.x = -32;
 		render->camera.y = BOTTOM_CAMERA_LIMIT;
 
 		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint (900, 650);

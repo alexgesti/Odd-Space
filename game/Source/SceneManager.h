@@ -12,6 +12,7 @@ class Render;
 class Textures;
 class EntityManager;
 class Collision;
+class Audio;
 
 class Font;
 
@@ -20,7 +21,7 @@ class SceneManager : public Module
 public:
 
 	// Constructor
-	SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager);
+	SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio);
 	// Destructor
 	virtual ~SceneManager();
 
@@ -49,6 +50,7 @@ private:
 	Render* render;
 	Textures* tex;
 	EntityManager* entityManager;
+	Audio* audio;
 
 	Collision* collision;
 

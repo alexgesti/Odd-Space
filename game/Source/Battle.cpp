@@ -168,8 +168,8 @@ bool Battle::Draw()
     SDL_Rect rect = { 0, 550, 500, 170 };
     render->DrawTexture(UI, 0, 550, &rect);
 
-    rect = { 500, 550, 780, 170 };
-    render->DrawTexture(UI, 500, 550, &rect);
+    /*rect = { 500, 550, 780, 170 };
+    render->DrawTexture(UI, 500, 550, &rect);*/
 
     //Player
     rect = { 0, 433, 225, 117 };

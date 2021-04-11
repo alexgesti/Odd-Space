@@ -180,3 +180,22 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+bool Audio::UnloadFx(uint id)
+{
+	bool ret = false;
+
+	if (fx[id] != nullptr)
+	{
+		Mix_FreeChunk(fx[id]);
+		fx[id] = nullptr;
+		ret = true;
+	}
+
+	return ret;
+}
+
+bool Audio::IsPlaying(uint id)
+{
+	return Mix_Playing(id);
+}

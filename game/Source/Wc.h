@@ -14,6 +14,7 @@ class Input;
 class Render;
 class Textures;
 class EntityManager;
+class Audio;
 
 class Collision;
 
@@ -22,7 +23,7 @@ class Wc : public Scene
 public:
 
     // Constructor
-    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font);
+    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font);
     // Destructor
     virtual ~Wc();
 
@@ -47,10 +48,13 @@ private:
     Render* render;
     Textures* tex;
     EntityManager* entityManager;
+    Audio* audio;
 
     Collision* collision;
 
     SceneType* previousScene;
+
+    int wcFx;
 };
 
 #endif // __WC_H__

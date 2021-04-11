@@ -28,7 +28,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(render);
 	audio = new Audio();
 	entityManager = new EntityManager(input, render);
-	sceneManager = new SceneManager(input, render, tex, win, entityManager);
+	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp

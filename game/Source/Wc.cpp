@@ -14,13 +14,14 @@
 
 
 // Constructor
-Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font) : Scene()
+Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font) : Scene()
 {
 	this->win = win;
 	this->input = input;
 	this->render = render;
 	this->tex = tex;
 	this->entityManager = entityManager;
+	this->audio = audio;
 
 	this->collision = collision;
 
@@ -52,6 +53,8 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	render->camera.y = 130;
 
 	entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint(64, 285);
+
+	wcFx = audio->LoadFx("assets/audio/fx/toilet.wav");
 
 	//map = new Map(tex);
 
@@ -111,9 +114,10 @@ bool Wc::Update(float dt)
 
 	if (collision->currentInteraction != '/0')
 	{
+		bool stopFx = false;
 		if (collision->currentInteraction == "flush")
 		{
-			TransitionToScene(SceneType::CANTINA);
+			if(!audio->IsPlaying(wcFx)) audio->PlayFx(wcFx);
 			collision->currentInteraction = '/0';
 		}
 	}
@@ -147,6 +151,8 @@ bool Wc::Unload()
 	map->Unload();
 	delete map;
 	map = nullptr;
+
+	audio->UnloadFx(wcFx - 1);
 
 	return true;
 }

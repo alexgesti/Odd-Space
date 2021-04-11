@@ -29,13 +29,17 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-
-
 	// Play a music file
 	bool PlayMusic(const char* path, float fadeTime = DEFAULT_MUSIC_FADE_TIME);
 
 	// Load a WAV in memory
 	unsigned int LoadFx(const char* path);
+
+	// Unload a WAV
+	bool UnloadFx(uint id);
+
+	// Checks if a Fx sound is playing
+	bool IsPlaying(uint id);
 
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
