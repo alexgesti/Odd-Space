@@ -312,13 +312,13 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="3"/>
    <tile/>
    <tile gid="3"/>
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="3"/>
+   <tile/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -344,17 +344,7 @@
   </data>
  </layer>
  <objectgroup id="14" name="Interactuable">
-  <object id="5" x="64" y="224" width="32" height="32">
-   <properties>
-    <property name="interaction" value="flush"/>
-   </properties>
-  </object>
-  <object id="6" x="32" y="192" width="32" height="32">
-   <properties>
-    <property name="interaction" value="flush"/>
-   </properties>
-  </object>
-  <object id="7" x="96" y="192" width="32" height="32">
+  <object id="5" x="64" y="192" width="32" height="32">
    <properties>
     <property name="interaction" value="flush"/>
    </properties>
