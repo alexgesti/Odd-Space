@@ -56,14 +56,16 @@ bool SceneManager::Awake()
 // Called before the first frame
 bool SceneManager::Start()
 {
+	font = new Font("assets/typo/Adore64.xml", tex);
+
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
-	//current = new Battle(win, input, render, tex, entityManager);
-	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene);
-	//current = new Wc(win, input, render, tex, entityManager, collision, previousScene);
-	current = new Exterior(win, input, render, tex, entityManager, collision, previousScene);
+	current = new Battle(win, input, render, tex, entityManager, font);
+	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font);
+	//current = new Wc(win, input, render, tex, entityManager, collision, previousScene, font);
+	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font);
 	current->Load();
 
 	next = nullptr;
@@ -136,7 +138,6 @@ bool SceneManager::Update(float dt)
 
 				// Activate fade out effect to next loaded screen
 				fadeOutCompleted = true;
-				entityManager->CreateEntity(EntityType::PLAYER)->transitioning = false;
 			}
 		}
 		else  // Transition fade out logic
@@ -148,6 +149,7 @@ bool SceneManager::Update(float dt)
 				transitionAlpha = 0.0f;
 				fadeOutCompleted = false;
 				onTransition = false;
+				entityManager->CreateEntity(EntityType::PLAYER)->transitioning = false;
 			}
 		}
 	}
@@ -158,7 +160,7 @@ bool SceneManager::Update(float dt)
 	// Draw full screen rectangle in front of everything
 	if (onTransition)
 	{
-		render->DrawRectangle({ 0, 0, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
+		render->DrawRectangle({ -render->camera.x, -render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
 	}
 
 	// L12b: Debug pathfinding
@@ -188,10 +190,10 @@ bool SceneManager::Update(float dt)
 		{
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
-		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene); break;
-		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, previousScene); break;
-		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene); break;
-		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager); break;
+		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font); break;
+		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, previousScene, font); break;
+		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font); break;
+		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, font); break;
 		default: break;
 		}
 

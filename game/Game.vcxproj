@@ -99,7 +99,7 @@
     <ClCompile Include="Source\DrunkCustomer.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Exterior.cpp" />
-    <ClCompile Include="Source\Fonts.cpp" />
+    <ClCompile Include="Source\Font.cpp" />
     <ClCompile Include="Source\GiantBat.cpp" />
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\GuiCheckBox.cpp" />
@@ -130,7 +130,7 @@
     <ClInclude Include="Source\Enemy.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
-    <ClInclude Include="Source\Fonts.h" />
+    <ClInclude Include="Source\Font.h" />
     <ClInclude Include="Source\GiantBat.h" />
     <ClInclude Include="Source\GuiButton.h" />
     <ClInclude Include="Source\GuiCheckBox.h" />

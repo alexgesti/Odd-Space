@@ -13,6 +13,8 @@ class Textures;
 class EntityManager;
 class Collision;
 
+class Font;
+
 class SceneManager : public Module
 {
 public:
@@ -53,6 +55,8 @@ private:
 	SceneType* previousScene;
 	Scene* current;
 	Scene* next;
+
+	Font* font;
 
 	// Required variables to manage screen transitions (fade-in, fade-out)
 	bool onTransition;

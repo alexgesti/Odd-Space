@@ -13,7 +13,6 @@ class Window;
 class Input;
 class Render;
 class Textures;
-class Fonts;
 class Audio;
 class EntityManager;
 class SceneManager;
@@ -80,7 +79,6 @@ public:
 	Input* input;
 	Render* render;
 	Textures* tex;
-	Fonts* fonts;
 	Audio* audio;
 	EntityManager* entityManager;
 	SceneManager* sceneManager;

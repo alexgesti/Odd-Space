@@ -14,7 +14,7 @@
 
 
 // Constructor
-Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene) : Scene()
+Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -25,6 +25,8 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 	this->collision = collision;
 
 	this->previousScene = previousScene;
+
+	this->font = font;
 
 	map = new Map(tex);
 

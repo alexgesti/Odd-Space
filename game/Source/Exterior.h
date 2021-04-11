@@ -5,6 +5,7 @@
 #define TOP_CAMERA_LIMIT 0
 
 #include "Scene.h"
+#include "Font.h"
 
 class Map;
 
@@ -21,7 +22,7 @@ class Exterior : public Scene
 public:
 
     // Constructor
-    Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene);
+    Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font);
     // Destructor
     virtual ~Exterior();
 
@@ -50,6 +51,8 @@ private:
     Collision* collision;
 
     SceneType* previousScene;
+
+    Font* font;
 };
 
 #endif // __EXTERIOR_H__

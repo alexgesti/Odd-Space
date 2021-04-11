@@ -60,23 +60,61 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
     return false;
 }
 
-bool GuiButton::Draw(Render* render)
+bool GuiButton::Draw(Render* render, Font* font, bool camera)
 {
     // Draw the right button depending on state
     switch (state)
     {
-    case GuiControlState::DISABLED: render->DrawRectangle(bounds, 100, 100, 100, 255);
+    case GuiControlState::DISABLED: render->DrawRectangle(bounds, 0, 0, 100, 255, true, camera);
         break;
-    case GuiControlState::NORMAL: render->DrawRectangle(bounds, 0, 255, 0, 255);
+    case GuiControlState::NORMAL:
+        if (font != nullptr)
+        {
+            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 0, 0, 0, 255 });
+        }
+        //render->DrawRectangle(bounds, 0, 255, 0, 255, true, camera);
         break;
-    case GuiControlState::FOCUSED: render->DrawRectangle(bounds, 255, 255, 0, 255);
+    case GuiControlState::FOCUSED:
+        if (font != nullptr)
+        {
+            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 255, 0, 0, 255 });
+        }
+        //render->DrawRectangle(bounds, 255, 255, 0, 255, true, camera);
         break;
-    case GuiControlState::PRESSED: render->DrawRectangle(bounds, 0, 255, 255, 255);
+    case GuiControlState::PRESSED:
+        if (font != nullptr)
+        {
+            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 0, 255, 0, 255 });
+        }
+        //render->DrawRectangle(bounds, 0, 255, 255, 255, true, camera);
         break;
-    case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
+    case GuiControlState::SELECTED:
+        if (font != nullptr)
+        {
+            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 0, 0, 255, 255 });
+        }
+        //render->DrawRectangle(bounds, 0, 255, 0, 255, true, camera);
         break;
     default:
         break;
+    }
+
+    if (font != nullptr)
+    {
+        /*const char* name = text.GetString();
+        float textWidth = 0.0f;
+
+        float scale = (float)bounds.h / font->GetCharRec(32).h;
+
+        for (int i = 0; name[i] != 0; i++)
+        {
+            textWidth += font->GetCharRec(name[i]).w * scale;
+        }
+
+        int positionX = bounds.x + (bounds.w / 2) - ((int)textWidth / 2);
+
+        render->DrawText(font, text.GetString(), positionX, bounds.y, bounds.h/3, 1, { 255, 255, 255, 255 });*/
+        //render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 255, 255, 255, 255 });
     }
 
     return false;

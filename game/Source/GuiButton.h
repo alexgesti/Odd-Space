@@ -5,6 +5,7 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Font.h"
 
 class GuiButton : public GuiControl
 {
@@ -14,7 +15,7 @@ public:
     virtual ~GuiButton();
 
     bool Update(Input* input, int buttonSelected, float dt);
-    bool Draw(Render* render);
+    bool Draw(Render* render, Font* font, bool camera = true);
 
 private:
 

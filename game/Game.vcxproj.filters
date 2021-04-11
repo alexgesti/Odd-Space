@@ -60,9 +60,6 @@
     <ClCompile Include="Source\GuiSlider.cpp">
       <Filter>GuiControl</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Fonts.cpp">
-      <Filter>Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Source\StandardPirates.cpp">
       <Filter>Entities\Enemies</Filter>
     </ClCompile>
@@ -86,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="Source\Exterior.cpp">
       <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Font.cpp">
+      <Filter>Utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +177,6 @@
     <ClInclude Include="Source\GuiSlider.h">
       <Filter>GuiControl</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Fonts.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\StandardPirates.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
@@ -212,6 +209,9 @@
     </ClInclude>
     <ClInclude Include="Source\Exterior.h">
       <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Font.h">
+      <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

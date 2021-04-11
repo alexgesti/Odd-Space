@@ -2,6 +2,7 @@
 #define __SCENEBATTLE_H__
 
 #include "Scene.h"
+#include "Font.h"
 
 //#define MAX_ZOOM 3.0f
 //#define MIN_ZOOM 0.3f
@@ -21,7 +22,7 @@ class Battle : public Scene
 public:
 
     // Constructor
-    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager);
+    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Font* font);
     // Destructor
     virtual ~Battle();
 
@@ -54,6 +55,10 @@ private:
     Render* render;
     Textures* tex;
     EntityManager* entityManager;
+
+    Font* font;
+
+    SDL_Texture* UI;
 
     struct ButtonsMenu
     {

@@ -10,6 +10,7 @@
 #define LOWER_DOOR 760
 
 #include "Scene.h"
+#include "Font.h"
 
 class Map;
 
@@ -26,7 +27,7 @@ class Cantina : public Scene
 public:
 
     // Constructor
-    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene);
+    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font);
     // Destructor
     virtual ~Cantina();
 
@@ -55,6 +56,8 @@ private:
     Collision* collision;
 
     SceneType* previousScene;
+
+    Font* font;
 };
 
 #endif // __CANTINA_H__

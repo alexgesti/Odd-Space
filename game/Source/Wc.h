@@ -5,6 +5,7 @@
 #define TOP_CAMERA_LIMIT 1000
 
 #include "Scene.h"
+#include "Font.h"
 
 class Map;
 
@@ -21,7 +22,7 @@ class Wc : public Scene
 public:
 
     // Constructor
-    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene);
+    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font);
     // Destructor
     virtual ~Wc();
 

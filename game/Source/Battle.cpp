@@ -15,13 +15,15 @@
 
 
 // Constructor
-Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager)
+Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Font* font)
 {
     this->win = win;
     this->input = input;
     this->render = render;
     this->tex = tex;
     this->entityManager = entityManager;
+
+    this->font = font;
 
     /*map = new Map(tex);
 
@@ -49,6 +51,8 @@ Battle::~Battle()
 bool Battle::Load()
 {
     render->camera = { 0, 0 };
+
+    UI = tex->Load("assets/sprites/UI/UI_Text.png");
 
     // GUI: Initialize required controls for the screen
     buttonsMenu.buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "menuBattle");
@@ -158,35 +162,45 @@ bool Battle::Update(float dt)
 
 bool Battle::Draw()
 {
+    //BG
     render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 255, 255, 255);
     //Menu
-    render->DrawRectangle({ 0, 550, 500, 170 }, 255, 233, 0, 255);
-    render->DrawRectangle({ 500, 550, 780, 170 }, 255, 150, 0, 255);
+    SDL_Rect rect = { 0, 550, 500, 170 };
+    render->DrawTexture(UI, 0, 550, &rect);
+
+    rect = { 500, 550, 780, 170 };
+    render->DrawTexture(UI, 500, 550, &rect);
+
     //Player
-    render->DrawRectangle({ 0, 475, 225, 75 }, 255, 0, 0, 255);
-    render->DrawRectangle({ 225, 475, 225, 75 }, 0, 255, 0, 255);
+    rect = { 0, 433, 225, 117 };
+    render->DrawTexture(UI, 0, 433, &rect);
+
+    rect = { 225, 433, 225, 117 };
+    render->DrawTexture(UI, 225, 433, &rect);
+
+    //render->DrawTexture(UI, 0, 0, )
 
     entityManager->Draw();
     
     //Action Draw
     if (chooseAction)
     {
-        buttonsMenu.buttonAttack->Draw(render);
-        buttonsMenu.buttonGuard->Draw(render);
-        buttonsMenu.buttonSkills->Draw(render);
-        buttonsMenu.buttonRun->Draw(render);
-        buttonsMenu.buttonItem->Draw(render);
-        buttonsMenu.buttonBack->Draw(render);
+        buttonsMenu.buttonAttack->Draw(render, font);
+        buttonsMenu.buttonGuard->Draw(render, font);
+        buttonsMenu.buttonSkills->Draw(render, font);
+        buttonsMenu.buttonRun->Draw(render, font);
+        buttonsMenu.buttonItem->Draw(render, font);
+        buttonsMenu.buttonBack->Draw(render, font);
     }
     //Skill Draw
     else if (chooseSkill)
     {
-        buttonsSkills.buttonSkill1->Draw(render);
-        buttonsSkills.buttonSkill2->Draw(render);
-        buttonsSkills.buttonSkill3->Draw(render);
-        buttonsSkills.buttonSkill4->Draw(render);
-        buttonsSkills.buttonSkill5->Draw(render);
-        buttonsSkills.buttonBack->Draw(render);
+        buttonsSkills.buttonSkill1->Draw(render, font);
+        buttonsSkills.buttonSkill2->Draw(render, font);
+        buttonsSkills.buttonSkill3->Draw(render, font);
+        buttonsSkills.buttonSkill4->Draw(render, font);
+        buttonsSkills.buttonSkill5->Draw(render, font);
+        buttonsSkills.buttonBack->Draw(render, font);
     }
     //Enemy Draw
     else if (chooseEnemy)
@@ -194,19 +208,19 @@ bool Battle::Draw()
         switch (random)
         {
         case 4:
-            buttonsEnemies.buttonEnemy5->Draw(render);
+            buttonsEnemies.buttonEnemy5->Draw(render, font);
         case 3:
-            buttonsEnemies.buttonEnemy4->Draw(render);
+            buttonsEnemies.buttonEnemy4->Draw(render, font);
         case 2:
-            buttonsEnemies.buttonEnemy3->Draw(render);
+            buttonsEnemies.buttonEnemy3->Draw(render, font);
         case 1:
-            buttonsEnemies.buttonEnemy2->Draw(render);
+            buttonsEnemies.buttonEnemy2->Draw(render, font);
         case 0:
-            buttonsEnemies.buttonEnemy1->Draw(render);
+            buttonsEnemies.buttonEnemy1->Draw(render, font);
             break;
         default:break;
         }
-        buttonsEnemies.buttonBack->Draw(render);
+        buttonsEnemies.buttonBack->Draw(render, font);
     }
 
     return false;
