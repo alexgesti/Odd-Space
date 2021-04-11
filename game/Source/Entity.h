@@ -9,6 +9,7 @@ struct Stat
 {
     int HP;
     int SP;
+    int LVL;
     int ATK;
     int DEF;
     int SPL;
@@ -66,6 +67,7 @@ public:
     // Possible properties, it depends on how generic we
     // want our Entity class, maybe it's not renderable...
     iPoint position;        // Use a float instead?
+    bool transitioning = false;
     bool renderable = false;
     //SDL_Texture* texture;
 };

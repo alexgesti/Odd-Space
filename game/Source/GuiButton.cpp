@@ -13,6 +13,8 @@ GuiButton::~GuiButton()
 
 bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 {
+    GamePad& pad = input->pads[0];
+
     if (state != GuiControlState::DISABLED)
     {
         int mouseX, mouseY;
@@ -41,13 +43,13 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
         {
             state = GuiControlState::FOCUSED;
 
-            if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
+            if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
             {
                 state = GuiControlState::PRESSED;
             }
 
             // If mouse button pressed -> Generate event!
-            if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP)
+            if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
             {
                 NotifyObserver();
             }

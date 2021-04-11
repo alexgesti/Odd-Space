@@ -12,8 +12,8 @@ StandardPirates* StandardPirates::instance = nullptr;
 // Instance creator
 StandardPirates* StandardPirates::GetInstance(Input* input, Render* render)
 {
-    if (instance == nullptr) instance = new StandardPirates(input, render);
-    else LOG("Returning standart pirate instance");
+    instance = new StandardPirates(input, render);
+    LOG("Returning standart pirate instance");
 
     return instance;
 }
@@ -31,7 +31,7 @@ StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType
 
 
     texture = NULL;
-    position = iPoint(12 * 16, 27 * 16);
+    position = iPoint(0, 0);
 
     width = 16;
     height = 32;
@@ -39,6 +39,7 @@ StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType
     //Hero stats
     standardPirate.stats.HP = 15;
     standardPirate.stats.SP = 10;
+    standardPirate.stats.LVL = 1;
     standardPirate.stats.ATK = 6;
     standardPirate.stats.DEF = 3;
     standardPirate.stats.SPL = 5;
@@ -67,7 +68,7 @@ bool StandardPirates::Draw()
     //SDL_Rect rec = { 0 };
     //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
 
     return false;
 }

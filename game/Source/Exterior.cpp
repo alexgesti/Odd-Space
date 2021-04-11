@@ -51,20 +51,18 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 
 	if (*previousScene == SceneType::CANTINA)
 	{
-		render->camera.x = 30;
+		render->camera.x = 0;
 		render->camera.y = TOP_CAMERA_LIMIT;
 
-		entityManager->GetPlayer()->position.x = 930;
-		entityManager->GetPlayer()->position.y = 325;
+		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint (990, 325);
 	}
 
 	else
 	{
-		render->camera.x = 80;
+		render->camera.x = 0;
 		render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		entityManager->GetPlayer()->position.x = 900;
-		entityManager->GetPlayer()->position.y = 650;
+		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint (900, 650);
 	}
 
 	//map = new Map(tex);
@@ -124,7 +122,7 @@ bool Exterior::Update(float dt)
 		win->ToggleFullscreen(win->window);
 
 	// Camera moves with player when it is at the middle of the screen
-	render->camera.y = -entityManager->entities.At(0)->data->position.y + render->camera.h / 2;
+	render->camera.y = -entityManager->CreateEntity(EntityType::PLAYER)->position.y + render->camera.h / 2;
 
 	// Camera stops at limits
 	if (render->camera.y < BOTTOM_CAMERA_LIMIT) render->camera.y = BOTTOM_CAMERA_LIMIT;

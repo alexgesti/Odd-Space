@@ -12,8 +12,8 @@ MutantRat* MutantRat::instance = nullptr;
 // Instance creator
 MutantRat* MutantRat::GetInstance(Input* input, Render* render)
 {
-    if (instance == nullptr) instance = new MutantRat(input, render);
-    else LOG("Returning standart pirate instance");
+    instance = new MutantRat(input, render);
+    LOG("Returning mutant rat instance");
 
     return instance;
 }
@@ -24,14 +24,14 @@ void MutantRat::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-MutantRat::MutantRat(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRATE)
+MutantRat::MutantRat(Input* input, Render* render) : Enemy(EnemyType::MUTANTRAT)
 {
     this->input = input;
     this->render = render;
 
 
     texture = NULL;
-    position = iPoint(12 * 16, 27 * 16);
+    position = iPoint(0, 0);
 
     width = 16;
     height = 32;
@@ -39,6 +39,7 @@ MutantRat::MutantRat(Input* input, Render* render) : Enemy(EnemyType::STANDARTPI
     //Hero stats
     mutantRat.stats.HP = 45;
     mutantRat.stats.SP = 0;
+    mutantRat.stats.LVL = 3;
     mutantRat.stats.ATK = 30;
     mutantRat.stats.DEF = 12;
     mutantRat.stats.SPL = 3;
@@ -67,7 +68,7 @@ bool MutantRat::Draw()
     //SDL_Rect rec = { 0 };
     //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
 
     return false;
 }

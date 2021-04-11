@@ -32,9 +32,6 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-
-	Player* GetPlayer();
-
 	// Additional methods
 	Entity* CreateEntity(EntityType type);
 	void DestroyEntity(Entity* entity);
@@ -47,7 +44,7 @@ public:
 
 public:
 
-	List<Entity*> entities;
+	List<Entity*> entities[4];
 
 	float accumulatedTime = 0.0f;
 	float updateMsCycle = 0.0f;
@@ -59,6 +56,9 @@ private:
 
 	Input* input;
 	Render* render;
+
+	//Number of list created
+	int numList = 4;
 
 public:
 	SceneType* previousScene;

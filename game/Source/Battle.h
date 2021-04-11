@@ -41,6 +41,7 @@ public:
 
     //Damage Calculator
     int DamageCalculator();
+    void PlayerTurn(float dt);
 
 
     // Declare on mouse click event

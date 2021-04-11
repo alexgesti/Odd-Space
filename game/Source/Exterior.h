@@ -1,7 +1,7 @@
 #ifndef __EXTERIOR_H__
 #define __EXTERIOR_H__
 
-#define BOTTOM_CAMERA_LIMIT -15
+#define BOTTOM_CAMERA_LIMIT -48
 #define TOP_CAMERA_LIMIT 0
 
 #include "Scene.h"

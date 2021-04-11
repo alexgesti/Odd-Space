@@ -50,6 +50,7 @@ private:
 
 	Collision* collision;
 
+	SceneType* previousScene;
 	Scene* current;
 	Scene* next;
 
@@ -57,9 +58,6 @@ private:
 	bool onTransition;
 	bool fadeOutCompleted;
 	float transitionAlpha;
-
-public: 
-	SceneType* previousScene;
 };
 
 #endif // __SCENEMANAGER_H__

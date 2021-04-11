@@ -48,6 +48,8 @@ Battle::~Battle()
 
 bool Battle::Load()
 {
+    render->camera = { 0, 0 };
+
     // GUI: Initialize required controls for the screen
     buttonsMenu.buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "menuBattle");
     buttonsMenu.buttonAttack->SetObserver(this);
@@ -80,35 +82,53 @@ bool Battle::Load()
     {
     case 4:
         entityManager->CreateEntity(EntityType::ENEMY);
-        buttonsEnemies.buttonEnemy5 = new GuiButton(13, {300, 320, 300, 80 }, "enemyBattle");
+        entityManager->entities[1].At(random - 4)->data->position = iPoint(300 * 5, 500);
+
+        buttonsEnemies.buttonEnemy5 = new GuiButton(17, {300 * 5, 320, 300, 80 }, "enemyBattle");
         buttonsEnemies.buttonEnemy5->SetObserver(this);
-        controllerEnemy[0] = 13;
+        controllerEnemy[4] = 17;
+
     case 3:
         entityManager->CreateEntity(EntityType::ENEMY);
-        buttonsEnemies.buttonEnemy4 = new GuiButton(14, {300, 320, 300, 80 }, "enemyBattle");
+        entityManager->entities[1].At(random - 3)->data->position = iPoint(300 * 4, 500);
+
+        buttonsEnemies.buttonEnemy4 = new GuiButton(16, {300 * 4, 320, 300, 80 }, "enemyBattle");
         buttonsEnemies.buttonEnemy4->SetObserver(this);
-        controllerEnemy[1] = 14;
+        controllerEnemy[3] = 16;
+
     case 2:
         entityManager->CreateEntity(EntityType::ENEMY);
-        buttonsEnemies.buttonEnemy3 = new GuiButton(15, {300, 320, 300, 80 }, "enemyBattle");
+        entityManager->entities[1].At(random - 2)->data->position = iPoint(300 * 3, 500);
+
+        buttonsEnemies.buttonEnemy3 = new GuiButton(15, {300 * 3, 320, 300, 80 }, "enemyBattle");
         buttonsEnemies.buttonEnemy3->SetObserver(this);
         controllerEnemy[2] = 15;
+
     case 1:
         entityManager->CreateEntity(EntityType::ENEMY);
-        buttonsEnemies.buttonEnemy2 = new GuiButton(16, {300, 320, 300, 80 }, "enemyBattle");
+        entityManager->entities[1].At(random - 1)->data->position = iPoint(300 * 2, 500);
+
+        buttonsEnemies.buttonEnemy2 = new GuiButton(14, {300 * 2, 320, 300, 80 }, "enemyBattle");
         buttonsEnemies.buttonEnemy2->SetObserver(this);
-        controllerEnemy[3] = 16;
+        controllerEnemy[1] = 14;
+
     case 0:
         entityManager->CreateEntity(EntityType::ENEMY);
-        buttonsEnemies.buttonEnemy1 = new GuiButton(17, {300, 320, 300, 80 }, "enemyBattle");
+        entityManager->entities[1].At(random)->data->position = iPoint(300, 500);
+
+        buttonsEnemies.buttonEnemy1 = new GuiButton(13, {300, 320, 300, 80 }, "enemyBattle");
         buttonsEnemies.buttonEnemy1->SetObserver(this);
-        controllerEnemy[4] = 17;
+        controllerEnemy[0] = 13;
+
+    default:
+        buttonsEnemies.buttonBack = new GuiButton(18, { 1000, 600, 300, 80 }, "enemyBattle");
+        buttonsEnemies.buttonBack->SetObserver(this);
+        controllerEnemy[random + 1] = 18;
         break;
-    default:break;
     }
-    buttonsEnemies.buttonBack = new GuiButton(18, { 1000, 600, 300, 80 }, "enemyBattle");
-    buttonsEnemies.buttonBack->SetObserver(this);
-    controllerEnemy[random + 1] = 18;
+
+    //Render Players
+    entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint(300 / 2, 500);
 
     //Calculo de turno
 
@@ -119,78 +139,13 @@ bool Battle::Update(float dt)
 {
     bool ret = false;
 
-    GamePad& pad = input->pads[0];
+    //Evitar el free movement del player
+    entityManager->CreateEntity(EntityType::PLAYER)->transitioning = true;
 
     //Player Turn
     if (playerTurn)
     {
-        if (chooseAction)
-        {
-            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[f][c++];
-            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[f][c--];
-            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
-            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
-            //Establecer limites fila/columna botones
-            if (f > 1) f = 0;
-            if (f < 0) f = 1;
-            if (c > 2) c = 0;
-            if (c < 0) c = 2;
-
-            buttonsMenu.buttonAttack->Update(input, controllerMenu[f][c], dt);
-            buttonsMenu.buttonGuard->Update(input, controllerMenu[f][c], dt);
-            buttonsMenu.buttonSkills->Update(input, controllerMenu[f][c], dt);
-            buttonsMenu.buttonRun->Update(input, controllerMenu[f][c], dt);
-            buttonsMenu.buttonItem->Update(input, controllerMenu[f][c], dt);
-            buttonsMenu.buttonBack->Update(input, controllerMenu[f][c], dt);
-        }
-        //Skill Pickup
-        else if (chooseSkill)
-        {
-            if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[f][c++];
-            if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[f][c--];
-            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
-            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
-            //Establecer limites fila/columna botones
-            if (f > 1) f = 0;
-            if (f < 0) f = 1;
-            if (c > 2) c = 0;
-            if (c < 0) c = 2;
-
-            buttonsSkills.buttonSkill1->Update(input, controllerSkill[f][c], dt);
-            buttonsSkills.buttonSkill2->Update(input, controllerSkill[f][c], dt);
-            buttonsSkills.buttonSkill3->Update(input, controllerSkill[f][c], dt);
-            buttonsSkills.buttonSkill4->Update(input, controllerSkill[f][c], dt);
-            buttonsSkills.buttonSkill5->Update(input, controllerSkill[f][c], dt);
-            buttonsSkills.buttonBack->Update(input, controllerSkill[f][c], dt);
-        }
-        //Enemy Pickup
-        else if (chooseEnemy)
-        {
-            if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
-            if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
-            //Establecer limites fila/columna botones
-            if (f > random + 1) f = 0;
-            if (f < 0) f = random + 1;
-
-            LOG("%d\t%d\t%d", random, f, controllerEnemy[f]);
-
-            switch (random)
-            {
-            case 4:
-                buttonsEnemies.buttonEnemy5->Update(input, controllerEnemy[f], dt);
-            case 3:
-                buttonsEnemies.buttonEnemy4->Update(input, controllerEnemy[f], dt);
-            case 2:
-                buttonsEnemies.buttonEnemy3->Update(input, controllerEnemy[f], dt);
-            case 1:
-                buttonsEnemies.buttonEnemy2->Update(input, controllerEnemy[f], dt);
-            case 0:
-                buttonsEnemies.buttonEnemy1->Update(input, controllerEnemy[f], dt);
-                break;
-            default:break;
-            }
-            buttonsEnemies.buttonBack->Update(input, controllerEnemy[f], dt);
-        }
+        PlayerTurn(dt);
     }
     //Enemy Turn
     if (!playerTurn)
@@ -210,8 +165,10 @@ bool Battle::Draw()
     //Player
     render->DrawRectangle({ 0, 475, 225, 75 }, 255, 0, 0, 255);
     render->DrawRectangle({ 225, 475, 225, 75 }, 0, 255, 0, 255);
+
+    entityManager->Draw();
     
-    //Action Pickup
+    //Action Draw
     if (chooseAction)
     {
         buttonsMenu.buttonAttack->Draw(render);
@@ -221,7 +178,7 @@ bool Battle::Draw()
         buttonsMenu.buttonItem->Draw(render);
         buttonsMenu.buttonBack->Draw(render);
     }
-    //Skill Pickup
+    //Skill Draw
     else if (chooseSkill)
     {
         buttonsSkills.buttonSkill1->Draw(render);
@@ -231,7 +188,7 @@ bool Battle::Draw()
         buttonsSkills.buttonSkill5->Draw(render);
         buttonsSkills.buttonBack->Draw(render);
     }
-    //Enemy Pickup
+    //Enemy Draw
     else if (chooseEnemy)
     {
         switch (random)
@@ -261,6 +218,77 @@ bool Battle::Unload()
     return false;
 }
 
+void Battle::PlayerTurn(float dt)
+{
+    GamePad& pad = input->pads[0];
+
+    if (chooseAction)
+    {
+        if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[f][c++];
+        if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[f][c--];
+        if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+        if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
+        //Establecer limites fila/columna botones
+        if (f > 1) f = 0;
+        if (f < 0) f = 1;
+        if (c > 2) c = 0;
+        if (c < 0) c = 2;
+    
+        buttonsMenu.buttonAttack->Update(input, controllerMenu[f][c], dt);
+        buttonsMenu.buttonGuard->Update(input, controllerMenu[f][c], dt);
+        buttonsMenu.buttonSkills->Update(input, controllerMenu[f][c], dt);
+        buttonsMenu.buttonRun->Update(input, controllerMenu[f][c], dt);
+        buttonsMenu.buttonItem->Update(input, controllerMenu[f][c], dt);
+        buttonsMenu.buttonBack->Update(input, controllerMenu[f][c], dt);
+    }
+    //Skill Pickup
+    else if (chooseSkill)
+    {
+        if (input->GetKey(SDL_SCANCODE_D) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[f][c++];
+        if (input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[f][c--];
+        if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+        if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
+        //Establecer limites fila/columna botones
+        if (f > 1) f = 0;
+        if (f < 0) f = 1;
+        if (c > 2) c = 0;
+        if (c < 0) c = 2;
+    
+        buttonsSkills.buttonSkill1->Update(input, controllerSkill[f][c], dt);
+        buttonsSkills.buttonSkill2->Update(input, controllerSkill[f][c], dt);
+        buttonsSkills.buttonSkill3->Update(input, controllerSkill[f][c], dt);
+        buttonsSkills.buttonSkill4->Update(input, controllerSkill[f][c], dt);
+        buttonsSkills.buttonSkill5->Update(input, controllerSkill[f][c], dt);
+        buttonsSkills.buttonBack->Update(input, controllerSkill[f][c], dt);
+    }
+    //Enemy Pickup
+    else if (chooseEnemy)
+    {
+        if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+        if (input->GetKey(SDL_SCANCODE_W) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
+        //Establecer limites fila/columna botones
+        if (f > random + 1) f = 0;
+        if (f < 0) f = random + 1;
+    
+        switch (random)
+        {
+        case 4:
+            buttonsEnemies.buttonEnemy5->Update(input, controllerEnemy[f], dt);
+        case 3:
+            buttonsEnemies.buttonEnemy4->Update(input, controllerEnemy[f], dt);
+        case 2:
+            buttonsEnemies.buttonEnemy3->Update(input, controllerEnemy[f], dt);
+        case 1:
+            buttonsEnemies.buttonEnemy2->Update(input, controllerEnemy[f], dt);
+        case 0:
+            buttonsEnemies.buttonEnemy1->Update(input, controllerEnemy[f], dt);
+            break;
+        default:break;
+        }
+        buttonsEnemies.buttonBack->Update(input, controllerEnemy[f], dt);
+    }
+}
+
 
 int Battle::DamageCalculator()
 {
@@ -283,20 +311,26 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         switch (control->id)
         {
         case 1:
+            //Ataque
             chooseAction = false;
             chooseEnemy = true;
             break;
         case 2:
+            //Defensa
             break;
         case 3:
+            //Skill
             chooseAction = false;
             chooseSkill = true;
             break;
         case 4:
+            //Items
             break;
         case 5:
+            //Run
             break;
         case 6:
+            //Back
             break;
         default: break;
         }
@@ -330,6 +364,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
             chooseEnemy = true;
             break;
         case 12:
+            //Back
             chooseSkill = false;
             chooseAction = true;
             break;
@@ -360,6 +395,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
             break;
         case 18:
+            //Back
             chooseEnemy = false;
             chooseAction = true;
             break;

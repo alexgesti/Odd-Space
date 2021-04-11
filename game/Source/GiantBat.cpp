@@ -12,8 +12,8 @@ GiantBat* GiantBat::instance = nullptr;
 // Instance creator
 GiantBat* GiantBat::GetInstance(Input* input, Render* render)
 {
-    if (instance == nullptr) instance = new GiantBat(input, render);
-    else LOG("Returning standart pirate instance");
+    instance = new GiantBat(input, render);
+    LOG("Returning giant bat instance");
 
     return instance;
 }
@@ -24,14 +24,14 @@ void GiantBat::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-GiantBat::GiantBat(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRATE)
+GiantBat::GiantBat(Input* input, Render* render) : Enemy(EnemyType::GIANTBAT)
 {
     this->input = input;
     this->render = render;
 
 
     texture = NULL;
-    position = iPoint(12 * 16, 27 * 16);
+    position = iPoint(0, 0);
 
     width = 16;
     height = 32;
@@ -39,6 +39,7 @@ GiantBat::GiantBat(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRA
     //Hero stats
     giantBat.stats.HP = 60;
     giantBat.stats.SP = 0;
+    giantBat.stats.LVL = 4;
     giantBat.stats.ATK = 20;
     giantBat.stats.DEF = 24;
     giantBat.stats.SPL = 40;

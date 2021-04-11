@@ -15,7 +15,7 @@ Player* Player::instance = nullptr;
 Player* Player::GetInstance(Input* input, Render* render)
 {
     if (instance == nullptr) instance = new Player(input, render);
-    else LOG("Returning player instance");
+    //else LOG("Returning player instance");
 
     return instance;
 }
@@ -47,6 +47,7 @@ Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
     hero.name = "Hero";
     hero.stats.HP = 15;
     hero.stats.SP = 10;
+    hero.stats.LVL = 1;
     hero.stats.ATK = 6;
     hero.stats.DEF = 3;
     hero.stats.SPL = 5;
@@ -58,6 +59,7 @@ Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
     oldCaptain.name = "Old Captain";
     oldCaptain.stats.HP = 20;
     oldCaptain.stats.SP = 16;
+    oldCaptain.stats.LVL = 1;
     oldCaptain.stats.ATK = 3;
     oldCaptain.stats.DEF = 6;
     oldCaptain.stats.SPL = 5;

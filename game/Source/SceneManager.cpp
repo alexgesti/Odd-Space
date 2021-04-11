@@ -59,11 +59,11 @@ bool SceneManager::Start()
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
-	//current = new Title(win);
-	current = new Battle(win, input, render, tex, entityManager);
+	//current = new Title(win, input, render, tex);
+	//current = new Battle(win, input, render, tex, entityManager);
 	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene);
 	//current = new Wc(win, input, render, tex, entityManager, collision, previousScene);
-	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene);
+	current = new Exterior(win, input, render, tex, entityManager, collision, previousScene);
 	current->Load();
 
 	next = nullptr;
@@ -136,7 +136,7 @@ bool SceneManager::Update(float dt)
 
 				// Activate fade out effect to next loaded screen
 				fadeOutCompleted = true;
-				entityManager->GetPlayer()->transitioning = false;
+				entityManager->CreateEntity(EntityType::PLAYER)->transitioning = false;
 			}
 		}
 		else  // Transition fade out logic
@@ -179,7 +179,7 @@ bool SceneManager::Update(float dt)
 
 	if (current->transitionRequired)
 	{
-		entityManager->GetPlayer()->transitioning = true;
+		entityManager->CreateEntity(EntityType::PLAYER)->transitioning = true;
 		onTransition = true;
 		fadeOutCompleted = false;
 		transitionAlpha = 0.0f;
@@ -191,6 +191,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene); break;
 		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, previousScene); break;
 		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene); break;
+		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager); break;
 		default: break;
 		}
 

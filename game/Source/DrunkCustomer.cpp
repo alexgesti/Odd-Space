@@ -12,8 +12,8 @@ DrunkCustomer* DrunkCustomer::instance = nullptr;
 // Instance creator
 DrunkCustomer* DrunkCustomer::GetInstance(Input* input, Render* render)
 {
-    if (instance == nullptr) instance = new DrunkCustomer(input, render);
-    else LOG("Returning standart pirate instance");
+    instance = new DrunkCustomer(input, render);
+    LOG("Returning drunk customer instance");
 
     return instance;
 }
@@ -24,14 +24,14 @@ void DrunkCustomer::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-DrunkCustomer::DrunkCustomer(Input* input, Render* render) : Enemy(EnemyType::STANDARTPIRATE)
+DrunkCustomer::DrunkCustomer(Input* input, Render* render) : Enemy(EnemyType::DRUNKCUSTOMER)
 {
     this->input = input;
     this->render = render;
 
 
     texture = NULL;
-    position = iPoint(12 * 16, 27 * 16);
+    position = iPoint(0, 0);
 
     width = 16;
     height = 32;
@@ -39,6 +39,7 @@ DrunkCustomer::DrunkCustomer(Input* input, Render* render) : Enemy(EnemyType::ST
     //Hero stats
     drunkCustomer.stats.HP = 40;
     drunkCustomer.stats.SP = 0;
+    drunkCustomer.stats.LVL = 2;
     drunkCustomer.stats.ATK = 14;
     drunkCustomer.stats.DEF = 4;
     drunkCustomer.stats.SPL = 2;
@@ -67,7 +68,7 @@ bool DrunkCustomer::Draw()
     //SDL_Rect rec = { 0 };
     //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    render->DrawRectangle(GetBounds(), 0, 0, 255, 255);
 
     return false;
 }

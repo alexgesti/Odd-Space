@@ -59,8 +59,6 @@ public:
 
     iPoint playerCollision[4];
 
-    bool transitioning = false;
-
 private:
 
     // ----- SINGLETON METHODS ----- //

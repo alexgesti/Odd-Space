@@ -51,8 +51,7 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	render->camera.x = 530;
 	render->camera.y = 130;
 
-	entityManager->GetPlayer()->position.x = 64;
-	entityManager->GetPlayer()->position.y = 285;
+	entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint(64, 285);
 
 	//map = new Map(tex);
 

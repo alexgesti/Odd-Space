@@ -7,6 +7,8 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "MutantRat.h"
+#include "DrunkCustomer.h"
+#include "StandardPirates.h"
 //#include "Item.h"
 
 #include "Defs.h"
@@ -63,14 +65,6 @@ bool EntityManager::CleanUp()
 	return true;
 }
 
-Player* EntityManager::GetPlayer()
-{
-	Player* ret;
-	if ((Player*)entities.start == nullptr) ret = (Player*) CreateEntity(EntityType::PLAYER);
-	else ret = Player::GetInstance(input, render);
-	return ret;
-}
-
 
 Entity* EntityManager::CreateEntity(EntityType type)
 {
@@ -81,27 +75,38 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		// L13: Create the corresponding type entity
 	case EntityType::PLAYER:
 		ret = Player::GetInstance(input, render);
-		Player::SetCollision(&collision, (Player*)ret);
+
+		// Created entities are added to the list
+		if (ret != nullptr && (Player*)entities[0].start == nullptr)
+		{
+			Player::SetCollision(&collision, (Player*)ret);
+			entities[0].Add(ret);
+		}
 		break;
+
 		case EntityType::ENEMY:
 			switch (*previousScene)
 			{
 			case SceneType::CANTINA: 
+				ret = DrunkCustomer::GetInstance(input, render);
 				break;
 			case SceneType::WC: 
 				ret = MutantRat::GetInstance(input, render);
 				break;
 			case SceneType::EXTERIOR: 
 				break;
-			default: break;
+			default: 
+				ret = StandardPirates::GetInstance(input, render); 
+				break;
 			}
+
+			// Created entities are added to the list
+			if (ret != nullptr) entities[1].Add(ret);
 			break;
+
 		//case EntityType::ITEM: ret = new Item();  break;
 		default: break;
 	}
-
-	// Created entities are added to the list
-	if (ret != nullptr) entities.Add(ret);
 
 	return ret;
 }
@@ -111,9 +116,12 @@ bool EntityManager::UpdateAll(float dt, bool doLogic)
 {
 	if (doLogic)
 	{
-		// TODO: Update all entities 
-		ListItem<Entity*>* list;
-		list = entities.start;
+		//Same lenght as entities
+		for (int i = 0; i < 4; i++)
+		{
+			// TODO: Update all entities 
+			ListItem<Entity*>* list = NULL;
+		list = entities[i].start;
 
 		while (list != NULL)
 		{
@@ -121,19 +129,25 @@ bool EntityManager::UpdateAll(float dt, bool doLogic)
 			list = list->next;
 		}
 	}
+	}
 
 	return true;
 }
 
 bool EntityManager::Draw()
 {
-	ListItem<Entity*>* list;
-	list = entities.start;
-
-	while (list != NULL)
+	//Same lenght as entities
+	for (int i = 0; i < 4; i++)
 	{
-		list->data->Draw();
-		list = list->next;
+		ListItem<Entity*>* list = NULL;
+		list = entities[i].start;
+
+		while (list != NULL)
+		{
+			list->data->Draw();
+			list = list->next;
+		}
 	}
+
 	return true;
 }
