@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="40" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="18" nextobjectid="1">
  <editorsettings>
-  <export target="../../../../Proyecto_2_Assets/Worlds/Cantina_Interior_Combat/combat_cantina_interior..tmx" format="tmx"/>
+  <export target="../../../../../../Proyecto_2_Assets/Worlds/Cantina_Interior_Combat/combat_cantina_interior..tmx" format="tmx"/>
  </editorsettings>
- <tileset firstgid="1" source="../../../../Proyecto_2_Assets/Worlds/Cantina_Interior_Combat/prop_cantina_v01_w.tsx"/>
- <tileset firstgid="316" source="../../../../Proyecto_2_Assets/Worlds/Cantina_Interior_Combat/prop_cantina_v01_c.tsx"/>
+ <tileset firstgid="1" name="prop_cantina_v01_w_1" tilewidth="32" tileheight="32" tilecount="315" columns="21">
+  <image source="prop_cantina_v01_w.png" width="672" height="480"/>
+ </tileset>
  <layer id="1" name="Suelo_Pared" width="40" height="23">
   <data>
    <tile gid="27"/>
