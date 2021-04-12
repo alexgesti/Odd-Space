@@ -64,9 +64,9 @@ bool SceneManager::Start()
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
-	//current = new Battle(win, input, render, tex, entityManager, font);
+	current = new Battle(win, input, render, tex, entityManager, previousScene, font);
 	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font);
-	current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font);
+	//current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font);
 	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font);
 	current->Load();
 
@@ -195,7 +195,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font); break;
 		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font); break;
 		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font); break;
-		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, font); break;
+		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, previousScene, font); break;
 		default: break;
 		}
 

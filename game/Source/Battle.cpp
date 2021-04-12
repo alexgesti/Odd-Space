@@ -7,6 +7,7 @@
 #include "Audio.h"
 #include "EntityManager.h"
 #include "GuiButton.h"
+#include "Map.h"
 
 
 #include <time.h> 
@@ -15,7 +16,7 @@
 
 
 // Constructor
-Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Font* font)
+Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, SceneType* previousScene, Font* font)
 {
     this->win = win;
     this->input = input;
@@ -25,21 +26,32 @@ Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityM
 
     this->font = font;
 
-    /*map = new Map(tex);
+    map = new Map(tex);
+    
+    *previousScene = SceneType::CANTINA;
 
-    // L03: DONE: Load map
-    // L12b: Create walkability map on map loading
-    if (map->Load("world_cantina_interior.tmx") == true)
+    if (*previousScene == SceneType::CANTINA)
     {
-        int w, h;
-        uchar* data = NULL;
+        if (map->Load("combat_cantina_interior.tmx") == true)
+        {
+            int w, h;
+            uchar* data = NULL;
 
-        //if (map->CreateWalkabilityMap(w, h, &data)) pathFinding->SetMap(w, h, data);
+            RELEASE_ARRAY(data);
+        }
+    }
+    else if (*previousScene == SceneType::EXTERIOR)
+    {
+        if (map->Load("combat_cantina_exterior.tmx") == true)
+        {
+            int w, h;
+            uchar* data = NULL;
 
-        RELEASE_ARRAY(data);
-    }*/
-
-    name.Create("cantina");
+            RELEASE_ARRAY(data);
+        }
+    }
+    
+    name.Create("battle");
 }
 // Destructor
 Battle::~Battle()
@@ -162,8 +174,9 @@ bool Battle::Update(float dt)
 
 bool Battle::Draw()
 {
-    //BG
-    render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 255, 255, 255);
+    // BG
+    map->Draw(render);
+
     //Menu
     SDL_Rect rect = { 0, 550, 500, 170 };
     render->DrawTexture(UI, 0, 550, &rect);
@@ -229,6 +242,12 @@ bool Battle::Draw()
 bool Battle::Unload()
 {
     // Delete buttons and textures
+    *previousScene == SceneType::BATTLE;
+
+    map->Unload();
+    delete map;
+    map = nullptr;
+
     return false;
 }
 
