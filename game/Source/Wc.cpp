@@ -8,13 +8,15 @@
 #include "EntityManager.h"
 #include "Map.h"
 
+#include "Speak.h"
+
 #include "Defs.h"
 #include "Log.h"
 
 
 
 // Constructor
-Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font) : Scene()
+Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font, Speak* speak) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -24,6 +26,7 @@ Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* 
 	this->audio = audio;
 
 	this->collision = collision;
+	this->speak = speak;
 
 	this->previousScene = previousScene;
 

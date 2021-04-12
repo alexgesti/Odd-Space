@@ -13,6 +13,7 @@ class Textures;
 class EntityManager;
 class Collision;
 class Audio;
+class Speak;
 
 class Font;
 
@@ -53,6 +54,7 @@ private:
 	Audio* audio;
 
 	Collision* collision;
+	Speak* speak;
 
 	SceneType* previousScene;
 	Scene* current;

@@ -16,13 +16,14 @@ class Textures;
 class EntityManager;
 
 class Collision;
+class Speak;
 
 class Exterior : public Scene
 {
 public:
 
     // Constructor
-    Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font);
+    Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font, Speak* speak);
     // Destructor
     virtual ~Exterior();
 
@@ -49,6 +50,7 @@ private:
     EntityManager* entityManager;
 
     Collision* collision;
+    Speak* speak;
 
     SceneType* previousScene;
 

@@ -8,13 +8,15 @@
 #include "EntityManager.h"
 #include "Map.h"
 
+#include "Speak.h"
+
 #include "Defs.h"
 #include "Log.h"
 
 
 
 // Constructor
-Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font) : Scene()
+Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font, Speak* speak) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -23,6 +25,7 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 	this->entityManager = entityManager;
 
 	this->collision = collision;
+	this->speak = speak;
 
 	this->previousScene = previousScene;
 
@@ -112,6 +115,12 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 bool Cantina::Update(float dt)
 {
 	if (input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+
+	if (input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) speak->SayText("This is a very very long sample");
+
+	if (input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) speak->SayText("This is another very long sample");
+
+	if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) speak->Finish();
 
 	collision->CheckCollision(map);
 

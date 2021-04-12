@@ -9,6 +9,7 @@
 #include "GuiButton.h"
 #include "Map.h"
 
+#include "Speak.h"
 
 #include <time.h> 
 #include "Log.h"
@@ -16,7 +17,7 @@
 
 
 // Constructor
-Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, SceneType* previousScene, Font* font)
+Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, SceneType* previousScene, Font* font, Speak* speak)
 {
     this->win = win;
     this->input = input;
@@ -24,11 +25,13 @@ Battle::Battle(Window* win, Input* input, Render* render, Textures* tex, EntityM
     this->tex = tex;
     this->entityManager = entityManager;
 
+    this->speak = speak;
+
     this->font = font;
 
     map = new Map(tex);
     
-    *previousScene = SceneType::CANTINA;
+    *previousScene = SceneType::EXTERIOR;
 
     if (*previousScene == SceneType::CANTINA)
     {

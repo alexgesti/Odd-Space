@@ -17,13 +17,14 @@ class EntityManager;
 class Audio;
 
 class Collision;
+class Speak;
 
 class Wc : public Scene
 {
 public:
 
     // Constructor
-    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font);
+    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font, Speak* speak);
     // Destructor
     virtual ~Wc();
 
@@ -51,6 +52,7 @@ private:
     Audio* audio;
 
     Collision* collision;
+    Speak* speak;
 
     SceneType* previousScene;
 

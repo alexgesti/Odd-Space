@@ -87,6 +87,9 @@
     <ClCompile Include="Source\Font.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Speak.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -211,6 +214,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Font.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Speak.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>

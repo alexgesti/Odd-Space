@@ -17,13 +17,14 @@ class EntityManager;
 class SDL_Texture;
 class GuiButton;
 class Map;
+class Speak;
 
 class Battle : public Scene
 {
 public:
 
     // Constructor
-    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, SceneType* previousScene, Font* font);
+    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, SceneType* previousScene, Font* font, Speak* speak);
     // Destructor
     virtual ~Battle();
 
@@ -57,6 +58,8 @@ private:
     Textures* tex;
     EntityManager* entityManager;
     Map* map;
+
+    Speak* speak;
 
     SceneType* previousScene;
 

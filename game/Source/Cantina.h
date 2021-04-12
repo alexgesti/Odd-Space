@@ -21,13 +21,14 @@ class Textures;
 class EntityManager;
 
 class Collision;
+class Speak;
 
 class Cantina : public Scene
 {
 public:
 
     // Constructor
-    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font);
+    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font, Speak* speak);
     // Destructor
     virtual ~Cantina();
 
@@ -54,6 +55,7 @@ private:
     EntityManager* entityManager;
 
     Collision* collision;
+    Speak* speak;
 
     SceneType* previousScene;
 

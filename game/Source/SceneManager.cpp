@@ -18,6 +18,7 @@
 #include "Log.h"
 
 #include "Collision.h"
+#include "Speak.h"
 
 #include "SDL/include/SDL.h"
 
@@ -59,15 +60,16 @@ bool SceneManager::Awake()
 bool SceneManager::Start()
 {
 	font = new Font("assets/typo/Adore64.xml", tex);
+	speak = new Speak(audio, render, font);
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
-	current = new Battle(win, input, render, tex, entityManager, previousScene, font);
-	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font);
-	//current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font);
-	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font);
+	current = new Battle(win, input, render, tex, entityManager, previousScene, font, speak);
+	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak);
+	//current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak);
+	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font, speak);
 	current->Load();
 
 	next = nullptr;
@@ -158,6 +160,7 @@ bool SceneManager::Update(float dt)
 
 	// Draw current scene
 	current->Draw();
+	speak->Update(dt);
 
 	// Draw full screen rectangle in front of everything
 	if (onTransition)
@@ -192,10 +195,10 @@ bool SceneManager::Update(float dt)
 		{
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
-		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font); break;
-		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font); break;
-		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font); break;
-		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, previousScene, font); break;
+		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak); break;
+		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak); break;
+		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font, speak); break;
+		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, previousScene, font, speak); break;
 		default: break;
 		}
 

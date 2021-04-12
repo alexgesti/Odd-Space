@@ -9,13 +9,15 @@
 #include "Map.h"
 #include "Font.h"
 
+#include "Speak.h"
+
 #include "Defs.h"
 #include "Log.h"
 
 
 
 // Constructor
-Exterior::Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font) : Scene()
+Exterior::Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font, Speak* speak) : Scene()
 {
 	this->win = win;
 	this->input = input;
@@ -24,6 +26,7 @@ Exterior::Exterior(Window* win, Input* input, Render* render, Textures* tex, Ent
 	this->entityManager = entityManager;
 
 	this->collision = collision;
+	this->speak = speak;
 
 	this->previousScene = previousScene;
 
