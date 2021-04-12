@@ -114,11 +114,14 @@ bool Wc::Update(float dt)
 
 	if (collision->currentInteraction != '/0')
 	{
-		bool stopFx = false;
-		if (collision->currentInteraction == "flush")
+		if (entityManager->CreateEntity(EntityType::PLAYER)->interacting == true)
 		{
-			if(!audio->IsPlaying(wcFx)) audio->PlayFx(wcFx);
-			collision->currentInteraction = '/0';
+			bool stopFx = false;
+			if (collision->currentInteraction == "flush")
+			{
+				if (!audio->IsPlaying(wcFx)) audio->PlayFx(wcFx);
+				collision->currentInteraction = '/0';
+			}
 		}
 	}
 

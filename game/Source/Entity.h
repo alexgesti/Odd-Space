@@ -69,6 +69,7 @@ public:
     iPoint position;        // Use a float instead?
     bool transitioning = false;
     bool renderable = false;
+    bool interacting = false;
     //SDL_Texture* texture;
 };
 

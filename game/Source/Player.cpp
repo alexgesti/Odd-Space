@@ -79,6 +79,8 @@ Player::~Player()
 
 bool Player::Update(float dt)
 {
+    GamePad& pad = input->pads[0];
+
     if (collision->player == nullptr) collision->player = this;
 
     // Temporary position used for collisions
@@ -87,12 +89,14 @@ bool Player::Update(float dt)
     if (!transitioning) // Don't move while transitioning between scenes
     {
         // +1 makes velocities equal on both directions
-        if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+        if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_REPEAT)
             position.x -= (PLAYER_MOVE_SPEED * dt);
-        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt + 1);
+        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt + 1);
 
-        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
-        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt + 1);
+        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
+        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt + 1);
+
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) interacting = true;
     }
 
     return true;

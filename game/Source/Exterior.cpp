@@ -7,6 +7,7 @@
 #include "Audio.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Font.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -134,6 +135,20 @@ bool Exterior::Update(float dt)
 	{
 		TransitionToScene(SceneType::CANTINA);
 		map->doorHit = false;
+	}
+
+	if (collision->currentInteraction != '/0')
+	{
+		if (collision->currentInteraction == "crazyman")
+		{
+			if (entityManager->CreateEntity(EntityType::PLAYER)->interacting == true)
+			{
+				// Cambiar funcion, dialogo con loco
+				TransitionToScene(SceneType::CANTINA);
+				collision->currentInteraction = '/0';
+				entityManager->CreateEntity(EntityType::PLAYER)->interacting = false;
+			}
+		}
 	}
 
 	return true;
