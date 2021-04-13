@@ -12,6 +12,13 @@
 struct _Mix_Music;
 struct Mix_Chunk;
 
+class Fx
+{
+public:
+	uint id;
+	int channel;
+};
+
 class Audio : public Module
 {
 public:
@@ -47,7 +54,8 @@ public:
 private:
 
 	_Mix_Music* music;
-	List<Mix_Chunk *> fx;
+	List<Mix_Chunk*> fx;
+	List<Fx> fxPlaying;
 };
 
 #endif // __AUDIO_H__

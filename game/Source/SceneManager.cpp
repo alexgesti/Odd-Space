@@ -66,9 +66,9 @@ bool SceneManager::Start()
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
-	current = new Battle(win, input, render, tex, entityManager, previousScene, font, speak);
+	//current = new Battle(win, input, render, tex, entityManager, previousScene, font, speak);
 	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak);
-	//current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak);
+	current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak);
 	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font, speak);
 	current->Load();
 

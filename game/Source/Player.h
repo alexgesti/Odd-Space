@@ -33,12 +33,9 @@ public:
     // Delete the instance
     static void ResetInstance();
 
-
     bool Update(float dt);
 
     bool Draw();
-
-
 
     void SetTexture(SDL_Texture *tex);
 

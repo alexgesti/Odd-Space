@@ -173,9 +173,16 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	if(!active)
 		return false;
 
+	int channel = 0;
+
 	if(id > 0 && id <= fx.Count())
 	{
-		Mix_PlayChannel(-1, fx[id - 1], repeat);
+		channel = Mix_PlayChannel(-1, fx[id - 1], repeat);
+
+		Fx tempFx;
+		tempFx.channel = channel;
+		tempFx.id = id;
+		fxPlaying.Add(tempFx);
 	}
 
 	return ret;
@@ -197,5 +204,21 @@ bool Audio::UnloadFx(uint id)
 
 bool Audio::IsPlaying(uint id)
 {
-	return Mix_Playing(id);
+	bool ret = false;
+
+	for (int i = 0; i < fxPlaying.Count(); i++)
+	{
+		if (fxPlaying.At(i)->data.id == id)
+		{
+			if (Mix_Playing(fxPlaying.At(i)->data.channel)) ret = true;
+
+			else
+			{
+				fxPlaying.Del(fxPlaying.At(i));
+				ret = false;
+			}
+		}
+	}
+
+	return ret;
 }

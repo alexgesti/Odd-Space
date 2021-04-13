@@ -44,6 +44,8 @@ Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* 
 		RELEASE_ARRAY(data);
 	}
 
+	xMark = tex->Load("assets/sprites/UI/X_mark.png");
+
 	name.Create("cantina");
 }
 // Destructor
@@ -117,15 +119,34 @@ bool Wc::Update(float dt)
 
 	if (collision->currentInteraction != '/0')
 	{
+		SDL_Rect temp = collision->interactRect;
+		temp.x -= 10;
+		temp.w += 20;
+		temp.y -= 10;
+		temp.h += 20;
+
+		SDL_Rect playerRect;
+		playerRect.x = entityManager->CreateEntity(EntityType::PLAYER)->position.x;
+		playerRect.y = entityManager->CreateEntity(EntityType::PLAYER)->position.y;
+		playerRect.w = playerRect.h = 32;
+
 		if (entityManager->CreateEntity(EntityType::PLAYER)->interacting == true)
 		{
-			bool stopFx = false;
 			if (collision->currentInteraction == "flush")
 			{
-				if (!audio->IsPlaying(wcFx)) audio->PlayFx(wcFx);
+				if (!audio->IsPlaying(wcFx))
+				{
+					audio->PlayFx(wcFx);
+					toDrawX = false;
+				}
+
 				collision->currentInteraction = '/0';
 			}
 		}
+
+		else if (!audio->IsPlaying(wcFx))toDrawX = true;
+
+		if (!collision->Detect(temp, playerRect)) toDrawX = false;
 	}
 
 	if (map->doorHit)
@@ -146,6 +167,8 @@ bool Wc::Draw()
 
 	entityManager->Draw();
 
+	if(toDrawX) render->DrawTexture(xMark, collision->interactRect.x - 25, collision->interactRect.y + 5);
+
 	return false;
 }
 
@@ -159,6 +182,8 @@ bool Wc::Unload()
 	map = nullptr;
 
 	audio->UnloadFx(wcFx - 1);
+
+	tex->UnLoad(xMark);
 
 	return true;
 }

@@ -6,6 +6,7 @@
 
 #include "Scene.h"
 #include "Font.h"
+#include "Point.h"
 
 class Map;
 
@@ -55,6 +56,9 @@ private:
     Speak* speak;
 
     SceneType* previousScene;
+
+    SDL_Texture* xMark;
+    bool toDrawX = false;
 
     int wcFx;
 };

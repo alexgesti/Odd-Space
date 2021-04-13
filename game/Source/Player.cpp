@@ -97,6 +97,7 @@ bool Player::Update(float dt)
         if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt + 1);
 
         if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) interacting = true;
+        else interacting = false;
     }
 
     return true;

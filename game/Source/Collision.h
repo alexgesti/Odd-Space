@@ -65,6 +65,8 @@ public:
 									currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString());
 
 									if (player->temPos != player->position) player->position = player->temPos;
+
+									interactRect = tileRect;
 								}
 
 								list = list->next;
@@ -90,6 +92,8 @@ public:
 			(rec1.y < (rec2.y + rec2.h) && (rec1.y + rec1.h) > rec2.y)) return true;
 		else return false;
 	}
+
+	SDL_Rect interactRect = { 0, 0, 0, 0 };
 
 	Player* player;
 
