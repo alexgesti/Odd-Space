@@ -1,7 +1,7 @@
 #include "Input.h"
 
 #include "Window.h"
-#include "Fonts.h"
+#include "Font.h"
 
 #include "Defs.h"
 #include "Log.h"

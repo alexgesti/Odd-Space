@@ -96,6 +96,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Battle.cpp" />
+    <ClCompile Include="Source\DialogSystem.cpp" />
     <ClCompile Include="Source\DrunkCustomer.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Exterior.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Battle.h" />
+    <ClInclude Include="Source\DialogSystem.h" />
     <ClInclude Include="Source\Exterior.h" />
     <ClInclude Include="Source\Collision.h" />
     <ClInclude Include="Source\DrunkCustomer.h" />
