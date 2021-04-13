@@ -219,6 +219,9 @@
     <ClInclude Include="Source\Speak.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Animation.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

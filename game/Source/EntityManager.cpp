@@ -2,6 +2,7 @@
 
 #include "Input.h"
 #include "Render.h"
+#include "Textures.h"
 #include "SceneManager.h"
 
 #include "Player.h"
@@ -17,10 +18,11 @@
 
 
 // Constructor
-EntityManager::EntityManager(Input* input, Render* render) : Module()
+EntityManager::EntityManager(Input* input, Render* render, Textures* tex) : Module()
 {
 	this->input = input;
 	this->render = render;
+	this->tex = tex;
 
 	name.Create("entitymanager");
 }
@@ -74,7 +76,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	{
 		// L13: Create the corresponding type entity
 	case EntityType::PLAYER:
-		ret = Player::GetInstance(input, render);
+		ret = Player::GetInstance(input, render, tex);
 
 		// Created entities are added to the list
 		if (ret != nullptr && (Player*)entities[0].start == nullptr)

@@ -4,17 +4,19 @@
 
 #include "Input.h"
 #include "Render.h"
+#include "Textures.h"
 
 #include "Collision.h"
-//#include "Textures.h"
+#include "Animation.h"
+
 
 
 
 Player* Player::instance = nullptr;
 // Instance creator
-Player* Player::GetInstance(Input* input, Render* render)
+Player* Player::GetInstance(Input* input, Render* render, Textures* tex)
 {
-    if (instance == nullptr) instance = new Player(input, render);
+    if (instance == nullptr) instance = new Player(input, render, tex);
     //else LOG("Returning player instance");
 
     return instance;
@@ -26,13 +28,39 @@ void Player::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
+Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType::PLAYER)
 {
     this->input = input;
     this->render = render;
+    this->tex = tex;
+
+    //
+    // Animation pushbacks
+    //
+    animHeroWalkUp->loop = true;
+    animHeroWalkUp->speed = 0.15f;
+    for (int i = 0; i < 3; ++i)
+        animHeroWalkUp->PushBack({ 48 * i, 288, 48, 96 });
+    animHeroWalkDown->loop = true;
+    animHeroWalkDown->speed = 0.15f;
+    for (int i = 0; i < 3; ++i)
+        animHeroWalkDown->PushBack({ 48 * i, 0, 48, 96 });
+    animHeroWalkLeft->loop = true;
+    animHeroWalkLeft->speed = 0.15f;
+    for (int i = 0; i < 3; ++i)
+        animHeroWalkLeft->PushBack({ 48 * i, 96, 48, 96 });
+    animHeroWalkRight->loop = true;
+    animHeroWalkRight->speed = 0.15f;
+    for (int i = 0; i < 3; ++i)
+        animHeroWalkRight->PushBack({ 48 * i, 192, 48, 96 });
+
+    //
+    // Load textures
+    //
+    heroTexture = this->tex->Load("assets/sprites/player/cyborg_spritesheet_48x96px.png");
+    oldCaptainTexture = NULL;
 
 
-    texture = NULL;
     position = iPoint(12 * 16, 27 * 16);
 
     width = 32;
@@ -70,6 +98,9 @@ Player::Player(Input* input, Render* render) : Entity(EntityType::PLAYER)
     // Define Player animations
 
     // Set collision player variable to this player instance
+
+
+    currentAnimation = animHeroWalkDown;
 }
 // Destructor
 Player::~Player()
@@ -100,6 +131,9 @@ bool Player::Update(float dt)
         else interacting = false;
     }
 
+
+    currentAnimation->Update();
+
     return true;
 }
 
@@ -112,16 +146,14 @@ bool Player::Draw()
     //render->DrawTexture(texture, position.x, position.y, rec);
 
     render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    SDL_Rect rect = currentAnimation->GetCurrentFrame();
+    render->DrawTexture(heroTexture, (int)position.x - 8, (int)position.y - 64, &rect);
+
 
     return false;
 }
 
 
-
-void Player::SetTexture(SDL_Texture *tex)
-{
-    texture = tex;
-}
 
 SDL_Rect Player::GetBounds()
 {

@@ -10,6 +10,8 @@
 class Input;
 class Render;
 class Player;
+class Textures;
+
 enum class SceneType;
 
 class EntityManager : public Module
@@ -17,7 +19,7 @@ class EntityManager : public Module
 public:
 
 	// Constructor
-	EntityManager(Input* input, Render* render);
+	EntityManager(Input* input, Render* render, Textures* tex);
 	// Destructor
 	virtual ~EntityManager();
 
@@ -52,16 +54,17 @@ public:
 
 	Collision collision;
 
+	SceneType* previousScene;
+
 private:
 
 	Input* input;
 	Render* render;
+	Textures* tex;
 
 	//Number of list created
 	int numList = 4;
 
-public:
-	SceneType* previousScene;
 };
 
 #endif // __ENTITYMANAGER_H__

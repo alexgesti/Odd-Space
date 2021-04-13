@@ -7,8 +7,11 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Animation.h"
 
 #include "SDL/include/SDL.h"
+
+
 
 class Input;
 class Render;
@@ -29,7 +32,7 @@ class Player: public Entity
 public:
 
     // Get unique instance of the class
-    static Player* GetInstance(Input* input, Render* render);
+    static Player* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -37,32 +40,37 @@ public:
 
     bool Draw();
 
-    void SetTexture(SDL_Texture *tex);
-
     SDL_Rect GetBounds();
 
     static void SetCollision(Collision* collision, Player* player);
 
 public:
 
-    SDL_Texture* texture;   // Player spritesheet
-
-    // TODO: Define all animation properties
-    PlayerAnim currentAnim;
-
-    int width, height;
-
+    // ----- PLAYER VARIABLES ----- //
+    // Player position
     iPoint temPos;
-
+    // Player collision
     iPoint playerCollision[4];
+    // ---------------------------- //
 
 private:
+
+    // ----- PLAYER VARIABLES ----- //
+    // Player size
+    int width, height;
+    // Player sprite sheets
+    SDL_Texture* heroTexture;
+    SDL_Texture* oldCaptainTexture;
+    // Current Player animation
+    Animation* currentAnimation;
+    
+    // ---------------------------- //
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
     static Player* instance;
     // Private Constructor
-    Player(Input* input, Render* render);
+    Player(Input* input, Render* render, Textures* tex);
     // Private Destructor
     virtual ~Player();
     // Declare the copy constructor and the assignment operator
@@ -71,13 +79,26 @@ private:
     Player& operator=(const Player&);
     // ----------------------------- //
 
+
+    // ----- ANIMATION SETS ----- //
+    Animation* animHeroWalkUp = new Animation();
+    Animation* animHeroWalkDown = new Animation();
+    Animation* animHeroWalkLeft = new Animation();
+    Animation* animHeroWalkRight = new Animation();
+    Animation* animOldCaptainWalkUp = new Animation();
+    Animation* animOldCaptainWalkDown = new Animation();
+    Animation* animOldCaptainWalkLeft = new Animation();
+    Animation* animOldCaptainWalkRight = new Animation();
+    // -------------------------- //
+
+    Entities hero;
+    Entities oldCaptain;
+
 private:
 
     Input* input;
     Render* render;
-
-    Entities hero;
-    Entities oldCaptain;
+    Textures* tex;
 
     Collision* collision;
 };
