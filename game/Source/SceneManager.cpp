@@ -12,6 +12,7 @@
 #include "Textures.h"
 #include "Window.h"
 #include "EntityManager.h"
+#include "DialogSystem.h"
 #include "Audio.h"
 
 #include "Defs.h"
@@ -25,7 +26,7 @@
 #define FADEOUT_TRANSITION_SPEED	2.0f
 #define FADEIN_TRANSITION_SPEED		2.0f
 
-SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio) : Module()
+SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio, DialogueSystem* dialogueSystem) : Module()
 {
 	name.Create("scenemanager");
 
@@ -38,6 +39,7 @@ SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* 
 	this->tex = tex;
 	this->win = win;
 	this->entityManager = entityManager;
+	this->dialogueSystem = dialogueSystem;
 	this->audio = audio;
 
 	this->collision = &entityManager->collision;
@@ -60,17 +62,19 @@ bool SceneManager::Awake()
 bool SceneManager::Start()
 {
 	font = new Font("assets/typo/Adore64.xml", tex);
-	speak = new Speak(audio, render, font);
+	speak = new Speak(audio, render, font, input);
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
 	//current = new Battle(win, input, render, tex, entityManager, previousScene, font, speak);
-	//current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak);
-	current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak);
+	current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak);
+	//current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak);
 	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font, speak);
 	current->Load();
+
+	dialogueSystem->speak = speak;
 
 	next = nullptr;
 
@@ -161,6 +165,7 @@ bool SceneManager::Update(float dt)
 	// Draw current scene
 	current->Draw();
 	speak->Update(dt);
+	dialogueSystem->Draw();
 
 	// Draw full screen rectangle in front of everything
 	if (onTransition)

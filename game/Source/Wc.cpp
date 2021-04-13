@@ -132,7 +132,7 @@ bool Wc::Update(float dt)
 
 		if (entityManager->CreateEntity(EntityType::PLAYER)->interacting == true)
 		{
-			if (collision->currentInteraction == "flush")
+			if (collision->currentInteraction == "flush" && collision->Detect(temp, playerRect))
 			{
 				if (!audio->IsPlaying(wcFx))
 				{
@@ -151,6 +151,7 @@ bool Wc::Update(float dt)
 
 	if (map->doorHit)
 	{
+		audio->FadeOutFx(100);
 		TransitionToScene(SceneType::CANTINA);
 		map->doorHit = false;
 	}

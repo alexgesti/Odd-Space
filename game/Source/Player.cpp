@@ -9,9 +9,6 @@
 #include "Collision.h"
 #include "Animation.h"
 
-
-
-
 Player* Player::instance = nullptr;
 // Instance creator
 Player* Player::GetInstance(Input* input, Render* render, Textures* tex)
@@ -38,19 +35,19 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     // Animation pushbacks
     //
     animHeroWalkUp->loop = true;
-    animHeroWalkUp->speed = 0.15f;
+    animHeroWalkUp->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
         animHeroWalkUp->PushBack({ 48 * i, 288, 48, 96 });
     animHeroWalkDown->loop = true;
-    animHeroWalkDown->speed = 0.15f;
+    animHeroWalkDown->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
         animHeroWalkDown->PushBack({ 48 * i, 0, 48, 96 });
     animHeroWalkLeft->loop = true;
-    animHeroWalkLeft->speed = 0.15f;
+    animHeroWalkLeft->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
         animHeroWalkLeft->PushBack({ 48 * i, 96, 48, 96 });
     animHeroWalkRight->loop = true;
-    animHeroWalkRight->speed = 0.15f;
+    animHeroWalkRight->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
         animHeroWalkRight->PushBack({ 48 * i, 192, 48, 96 });
 
@@ -121,11 +118,26 @@ bool Player::Update(float dt)
     {
         // +1 makes velocities equal on both directions
         if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_REPEAT)
+        {
             position.x -= (PLAYER_MOVE_SPEED * dt);
-        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT) position.x += (PLAYER_MOVE_SPEED * dt + 1);
+            if (currentAnimation != animHeroWalkLeft) currentAnimation = animHeroWalkLeft;
+        }
+        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT)
+        {
+            position.x += (PLAYER_MOVE_SPEED * dt + 1);
+            if (currentAnimation != animHeroWalkRight) currentAnimation = animHeroWalkRight;
+        }
 
-        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT) position.y -= (PLAYER_MOVE_SPEED * dt);
-        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_REPEAT) position.y += (PLAYER_MOVE_SPEED * dt + 1);
+        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT)
+        {
+            position.y -= (PLAYER_MOVE_SPEED * dt);
+            if (currentAnimation != animHeroWalkUp) currentAnimation = animHeroWalkUp;
+        }
+        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_REPEAT)
+        {
+            position.y += (PLAYER_MOVE_SPEED * dt + 1);
+            if (currentAnimation != animHeroWalkDown) currentAnimation = animHeroWalkDown;
+        }
 
         if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) interacting = true;
         else interacting = false;
@@ -145,7 +157,7 @@ bool Player::Draw()
     //SDL_Rect rec = { 0 };
     //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    //render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
     SDL_Rect rect = currentAnimation->GetCurrentFrame();
     render->DrawTexture(heroTexture, (int)position.x - 8, (int)position.y - 64, &rect);
 

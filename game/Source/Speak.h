@@ -8,18 +8,19 @@
 
 class Render;
 class Font;
+class Input;
 
 class Speak
 {
 public:
 
-	Speak(Audio* audio, Render* render, Font* font);
+	Speak(Audio* audio, Render* render, Font* font, Input* input);
 
 	void Update(float dt);
 
 	void Draw();
 
-	void SayText(SString text);
+	void SayText(SString text, bool slowly);
 
 	void Finish();
 
@@ -28,25 +29,26 @@ private:
 	Audio* audio;
 	Render* render;
 	Font* font;
+	Input* input;
 
 	int letter_1 = 0;
 	int letter_2 = 0;
 	int letter_3 = 0;
 	int letter_4 = 0;
 
-	int textSaid = 1;
-
 	float timeWaited = LETTERSPEED;
 
 	int letterAmount = 0;
-
-	bool finished = false;
 
 	SString copText;
 
 public:
 
 	SString text = "/0";
+
+	bool speaking = false;
+
+	bool textSaid = false;
 };
 
 #endif // __SPEAK_H__

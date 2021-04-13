@@ -116,11 +116,9 @@ bool Cantina::Update(float dt)
 {
 	if (input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
 
-	if (input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) speak->SayText("This is a very very long sample");
+	if (input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) speak->SayText("This is a very very long sample", true);
 
-	if (input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) speak->SayText("This is another very long sample");
-
-	if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) speak->Finish();
+	if (input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) speak->SayText("This is another very long sample", true);
 
 	collision->CheckCollision(map);
 

@@ -7,6 +7,7 @@
 #include "Audio.h"
 #include "EntityManager.h"
 #include "SceneManager.h"
+#include "DialogSystem.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -28,7 +29,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(render);
 	audio = new Audio();
 	entityManager = new EntityManager(input, render, tex);
-	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio);
+	dialogueSystem = new DialogueSystem(input, render, tex);
+	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -37,6 +39,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(tex);
 	AddModule(audio);
 	AddModule(entityManager);
+	AddModule(dialogueSystem);
 	AddModule(sceneManager);
 
 	// Render last to swap buffer

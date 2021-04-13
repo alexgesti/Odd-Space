@@ -1,12 +1,14 @@
 #include "Speak.h"
 #include "Render.h"
 #include "Font.h"
+#include "Input.h"
 
-Speak::Speak(Audio* audio, Render* render, Font* font)
+Speak::Speak(Audio* audio, Render* render, Font* font, Input* input)
 {
 	this->audio = audio;
 	this->render = render;
 	this->font = font;
+	this->input = input;
 
 	letter_1 = this->audio->LoadFx("Assets/Audio/Fx/text_sound1.wav");
 	letter_2 = this->audio->LoadFx("Assets/Audio/Fx/text_sound2.wav");
@@ -16,8 +18,10 @@ Speak::Speak(Audio* audio, Render* render, Font* font)
 
 void Speak::Update(float dt)
 {
-	if (textSaid == 0)
+	if (textSaid == false)
 	{
+		if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) Finish();
+
 		if (timeWaited >= LETTERSPEED)
 		{
 			switch (rand() % 4)
@@ -44,9 +48,9 @@ void Speak::Update(float dt)
 
 		if (letterAmount >= text.Length() + 1)
 		{
-			textSaid++;
+			textSaid = true;
 			timeWaited = 0.0f;
-			finished = true;
+			speaking = false;
 		}
 
 		timeWaited += dt;
@@ -54,11 +58,14 @@ void Speak::Update(float dt)
 		Draw();
 	}
 
-	else if (finished) Draw();
+	else if (!speaking) Draw();
 }
 
 void Speak::Draw()
 {
+	SDL_Rect rect = { 0, 650, 1280, 200 };
+	render->DrawRectangle(rect, 0, 0, 0, 255);
+
 	std::string textToRender;
 
 	for (int i = 0; i < letterAmount; i++)
@@ -66,19 +73,31 @@ void Speak::Draw()
 		textToRender.push_back(copText.GetString()[i]);
 	}
 
-	render->DrawText(font, textToRender.c_str(), 0, 60, 50, 0, { 255, 0, 255, 255 });
+	render->DrawText(font, textToRender.c_str(), 0, 610, 25, 0, { 255, 0, 255, 255 });
 }
 
-void Speak::SayText(SString text)
+void Speak::SayText(SString text, bool slowly)
 {
 	this->text = text;
 	copText = text.GetString();
-	letterAmount = 0;
-	textSaid = 0;
-	finished = false;
+	if (!slowly)
+	{
+		letterAmount = text.Length() + 1;
+		textSaid = true;
+		speaking = false;
+	}
+
+	else
+	{
+		letterAmount = 0;
+		textSaid = false;
+		speaking = true;
+	}
 }
 
 void Speak::Finish()
 {
 	letterAmount = text.Length();
+	speaking = false;
+	textSaid = true;
 }

@@ -222,3 +222,11 @@ bool Audio::IsPlaying(uint id)
 
 	return ret;
 }
+
+void Audio::FadeOutFx(int ms)
+{
+	for (int i = 0; i < fxPlaying.Count(); i++)
+	{
+		Mix_FadeOutChannel(fxPlaying.At(i)->data.channel, ms);
+	}
+}

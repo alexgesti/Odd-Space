@@ -91,7 +91,7 @@
       <Filter>Utils</Filter>
     </ClCompile>
     <ClCompile Include="Source\DialogSystem.cpp">
-      <Filter>Utils</Filter>
+      <Filter>Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,7 +226,7 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\DialogSystem.h">
-      <Filter>Utils</Filter>
+      <Filter>Modules</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@
 using namespace std;
 
 class DialogueNode;
+class Speak;
 
 class DialogueOption
 {
@@ -72,6 +73,11 @@ public:
 	bool LoadDialogue(const char*);
 	bool LoadNodes(pugi::xml_node& trees, DialogueTree* oak);
 	bool LoadOptions(pugi::xml_node& text_node, DialogueNode* npc);
+	bool Draw();
+
+public:
+	Speak* speak;
+	bool inConversation = true;
 	
 private:
 	int playerInput = 7;
@@ -85,5 +91,7 @@ private:
 	Render* render;
 	Textures* tex;
 
+	bool showOptions;
+	bool nextSentence = true;
 };
 #endif // __DIALOGSYSTEM_H__

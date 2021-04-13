@@ -16,6 +16,7 @@ class Textures;
 class Audio;
 class EntityManager;
 class SceneManager;
+class DialogueSystem;
 
 class App
 {
@@ -82,6 +83,7 @@ public:
 	Audio* audio;
 	EntityManager* entityManager;
 	SceneManager* sceneManager;
+	DialogueSystem* dialogueSystem;
 
 	uint32 cappedms;
 	uint64 framecount = 0;

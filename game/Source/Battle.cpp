@@ -70,30 +70,30 @@ bool Battle::Load()
     UI = tex->Load("assets/sprites/UI/UI_Text.png");
 
     // GUI: Initialize required controls for the screen
-    buttonsMenu.buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "menuBattle");
+    buttonsMenu.buttonAttack = new GuiButton(1, { 0, 0, 300, 80 }, "Atack");
     buttonsMenu.buttonAttack->SetObserver(this);
-    buttonsMenu.buttonGuard = new GuiButton(2, { 300, 0, 300, 80 }, "menuBattle");
+    buttonsMenu.buttonGuard = new GuiButton(2, { 300, 0, 300, 80 }, "Guard");
     buttonsMenu.buttonGuard->SetObserver(this);
-    buttonsMenu.buttonSkills = new GuiButton(3, { 600, 0, 300, 80 }, "menuBattle");
+    buttonsMenu.buttonSkills = new GuiButton(3, { 600, 0, 300, 80 }, "Skills");
     buttonsMenu.buttonSkills->SetObserver(this);
-    buttonsMenu.buttonRun = new GuiButton(4, { 0, 80, 300, 80 }, "menuBattle");
+    buttonsMenu.buttonRun = new GuiButton(4, { 0, 80, 300, 80 }, "Run");
     buttonsMenu.buttonRun->SetObserver(this);
-    buttonsMenu.buttonItem = new GuiButton(5, { 300, 80, 300, 80 }, "menuBattle");
+    buttonsMenu.buttonItem = new GuiButton(5, { 300, 80, 300, 80 }, "Item");
     buttonsMenu.buttonItem->SetObserver(this);
-    buttonsMenu.buttonBack = new GuiButton(6, { 600, 80, 300, 80 }, "menuBattle");
+    buttonsMenu.buttonBack = new GuiButton(6, { 600, 80, 300, 80 }, "Back");
     buttonsMenu.buttonBack->SetObserver(this);
 
-    buttonsSkills.buttonSkill1 = new GuiButton(7, { 0, 160, 300, 80 }, "skillsBattle");
+    buttonsSkills.buttonSkill1 = new GuiButton(7, { 0, 160, 300, 80 }, "Skill 1");
     buttonsSkills.buttonSkill1->SetObserver(this);
-    buttonsSkills.buttonSkill2 = new GuiButton(8, { 300, 160, 300, 80 }, "skillsBattle");
+    buttonsSkills.buttonSkill2 = new GuiButton(8, { 300, 160, 300, 80 }, "Skill 2");
     buttonsSkills.buttonSkill2->SetObserver(this);
-    buttonsSkills.buttonSkill3 = new GuiButton(9, { 600, 160, 300, 80 }, "skillsBattle");
+    buttonsSkills.buttonSkill3 = new GuiButton(9, { 600, 160, 300, 80 }, "Skill 3");
     buttonsSkills.buttonSkill3->SetObserver(this);
-    buttonsSkills.buttonSkill4 = new GuiButton(10, { 0, 240, 300, 80 }, "skillsBattle");
+    buttonsSkills.buttonSkill4 = new GuiButton(10, { 0, 240, 300, 80 }, "Skill 4");
     buttonsSkills.buttonSkill4->SetObserver(this);
-    buttonsSkills.buttonSkill5 = new GuiButton(11, { 300, 240, 300, 80 }, "skillsBattle");
+    buttonsSkills.buttonSkill5 = new GuiButton(11, { 300, 240, 300, 80 }, "Skill 5");
     buttonsSkills.buttonSkill5->SetObserver(this);
-    buttonsSkills.buttonBack = new GuiButton(12, { 600, 240, 300, 80 }, "skillsBattle");
+    buttonsSkills.buttonBack = new GuiButton(12, { 600, 240, 300, 80 }, "Back");
     buttonsSkills.buttonBack->SetObserver(this);
 
     srand(time(NULL));
@@ -103,7 +103,7 @@ bool Battle::Load()
         entityManager->CreateEntity(EntityType::ENEMY);
         entityManager->entities[1].At(random - 4)->data->position = iPoint(300 * 5, 500);
 
-        buttonsEnemies.buttonEnemy5 = new GuiButton(17, {300 * 5, 320, 300, 80 }, "enemyBattle");
+        buttonsEnemies.buttonEnemy5 = new GuiButton(17, {300 * 5, 320, 300, 80 }, "Enemy 5");
         buttonsEnemies.buttonEnemy5->SetObserver(this);
         controllerEnemy[4] = 17;
 
@@ -111,7 +111,7 @@ bool Battle::Load()
         entityManager->CreateEntity(EntityType::ENEMY);
         entityManager->entities[1].At(random - 3)->data->position = iPoint(300 * 4, 500);
 
-        buttonsEnemies.buttonEnemy4 = new GuiButton(16, {300 * 4, 320, 300, 80 }, "enemyBattle");
+        buttonsEnemies.buttonEnemy4 = new GuiButton(16, {300 * 4, 320, 300, 80 }, "Enemy 4");
         buttonsEnemies.buttonEnemy4->SetObserver(this);
         controllerEnemy[3] = 16;
 
@@ -119,7 +119,7 @@ bool Battle::Load()
         entityManager->CreateEntity(EntityType::ENEMY);
         entityManager->entities[1].At(random - 2)->data->position = iPoint(300 * 3, 500);
 
-        buttonsEnemies.buttonEnemy3 = new GuiButton(15, {300 * 3, 320, 300, 80 }, "enemyBattle");
+        buttonsEnemies.buttonEnemy3 = new GuiButton(15, {300 * 3, 320, 300, 80 }, "Enemy 3");
         buttonsEnemies.buttonEnemy3->SetObserver(this);
         controllerEnemy[2] = 15;
 
@@ -127,7 +127,7 @@ bool Battle::Load()
         entityManager->CreateEntity(EntityType::ENEMY);
         entityManager->entities[1].At(random - 1)->data->position = iPoint(300 * 2, 500);
 
-        buttonsEnemies.buttonEnemy2 = new GuiButton(14, {300 * 2, 320, 300, 80 }, "enemyBattle");
+        buttonsEnemies.buttonEnemy2 = new GuiButton(14, {300 * 2, 320, 300, 80 }, "Enemy 2");
         buttonsEnemies.buttonEnemy2->SetObserver(this);
         controllerEnemy[1] = 14;
 
@@ -135,12 +135,12 @@ bool Battle::Load()
         entityManager->CreateEntity(EntityType::ENEMY);
         entityManager->entities[1].At(random)->data->position = iPoint(300, 500);
 
-        buttonsEnemies.buttonEnemy1 = new GuiButton(13, {300, 320, 300, 80 }, "enemyBattle");
+        buttonsEnemies.buttonEnemy1 = new GuiButton(13, {300, 320, 300, 80 }, "Enemy 1");
         buttonsEnemies.buttonEnemy1->SetObserver(this);
         controllerEnemy[0] = 13;
 
     default:
-        buttonsEnemies.buttonBack = new GuiButton(18, { 1000, 600, 300, 80 }, "enemyBattle");
+        buttonsEnemies.buttonBack = new GuiButton(18, { 1000, 600, 300, 80 }, "Back");
         buttonsEnemies.buttonBack->SetObserver(this);
         controllerEnemy[random + 1] = 18;
         break;

@@ -51,6 +51,9 @@ public:
 	// Play a previously loaded WAV
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
+	// FadeOut all audio
+	void FadeOutFx(int ms);
+
 private:
 
 	_Mix_Music* music;

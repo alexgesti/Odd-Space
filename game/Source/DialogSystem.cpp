@@ -4,6 +4,7 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Font.h"
+#include "Speak.h"
 
 #include "SDL/include/SDL.h"
 
@@ -14,56 +15,95 @@ DialogueSystem::~DialogueSystem() {}
 
 bool DialogueSystem::Start()
 {
-	LoadDialogue("dialogue_tree.xml");
+	LoadDialogue("dialogue_test.xml");
 	currentNode = dialogueTrees[Id]->dialogueNodes[0];
 	PerformDialogue(Id);
-	font = new Font("Assets/Fonts/londrina.xml", tex);
+	font = new Font("assets/typo/Adore64.xml", tex);
 	return true;
 }
 
 bool DialogueSystem::Update(float dt)
 {
-
-	if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (inConversation)
 	{
-		playerInput = 0;
-		PerformDialogue(Id);
+		if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			playerInput = 0;
+			PerformDialogue(Id);
+
+			nextSentence = true;
+		}
+
+		if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		{
+			playerInput = 1;
+			PerformDialogue(Id);
+
+			nextSentence = true;
+		}
+
+		if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		{
+			playerInput = 2;
+			PerformDialogue(Id);
+
+			nextSentence = true;
+		}
+
+		if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			Id = 0;
+			currentNode = dialogueTrees[Id]->dialogueNodes[0];
+			playerInput = 9;
+			PerformDialogue(Id);
+
+			nextSentence = true;
+		}
 	}
-
-	if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-	{
-		playerInput = 1;
-		PerformDialogue(Id);
-	}
-
-	if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		playerInput = 2;
-		PerformDialogue(Id);
-	}
-
-	if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-	{
-		Id = 0;
-		currentNode = dialogueTrees[Id]->dialogueNodes[0];
-		playerInput = 9;
-		PerformDialogue(Id);
-	}
-
-	char NPCdialogue[64] = { 0 };
-	sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
-	render->DrawText(font, NPCdialogue, 10, 10, 80, 0, { 0, 0, 255, 255 });
-
-	char response[64] = { 0 };
-	for (int i = 0; i < currentNode->answersList.Count(); i++)
-	{
-		sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
-		render->DrawText(font, response, 10, 200+(60*(i+1)), 80, 0, { 0, 255, 255, 255 });
-	}	
 
 	return true;
 }
 
+bool DialogueSystem::Draw()
+{
+	char NPCdialogue[64] = { 0 };
+	sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
+
+	if (!speak->speaking && nextSentence)
+	{
+ 		speak->SayText(NPCdialogue, true);
+		LOG("%s", NPCdialogue);
+		showOptions = false;
+		nextSentence = false;
+	}
+
+	else if (speak->textSaid && !showOptions) showOptions = true;
+
+	/*if (!speak->speaking && showOptions)
+	{
+		char response[64] = { 0 };
+		for (int i = 0; i < currentNode->answersList.Count(); i++)
+		{
+			sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
+			speak->SayText(response, false);
+			speak->Finish();
+			//render->DrawText(font, response, 10, 200 + (60 * (i + 1)), 80, 0, { 0, 255, 255, 255 });
+		}
+		showOptions = false;
+	}*/
+
+	if (showOptions)
+	{
+		char response[64] = { 0 };
+		for (int i = 0; i < currentNode->answersList.Count(); i++)
+		{
+			sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
+			render->DrawText(font, response, 720, 500 + (60 * (i + 1)), 25, 0, { 255, 0, 255, 255 });
+		}
+	}
+
+	return true;
+}
 
 bool DialogueSystem::CleanUp()
 {
