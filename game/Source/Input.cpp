@@ -361,6 +361,12 @@ const char* Input::GetControllerName(int id) const
 	return "unplugged";
 }
 
+bool Input::joystickState()
+{
+	if (pads->l_x != 0 && pads->l_y != 0) return true;
+	else if (GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) return false;
+}
+
 /*void Input::DebugDrawGamepadInfo()
 {
 	GamePad& pad = pads[0];

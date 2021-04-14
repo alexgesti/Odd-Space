@@ -113,6 +113,10 @@ public:
 	bool ShakeController(int id, int duration, float strength = 0.5f);
 	const char* GetControllerName(int id) const;
 
+	// Detects the joystick state
+
+	bool joystickState();
+
 	// Draws gamepad debug info in the screen
 	//void DebugDrawGamepadInfo();
 
