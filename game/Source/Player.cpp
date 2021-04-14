@@ -125,23 +125,23 @@ bool Player::Update(float dt)
     if (!transitioning) // Don't move while transitioning between scenes
     {
         // +1 makes velocities equal on both directions
-        if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_REPEAT)
+        if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT || pad.l_x < -0.5f)
         {
             position.x -= (PLAYER_MOVE_SPEED * dt);
             if (currentAnimation != animHeroWalkLeft) currentAnimation = animHeroWalkLeft;
         }
-        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_REPEAT)
+        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT || pad.l_x > 0.5f)
         {
             position.x += (PLAYER_MOVE_SPEED * dt + 1);
             if (currentAnimation != animHeroWalkRight) currentAnimation = animHeroWalkRight;
         }
 
-        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_REPEAT)
+        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT || pad.l_y < 0.5f)
         {
             position.y -= (PLAYER_MOVE_SPEED * dt);
             if (currentAnimation != animHeroWalkUp) currentAnimation = animHeroWalkUp;
         }
-        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_REPEAT)
+        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT || pad.l_y > -0.5f)
         {
             position.y += (PLAYER_MOVE_SPEED * dt + 1);
             if (currentAnimation != animHeroWalkDown) currentAnimation = animHeroWalkDown;
