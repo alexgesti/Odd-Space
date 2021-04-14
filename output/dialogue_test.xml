@@ -2,7 +2,7 @@
 
 <dialogueTree>
   <dialogueExample Id="0">
-    <node text="Hola, necesito ayuda!"  id="0">
+    <node text="Hey, I need your help!"  id="0">
       <dialogue option="1: No sorry" returnCode="0" nextNode="1"/>
       <dialogue option="2: Yes what is it?" returnCode="0" nextNode="2"/>
     </node>

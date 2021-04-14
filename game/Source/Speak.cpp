@@ -63,8 +63,8 @@ void Speak::Update(float dt)
 
 void Speak::Draw()
 {
-	SDL_Rect rect = { 0, 650, 1280, 200 };
-	render->DrawRectangle(rect, 0, 0, 0, 255);
+	SDL_Rect rect = { 0, 540, 1280, 180 };
+	render->DrawRectangle(rect, 0, 0, 0, 255, true, false);
 
 	std::string textToRender;
 

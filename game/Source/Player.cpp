@@ -37,24 +37,32 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     animHeroWalkUp->loop = true;
     animHeroWalkUp->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animHeroWalkUp->PushBack({ 48 * i, 288, 48, 96 });
+        animHeroWalkUp->PushBack({ 64 * i, 0, 64, 98 });
+    animHeroWalkUp->PushBack({ 64, 0, 64, 98 });
+
     animHeroWalkDown->loop = true;
     animHeroWalkDown->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animHeroWalkDown->PushBack({ 48 * i, 0, 48, 96 });
+        animHeroWalkDown->PushBack({ 64 * i, 98, 64, 98 });
+    animHeroWalkDown->PushBack({ 64, 98, 64, 98 });
+
     animHeroWalkLeft->loop = true;
     animHeroWalkLeft->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animHeroWalkLeft->PushBack({ 48 * i, 96, 48, 96 });
+        animHeroWalkLeft->PushBack({ 64 * i, 296, 64, 98 });
+    animHeroWalkLeft->PushBack({ 64, 296, 64, 98 });
+
     animHeroWalkRight->loop = true;
     animHeroWalkRight->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animHeroWalkRight->PushBack({ 48 * i, 192, 48, 96 });
+        animHeroWalkRight->PushBack({ 64 * i, 196, 64, 98 });
+    animHeroWalkRight->PushBack({ 64, 196, 64, 98 });
 
     //
     // Load textures
     //
-    heroTexture = this->tex->Load("assets/sprites/player/cyborg_spritesheet_48x96px.png");
+    //heroTexture = this->tex->Load("assets/sprites/player/cyborg_spritesheet_48x96px.png");
+    heroTexture = this->tex->Load("assets/sprites/player/char_maincharacter_v01_w.png");
     oldCaptainTexture = NULL;
 
 

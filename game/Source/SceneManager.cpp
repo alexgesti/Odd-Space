@@ -164,8 +164,12 @@ bool SceneManager::Update(float dt)
 
 	// Draw current scene
 	current->Draw();
-	speak->Update(dt);
-	dialogueSystem->Draw();
+
+	if (dialogueSystem->inConversation)
+	{
+		speak->Update(dt);
+		dialogueSystem->Draw();
+	}
 
 	// Draw full screen rectangle in front of everything
 	if (onTransition)
@@ -209,6 +213,10 @@ bool SceneManager::Update(float dt)
 
 		current->transitionRequired = false;
 	}
+
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) dialogueSystem->inConversation = !dialogueSystem->inConversation;
+	if (input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN) dialogueSystem->SetConversation(1);
+	if (input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) dialogueSystem->SetConversation(0);
 
 	if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
 	return true;

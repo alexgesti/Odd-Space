@@ -16,8 +16,8 @@ DialogueSystem::~DialogueSystem() {}
 bool DialogueSystem::Start()
 {
 	LoadDialogue("dialogue_test.xml");
-	currentNode = dialogueTrees[Id]->dialogueNodes[0];
-	PerformDialogue(Id);
+	currentNode = dialogueTrees[id]->dialogueNodes[0];
+	//PerformDialogue(Id);
 	font = new Font("assets/typo/Adore64.xml", tex);
 	return true;
 }
@@ -29,7 +29,7 @@ bool DialogueSystem::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 		{
 			playerInput = 0;
-			PerformDialogue(Id);
+			PerformDialogue(id);
 
 			nextSentence = true;
 		}
@@ -37,7 +37,7 @@ bool DialogueSystem::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
 		{
 			playerInput = 1;
-			PerformDialogue(Id);
+			PerformDialogue(id);
 
 			nextSentence = true;
 		}
@@ -45,17 +45,17 @@ bool DialogueSystem::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		{
 			playerInput = 2;
-			PerformDialogue(Id);
+			PerformDialogue(id);
 
 			nextSentence = true;
 		}
 
 		if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		{
-			Id = 0;
-			currentNode = dialogueTrees[Id]->dialogueNodes[0];
+			id = 0;
+			currentNode = dialogueTrees[id]->dialogueNodes[0];
 			playerInput = 9;
-			PerformDialogue(Id);
+			PerformDialogue(id);
 
 			nextSentence = true;
 		}
@@ -186,4 +186,12 @@ bool DialogueSystem::LoadOptions(pugi::xml_node& response, DialogueNode* answers
 	}
 
 	return true;
+}
+
+void DialogueSystem::SetConversation(int id)
+{
+	this->id = id;
+	currentNode = dialogueTrees[this->id]->dialogueNodes[0];
+	speak->Finish();
+	nextSentence = true;
 }

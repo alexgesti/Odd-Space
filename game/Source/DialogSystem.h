@@ -75,13 +75,15 @@ public:
 	bool LoadOptions(pugi::xml_node& text_node, DialogueNode* npc);
 	bool Draw();
 
+	void SetConversation(int id);
+
 public:
 	Speak* speak;
-	bool inConversation = true;
+	bool inConversation = false;
 	
 private:
 	int playerInput = 7;
-	int Id = 0;
+	int id = 0;
 	std::vector <DialogueTree*> dialogueTrees;
 	DialogueNode* currentNode;
 	pugi::xml_document	dialogues;
