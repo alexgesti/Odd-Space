@@ -2,61 +2,93 @@
 
 <dialogueTree>
   <dialogueExample Id="0">
-    <node text="Why did he do that? That small old man knocked me down with a beer bottle and now I stink of alcohol…"  id="0"  hasOptions="false">
-      <dialogue option="X" returnCode="0" nextNode="101"/>
+    <node text="Why did he do that? That small old man knocked me down with a beer bottle and now I stink of alcohol"  id="0"  hasOptions="false">
+      <dialogue option="X" returnCode="0" nextNode="1"/>
     </node>
-    <node text="Thats to bad bye"  id="1">
-      <dialogue option="1: Bye" returnCode="0" nextNode="100"/>
+    <node text="I’m sure he went to that bar to drink another one, better go and talk to him. I need to know where I ended up"  id="1" hasOptions="false" lastSentence="true">
+      <dialogue option="X" returnCode="0" nextNode="1"/>
     </node>
-    <node text="I have a quest for you" id="2">
-      <dialogue option="1: Not interested" returnCode="0" nextNode="100"/>
-      <dialogue option="2: What do I have to do?" returnCode="0" nextNode="4"/>
-      <dialogue option="3: I dont work for free" returnCode="0" nextNode="3"/>
+    <node text="Well how lovely, i think i’m going to explode if i stay nearby" id="2" hasOptions="false" lastSentence="true">
+     <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
-    <node text="I can pay you five gold coins" id="3">
-      <dialogue option="1: Then we have a deal whats the quest about?" returnCode="0" nextNode="4"/>
-      <dialogue option="2:Thats not enough bye" returnCode="0" nextNode="100"/>
+    <node text="Heeyyy Boy!!" id="3" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="4"/> 
     </node>
-    <node text="Killing some giant rats" id="4">
-      <dialogue option="1: Lets do it already" returnCode="1" nextNode="101"/>
-      <dialogue option="2: Im scared of rats" returnCode="0" nextNode="100"/>
+    <node text="Are      Are you talking to me?" id="4" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="5"/> 
     </node>
-    <node text ="End of conversation R to talk again" id ="100">
+    <node text ="Of course, you see anyone else around here besides the giant green monster? He doesn’t talk too much" id ="5" hasOptions="true">
+	<dialogue option="1: Sorry, I’m out, I can’t deal with this, I’ll get going" returnCode="0" nextNode="6"/>
+      <dialogue option="2: What do you want, i don’t have any money on me right now, you have mistaken me for someone else" returnCode="0" nextNode="9"/>
     </node>
-    <node text ="Mision accepted R to talk again" id ="101" lastSentence="true">
+ <node text="Wait don’t run away from me. There’s, there’s lava all over the place" id="6" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="7"/> 
     </node>
-  </dialogueExample>
-
-  <dialogueExample Id="1">
-    <!-- TODO 1: Desing and write your own dialogue Tree -->
-    <node text="Hola, necesito ayuda!"  id="0">
-      <dialogue option="1: Ahora no puedo" returnCode="0" nextNode="1"/>
-      <dialogue option="2: Si, dime en que te puedo ayudar?" returnCode="0" nextNode="2"/>
+ <node text="Wait when did all this lava spread? It was you right? It has to be you, I’ll never forgive you NEVER (dies dramatically)" id="7" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="8"/> 
     </node>
-    <node text="Okey, chao!"  id="1">
-      <dialogue option="1: chao!" returnCode="0" nextNode="100"/>
+ <node text="That was unexpected, I better go inside and see if the old man is there" id="8" hasOptions="false" lastSentence="true">
+     <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
-    <node text="Tengo una mision para ti" id="2">
-      <dialogue option="1: No me interesa" returnCode="0" nextNode="100"/>
-      <dialogue option="2: Que tengo que hacer?" returnCode="0" nextNode="4"/>
-      <dialogue option="3: No trabajo de gartis" returnCode="0" nextNode="3"/>
+ <node text="No, I don't want your money, I'm here to tell you a secret, I buried the biggest treasure in this asteroid but I don't remember where I left it." id="9" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="10"/> 
     </node>
-    <node text="Te puedo pagar 5 monedas" id="3">
-      <dialogue option="1: Entonces tenemos un trato" returnCode="0" nextNode="4"/>
-      <dialogue option="2: No es suficiento, lo siento" returnCode="0" nextNode="100"/>
+ <node text="So you want me to help you look for it? I’m not a charity volunteer, you know" id="10" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="11"/> 
     </node>
-    <node text="Mata ratas" id="4">
-      <dialogue option="1: Hagamoslo!" returnCode="1" nextNode="5"/>
-      <dialogue option="2: Tengo miedo a las ratas" returnCode="0" nextNode="100"/>
+ <node text="What? No, nonono, it’s my treasure, only mine, it helps with the voices, do you understand? No one will ever find my treasure, it’s mine!!" id="11" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="12"/> 
     </node>
-    <node text="Necesitaras ayuda?" id="5">
-      <dialogue option="1: Si, la necesitare" returnCode="1" nextNode="100"/>
-      <dialogue option="2: Puedo hacerlo solo" returnCode="0" nextNode="100"/>
+ <node text=" Hey, hey I found it! Oh well, one last trip won’t hurt me" id="12" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="13"/> 
     </node>
-    <node text ="Fin de conversación, pulsa R para empezar de nuevo" id ="100">
+ <node text="All right, nice, he just… never mind, we’re not seeing him again" id="13" hasOptions="false" lastSentence="true">
+     <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
-    <node text ="Mision aceptada, pulsa R para empezar de nuevo" id ="101">
+ <node text="Hey Boy, do you have a second?" id="14" hasOptions="true">
+<dialogue option="1: Can I even refuse?" returnCode="0" nextNode="15"/>
+      <dialogue option="2: Sure, what’s up friendly looking stranger?" returnCode="0" nextNode="16"/>
     </node>
-  </dialogueExample>
-    
-</dialogueTree>
+ <node text="Not really, listen I have a job for you" id="15" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="17"/> 
+    </node>
+ <node text="Well well, look who's trying to be funny." id="16" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="17"/> 
+    </node>
+ <node text="You see, a long time ago i started taking cooking very seriously, it all began that one day when" id="17" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="18"/> 
+    </node>
+ <node text="Can’t we just skip this and get to the job you were mentioning earlier?" id="18" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="19"/> 
+    </node>
+ <node text="Yeah, long old stories are always boring. I get it, you want to go straight to the point, perfect." id="19" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="20"/> 
+    </node>
+ <node text="What would you tell me if I said i’ll pay you 10 bronze coins for every drunk, annoying customer you take out of my classy bar?" id="20" hasOptions="true">
+	<dialogue option="1: You have a deal" returnCode="0" nextNode="20"/>
+      	<dialogue option="2: Make it 20, last offer." returnCode="0" nextNode="23"/>
+    </node>
+<node text="Excellent, you can begin as soon as you like, I always have people that would be better outside, who knows, if you work properly i may treat you to a drink. You’re old enough right" id="20" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="21"/> 
+    </node>
+<node text="Of course I’m old enough, you’re the one making me fight big drunk people here" id="21" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="22"/> 
+    </node>
+<node text="Good point" id="22" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="25"/> 
+    </node>
+<node text="Only 10 coins with the possibility of drinking the best ron in the galaxy, deal?" id="23" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="24"/> 
+    </node>
+<node text="Deal" id="24" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="25"/> 
+    </node>
+<node text="Whenever you’re ready to work, talk with me, I'll tell you who to take out." id="25" hasOptions="false">
+     <dialogue option="X" returnCode="0" nextNode="26"/> 
+    </node>
+<node text="I better go find that old man, he may leave without me if I don’t do so and I would be doomed by then" id="26" hasOptions="false" lastSentence="true">
+     <dialogue option="X" returnCode="0" nextNode="1"/> 
+    </node>
+<node text="What, what do you want? I think i told your friends earlier that i’m not interested in knowing the truth behind the creation of the universe, get away or suffer my legendary wrath!" id="27" hasOptions="false" lastSentence="true">>
+     <dialogue option="X" returnCode="0" nextNode="1"/> 
+    </node>
