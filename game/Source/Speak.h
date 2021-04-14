@@ -2,6 +2,7 @@
 #define __SPEAK_H__
 
 #define LETTERSPEED 0.1f
+#define LINELENGTH 50
 
 #include "SString.h"
 #include "Audio.h"

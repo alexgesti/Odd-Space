@@ -40,6 +40,8 @@ public:
 	vector <DialogueOption*> dialogueOptions;
 	List <string> answersList;
 	int nodeId;
+	bool hasOptions;
+	bool lastSentence;
 };
 
 class DialogueTree

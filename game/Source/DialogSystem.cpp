@@ -26,7 +26,7 @@ bool DialogueSystem::Update(float dt)
 {
 	if (inConversation)
 	{
-		if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 0;
 			PerformDialogue(id);
@@ -34,7 +34,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 1;
 			PerformDialogue(id);
@@ -42,7 +42,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 2;
 			PerformDialogue(id);
@@ -50,6 +50,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
+		// Restart conversation
 		if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 		{
 			id = 0;
@@ -59,6 +60,28 @@ bool DialogueSystem::Update(float dt)
 
 			nextSentence = true;
 		}
+
+		if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+		{
+			// Finish speaking sentence
+			if (speak->speaking) speak->Finish();
+
+			// If it's last sentence disable dialogueSystem
+			else if (currentNode->lastSentence)
+			{
+				inConversation = false;
+			}
+
+			// If the sentence has no options continue with the next line of dialogue
+			else if(!currentNode->hasOptions)
+			{
+				playerInput = 0;
+				PerformDialogue(id);
+				nextSentence = true;
+			}
+
+			showOptions = true;
+		}
 	}
 
 	return true;
@@ -66,8 +89,8 @@ bool DialogueSystem::Update(float dt)
 
 bool DialogueSystem::Draw()
 {
-	char NPCdialogue[64] = { 0 };
-	sprintf_s(NPCdialogue, 64, currentNode->text.c_str(), 56);
+	char NPCdialogue[300] = { 0 };
+	sprintf_s(NPCdialogue, 300, currentNode->text.c_str(), 56);
 
 	if (!speak->speaking && nextSentence)
 	{
@@ -94,12 +117,22 @@ bool DialogueSystem::Draw()
 
 	if (showOptions)
 	{
-		char response[64] = { 0 };
+		char response[300] = { 0 };
 		for (int i = 0; i < currentNode->answersList.Count(); i++)
 		{
-			sprintf_s(response, 64, currentNode->answersList.At(i)->data.c_str(), 56);
-			render->DrawText(font, response, 720, 500 + (60 * (i + 1)), 25, 0, { 255, 0, 255, 255 });
+			sprintf_s(response, 300, currentNode->answersList.At(i)->data.c_str(), 56);
+
+			// Draw the "E" option more on the left bottom
+			if (!currentNode->hasOptions || currentNode->lastSentence)
+			{
+				render->DrawText(font, response, 1100, 650, 25, 0, { 255, 0, 255, 255 });
+			}
+
+			else render->DrawText(font, response, 720, 500 + (60 * (i + 1)), 25, 0, { 255, 0, 255, 255 });
 		}
+
+		// If it's the last sentence print an E as well
+		if (currentNode->answersList.Count() == 0) render->DrawText(font, "X", 1100, 650, 25, 0, { 255, 0, 255, 255 });
 	}
 
 	return true;
@@ -167,6 +200,8 @@ bool DialogueSystem::LoadNodes(pugi::xml_node& trees, DialogueTree* example)
 		DialogueNode* node = new DialogueNode;
 		node->text.assign(n.attribute("text").as_string());
 		node->nodeId = n.attribute("id").as_int();
+		node->hasOptions = n.attribute("hasOptions").as_bool(true);
+		node->lastSentence = n.attribute("lastSentence").as_bool(false);
 		LoadOptions(n, node);
 		example->dialogueNodes.push_back(node);
 	}

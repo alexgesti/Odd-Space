@@ -20,7 +20,7 @@ void Speak::Update(float dt)
 {
 	if (textSaid == false)
 	{
-		if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) Finish();
+		//if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) Finish();
 
 		if (timeWaited >= LETTERSPEED)
 		{
@@ -67,13 +67,16 @@ void Speak::Draw()
 	render->DrawRectangle(rect, 0, 0, 0, 255, true, false);
 
 	std::string textToRender;
+	std::string textToRender2 = "";
 
 	for (int i = 0; i < letterAmount; i++)
 	{
-		textToRender.push_back(copText.GetString()[i]);
+		if (i <= LINELENGTH) textToRender.push_back(copText.GetString()[i]);
+		else textToRender2.push_back(copText.GetString()[i]);
 	}
 
 	render->DrawText(font, textToRender.c_str(), 0, 610, 25, 0, { 255, 0, 255, 255 });
+	if(textToRender2 != "") render->DrawText(font, textToRender2.c_str(), 0, 640, 25, 0, { 255, 0, 255, 255 });
 }
 
 void Speak::SayText(SString text, bool slowly)

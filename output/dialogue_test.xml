@@ -2,9 +2,8 @@
 
 <dialogueTree>
   <dialogueExample Id="0">
-    <node text="Hey, I need your help!"  id="0">
-      <dialogue option="1: No sorry" returnCode="0" nextNode="1"/>
-      <dialogue option="2: Yes what is it?" returnCode="0" nextNode="2"/>
+    <node text="Why did he do that? That small old man knocked me down with a beer bottle and now I stink of alcohol…"  id="0"  hasOptions="false">
+      <dialogue option="X" returnCode="0" nextNode="101"/>
     </node>
     <node text="Thats to bad bye"  id="1">
       <dialogue option="1: Bye" returnCode="0" nextNode="100"/>
@@ -24,7 +23,7 @@
     </node>
     <node text ="End of conversation R to talk again" id ="100">
     </node>
-    <node text ="Mision accepted R to talk again" id ="101">
+    <node text ="Mision accepted R to talk again" id ="101" lastSentence="true">
     </node>
   </dialogueExample>
 
