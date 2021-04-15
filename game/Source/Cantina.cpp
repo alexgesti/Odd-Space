@@ -45,6 +45,14 @@ Cantina::Cantina(Window* win, Input* input, Render* render, Textures* tex, Entit
 		RELEASE_ARRAY(data);
 	}
 
+	texBarman = this->tex->Load("assets/sprites/npcs/npc_barman_v01_w.png");
+
+	animBarmanIdle->loop = true;
+	animBarmanIdle->speed = 0.05f;
+	animBarmanIdle->PushBack({ 0,0,48,96 });
+	animBarmanIdle->PushBack({ 48,0,48,96 });
+
+
 	name.Create("cantina");
 }
 // Destructor
@@ -146,6 +154,9 @@ bool Cantina::Update(float dt)
 		map->doorHit = false;
 	}
 
+
+	animBarmanIdle->Update();
+
 	return true;
 }
 
@@ -157,6 +168,10 @@ bool Cantina::Draw()
 	//player->Draw(render);
 
 	entityManager->Draw();
+
+
+	SDL_Rect rect = animBarmanIdle->GetCurrentFrame();
+	render->DrawTexture(texBarman, 31 * 32, 16 * 32 - 16, &rect);
 
 	return false;
 }

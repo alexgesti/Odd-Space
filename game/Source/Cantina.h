@@ -11,6 +11,7 @@
 
 #include "Scene.h"
 #include "Font.h"
+#include "Animation.h"
 
 class Map;
 
@@ -60,6 +61,10 @@ private:
     SceneType* previousScene;
 
     Font* font;
+
+
+    SDL_Texture* texBarman;
+    Animation* animBarmanIdle = new Animation();
 };
 
 #endif // __CANTINA_H__
