@@ -5,16 +5,21 @@
 #include "SString.h"
 
 
-struct Stat
+struct Info
 {
+    SString name;
     int HP;
     int SP;
+    int maxHP;
+    int maxSP;
     int LVL;
+};
+
+struct Stat
+{
     int ATK;
     int DEF;
-    int SPL;
     int SPD;
-    int AGL;
     int LCK;
 };
 
@@ -23,18 +28,22 @@ struct Skill
     SString name;
     SString description;
     int cost;
+    bool picked = false;
 };
 
 struct Entities
 {
-    SString name;
+    Info info;
     Stat stats;
     Skill skills[5];
+    bool defense;
+    bool attack;
 };
 
 enum class EntityType
 {
-    PLAYER,
+    HERO,
+    CAPTAIN,
     ENEMY,
     ITEM,
     MAP,
@@ -60,6 +69,7 @@ public:
 public:
 
     EntityType type;
+    Entities infoEntities;
     bool active = true;
     //SString name;         // Entity name identifier?
     //uint32 id;            // Entity identifier?

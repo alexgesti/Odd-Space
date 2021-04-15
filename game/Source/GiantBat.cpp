@@ -36,16 +36,14 @@ GiantBat::GiantBat(Input* input, Render* render) : Enemy(EnemyType::GIANTBAT)
     width = 16;
     height = 32;
 
-    //Hero stats
-    giantBat.stats.HP = 60;
-    giantBat.stats.SP = 0;
-    giantBat.stats.LVL = 4;
-    giantBat.stats.ATK = 20;
-    giantBat.stats.DEF = 24;
-    giantBat.stats.SPL = 40;
-    giantBat.stats.SPD = 32;
-    giantBat.stats.AGL = 16;
-    giantBat.stats.LCK = 12;
+    //Giant Bat stats
+    infoEntities.info.name = "Giant Bat";
+    infoEntities.info.HP = 10;
+    infoEntities.info.LVL = 4;
+    infoEntities.stats.ATK = 5;
+    infoEntities.stats.DEF = 4;
+    infoEntities.stats.SPD = 10;
+    infoEntities.stats.LCK = 5;
 
     // Define Player animations
 }
@@ -63,12 +61,15 @@ bool GiantBat::Update(float dt)
 
 bool GiantBat::Draw()
 {
-    // TODO: Calculate the corresponding rectangle depending on the
-    // animation state and animation frame
-    //SDL_Rect rec = { 0 };
-    //render->DrawTexture(texture, position.x, position.y, rec);
+    if (infoEntities.info.HP > 0)
+    {
+        // TODO: Calculate the corresponding rectangle depending on the
+        // animation state and animation frame
+        //SDL_Rect rec = { 0 };
+        //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+        render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    }
 
     return false;
 }

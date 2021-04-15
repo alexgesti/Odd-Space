@@ -188,12 +188,12 @@ bool Input::PreUpdate()
 				{
 				case SDL_CONTROLLERBUTTONDOWN:
 					pad.padButtons[event.cbutton.button] = KEY_DOWN;
-					LOG("Pad button %d down", event.cbutton.button);
+					//LOG("Pad button %d down", event.cbutton.button);
 					break;
 
 				case SDL_CONTROLLERBUTTONUP:
 					pad.padButtons[event.cbutton.button] = KEY_UP;
-					LOG("Pad button %d up", event.cbutton.button);
+					//LOG("Pad button %d up", event.cbutton.button);
 					break;
 				default:break;
 				}

@@ -57,7 +57,7 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	render->camera.x = 530;
 	render->camera.y = 130;
 
-	entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint(64, 285);
+	entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
 
 	wcFx = audio->LoadFx("assets/audio/fx/toilet.wav");
 
@@ -126,11 +126,11 @@ bool Wc::Update(float dt)
 		temp.h += 20;
 
 		SDL_Rect playerRect;
-		playerRect.x = entityManager->CreateEntity(EntityType::PLAYER)->position.x;
-		playerRect.y = entityManager->CreateEntity(EntityType::PLAYER)->position.y;
+		playerRect.x = entityManager->CreateEntity(EntityType::HERO)->position.x;
+		playerRect.y = entityManager->CreateEntity(EntityType::HERO)->position.y;
 		playerRect.w = playerRect.h = 32;
 
-		if (entityManager->CreateEntity(EntityType::PLAYER)->interacting == true)
+		if (entityManager->CreateEntity(EntityType::HERO)->interacting == true)
 		{
 			if (collision->currentInteraction == "flush" && collision->Detect(temp, playerRect))
 			{

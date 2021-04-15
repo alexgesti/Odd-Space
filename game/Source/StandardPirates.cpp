@@ -36,16 +36,15 @@ StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType
     width = 16;
     height = 32;
 
-    //Hero stats
-    standardPirate.stats.HP = 15;
-    standardPirate.stats.SP = 10;
-    standardPirate.stats.LVL = 1;
-    standardPirate.stats.ATK = 6;
-    standardPirate.stats.DEF = 3;
-    standardPirate.stats.SPL = 5;
-    standardPirate.stats.SPD = 7;
-    standardPirate.stats.AGL = 8;
-    standardPirate.stats.LCK = 2;
+    //Standart Pirates stats
+    infoEntities.info.name = "Standart Pirate";
+    infoEntities.info.HP = 15;
+    infoEntities.info.SP = 10;
+    infoEntities.info.LVL = 1;
+    infoEntities.stats.ATK = 6;
+    infoEntities.stats.DEF = 3;
+    infoEntities.stats.SPD = 7;
+    infoEntities.stats.LCK = 2;
 
     // Define Player animations
 }
@@ -63,12 +62,15 @@ bool StandardPirates::Update(float dt)
 
 bool StandardPirates::Draw()
 {
-    // TODO: Calculate the corresponding rectangle depending on the
-    // animation state and animation frame
-    //SDL_Rect rec = { 0 };
-    //render->DrawTexture(texture, position.x, position.y, rec);
+    if (infoEntities.info.HP > 0)
+    {
+        // TODO: Calculate the corresponding rectangle depending on the
+        // animation state and animation frame
+        //SDL_Rect rec = { 0 };
+        //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
+        render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
+    }
 
     return false;
 }

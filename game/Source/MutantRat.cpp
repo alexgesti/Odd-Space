@@ -36,16 +36,14 @@ MutantRat::MutantRat(Input* input, Render* render) : Enemy(EnemyType::MUTANTRAT)
     width = 16;
     height = 32;
 
-    //Hero stats
-    mutantRat.stats.HP = 45;
-    mutantRat.stats.SP = 0;
-    mutantRat.stats.LVL = 3;
-    mutantRat.stats.ATK = 30;
-    mutantRat.stats.DEF = 12;
-    mutantRat.stats.SPL = 3;
-    mutantRat.stats.SPD = 18;
-    mutantRat.stats.AGL = 21;
-    mutantRat.stats.LCK = 9;
+    //Mutant Rat stats
+    infoEntities.info.name = "Mutant Rat";
+    infoEntities.info.HP = 15;
+    infoEntities.info.LVL = 3;
+    infoEntities.stats.ATK = 10;
+    infoEntities.stats.DEF = 3;
+    infoEntities.stats.SPD = 7;
+    infoEntities.stats.LCK = 4;
 
     // Define Player animations
 }
@@ -63,12 +61,15 @@ bool MutantRat::Update(float dt)
 
 bool MutantRat::Draw()
 {
-    // TODO: Calculate the corresponding rectangle depending on the
-    // animation state and animation frame
-    //SDL_Rect rec = { 0 };
-    //render->DrawTexture(texture, position.x, position.y, rec);
+    if (infoEntities.info.HP > 0)
+    {
+        // TODO: Calculate the corresponding rectangle depending on the
+        // animation state and animation frame
+        //SDL_Rect rec = { 0 };
+        //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
+        render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
+    }
 
     return false;
 }

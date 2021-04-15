@@ -59,7 +59,7 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		render->camera.x = 80;
 		render->camera.y = TOP_CAMERA_LIMIT;
 
-		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint(128, 195);
+		entityManager->CreateEntity(EntityType::HERO)->position = iPoint(128, 195);
 	}
 
 	else
@@ -67,7 +67,7 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		render->camera.x = 80;
 		render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint(768, 750);
+		entityManager->CreateEntity(EntityType::HERO)->position = iPoint(768, 750);
 	}
 
 	//map = new Map(tex);
@@ -133,7 +133,7 @@ bool Cantina::Update(float dt)
 		win->ToggleFullscreen(win->window);
 	
 	// Camera moves with player when it is at the middle of the screen
-	render->camera.y = -entityManager->CreateEntity(EntityType::PLAYER)->position.y + render->camera.h / 2;
+	render->camera.y = -entityManager->CreateEntity(EntityType::HERO)->position.y + render->camera.h / 2;
 
 	// Camera stops at limits
 	if (render->camera.y < BOTTOM_CAMERA_LIMIT) render->camera.y = BOTTOM_CAMERA_LIMIT;
@@ -141,7 +141,7 @@ bool Cantina::Update(float dt)
 
 	if (map->doorHit)
 	{
-		if (entityManager->CreateEntity(EntityType::PLAYER)->position.y < UPPER_DOOR) TransitionToScene(SceneType::WC);
+		if (entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR) TransitionToScene(SceneType::WC);
 		else TransitionToScene(SceneType::EXTERIOR);
 		map->doorHit = false;
 	}

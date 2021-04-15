@@ -25,7 +25,7 @@ void Player::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType::PLAYER)
+Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType::HERO)
 {
     this->input = input;
     this->render = render;
@@ -77,34 +77,37 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     playerCollision[3] = {  width, height };
 
     //Hero stats
-    hero.name = "Hero";
-    hero.stats.HP = 15;
-    hero.stats.SP = 10;
-    hero.stats.LVL = 1;
-    hero.stats.ATK = 6;
-    hero.stats.DEF = 3;
-    hero.stats.SPL = 5;
-    hero.stats.SPD = 7;
-    hero.stats.AGL = 8;
-    hero.stats.LCK = 2;
+    infoEntities.info.name = "Hero";
+    infoEntities.info.HP = 15;
+    infoEntities.info.SP = 10;
+    infoEntities.info.maxHP = 15;
+    infoEntities.info.maxSP = 10;
+    infoEntities.info.LVL = 1;
+    infoEntities.stats.ATK = 8;
+    infoEntities.stats.DEF = 4;
+    infoEntities.stats.SPD = 9;
+    infoEntities.stats.LCK = 3;
+    infoEntities.defense = false;
+    infoEntities.attack = false;
 
-    //Old captain stats
-    oldCaptain.name = "Old Captain";
-    oldCaptain.stats.HP = 20;
-    oldCaptain.stats.SP = 16;
-    oldCaptain.stats.LVL = 1;
-    oldCaptain.stats.ATK = 3;
-    oldCaptain.stats.DEF = 6;
-    oldCaptain.stats.SPL = 5;
-    oldCaptain.stats.SPD = 3;
-    oldCaptain.stats.AGL = 2;
-    oldCaptain.stats.LCK = 1;
+    //Hero skills
+    infoEntities.skills[0].name = "Lucky Slash";
+    infoEntities.skills[0].cost = 2;
+    infoEntities.skills[0].picked = false;
+    infoEntities.skills[1].name = "Spatula-Boomerang";
+    infoEntities.skills[1].cost = 4;
+    infoEntities.skills[1].picked = false;
+    infoEntities.skills[2].name = "Light Recovery";
+    infoEntities.skills[2].picked = false;
+    infoEntities.skills[2].cost = 3;
+    infoEntities.skills[3].name = "Steal";
+    infoEntities.skills[3].cost = 8;
+    infoEntities.skills[3].picked = false;
+    infoEntities.skills[4].name = "Triple Spatula";
+    infoEntities.skills[4].cost = 10;
+    infoEntities.skills[4].picked = false;
 
     // Define Player animations
-
-    // Set collision player variable to this player instance
-
-
     currentAnimation = animHeroWalkDown;
 }
 // Destructor

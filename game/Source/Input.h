@@ -114,7 +114,6 @@ public:
 	const char* GetControllerName(int id) const;
 
 	// Detects the joystick state
-
 	bool joystickState();
 
 	// Draws gamepad debug info in the screen

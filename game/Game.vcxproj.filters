@@ -93,6 +93,9 @@
     <ClCompile Include="Source\DialogSystem.cpp">
       <Filter>Modules</Filter>
     </ClCompile>
+    <ClCompile Include="Source\OldCaptain.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -227,6 +230,9 @@
     </ClInclude>
     <ClInclude Include="Source\DialogSystem.h">
       <Filter>Modules</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\OldCaptain.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

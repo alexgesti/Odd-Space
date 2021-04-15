@@ -157,7 +157,7 @@ bool SceneManager::Update(float dt)
 				transitionAlpha = 0.0f;
 				fadeOutCompleted = false;
 				onTransition = false;
-				entityManager->CreateEntity(EntityType::PLAYER)->transitioning = false;
+				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 			}
 		}
 	}
@@ -195,7 +195,7 @@ bool SceneManager::Update(float dt)
 
 	if (current->transitionRequired)
 	{
-		entityManager->CreateEntity(EntityType::PLAYER)->transitioning = true;
+		entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
 		onTransition = true;
 		fadeOutCompleted = false;
 		transitionAlpha = 0.0f;
@@ -207,7 +207,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak); break;
 		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak); break;
 		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font, speak); break;
-		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, previousScene, font, speak); break;
+		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, font, speak); break;
 		default: break;
 		}
 

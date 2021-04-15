@@ -6,8 +6,10 @@
 #include "SceneManager.h"
 
 #include "Player.h"
+#include "OldCaptain.h"
 #include "Enemy.h"
 #include "MutantRat.h"
+#include "GiantBat.h"
 #include "DrunkCustomer.h"
 #include "StandardPirates.h"
 //#include "Item.h"
@@ -75,7 +77,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	switch (type)
 	{
 		// L13: Create the corresponding type entity
-	case EntityType::PLAYER:
+	case EntityType::HERO:
 		ret = Player::GetInstance(input, render, tex);
 
 		// Created entities are added to the list
@@ -86,28 +88,36 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		}
 		break;
 
-		case EntityType::ENEMY:
-			switch (*previousScene)
-			{
-			case SceneType::CANTINA: 
-				ret = DrunkCustomer::GetInstance(input, render);
-				break;
-			case SceneType::WC: 
-				ret = MutantRat::GetInstance(input, render);
-				break;
-			case SceneType::EXTERIOR: 
-				break;
-			default: 
-				ret = StandardPirates::GetInstance(input, render); 
-				break;
-			}
+	case EntityType::CAPTAIN:
+		ret = Captain::GetInstance(input, render);
 
-			// Created entities are added to the list
-			if (ret != nullptr) entities[1].Add(ret);
+		// Created entities are added to the list
+		if (ret != nullptr && (Captain*)entities[0].At(1) == nullptr) entities[0].Add(ret);
+		break;
+
+	case EntityType::ENEMY:
+		switch (*previousScene)
+		{
+		case SceneType::CANTINA: 
+			ret = DrunkCustomer::GetInstance(input, render);
 			break;
+		case SceneType::WC: 
+			ret = MutantRat::GetInstance(input, render);
+			break;
+		case SceneType::EXTERIOR: 
+			ret = GiantBat::GetInstance(input, render);
+			break;
+		default: 
+			ret = StandardPirates::GetInstance(input, render);
+			break;
+		}
 
-		//case EntityType::ITEM: ret = new Item();  break;
-		default: break;
+		// Created entities are added to the list
+		if (ret != nullptr) entities[1].Add(ret);
+		break;
+
+	//case EntityType::ITEM: ret = new Item();  break;
+	default: break;
 	}
 
 	return ret;

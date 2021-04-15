@@ -65,8 +65,6 @@ private:
 
     Input* input;
     Render* render;
-
-    Entities mutantRat;
 };
 
 #endif // __MUTANTRAT_H__

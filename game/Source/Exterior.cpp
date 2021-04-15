@@ -60,7 +60,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		render->camera.x = -32;
 		render->camera.y = TOP_CAMERA_LIMIT;
 
-		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint (990, 325);
+		entityManager->CreateEntity(EntityType::HERO)->position = iPoint (990, 325);
 	}
 
 	else
@@ -68,7 +68,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		render->camera.x = -32;
 		render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		entityManager->CreateEntity(EntityType::PLAYER)->position = iPoint (900, 650);
+		entityManager->CreateEntity(EntityType::HERO)->position = iPoint (900, 650);
 	}
 
 	//map = new Map(tex);
@@ -128,7 +128,7 @@ bool Exterior::Update(float dt)
 		win->ToggleFullscreen(win->window);
 
 	// Camera moves with player when it is at the middle of the screen
-	render->camera.y = -entityManager->CreateEntity(EntityType::PLAYER)->position.y + render->camera.h / 2;
+	render->camera.y = -entityManager->CreateEntity(EntityType::HERO)->position.y + render->camera.h / 2;
 
 	// Camera stops at limits
 	if (render->camera.y < BOTTOM_CAMERA_LIMIT) render->camera.y = BOTTOM_CAMERA_LIMIT;
@@ -144,12 +144,12 @@ bool Exterior::Update(float dt)
 	{
 		if (collision->currentInteraction == "crazyman")
 		{
-			if (entityManager->CreateEntity(EntityType::PLAYER)->interacting == true)
+			if (entityManager->CreateEntity(EntityType::HERO)->interacting == true)
 			{
 				// Cambiar funcion, dialogo con loco
 				TransitionToScene(SceneType::CANTINA);
 				collision->currentInteraction = '/0';
-				entityManager->CreateEntity(EntityType::PLAYER)->interacting = false;
+				entityManager->CreateEntity(EntityType::HERO)->interacting = false;
 			}
 		}
 	}

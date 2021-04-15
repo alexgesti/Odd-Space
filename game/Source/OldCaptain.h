@@ -1,29 +1,33 @@
-#ifndef __DRUNKCUSTOMER_H__
-#define __DRUNKCUSTOMER_H__
+#ifndef __OLDCAPTAIN_H__
+#define __OLDCAPTAIN_H__
 
-#include "Enemy.h"
+#include "Entity.h"
 
 #include "Point.h"
 #include "SString.h"
 
 #include "SDL/include/SDL.h"
 
-
 class Input;
 class Render;
 class Textures;
 
-enum class DrunkCustomerAnim
+class Collision;
+
+enum class CaptainAnim
 {
-    IDLE
+    IDLE,
+    WALK,
+    JUMP,
+    CLIMB
 };
 
-class DrunkCustomer : public Enemy
+class Captain : public Entity
 {
 public:
 
     // Get unique instance of the class
-    static DrunkCustomer* GetInstance(Input* input, Render* render);
+    static Captain* GetInstance(Input* input, Render* render);
     // Delete the instance
     static void ResetInstance();
 
@@ -40,31 +44,38 @@ public:
 
 public:
 
-    SDL_Texture* texture;   // StandartPirates spritesheet
+    SDL_Texture* texture;   // Player spritesheet
 
-    DrunkCustomerAnim currentAnim;
+    // TODO: Define all animation properties
+    CaptainAnim currentAnim;
 
     int width, height;
+
+    iPoint temPos;
+
+    iPoint playerCollision[4];
 
 private:
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
-    static DrunkCustomer* instance;
+    static Captain* instance;
     // Private Constructor
-    DrunkCustomer(Input* input, Render* render);
+    Captain(Input* input, Render* render);
     // Private Destructor
-    virtual ~DrunkCustomer();
+    virtual ~Captain();
     // Declare the copy constructor and the assignment operator
     // as private (or delete them explicitly) to prevent cloning your object
-    DrunkCustomer(const DrunkCustomer&);
-    DrunkCustomer& operator=(const DrunkCustomer&);
+    Captain(const Captain&);
+    Captain& operator=(const Captain&);
     // ----------------------------- //
 
 private:
 
     Input* input;
     Render* render;
+
+    Collision* collision;
 };
 
-#endif // __DRUNKCUSTOMER_H__
+#endif // __PLAYER_H__

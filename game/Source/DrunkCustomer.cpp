@@ -36,16 +36,14 @@ DrunkCustomer::DrunkCustomer(Input* input, Render* render) : Enemy(EnemyType::DR
     width = 16;
     height = 32;
 
-    //Hero stats
-    drunkCustomer.stats.HP = 40;
-    drunkCustomer.stats.SP = 0;
-    drunkCustomer.stats.LVL = 2;
-    drunkCustomer.stats.ATK = 14;
-    drunkCustomer.stats.DEF = 4;
-    drunkCustomer.stats.SPL = 2;
-    drunkCustomer.stats.SPD = 4;
-    drunkCustomer.stats.AGL = 2;
-    drunkCustomer.stats.LCK = 6;
+    //Drunk Customer stats
+    infoEntities.info.name = "Drunk Customer";
+    infoEntities.info.HP = 22;
+    infoEntities.info.LVL = 2;
+    infoEntities.stats.ATK = 8;
+    infoEntities.stats.DEF = 7;
+    infoEntities.stats.SPD = 4;
+    infoEntities.stats.LCK = 5;
 
     // Define Player animations
 }
@@ -63,12 +61,15 @@ bool DrunkCustomer::Update(float dt)
 
 bool DrunkCustomer::Draw()
 {
-    // TODO: Calculate the corresponding rectangle depending on the
-    // animation state and animation frame
-    //SDL_Rect rec = { 0 };
-    //render->DrawTexture(texture, position.x, position.y, rec);
+    if (infoEntities.info.HP > 0)
+    {
+        // TODO: Calculate the corresponding rectangle depending on the
+        // animation state and animation frame
+        //SDL_Rect rec = { 0 };
+        //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 0, 0, 255, 255);
+        render->DrawRectangle(GetBounds(), 0, 0, 255, 255);
+    }
 
     return false;
 }

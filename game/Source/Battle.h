@@ -24,7 +24,7 @@ class Battle : public Scene
 public:
 
     // Constructor
-    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, SceneType* previousScene, Font* font, Speak* speak);
+    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Font* font, Speak* speak);
     // Destructor
     virtual ~Battle();
 
@@ -42,10 +42,20 @@ public:
     bool Unload();
 
 
-    //Damage Calculator
-    int DamageCalculator();
-    void PlayerTurn(float dt);
+    //Menu
+    void PlayerMenu(float dt);
 
+    // Damage dealt by Player
+    void DamagePlayer(int player);
+
+    //Run
+    void BattleEscaped();
+
+    //Player Turns
+    void ChangeTurns();
+
+    //Damage dealt by enemy
+    void DamageEnemy(int enemy);
 
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
@@ -61,55 +71,56 @@ private:
 
     Speak* speak;
 
-    SceneType* previousScene;
-
     Font* font;
 
     SDL_Texture* UI;
 
-    struct ButtonsMenu
+    struct Buttons
     {
-        GuiButton* buttonAttack;
-        GuiButton* buttonGuard;
-        GuiButton* buttonSkills;
-        GuiButton* buttonRun;
-        GuiButton* buttonItem;
-        GuiButton* buttonBack;
-    } buttonsMenu;
+        struct ButtonsMenu
+        {
+            GuiButton* buttonAttack;
+            GuiButton* buttonGuard;
+            GuiButton* buttonSkills;
+            GuiButton* buttonRun;
+            GuiButton* buttonItem;
+            GuiButton* buttonBack;
+        } buttonsMenu;
 
-    struct ButtonsSkills
-    {
-        GuiButton* buttonSkill1;
-        GuiButton* buttonSkill2;
-        GuiButton* buttonSkill3;
-        GuiButton* buttonSkill4;
-        GuiButton* buttonSkill5;
-        GuiButton* buttonBack;
-    } buttonsSkills;
+        struct ButtonsSkills
+        {
+            GuiButton* buttonSkill1;
+            GuiButton* buttonSkill2;
+            GuiButton* buttonSkill3;
+            GuiButton* buttonSkill4;
+            GuiButton* buttonSkill5;
+            GuiButton* buttonBack;
+        } buttonsSkills;
 
-    struct ButtonsEnemy
-    {
-        GuiButton* buttonEnemy1;
-        GuiButton* buttonEnemy2;
-        GuiButton* buttonEnemy3;
-        GuiButton* buttonEnemy4;
-        GuiButton* buttonEnemy5;
-        GuiButton* buttonBack;
-    } buttonsEnemies;
+        struct ButtonsEnemy
+        {
+            GuiButton* buttonEnemy1;
+            GuiButton* buttonEnemy2;
+            GuiButton* buttonEnemy3;
+            GuiButton* buttonEnemy4;
+            GuiButton* buttonEnemy5;
+            GuiButton* buttonBack;
+        } buttonsEnemies;
+    } buttons;
 
-    bool playerTurn;
-    bool chooseAction = true;
-    bool chooseEnemy = false;
-    bool chooseSkill = false;
+    int totalEnemies;
+    int selectedEnemies[3];
+    int characterTurn;
 
-    int random;
+    bool playerMenu = true;
 
-    int f = 0;
-    int c = 0;
+    //UI Controller
+    int chooseMenu;
+    int f;
+    int c;
     int controllerMenu[2][3] = { {1, 2, 3}, {4, 5, 6} };
     int controllerSkill[2][3] = { {7, 8, 9}, {10, 11, 12} };
     int controllerEnemy[];
-
 };
 
 #endif // __SCENEBATTLE_H__

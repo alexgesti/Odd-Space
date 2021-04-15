@@ -1,5 +1,5 @@
-#ifndef __STANDARDPIRATES_H__
-#define __STANDARDPIRATES_H__
+#ifndef __GIANTBAT_H__
+#define __GIANTBAT_H__
 
 #include "Enemy.h"
 
@@ -65,8 +65,6 @@ private:
 
     Input* input;
     Render* render;
-
-    Entities giantBat;
 };
 
-#endif // __STANDARDPIRATES_H__
+#endif // __GIANTBAT_H__
