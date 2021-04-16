@@ -7,7 +7,8 @@
 #include "Textures.h"
 
 #include "Collision.h"
-#include "Animation.h"
+
+
 
 Player* Player::instance = nullptr;
 // Instance creator
@@ -63,7 +64,6 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     //
     //heroTexture = this->tex->Load("assets/sprites/player/cyborg_spritesheet_48x96px.png");
     heroTexture = this->tex->Load("assets/sprites/player/char_maincharacter_v01_w.png");
-    oldCaptainTexture = NULL;
 
 
     position = iPoint(12 * 16, 27 * 16);
@@ -107,7 +107,7 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     infoEntities.skills[4].cost = 10;
     infoEntities.skills[4].picked = false;
 
-    // Define Player animations
+    // Define Player current animation
     currentAnimation = animHeroWalkDown;
 }
 // Destructor
@@ -170,7 +170,7 @@ bool Player::Draw()
 
     //render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
     SDL_Rect rect = currentAnimation->GetCurrentFrame();
-    render->DrawTexture(heroTexture, (int)position.x - 8, (int)position.y - 64, &rect);
+    render->DrawTexture(heroTexture, (int)position.x - 16, (int)position.y - 64, &rect);
 
 
     return false;

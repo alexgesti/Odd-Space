@@ -40,6 +40,8 @@ public:
 
     bool Draw();
 
+
+
     SDL_Rect GetBounds();
 
     static void SetCollision(Collision* collision, Player* player);
@@ -60,7 +62,6 @@ private:
     int width, height;
     // Player sprite sheets
     SDL_Texture* heroTexture;
-    SDL_Texture* oldCaptainTexture;
     // Current Player animation
     Animation* currentAnimation;
     
@@ -85,10 +86,6 @@ private:
     Animation* animHeroWalkDown = new Animation();
     Animation* animHeroWalkLeft = new Animation();
     Animation* animHeroWalkRight = new Animation();
-    Animation* animOldCaptainWalkUp = new Animation();
-    Animation* animOldCaptainWalkDown = new Animation();
-    Animation* animOldCaptainWalkLeft = new Animation();
-    Animation* animOldCaptainWalkRight = new Animation();
     // -------------------------- //
 
     Entities hero;

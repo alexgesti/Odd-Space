@@ -89,7 +89,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 
 	case EntityType::CAPTAIN:
-		ret = Captain::GetInstance(input, render);
+		ret = Captain::GetInstance(input, render, tex);
 
 		// Created entities are added to the list
 		if (ret != nullptr && (Captain*)entities[0].At(1) == nullptr) entities[0].Add(ret);

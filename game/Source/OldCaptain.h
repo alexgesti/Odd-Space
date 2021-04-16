@@ -5,8 +5,11 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Animation.h"
 
 #include "SDL/include/SDL.h"
+
+
 
 class Input;
 class Render;
@@ -27,7 +30,7 @@ class Captain : public Entity
 public:
 
     // Get unique instance of the class
-    static Captain* GetInstance(Input* input, Render* render);
+    static Captain* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -38,30 +41,34 @@ public:
 
 
 
-    void SetTexture(SDL_Texture *tex);
-
     SDL_Rect GetBounds();
 
 public:
 
-    SDL_Texture* texture;   // Player spritesheet
-
-    // TODO: Define all animation properties
-    CaptainAnim currentAnim;
-
-    int width, height;
-
+    // ----- OLD CAPTAIN VARIABLES ----- //
+    // Old Captain position
     iPoint temPos;
-
+    // Old Captain collision
     iPoint playerCollision[4];
+    // --------------------------------- //
 
 private:
+
+    // ----- OLD CAPTAIN VARIABLES ----- //
+    //  Old Captain size
+    int width, height;
+    // Old Captain sprite sheets
+    SDL_Texture* oldCaptainTexture;
+    // Current Old Captain animation
+    Animation* currentAnimation;
+    // --------------------------------- //
+
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
     static Captain* instance;
     // Private Constructor
-    Captain(Input* input, Render* render);
+    Captain(Input* input, Render* render, Textures* tex);
     // Private Destructor
     virtual ~Captain();
     // Declare the copy constructor and the assignment operator
@@ -70,10 +77,19 @@ private:
     Captain& operator=(const Captain&);
     // ----------------------------- //
 
+
+    // ----- ANIMATION SETS ----- //
+    Animation* animOldCaptainWalkUp = new Animation();
+    Animation* animOldCaptainWalkDown = new Animation();
+    Animation* animOldCaptainWalkLeft = new Animation();
+    Animation* animOldCaptainWalkRight = new Animation();
+    // -------------------------- //
+
 private:
 
     Input* input;
     Render* render;
+    Textures* tex;
 
     Collision* collision;
 };

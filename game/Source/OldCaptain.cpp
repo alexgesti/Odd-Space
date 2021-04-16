@@ -4,17 +4,17 @@
 
 #include "Input.h"
 #include "Render.h"
+#include "Textures.h"
 
 #include "Collision.h"
-//#include "Textures.h"
 
 
 
 Captain* Captain::instance = nullptr;
 // Instance creator
-Captain* Captain::GetInstance(Input* input, Render* render)
+Captain* Captain::GetInstance(Input* input, Render* render, Textures* tex)
 {
-    if (instance == nullptr) instance = new Captain(input, render);
+    if (instance == nullptr) instance = new Captain(input, render, tex);
     //else LOG("Returning player instance");
 
     return instance;
@@ -26,13 +26,46 @@ void Captain::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-Captain::Captain(Input* input, Render* render) : Entity(EntityType::CAPTAIN)
+Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
 {
     this->input = input;
     this->render = render;
+    this->tex = tex;
+
+    //
+    // Animation pushbacks
+    //
+    animOldCaptainWalkUp->loop = true;
+    animOldCaptainWalkUp->speed = 0.08f;
+    for (int i = 0; i < 3; ++i)
+        animOldCaptainWalkUp->PushBack({ 48 * i, 96, 48, 96 });
+    animOldCaptainWalkUp->PushBack({ 48 , 96, 48, 96 });
+
+    animOldCaptainWalkDown->loop = true;
+    animOldCaptainWalkDown->speed = 0.08f;
+    for (int i = 0; i < 3; ++i)
+        animOldCaptainWalkDown->PushBack({ 48 * i, 0, 48, 96 });
+    animOldCaptainWalkDown->PushBack({ 48, 0, 48, 96 });
+
+    animOldCaptainWalkLeft->loop = true;
+    animOldCaptainWalkLeft->speed = 0.08f;
+    for (int i = 0; i < 3; ++i)
+        animOldCaptainWalkLeft->PushBack({ 48 * i, 192, 48, 96 });
+    animOldCaptainWalkLeft->PushBack({ 48, 192, 48, 96 });
+
+    animOldCaptainWalkRight->loop = true;
+    animOldCaptainWalkRight->speed = 0.08f;
+    for (int i = 0; i < 3; ++i)
+        animOldCaptainWalkRight->PushBack({ 48 * i, 288, 48, 96 });
+    animOldCaptainWalkRight->PushBack({ 48, 288, 48, 96 });
 
 
-    texture = NULL;
+    //
+    // Load textures
+    //
+    oldCaptainTexture = this->tex->Load("assets/sprites/player/char_oldcaptain_v01_w.png");
+    
+    
     position = iPoint (12 * 16, 27 * 16);
 
     width = 32;
@@ -69,7 +102,8 @@ Captain::Captain(Input* input, Render* render) : Entity(EntityType::CAPTAIN)
     infoEntities.skills[4].cost = 12;
     infoEntities.skills[4].picked = false;
 
-    // Define Player animations
+    // Define Old Captain current animation
+    currentAnimation = animOldCaptainWalkDown;
 }
 // Destructor
 Captain::~Captain()
@@ -79,6 +113,7 @@ Captain::~Captain()
 
 bool Captain::Update(float dt)
 {
+    currentAnimation->Update();
 
     return true;
 }
@@ -91,17 +126,13 @@ bool Captain::Draw()
     //SDL_Rect rec = { 0 };
     //render->DrawTexture(texture, position.x, position.y, rec);
 
-    render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    //render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    SDL_Rect rect = currentAnimation->GetCurrentFrame();
+    render->DrawTexture(oldCaptainTexture, (int)position.x - 8, (int)position.y - 64, &rect);
 
     return false;
 }
 
-
-
-void Captain::SetTexture(SDL_Texture *tex)
-{
-    texture = tex;
-}
 
 SDL_Rect Captain::GetBounds()
 {
