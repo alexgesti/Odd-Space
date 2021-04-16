@@ -154,8 +154,8 @@ bool Player::Update(float dt)
         else interacting = false;
     }
 
-
-    currentAnimation->Update();
+    if (position == temPos) currentAnimation->SetCurrentFrame(1);
+    else currentAnimation->Update();
 
     return true;
 }

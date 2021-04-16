@@ -121,6 +121,8 @@ bool Exterior::Update(float dt)
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
+	if (input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+
 	if (input->GetKey(SDL_SCANCODE_F8) == KEY_UP)
 		map->drawColliders = !map->drawColliders;
 

@@ -70,28 +70,28 @@ bool GuiButton::Draw(Render* render, Font* font, bool camera)
     case GuiControlState::NORMAL:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 0, 0, 0, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 255, 255, 255 });
         }
         //render->DrawRectangle(bounds, 0, 255, 0, 255, true, camera);
         break;
     case GuiControlState::FOCUSED:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 255, 0, 0, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 0, 0, 255 });
         }
         //render->DrawRectangle(bounds, 255, 255, 0, 255, true, camera);
         break;
     case GuiControlState::PRESSED:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 0, 255, 0, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 255, 0, 255 });
         }
         //render->DrawRectangle(bounds, 0, 255, 255, 255, true, camera);
         break;
     case GuiControlState::SELECTED:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 0, 0, 255, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 0, 255, 255 });
         }
         //render->DrawRectangle(bounds, 0, 255, 0, 255, true, camera);
         break;
