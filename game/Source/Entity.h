@@ -79,6 +79,7 @@ public:
     iPoint temPos;
     iPoint position;        // Use a float instead?
     bool transitioning = false;
+    bool isPause = false;
     bool renderable = false;
     bool interacting = false;
     //SDL_Texture* texture;
