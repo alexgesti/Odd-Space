@@ -2,6 +2,7 @@
 #define __SCENETITLE_H__
 
 #include "Scene.h"
+#include "SDL/include/SDL.h"
 
 #define MAX_ZOOM 3.0f
 #define MIN_ZOOM 0.3f
@@ -41,11 +42,14 @@ public:
     //bool OnGuiMouseClickEvent(GuiControl* control);
 
 private:
+    
+    SDL_Texture* bgTitle;
 
     Window* win;
     Input* input;
     Render* render;
     Textures* tex;
+
 };
 
 #endif // __SCENETITLE_H__

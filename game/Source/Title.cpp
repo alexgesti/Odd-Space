@@ -5,7 +5,8 @@
 #include "Render.h"
 #include "Textures.h"
 
-#include "SDL/include/SDL.h"
+
+
 
 
 
@@ -28,6 +29,7 @@ Title::~Title()
 
 bool Title::Load()
 {
+    bgTitle = tex->Load("assets/sprites/MainScreen/title_screen.png");
     return false;
 }
 
@@ -44,13 +46,14 @@ bool Title::Update(float dt)
 
 bool Title::Draw()
 {
-    render->DrawRectangle({ 0, 0, 1280, 720 }, 255, 255, 0, 255);
+    render->DrawTexture(bgTitle, render->camera.x, render->camera.y);
     return false;
 }
 
 bool Title::Unload()
 {
     // Delete buttons and textures
+    tex->UnLoad(bgTitle);
     return false;
 }
 
