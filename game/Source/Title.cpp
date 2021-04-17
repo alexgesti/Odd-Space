@@ -1,11 +1,6 @@
 #include "Title.h"
 
-
-#include "GuiButton.h"
 #include "SceneManager.h"
-
-
-
 
 
 // Constructor
@@ -27,13 +22,13 @@ bool Title::Load()
     bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
 
     // Buttons
-    buttons.buttonPlay = new GuiButton(1, { 10, 560, 160, 75 }, "Play");
+    buttons.buttonPlay = new GuiButton(1, { 400, 480, 160, 75 }, "New Game");
     buttons.buttonPlay->SetObserver(this);
-    buttons.buttonContinue = new GuiButton(2, { 200, 560, 160, 75 }, "Continue");
+    buttons.buttonContinue = new GuiButton(2, { 680, 480, 160, 75 }, "Continue");
     buttons.buttonContinue->SetObserver(this);
-    buttons.buttonSettings = new GuiButton(3, { 400, 560, 160, 75 }, "Settings");
+    buttons.buttonSettings = new GuiButton(3, { 405, 560, 160, 75 }, "Settings");
     buttons.buttonSettings->SetObserver(this);
-    buttons.buttonExit = new GuiButton(4, { 600, 560, 160, 75 }, "Exit");
+    buttons.buttonExit = new GuiButton(4, { 720, 560, 160, 75 }, "Exit");
     buttons.buttonExit->SetObserver(this);
 
 
@@ -48,11 +43,18 @@ bool Title::Update(float dt)
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[c++];
     if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[c--];
-   
-    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[c], dt);
-    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[c], dt);
-    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[c], dt);
-    buttons.buttonExit->Update(sceneManager->input, controllerMenu[c], dt);
+    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
+
+    if (f > 1) f = 0;
+    if (f < 0) f = 1;
+    if (c > 1) c = 0;
+    if (c < 0) c = 1;
+
+    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[f][c], dt);
+    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[f][c], dt);
+    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[f][c], dt);
+    buttons.buttonExit->Update(sceneManager->input, controllerMenu[f][c], dt);
     return ret;
 }
 
@@ -102,7 +104,7 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     case 3:
         break;
     case 4:
-        
+        sceneManager->exitGame = true;
         break;
     default: break;
     }

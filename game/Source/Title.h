@@ -2,6 +2,7 @@
 #define __SCENETITLE_H__
 
 #include "Scene.h"
+#include "GuiButton.h"
 
 #define MAX_ZOOM 3.0f
 #define MIN_ZOOM 0.3f
@@ -10,7 +11,6 @@
 
 class SceneManager;
 class SDL_Texture;
-class GuiButton;
 
 class Title : public Scene
 {
@@ -54,8 +54,9 @@ private:
         GuiButton* buttonExit;
     }buttons;
 
+    int f;
     int c;
-    int controllerMenu[4] = {1,2,3,4};
+    int controllerMenu[2][2] = { {1, 2}, {3, 4} };
 };
 
 #endif // __SCENETITLE_H__

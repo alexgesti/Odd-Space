@@ -206,7 +206,6 @@ bool SceneManager::Update(float dt)
 
 	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) dialogueSystem->inConversation = !dialogueSystem->inConversation;
 
-	if (exitGame == true) return false;
 	return true;
 }
 
@@ -214,7 +213,7 @@ bool SceneManager::Update(float dt)
 bool SceneManager::PostUpdate()
 {
 	bool ret = true;
-
+	if (exitGame == true) return false;
 	return ret;
 }
 
