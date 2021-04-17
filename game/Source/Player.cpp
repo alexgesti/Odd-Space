@@ -98,8 +98,8 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     infoEntities.skills[1].cost = 4;
     infoEntities.skills[1].picked = false;
     infoEntities.skills[2].name = "Light Recovery";
-    infoEntities.skills[2].picked = false;
     infoEntities.skills[2].cost = 3;
+    infoEntities.skills[2].picked = false;
     infoEntities.skills[3].name = "Steal";
     infoEntities.skills[3].cost = 8;
     infoEntities.skills[3].picked = false;

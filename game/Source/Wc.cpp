@@ -111,11 +111,12 @@ bool Wc::Update(float dt)
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
-	if (input->GetKey(SDL_SCANCODE_F8) == KEY_UP)
+	if (input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+
+	if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		map->drawColliders = !map->drawColliders;
 
-	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		win->ToggleFullscreen(win->window);
+	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
 
 	if (collision->currentInteraction != '/0')
 	{

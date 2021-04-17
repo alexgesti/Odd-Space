@@ -118,10 +118,9 @@ bool SceneManager::Update(float dt)
 
 	if (!onTransition)
 	{
-		//if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) render->camera.y -= 1;
-		//if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) render->camera.y += 1;
-		//if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) render->camera.x -= 1;
-		//if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) render->camera.x += 1;
+		//General Debug Keys
+		if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+			win->ToggleFullscreen(win->window);
 
 		current->Update(dt);
 	}

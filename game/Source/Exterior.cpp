@@ -123,11 +123,10 @@ bool Exterior::Update(float dt)
 
 	if (input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
 
-	if (input->GetKey(SDL_SCANCODE_F8) == KEY_UP)
+	if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 		map->drawColliders = !map->drawColliders;
 
-	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		win->ToggleFullscreen(win->window);
+	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
 
 	// Camera moves with player when it is at the middle of the screen
 	render->camera.y = -entityManager->CreateEntity(EntityType::HERO)->position.y + render->camera.h / 2;

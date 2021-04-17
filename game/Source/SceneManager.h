@@ -46,7 +46,6 @@ public:
 	bool CleanUp();
 
 private:
-
 	Window* win;
 	Input* input;
 	Render* render;

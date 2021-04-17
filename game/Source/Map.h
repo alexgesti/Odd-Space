@@ -215,6 +215,7 @@ public:
 	MapData data;
 
 	bool drawColliders = false;
+	bool noClip = false;
 
 	Properties properties;
 

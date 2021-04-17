@@ -152,8 +152,8 @@ bool Battle::Load()
     }
 
     //Render Players
-    entityManager->CreateEntity(EntityType::HERO)->position = iPoint(300 / 2, 500);
-    entityManager->CreateEntity(EntityType::CAPTAIN)->position = iPoint(300, 500);
+    entityManager->CreateEntity(EntityType::HERO)->position = iPoint(350, 250);
+    entityManager->CreateEntity(EntityType::CAPTAIN)->position = iPoint(450, 350);
 
     //Calculo de turno
     int playerSPD = 0;
@@ -180,6 +180,10 @@ bool Battle::Update(float dt)
 
     //Evitar el free movement del player
     entityManager->entities[0].At(0)->data->transitioning = true;
+
+    if (input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+        for (int p = 0; p < entityManager->entities[0].Count(); p++)
+            entityManager->entities[0].At(p)->data->infoEntities.info.HP = entityManager->entities[0].At(p)->data->infoEntities.info.maxHP;
 
     //Player Turn
     if (playerMenu)
@@ -387,6 +391,7 @@ bool Battle::Unload()
 
     if (entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
         entityManager->entities[0].At(1)->data->infoEntities.info.HP = entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;
+
     return false;
 }
 

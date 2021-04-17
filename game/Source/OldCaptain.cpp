@@ -93,8 +93,8 @@ Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityTyp
     infoEntities.skills[1].cost = 6;
     infoEntities.skills[1].picked = false;
     infoEntities.skills[2].name = "Share a drink";
-    infoEntities.skills[2].picked = false;
     infoEntities.skills[2].cost = 5;
+    infoEntities.skills[2].picked = false;
     infoEntities.skills[3].name = "War cry";
     infoEntities.skills[3].cost = 8;
     infoEntities.skills[3].picked = false;
@@ -113,7 +113,11 @@ Captain::~Captain()
 
 bool Captain::Update(float dt)
 {
-    currentAnimation->Update();
+    // Temporary position used for animation render
+    temPos = position;
+
+    if (position == temPos) currentAnimation->SetCurrentFrame(1);
+    else currentAnimation->Update();
 
     return true;
 }

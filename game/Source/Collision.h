@@ -31,7 +31,7 @@ public:
 				{
 					for (int x = 0; x < map->data.width; x++)
 					{
-						if (wallLayer != -1 && map->data.layers.At(wallLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
+						if (wallLayer != -1 && map->data.layers.At(wallLayer)->data->Get(pos[i].x, pos[i].y) != 0 && map->noClip == false &&
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 						{
 							if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;
@@ -39,7 +39,7 @@ public:
 							break;
 						}
 
-						else if (doorLayer != -1 && map->data.layers.At(doorLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
+						if (doorLayer != -1 && map->data.layers.At(doorLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 						{
 							if (player->temPos != player->position) player->position = player->temPos;
@@ -47,7 +47,7 @@ public:
 							break;
 						}
 
-						else if (interactions != -1)
+						if (interactions != -1)
 						{
 							ListItem<ObjectData*>* list;
 							list = map->data.objLayers.At(0)->data->data.start;
