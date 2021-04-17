@@ -34,7 +34,6 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 	animBarmanIdle->PushBack({ 0,0,48,96 });
 	animBarmanIdle->PushBack({ 48,0,48,96 });
 
-
 	name.Create("cantina");
 }
 // Destructor

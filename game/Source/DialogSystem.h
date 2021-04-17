@@ -82,6 +82,8 @@ public:
 
 public:
 	Speak* speak;
+	Font* font;
+
 	bool inConversation = false;
 	bool triggerEvent = false;
 	
@@ -92,7 +94,6 @@ private:
 	DialogueNode* currentNode;
 	pugi::xml_document	dialogues;
 
-	Font* font;
 	Input* input;
 	Render* render;
 	Textures* tex;

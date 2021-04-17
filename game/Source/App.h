@@ -85,6 +85,8 @@ public:
 	SceneManager* sceneManager;
 	DialogueSystem* dialogueSystem;
 
+	bool isPause = false;
+
 	uint32 cappedms;
 	uint64 framecount = 0;
 
