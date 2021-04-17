@@ -6,6 +6,7 @@
 
 #include "Scene.h"
 #include "Font.h"
+#include "Animation.h"
 
 class Map;
 
@@ -34,6 +35,15 @@ public:
     bool Unload();
 
 private:
+
+    SDL_Texture* crazyManCantina;
+
+    // ----- ANIMATION SETS ----- //
+    Animation* animCrazyManIdle = new Animation();
+    // -------------------------- //
+
+private:
+
     Map* map;
 
     SceneManager* sceneManager;

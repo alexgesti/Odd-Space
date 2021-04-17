@@ -27,6 +27,14 @@ Exterior::Exterior(SceneManager* sceneManager) : Scene()
 		RELEASE_ARRAY(data);
 	}
 
+
+	animCrazyManIdle->loop = true;
+	animCrazyManIdle->speed = 0.05f;
+	for (int i = 0; i < 2; ++i)
+		animCrazyManIdle->PushBack({ 60 * i, 0, 60, 96 });
+
+	crazyManCantina = sceneManager->tex->Load("assets/sprites/npcs/npc_crazymancantina_v01_w.png");
+
 	name.Create("cantina");
 }
 // Destructor
@@ -184,6 +192,8 @@ bool Exterior::Update(float dt)
 		}
 	}
 
+	animCrazyManIdle->Update();
+
 	return true;
 }
 
@@ -193,6 +203,8 @@ bool Exterior::Draw()
 	map->Draw(sceneManager->render);
 
 	//player->Draw(render);
+	SDL_Rect rect = animCrazyManIdle->GetCurrentFrame();
+	sceneManager->render->DrawTexture(crazyManCantina, 16 * 32 - 16, 20 * 32 - 52, &rect);
 
 	sceneManager->entityManager->Draw();
 
