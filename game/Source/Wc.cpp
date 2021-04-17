@@ -37,6 +37,8 @@ bool Wc::Load() /*EntityManager entityManager)*/
 {
 	sceneManager->render->camera.x = 530;
 	sceneManager->render->camera.y = 130;
+	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
+	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
 	sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
 

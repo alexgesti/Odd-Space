@@ -176,7 +176,7 @@ bool DialogueSystem::LoadDialogue(const char* file)
 
 	if (result == NULL)
 	{
-		LOG("Could not load map xml file %s. pugi error: %s", file, result.description());
+		LOG("Could not load dialogue xml file %s. pugi error: %s", file, result.description());
 		ret = false;
 	}
 	else
