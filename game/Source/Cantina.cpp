@@ -132,6 +132,34 @@ bool Cantina::Update(float dt)
 		map->drawColliders = !map->drawColliders;
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
+
+	if (sceneManager->collision->currentInteraction != '/0')
+	{
+
+		SDL_Rect playerRect;
+		playerRect.x = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
+		playerRect.y = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
+		playerRect.w = playerRect.h = 32;
+
+		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting == true)
+		{
+			if (sceneManager->collision->currentInteraction == "barman" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+				sceneManager->dialogueSystem->SetConversation(2);
+				sceneManager->dialogueSystem->inConversation = true;
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+			}
+		}
+
+		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
+
+		if (!sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect)) sceneManager->toDrawX = false;
+	}
+
+	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
 	
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;

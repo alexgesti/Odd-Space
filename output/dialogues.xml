@@ -21,7 +21,7 @@
     </node>
     <node text ="Of course, you see anyone else around here besides the giant green monster? He doesn't talk too much" id ="5" hasOptions="true">
       <dialogue option="1: Sorry, I'm out, I can't deal with this, I'll get going" returnCode="0" nextNode="6"/>
-      <dialogue option="2: What do you want, i don't have any money on me right now, you have mistaken me for someone else" returnCode="0" nextNode="9"/>
+      <dialogue option="2: What do you want, I don't have money on me right now" returnCode="0" nextNode="9"/>
     </node>
     <node text="Wait don't run away from me. There's, there's lava all over the place" id="6" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="7"/> 
@@ -50,7 +50,7 @@
  </dialogue>
 <dialogue Id="2">
     <node text="Hey Boy, do you have a second?" id="14" hasOptions="true">
-    dialogue option="1: Can I even refuse?" returnCode="0" nextNode="15"/>
+         <dialogue option="1: Can I even refuse?" returnCode="0" nextNode="15"/>
          <dialogue option="2: Sure, what's up friendly looking stranger?" returnCode="0" nextNode="16"/>
     </node>
     <node text="Not really, listen I have a job for you" id="15" hasOptions="false">
@@ -69,28 +69,28 @@
         <dialogue option="X" returnCode="0" nextNode="20"/> 
     </node>
     <node text="What would you tell me if I said i'll pay you 10 bronze coins for every drunk, annoying customer you take out of my classy bar?" id="20" hasOptions="true">
-	   <dialogue option="1: You have a deal" returnCode="0" nextNode="20"/>
-     	    <dialogue option="2: Make it 20, last offer." returnCode="0" nextNode="23"/>
-       </node>
-    <node text="Excellent, you can begin as soon as you like, I always have people that would be better outside, who knows, if you work properly i may treat you to a drink. You're old enough right" id="20" hasOptions="false">
-         <dialogue option="X" returnCode="0" nextNode="21"/> 
-    </node>
-    <node text="Of course I'm old enough, you're the one making me fight big drunk people here" id="21" hasOptions="false">
+	      <dialogue option="1: You have a deal" returnCode="0" nextNode="21"/>
+     	  <dialogue option="2: Make it 20, last offer." returnCode="0" nextNode="24"/>
+     </node>
+    <node text="Excellent, you can begin as soon as you like, I always have people that would be better outside. You're old enough right" id="21" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="22"/> 
     </node>
-    <node text="Good point" id="22" hasOptions="false">
-         <dialogue option="X" returnCode="0" nextNode="25"/> 
+    <node text="Of course I'm old enough, you're the one making me fight big drunk people here" id="22" hasOptions="false">
+         <dialogue option="X" returnCode="0" nextNode="23"/> 
     </node>
-    <node text="Only 10 coins with the possibility of drinking the best ron in the galaxy, deal?" id="23" hasOptions="false">
-         <dialogue option="X" returnCode="0" nextNode="24"/> 
-    </node>
-    <node text="Deal" id="24" hasOptions="false">
-         <dialogue option="X" returnCode="0" nextNode="25"/> 
-    </node>
-    <node text="Whenever you're ready to work, talk with me, I'll tell you who to take out." id="25" hasOptions="false">
+    <node text="Good point" id="23" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="26"/> 
     </node>
-    <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then" id="26" hasOptions="false" lastSentence="true">
+    <node text="Only 10 coins with the possibility of drinking the best ron in the galaxy, deal?" id="24" hasOptions="false">
+         <dialogue option="X" returnCode="0" nextNode="25"/> 
+    </node>
+    <node text="Deal" id="25" hasOptions="false">
+         <dialogue option="X" returnCode="0" nextNode="26"/> 
+    </node>
+    <node text="Whenever you're ready to work, talk with me, I'll tell you who to take out." id="26" hasOptions="false">
+         <dialogue option="X" returnCode="0" nextNode="27"/> 
+    </node>
+    <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then" id="27" hasOptions="false" lastSentence="true">
          <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
 </dialogue>

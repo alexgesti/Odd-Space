@@ -16,6 +16,7 @@ using namespace std;
 
 class DialogueNode;
 class Speak;
+struct SDL_Texture;
 
 class DialogueOption
 {
@@ -97,5 +98,8 @@ private:
 
 	bool showOptions;
 	bool nextSentence = true;
+
+	//Options quad texture
+	SDL_Texture* optionsTex;
 };
 #endif // __DIALOGSYSTEM_H__

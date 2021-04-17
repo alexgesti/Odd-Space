@@ -19,6 +19,7 @@ bool DialogueSystem::Start()
 	currentNode = dialogueTrees[id]->dialogueNodes[0];
 	//PerformDialogue(Id);
 	font = new Font("assets/typo/Adore64.xml", tex);
+	optionsTex = tex->Load("assets/sprites/UI/UI_Text.png");
 	return true;
 }
 
@@ -118,6 +119,12 @@ bool DialogueSystem::Draw()
 
 	if (showOptions)
 	{
+		if (currentNode->hasOptions)
+		{
+			SDL_Rect rect = { 500, 550, 780, 170 };
+			render->DrawTexture(optionsTex, -render->camera.x + 500, -render->camera.y + 376, &rect);
+		}
+
 		char response[300] = { 0 };
 		for (int i = 0; i < currentNode->answersList.Count(); i++)
 		{
@@ -126,10 +133,10 @@ bool DialogueSystem::Draw()
 			// Draw the "X" option more on the left bottom
 			if (!currentNode->hasOptions || currentNode->lastSentence)
 			{
-				render->DrawText(font, response, 1200, 670, 21, 0, { 255, 255, 255, 255 });
+				render->DrawText(font, response, 1200, 670, 17, 0, { 255, 255, 255, 255 });
 			}
 
-			else render->DrawText(font, response, 720, 500 + (60 * (i + 1)), 21, 0, { 255, 255, 255, 255 });
+			else render->DrawText(font, response, 520, 360 + (60 * (i + 1)), 17, 0, { 255, 255, 255, 255 });
 		}
 
 		// If it's the last sentence print an X as well
