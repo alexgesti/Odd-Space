@@ -1,15 +1,7 @@
 #include "Exterior.h"
 
-#include "Window.h"
-#include "Input.h"
-#include "Render.h"
-#include "Textures.h"
-#include "Audio.h"
-#include "EntityManager.h"
+#include "SceneManager.h"
 #include "Map.h"
-#include "Font.h"
-
-#include "Speak.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -17,22 +9,11 @@
 
 
 // Constructor
-Exterior::Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font, Speak* speak) : Scene()
+Exterior::Exterior(SceneManager* sceneManager) : Scene()
 {
-	this->win = win;
-	this->input = input;
-	this->render = render;
-	this->tex = tex;
-	this->entityManager = entityManager;
+	this->sceneManager = sceneManager;
 
-	this->collision = collision;
-	this->speak = speak;
-
-	this->previousScene = previousScene;
-
-	this->font = font;
-
-	map = new Map(tex);
+	map = new Map(sceneManager->tex);
 
 	// L03: DONE: Load map
 	// L12b: Create walkability map on map loading
@@ -55,20 +36,20 @@ Exterior::~Exterior()
 bool Exterior::Load() /*EntityManager entityManager)*/
 {
 
-	if (*previousScene == SceneType::CANTINA)
+	if (*sceneManager->previousScene == SceneType::CANTINA)
 	{
-		render->camera.x = -32;
-		render->camera.y = TOP_CAMERA_LIMIT;
+		sceneManager->render->camera.x = -32;
+		sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
 
-		entityManager->CreateEntity(EntityType::HERO)->position = iPoint (990, 325);
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint (990, 325);
 	}
 
 	else
 	{
-		render->camera.x = -32;
-		render->camera.y = BOTTOM_CAMERA_LIMIT;
+		sceneManager->render->camera.x = -32;
+		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		entityManager->CreateEntity(EntityType::HERO)->position = iPoint (900, 650);
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint (900, 650);
 	}
 
 	//map = new Map(tex);
@@ -115,25 +96,24 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 
 bool Exterior::Update(float dt)
 {
-	collision->CheckCollision(map);
+	sceneManager->collision->CheckCollision(map);
 
 	// L02: DONE 3: Request Load / Save when pressing L/S
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
-	if (input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
 
-	if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		map->drawColliders = !map->drawColliders;
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
-	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
 
 	// Camera moves with player when it is at the middle of the screen
-	render->camera.y = -entityManager->CreateEntity(EntityType::HERO)->position.y + render->camera.h / 2;
+	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;
 
 	// Camera stops at limits
-	if (render->camera.y < BOTTOM_CAMERA_LIMIT) render->camera.y = BOTTOM_CAMERA_LIMIT;
-	else if (render->camera.y > TOP_CAMERA_LIMIT) render->camera.y = TOP_CAMERA_LIMIT;
+	if (sceneManager->render->camera.y < BOTTOM_CAMERA_LIMIT) sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
+	else if (sceneManager->render->camera.y > TOP_CAMERA_LIMIT) sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
 
 	if (map->doorHit)
 	{
@@ -141,22 +121,22 @@ bool Exterior::Update(float dt)
 		map->doorHit = false;
 	}
 
-	if (collision->currentInteraction != '/0')
+	if (sceneManager->collision->currentInteraction != '/0')
 	{
-		if (collision->currentInteraction == "crazyman")
+		if (sceneManager->collision->currentInteraction == "crazyman")
 		{
-			if (entityManager->CreateEntity(EntityType::HERO)->interacting == true)
+			if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting == true)
 			{
 				// Cambiar funcion, dialogo con loco
 				TransitionToScene(SceneType::CANTINA);
-				collision->currentInteraction = '/0';
-				entityManager->CreateEntity(EntityType::HERO)->interacting = false;
+				sceneManager->collision->currentInteraction = '/0';
+				sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting = false;
 			}
 		}
 	}
 
 	//Enemy Encounter
-	if (entityManager->CreateEntity(EntityType::HERO)->position != entityManager->CreateEntity(EntityType::HERO)->temPos)
+	if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position != sceneManager->entityManager->CreateEntity(EntityType::HERO)->temPos)
 	{
 		enemyEncounter += rand() % 5;
 		if (enemyEncounter > rand() % (8500) + 1500)
@@ -172,11 +152,11 @@ bool Exterior::Update(float dt)
 bool Exterior::Draw()
 {
 	// Draw map
-	map->Draw(render);
+	map->Draw(sceneManager->render);
 
 	//player->Draw(render);
 
-	entityManager->Draw();
+	sceneManager->entityManager->Draw();
 
 	return false;
 }
@@ -184,7 +164,7 @@ bool Exterior::Draw()
 bool Exterior::Unload()
 {
 	// TODO: Unload all resources
-	*previousScene = SceneType::EXTERIOR;
+	*sceneManager->previousScene = SceneType::EXTERIOR;
 
 	enemyEncounter = 0;
 

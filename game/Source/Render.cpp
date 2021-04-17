@@ -248,7 +248,7 @@ bool Render::DrawText(Font* font, const char* text, int x, int y, int size, int 
 		SDL_Rect recGlyph = font->GetCharRec(text[i]);
 		SDL_Rect recDest = { posX, y, (scale * recGlyph.w), size };
 
-		int res = SDL_RenderCopyEx(renderer, font->GetTextureAtlas(), &recGlyph, &recDest, 0.0, { 0 }, SDL_RendererFlip::SDL_FLIP_NONE);
+		SDL_RenderCopyEx(renderer, font->GetTextureAtlas(), &recGlyph, &recDest, 0.0, { 0 }, SDL_RendererFlip::SDL_FLIP_NONE);
 
 		posX += ((float)recGlyph.w * scale + spacing);
 	}

@@ -66,12 +66,15 @@ public:
 
 									if (player->temPos != player->position) player->position = player->temPos;
 
-									interactRect = tileRect;
+									//interactRect = tileRect;
+									interactRect = { tileRect.x - 10, tileRect.y - 10, tileRect.w + 20, tileRect.h + 20 };
 								}
 
 								list = list->next;
 							}
 						}
+
+						if (currentInteraction.Length() != 0 && !Detect(interactRect, player->GetBounds()))  currentInteraction.Clear();
 
 						/*else if (interactLayer != -1 && map->data.layers.At(interactLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))

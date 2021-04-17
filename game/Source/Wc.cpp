@@ -1,14 +1,7 @@
 #include "Wc.h"
 
-#include "Window.h"
-#include "Input.h"
-#include "Render.h"
-#include "Textures.h"
-#include "Audio.h"
-#include "EntityManager.h"
+#include "SceneManager.h"
 #include "Map.h"
-
-#include "Speak.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -16,21 +9,11 @@
 
 
 // Constructor
-Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font, Speak* speak) : Scene()
+Wc::Wc(SceneManager* sceneManager) : Scene()
 {
-	this->win = win;
-	this->input = input;
-	this->render = render;
-	this->tex = tex;
-	this->entityManager = entityManager;
-	this->audio = audio;
+	this->sceneManager = sceneManager;
 
-	this->collision = collision;
-	this->speak = speak;
-
-	this->previousScene = previousScene;
-
-	map = new Map(tex);
+	map = new Map(sceneManager->tex);
 
 	// L03: DONE: Load map
 	// L12b: Create walkability map on map loading
@@ -44,8 +27,6 @@ Wc::Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* 
 		RELEASE_ARRAY(data);
 	}
 
-	xMark = tex->Load("assets/sprites/UI/X_mark.png");
-
 	name.Create("cantina");
 }
 // Destructor
@@ -54,12 +35,12 @@ Wc::~Wc()
 
 bool Wc::Load() /*EntityManager entityManager)*/
 {
-	render->camera.x = 530;
-	render->camera.y = 130;
+	sceneManager->render->camera.x = 530;
+	sceneManager->render->camera.y = 130;
 
-	entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
+	sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
 
-	wcFx = audio->LoadFx("assets/audio/fx/toilet.wav");
+	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/toilet.wav");
 
 	//map = new Map(tex);
 
@@ -105,62 +86,58 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 
 bool Wc::Update(float dt)
 {
-	collision->CheckCollision(map);
+	sceneManager->collision->CheckCollision(map);
 
 	// L02: DONE 3: Request Load / Save when pressing L/S
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
-	if (input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
 
-	if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-		map->drawColliders = !map->drawColliders;
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
-	if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
 
-	if (collision->currentInteraction != '/0')
+	if (sceneManager->collision->currentInteraction != '/0')
 	{
-		SDL_Rect temp = collision->interactRect;
-		temp.x -= 10;
-		temp.w += 20;
-		temp.y -= 10;
-		temp.h += 20;
 
 		SDL_Rect playerRect;
-		playerRect.x = entityManager->CreateEntity(EntityType::HERO)->position.x;
-		playerRect.y = entityManager->CreateEntity(EntityType::HERO)->position.y;
+		playerRect.x = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
+		playerRect.y = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
 		playerRect.w = playerRect.h = 32;
 
-		if (entityManager->CreateEntity(EntityType::HERO)->interacting == true)
+		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting == true)
 		{
-			if (collision->currentInteraction == "flush" && collision->Detect(temp, playerRect))
+			if (sceneManager->collision->currentInteraction == "flush" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 			{
-				if (!audio->IsPlaying(wcFx))
+				if (!sceneManager->audio->IsPlaying(wcFx))
 				{
-					audio->PlayFx(wcFx);
-					toDrawX = false;
+					sceneManager->audio->PlayFx(wcFx);
+					sceneManager->toDrawX = false;
 					enemyEncounter += 1500;
 
 				}
 
-				collision->currentInteraction = '/0';
+				sceneManager->collision->currentInteraction = '/0';
 			}
 		}
 
-		else if (!audio->IsPlaying(wcFx))toDrawX = true;
+		else if (!sceneManager->audio->IsPlaying(wcFx)) sceneManager->toDrawX = true;
 
-		if (!collision->Detect(temp, playerRect)) toDrawX = false;
+		if (!sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect)) sceneManager->toDrawX = false;
 	}
+
+	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
 
 	if (map->doorHit)
 	{
-		audio->FadeOutFx(100);
+		sceneManager->audio->FadeOutFx(100);
 		TransitionToScene(SceneType::CANTINA);
 		map->doorHit = false;
 	}
 
 	//Enemy Encounter
-	if (entityManager->CreateEntity(EntityType::HERO)->position != entityManager->CreateEntity(EntityType::HERO)->temPos)
+	if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position != sceneManager->entityManager->CreateEntity(EntityType::HERO)->temPos)
 	{
 		enemyEncounter += rand() % 5;
 		if (enemyEncounter > rand() % (8500) + 1500)
@@ -176,13 +153,11 @@ bool Wc::Update(float dt)
 bool Wc::Draw()
 {
 	// Draw map
-	map->Draw(render);
+	map->Draw(sceneManager->render);
 
 	//player->Draw(render);
 
-	entityManager->Draw();
-
-	if(toDrawX) render->DrawTexture(xMark, collision->interactRect.x - 25, collision->interactRect.y + 5);
+	sceneManager->entityManager->Draw();
 
 	return false;
 }
@@ -190,7 +165,7 @@ bool Wc::Draw()
 bool Wc::Unload()
 {
 	// TODO: Unload all resources
-	*previousScene = SceneType::WC;
+	*sceneManager->previousScene = SceneType::WC;
 
 	enemyEncounter = 0;
 
@@ -198,9 +173,7 @@ bool Wc::Unload()
 	delete map;
 	map = nullptr;
 
-	audio->UnloadFx(wcFx - 1);
-
-	tex->UnLoad(xMark);
+	sceneManager->audio->UnloadFx(wcFx - 1);
 
 	return true;
 }

@@ -7,19 +7,8 @@
 #include "Battle.h"
 #include "Exterior.h"
 
-#include "Input.h"
-#include "Render.h"
-#include "Textures.h"
-#include "Window.h"
-#include "EntityManager.h"
-#include "DialogSystem.h"
-#include "Audio.h"
-
 #include "Defs.h"
 #include "Log.h"
-
-#include "Collision.h"
-#include "Speak.h"
 
 #include "SDL/include/SDL.h"
 
@@ -62,16 +51,17 @@ bool SceneManager::Awake()
 bool SceneManager::Start()
 {
 	font = new Font("assets/typo/Adore64.xml", tex);
-	speak = new Speak(audio, render, font, input);
+	speak = new Speak(audio, render, font, input, tex);
+	xMark = tex->Load("assets/sprites/UI/X_mark.png");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
-	//current = new Battle(win, input, render, tex, entityManager, previousScene, font, speak);
-	current = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak);
-	//current = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak);
-	//current = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font, speak);
+	//current = new Battle(win, input, render, tex, entityManager, font, speak);
+	//current = new Cantina(this);
+	current = new Wc(this);
+	//current = new Exterior(this);
 	current->Load();
 
 	dialogueSystem->speak = speak;
@@ -163,6 +153,7 @@ bool SceneManager::Update(float dt)
 
 	// Draw current scene
 	current->Draw();
+	if (toDrawX) render->DrawTexture(xMark, entityManager->CreateEntity(EntityType::HERO)->position.x + 6, entityManager->CreateEntity(EntityType::HERO)->position.y - 85);
 
 	if (dialogueSystem->inConversation)
 	{
@@ -203,9 +194,9 @@ bool SceneManager::Update(float dt)
 		{
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
 		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
-		case SceneType::CANTINA: next = new Cantina(win, input, render, tex, entityManager, collision, previousScene, font, speak); break;
-		case SceneType::WC: next = new Wc(win, input, render, tex, entityManager, collision, audio, previousScene, font, speak); break;
-		case SceneType::EXTERIOR: next = new Exterior(win, input, render, tex, entityManager, collision, previousScene, font, speak); break;
+		case SceneType::CANTINA: next = new Cantina(this); break;
+		case SceneType::WC: next = new Wc(this); break;
+		case SceneType::EXTERIOR: next = new Exterior(this); break;
 		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, font, speak); break;
 		default: break;
 		}
@@ -235,6 +226,8 @@ bool SceneManager::CleanUp()
 	LOG("Freeing scene");
 
 	if (current != nullptr) current->Unload();
+
+	tex->UnLoad(xMark);
 
 	return true;
 }

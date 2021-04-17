@@ -1,7 +1,7 @@
 #ifndef __SPEAK_H__
 #define __SPEAK_H__
 
-#define LETTERSPEED 0.1f
+#define LETTERSPEED 0.05f
 #define LINELENGTH 50
 
 #include "SString.h"
@@ -10,12 +10,14 @@
 class Render;
 class Font;
 class Input;
+class Textures;
+struct SDL_Texture;
 
 class Speak
 {
 public:
 
-	Speak(Audio* audio, Render* render, Font* font, Input* input);
+	Speak(Audio* audio, Render* render, Font* font, Input* input, Textures* texture);
 
 	void Update(float dt);
 
@@ -31,7 +33,9 @@ private:
 	Render* render;
 	Font* font;
 	Input* input;
+	Textures* texture;
 
+	//Needed vars for showing letter individually with sounds
 	int letter_1 = 0;
 	int letter_2 = 0;
 	int letter_3 = 0;
@@ -42,6 +46,9 @@ private:
 	int letterAmount = 0;
 
 	SString copText;
+
+	//Dialogue quad texture
+	SDL_Texture* dialogueTex;
 
 public:
 

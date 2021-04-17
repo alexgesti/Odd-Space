@@ -219,14 +219,14 @@ bool Battle::Update(float dt)
             {
                 //Attack Hero
             case 0:
-                if (entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 0;
+                if (entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
                 else characterTurn = 0;
                 break;
 
                 //Attack Captain
             case 1:
             case 2:
-                if (entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 1;
+                if (entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
                 else characterTurn = 1;
                 break;
             }
@@ -391,6 +391,8 @@ bool Battle::Unload()
 
     if (entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
         entityManager->entities[0].At(1)->data->infoEntities.info.HP = entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;
+
+    //*entityManager->previousScene = SceneType::BATTLE;
 
     return false;
 }

@@ -6,15 +6,15 @@
 
 class GuiButton;
 
-class Window;
-class Input;
-class Render;
-class Textures;
-class EntityManager;
-class DialogueSystem;
-class Collision;
-class Audio;
-class Speak;
+#include "Input.h"
+#include "Render.h"
+#include "Textures.h"
+#include "Window.h"
+#include "EntityManager.h"
+#include "DialogSystem.h"
+#include "Audio.h"
+#include "Collision.h"
+#include "Speak.h"
 
 class Font;
 
@@ -45,7 +45,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-private:
+public:
+
 	Window* win;
 	Input* input;
 	Render* render;
@@ -63,10 +64,15 @@ private:
 
 	Font* font;
 
+	bool toDrawX = false;
+
+private:
 	// Required variables to manage screen transitions (fade-in, fade-out)
 	bool onTransition;
 	bool fadeOutCompleted;
 	float transitionAlpha;
+
+	SDL_Texture* xMark;
 };
 
 #endif // __SCENEMANAGER_H__

@@ -2,18 +2,22 @@
 #include "Render.h"
 #include "Font.h"
 #include "Input.h"
+#include "Textures.h"
 
-Speak::Speak(Audio* audio, Render* render, Font* font, Input* input)
+Speak::Speak(Audio* audio, Render* render, Font* font, Input* input, Textures* texture)
 {
 	this->audio = audio;
 	this->render = render;
 	this->font = font;
 	this->input = input;
+	this->texture = texture;
 
 	letter_1 = this->audio->LoadFx("Assets/Audio/Fx/text_sound1.wav");
 	letter_2 = this->audio->LoadFx("Assets/Audio/Fx/text_sound2.wav");
 	letter_3 = this->audio->LoadFx("Assets/Audio/Fx/text_sound3.wav");
 	letter_4 = this->audio->LoadFx("Assets/Audio/Fx/text_sound4.wav");
+
+	dialogueTex = texture->Load("assets/sprites/UI/UI_Text.png");
 }
 
 void Speak::Update(float dt)
@@ -63,20 +67,33 @@ void Speak::Update(float dt)
 
 void Speak::Draw()
 {
-	SDL_Rect rect = { 0, 540, 1280, 180 };
-	render->DrawRectangle(rect, 0, 0, 0, 255, true, false);
+	//SDL_Rect rect = { 0, 540, 1280, 180 };
+	//render->DrawRectangle(rect, 0, 0, 0, 255, true, false);
+	SDL_Rect rect = { 0, 0, 1280, 174 };
+	render->DrawTexture(dialogueTex, -render->camera.x, -render->camera.y + 546, &rect);
 
 	std::string textToRender;
 	std::string textToRender2 = "";
 
+	bool nextLine = false;
+
 	for (int i = 0; i < letterAmount; i++)
 	{
 		if (i <= LINELENGTH) textToRender.push_back(copText.GetString()[i]);
-		else textToRender2.push_back(copText.GetString()[i]);
+
+		// Only skip to the next line if the current word has been completely written
+		else if (i > LINELENGTH && !nextLine)
+		{
+			// 32 is ASCII code for space
+			if (int(copText.GetString()[i]) == 32) nextLine = true;
+			textToRender.push_back(copText.GetString()[i]);
+		}
+
+		else if (nextLine) textToRender2.push_back(copText.GetString()[i]);
 	}
 
-	render->DrawText(font, textToRender.c_str(), 0, 610, 25, 0, { 255, 0, 255, 255 });
-	if(textToRender2 != "") render->DrawText(font, textToRender2.c_str(), 0, 640, 25, 0, { 255, 0, 255, 255 });
+	render->DrawText(font, textToRender.c_str(), 15, 610, 25, 0, { 255, 255, 255, 255 });
+	if(textToRender2 != "") render->DrawText(font, textToRender2.c_str(), 15, 640, 25, 0, { 255, 255, 255, 255 });
 }
 
 void Speak::SayText(SString text, bool slowly)

@@ -82,9 +82,7 @@ public:
 
 	int GetCurrentFrameID()
 	{
-		int actualFrame = (int)currentFrame;
-
-		return actualFrame;
+		return (int)currentFrame;
 	}
 
 	void SetCurrentFrame(int id)

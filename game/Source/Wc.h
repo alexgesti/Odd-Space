@@ -10,22 +10,14 @@
 
 class Map;
 
-class Window;
-class Input;
-class Render;
-class Textures;
-class EntityManager;
-class Audio;
-
-class Collision;
-class Speak;
+class SceneManager;
 
 class Wc : public Scene
 {
 public:
 
     // Constructor
-    Wc(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, Audio* audio, SceneType* previousScene, Font* font, Speak* speak);
+    Wc(SceneManager* sceneManager);
     // Destructor
     virtual ~Wc();
 
@@ -45,20 +37,7 @@ public:
 private:
     Map* map;
 
-    Window* win;
-    Input* input;
-    Render* render;
-    Textures* tex;
-    EntityManager* entityManager;
-    Audio* audio;
-
-    Collision* collision;
-    Speak* speak;
-
-    SceneType* previousScene;
-
-    SDL_Texture* xMark;
-    bool toDrawX = false;
+    SceneManager* sceneManager;
 
     int wcFx;
 };

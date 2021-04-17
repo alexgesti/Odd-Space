@@ -15,21 +15,14 @@
 
 class Map;
 
-class Window;
-class Input;
-class Render;
-class Textures;
-class EntityManager;
-
-class Collision;
-class Speak;
+class SceneManager;
 
 class Cantina : public Scene
 {
 public:
 
     // Constructor
-    Cantina(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font, Speak* speak);
+    Cantina(SceneManager* sceneManager);
     // Destructor
     virtual ~Cantina();
 
@@ -49,19 +42,7 @@ public:
 private:
     Map* map;
 
-    Window* win;
-    Input* input;
-    Render* render;
-    Textures* tex;
-    EntityManager* entityManager;
-
-    Collision* collision;
-    Speak* speak;
-
-    SceneType* previousScene;
-
-    Font* font;
-
+    SceneManager* sceneManager;
 
     SDL_Texture* texBarman;
     Animation* animBarmanIdle = new Animation();

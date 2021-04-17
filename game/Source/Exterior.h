@@ -9,21 +9,14 @@
 
 class Map;
 
-class Window;
-class Input;
-class Render;
-class Textures;
-class EntityManager;
-
-class Collision;
-class Speak;
+class SceneManager;
 
 class Exterior : public Scene
 {
 public:
 
     // Constructor
-    Exterior(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Collision* collision, SceneType* previousScene, Font* font, Speak* speak);
+    Exterior(SceneManager* sceneManager);
     // Destructor
     virtual ~Exterior();
 
@@ -43,18 +36,7 @@ public:
 private:
     Map* map;
 
-    Window* win;
-    Input* input;
-    Render* render;
-    Textures* tex;
-    EntityManager* entityManager;
-
-    Collision* collision;
-    Speak* speak;
-
-    SceneType* previousScene;
-
-    Font* font;
+    SceneManager* sceneManager;
 };
 
 #endif // __EXTERIOR_H__

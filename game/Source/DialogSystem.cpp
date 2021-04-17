@@ -100,7 +100,8 @@ bool DialogueSystem::Draw()
 		nextSentence = false;
 	}
 
-	else if (speak->textSaid && !showOptions) showOptions = true;
+	else if (speak->textSaid && !showOptions)
+		showOptions = true;
 
 	/*if (!speak->speaking && showOptions)
 	{
@@ -122,17 +123,17 @@ bool DialogueSystem::Draw()
 		{
 			sprintf_s(response, 300, currentNode->answersList.At(i)->data.c_str(), 56);
 
-			// Draw the "E" option more on the left bottom
+			// Draw the "X" option more on the left bottom
 			if (!currentNode->hasOptions || currentNode->lastSentence)
 			{
-				render->DrawText(font, response, 1100, 650, 25, 0, { 255, 0, 255, 255 });
+				render->DrawText(font, response, 1200, 670, 25, 0, { 255, 255, 255, 255 });
 			}
 
-			else render->DrawText(font, response, 720, 500 + (60 * (i + 1)), 25, 0, { 255, 0, 255, 255 });
+			else render->DrawText(font, response, 720, 500 + (60 * (i + 1)), 25, 0, { 255, 255, 255, 255 });
 		}
 
-		// If it's the last sentence print an E as well
-		if (currentNode->answersList.Count() == 0) render->DrawText(font, "X", 1100, 650, 25, 0, { 255, 0, 255, 255 });
+		// If it's the last sentence print an X as well
+		if (currentNode->answersList.Count() == 0) render->DrawText(font, "X", 1200, 670, 25, 0, { 255, 255, 255, 255 });
 	}
 
 	return true;
