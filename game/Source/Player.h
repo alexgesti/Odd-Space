@@ -19,13 +19,6 @@ class Textures;
 
 class Collision;
 
-enum class PlayerAnim
-{
-    IDLE,
-    WALK,
-    JUMP,
-    CLIMB
-};
 
 class Player: public Entity
 {

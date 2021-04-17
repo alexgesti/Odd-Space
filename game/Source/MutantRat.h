@@ -5,6 +5,7 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Animation.h"
 
 #include "SDL/include/SDL.h"
 
@@ -13,17 +14,12 @@ class Input;
 class Render;
 class Textures;
 
-enum class MutantRatAnim
-{
-    IDLE
-};
-
 class MutantRat : public Enemy
 {
 public:
 
     // Get unique instance of the class
-    static MutantRat* GetInstance(Input* input, Render* render);
+    static MutantRat* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -40,10 +36,8 @@ public:
 
 public:
 
-    SDL_Texture* texture;   // StandartPirates spritesheet
-
-    MutantRatAnim currentAnim;
-
+    Animation* mutantRatAnim = new Animation();
+    SDL_Texture* mutantRatTexture;
     int width, height;
 
 private:
@@ -52,7 +46,7 @@ private:
     // Singleton instance
     static MutantRat* instance;
     // Private Constructor
-    MutantRat(Input* input, Render* render);
+    MutantRat(Input* input, Render* render, Textures* tex);
     // Private Destructor
     virtual ~MutantRat();
     // Declare the copy constructor and the assignment operator
@@ -65,6 +59,7 @@ private:
 
     Input* input;
     Render* render;
+    Textures* tex;
 };
 
 #endif // __MUTANTRAT_H__

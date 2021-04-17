@@ -5,6 +5,7 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Animation.h"
 
 #include "SDL/include/SDL.h"
 
@@ -13,17 +14,12 @@ class Input;
 class Render;
 class Textures;
 
-enum class DrunkCustomerAnim
-{
-    IDLE
-};
-
 class DrunkCustomer : public Enemy
 {
 public:
 
     // Get unique instance of the class
-    static DrunkCustomer* GetInstance(Input* input, Render* render);
+    static DrunkCustomer* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -40,10 +36,8 @@ public:
 
 public:
 
-    SDL_Texture* texture;   // StandartPirates spritesheet
-
-    DrunkCustomerAnim currentAnim;
-
+    Animation* drunkCustomerAnim = new Animation();
+    SDL_Texture* drunkCustomerTexture;
     int width, height;
 
 private:
@@ -52,7 +46,7 @@ private:
     // Singleton instance
     static DrunkCustomer* instance;
     // Private Constructor
-    DrunkCustomer(Input* input, Render* render);
+    DrunkCustomer(Input* input, Render* render, Textures* tex);
     // Private Destructor
     virtual ~DrunkCustomer();
     // Declare the copy constructor and the assignment operator
@@ -65,6 +59,7 @@ private:
 
     Input* input;
     Render* render;
+    Textures* tex;
 };
 
 #endif // __DRUNKCUSTOMER_H__
