@@ -2,10 +2,10 @@
 
 <dialogueTree>
   <dialogue Id="0">
-    <node text="Why did he do that? That small old man knocked me down with a beer bottle and now I stink of alcohol"  id="0"  hasOptions="false">
+    <node text="Why did he do that? That small old man knocked me down with a beer bottle and now I stink of alcohol."  id="0"  hasOptions="false">
       <dialogue option="X" returnCode="0" nextNode="1"/>
     </node>
-    <node text="I'm sure he went to that bar to drink another one, better go and talk to him. I need to know where I ended up"  id="1" hasOptions="false" lastSentence="true">
+    <node text="I'm sure he went to that bar to drink another one, better go and talk to him. I need to know where I ended up."  id="1" hasOptions="false" lastSentence="true">
       <dialogue option="X" returnCode="0" nextNode="1"/>
     </node>
   </dialogue>
@@ -19,32 +19,32 @@
     <node text="Are.... Are you talking to me?" id="4" hasOptions="false">
      <dialogue option="X" returnCode="0" nextNode="5"/> 
     </node>
-    <node text ="Of course, you see anyone else around here besides the giant green monster? He doesn't talk too much" id ="5" hasOptions="true">
-      <dialogue option="1: Sorry, I'm out, I can't deal with this, I'll get going" returnCode="0" nextNode="6"/>
-      <dialogue option="2: What do you want, I don't have money on me right now" returnCode="0" nextNode="9"/>
+    <node text ="Of course, you see anyone else around here besides the giant green monster? He doesn't talk too much." id ="5" hasOptions="true">
+      <dialogue option="1: Sorry, I'm out, I can't deal with this, I'll get going." returnCode="0" nextNode="6"/>
+      <dialogue option="2: What do you want, I don't have money on me right now." returnCode="0" nextNode="9"/>
     </node>
-    <node text="Wait don't run away from me. There's, there's lava all over the place" id="6" hasOptions="false">
+    <node text="Wait don't run away from me. There's, there's lava all over the place." id="6" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="7"/> 
     </node>
-    <node text="Wait when did all this lava spread? It was you right? It has to be you, I'll never forgive you NEVER (dies dramatically)" id="7" hasOptions="false">
+    <node text="Wait when did all this lava spread? It was you right? It has to be you, I'll never forgive you NEVER (dies dramatically)." id="7" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="8"/> 
     </node>
-    <node text="That was unexpected, I better go inside and see if the old man is there" id="8" hasOptions="false" lastSentence="true">
+    <node text="That was unexpected, I better go inside and see if the old man is there." id="8" hasOptions="false" lastSentence="true">
         <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
-    <node text="No, I don't want your money, I'm here to tell you a secret, I buried the biggest treasure in this asteroid but I don't remember where I left it" id="9" hasOptions="false">
+    <node text="No, I don't want your money, I'm here to tell you a secret, I buried the biggest treasure in this asteroid but I don't remember where I left it." id="9" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="10"/> 
     </node>
-    <node text="So you want me to help you look for it? I'm not a charity volunteer, you know" id="10" hasOptions="false">
+    <node text="So you want me to help you look for it? I'm not a charity volunteer, you know." id="10" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="11"/> 
     </node>
     <node text="What? No, nonono, it's my treasure, only mine, it helps with the voices, do you understand? No one will ever find my treasure, it's mine!!" id="11" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="12"/> 
     </node>
-    <node text=" Hey, hey I found it! Oh well, one last trip won't hurt me" id="12" hasOptions="false">
+    <node text=" Hey, hey I found it! Oh well, one last trip won't hurt me." id="12" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="13"/> 
     </node>
-    <node text="All right, nice, he just... never mind, we're not seeing him again" id="13" hasOptions="false" lastSentence="true">
+    <node text="All right, nice, he just... never mind, we're not seeing him again." id="13" hasOptions="false" lastSentence="true">
         <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
  </dialogue>
@@ -53,13 +53,13 @@
          <dialogue option="1: Can I even refuse?" returnCode="0" nextNode="15"/>
          <dialogue option="2: Sure, what's up friendly looking stranger?" returnCode="0" nextNode="16"/>
     </node>
-    <node text="Not really, listen I have a job for you" id="15" hasOptions="false">
+    <node text="Not really, listen I have a job for you." id="15" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="17"/> 
     </node>
     <node text="Well well, look who's trying to be funny." id="16" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="17"/> 
     </node>
-    <node text="You see, a long time ago i started taking cooking very seriously, it all began that one day when" id="17" hasOptions="false">
+    <node text="You see, a long time ago i started taking cooking very seriously, it all began that one day when..." id="17" hasOptions="false">
         <dialogue option="X" returnCode="0" nextNode="18"/> 
     </node>
     <node text="Can't we just skip this and get to the job you were mentioning earlier?" id="18" hasOptions="false">
@@ -72,25 +72,25 @@
 	      <dialogue option="1: You have a deal" returnCode="0" nextNode="21"/>
      	  <dialogue option="2: Make it 20, last offer." returnCode="0" nextNode="24"/>
      </node>
-    <node text="Excellent, you can begin as soon as you like, I always have people that would be better outside. You're old enough right" id="21" hasOptions="false">
+    <node text="Excellent, you can begin as soon as you like, I always have people that would be better outside. You're old enough right." id="21" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="22"/> 
     </node>
-    <node text="Of course I'm old enough, you're the one making me fight big drunk people here" id="22" hasOptions="false">
+    <node text="Of course I'm old enough, you're the one making me fight big drunk people here." id="22" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="23"/> 
     </node>
-    <node text="Good point" id="23" hasOptions="false">
+    <node text="Good point." id="23" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="26"/> 
     </node>
     <node text="Only 10 coins with the possibility of drinking the best ron in the galaxy, deal?" id="24" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="25"/> 
     </node>
-    <node text="Deal" id="25" hasOptions="false">
+    <node text="Deal." id="25" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="26"/> 
     </node>
     <node text="Whenever you're ready to work, talk with me, I'll tell you who to take out." id="26" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="27"/> 
     </node>
-    <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then" id="27" hasOptions="false" lastSentence="true">
+    <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then." id="27" hasOptions="false" lastSentence="true">
          <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
 </dialogue>
@@ -106,71 +106,91 @@
  <node text="Look who woke up after a free trip here, jajajaja you deadhead." id="29" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="30"/> 
     </node>
- <node text="Hey I have a name and it was you crashing into me in the middle of nowhere in the first place you crazy old man. How do you expect me to return to my fancy ship?" id="30" hasOptions="false">
+ <node text="It was you crashing into me in the middle of nowhere in the first place you crazy old man. How do you expect me to return to my fancy ship?" id="30" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="31"/> 
     </node>
  <node text="What about my comrades? I was about to live great adventures until you and your stupid, old, rusty ship appeared." id="31" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="32"/> 
     </node>
- <node text="Look, you deadhead, you were the one floating in the middle and my ship's assisted direction broke yesterday, that's why i'm here" id="32" hasOptions="false">
+ <node text="Look, you deadhead, you were the one floating in the middle and my ship's assisted direction broke yesterday, that's why i'm here." id="32" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="33"/> 
     </node>
  <node text="Only because my ship's broken you hear me? Another one and make it strong enough to make me forget, Barman." id="33" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="34"/> 
     </node>
- <node text=" Get away you deadhead I have nothing to do with you" id="34" hasOptions="false">
+ <node text="Get away you deadhead I have nothing to do with you." id="34" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="35"/> 
     </node>
- <node text="I told you i have a name, Im'" id="35" hasOptions="false">
+ <node text="I told you i have a name, I'm Ray." id="35" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="36"/> 
     </node>
- <node text="Oh hello, you little bastard took you long enough to get here, what's up with you? What a little nap you took eh? Come here sit down and drink with us." id="36" hasOptions="false">
+ <node text="Little bastard, took you long enough to get here, What a little nap you took eh? Come here sit down and drink with us." id="36" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="37"/> 
     </node>
- <node text="Let's listen to my friend here, he says he's a pirate legend himself and we both know what to do here, we could be rich in no time. Hey where's the drink I ordered, get me my drink and another one for my friend" id="37" hasOptions="false">
+ <node text="Let's listen to my friend here, he says he's a pirate legend himself, we could be rich in no time. Hey where's the drink I ordered!" id="37" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="38"/> 
     </node>
- <node text="Long, long time ago, I was one a legendary captain, everyone feared me and my 500 man army, we were unstoppable" id="38" hasOptions="false">
+ <node text="Long, long time ago, I was one a legendary captain, everyone feared me and my 500 man army, we were unstoppable. Until..." id="38" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="39"/> 
     </node>
- <node text="But one day, our most veteran pilot drove the ship too close to a black hole, he took the only life-saving shuttle, leaving the ship and his comrades behind." id="39" hasOptions="false">
+ <node text="Our most veteran pilot drove the ship too close to a black hole, he took the only life-saving shuttle, leaving the ship and his comrades behind." id="39" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="40"/> 
     </node>
- <node text="How many times do I have to tell you, the ship's assisted direction wasn't working as it should" id="40" hasOptions="false">
+ <node text="How many times do I have to tell you, the ship's assisted direction wasn't working as it should." id="40" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="41"/> 
     </node>
- <node text="Ahem, lucky for me that day I had an important meeting to attend so I wasn't flying, when I found out about my ship I swore that I'd never have another tripulation" id="41" hasOptions="false">
+ <node text="Lucky for me that day I had an important meeting to attend so I wasn't flying." id="41" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="42"/> 
     </node>
- <node text=" I buried all my gear in different planets for some reason, only for them to be found by the bravest pirates." id="42" hasOptions="false">
-         <dialogue option="X" returnCode="0" nextNode="43"/> 
-    </node>
- <node text="But that ends today, I need you to recover my treasures, I'll give you more details when you're ready, we will be feared again!" id="43" hasOptions="false">
+  <node text="When I found out about my ship I swore that I'd never have another tripulation." id="42" hasOptions="false">
+    <dialogue option="X" returnCode="0" nextNode="43"/>
+  </node>
+ <node text="I buried all my gear in different planets for some reason, only for them to be found by the bravest pirates." id="43" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="44"/> 
     </node>
- <node text="I knew I shouldn't have gotten out of my bed today…" id="44" hasOptions="false">
+ <node text="But that ends today, I need you to recover my treasures, I'll give you more details when you're ready, we will be feared again!" id="44" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="45"/> 
     </node>
- <node text="You can't be serious, you know how much power you'd get on yourself if we recovered his treasures? Imagine all the ladies you'll have on your feet." id="45" hasOptions="false">
+ <node text="I knew I shouldn't have gotten out of my bed today…" id="45" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="46"/> 
     </node>
- <node text="You mean they won't spit on me again? I could even maintain a conversation without being insulted?" id="46" hasOptions="false">
+ <node text="You can't be serious, you know how much power you'd get on yourself if we recovered his treasures? Imagine all the ladies you'll have on your feet." id="46" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="47"/> 
     </node>
-<node text="You have to be kidding me, that's just sad." id="47" hasOptions="false">
+ <node text="You mean they won't spit on me again? I could even maintain a conversation without being insulted?" id="47" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="48"/> 
     </node>
-<node text="Count me in partner, I will establish your galaxy wide legend." id="48" hasOptions="false">
+<node text="You have to be kidding me, that's just sad." id="48" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="49"/> 
     </node>
-<node text="(To himself) Screw these old folks, I can't wait to be that popular and awfully rich." id="49" hasOptions="false">
+<node text="Count me in partner, I will establish your galaxy wide legend." id="49" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="50"/> 
     </node>
-<node text="Hey have you heard, the kid's saying he will do it!" id="50" hasOptions="false">
+<node text="(To himself) Screw these old folks, I can't wait to be that popular and awfully rich." id="50" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="51"/> 
     </node>
-<node text="Okay, come back after I finish my drinks so I can give you the map for the first item." id="51" hasOptions="false" lastSentence="true">
-         <dialogue option="X" returnCode="0" nextNode="51"/> 
+<node text="Hey have you heard, the kid's saying he will do it!" id="51" hasOptions="false">
+         <dialogue option="X" returnCode="0" nextNode="52"/> 
+    </node>
+<node text="Okay, come back after I finish my drinks so I can give you the map for the first item." id="52" hasOptions="false" lastSentence="true">
+         <dialogue option="X" returnCode="0" nextNode="1"/> 
+    </node>
+  </dialogue>
+  <dialogue Id="5">
+    <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then."  id="0"  hasOptions="false" lastSentence="true">
+      <dialogue option="X" returnCode="0" nextNode="1"/>
+    </node>
+  </dialogue>
+  <dialogue Id="6">
+  <node text="So, ready for the job Ray?"  id="0"  hasOptions="true">
+    <dialogue option="1: No, i still have to do something else." returnCode="0" nextNode="1"/>
+    <dialogue option="2: Yes, that's why I'm here." returnCode="0" nextNode="2"/>
+  </node>
+   <node text="Well okay, remember about our the deal."  id="1"  hasOptions="false" lastSentence="true">
+    <dialogue option="X" returnCode="0" nextNode="0"/>
+   </node>
+    <node text="Nicely said, take these super awesome weapons, it's your turn to fight."  id="2"  hasOptions="false" lastSentence="true">
+      <dialogue option="X" returnCode="1" nextNode="0"/>
     </node>
   </dialogue>
 </dialogueTree>

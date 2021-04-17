@@ -83,6 +83,7 @@ public:
 public:
 	Speak* speak;
 	bool inConversation = false;
+	bool triggerEvent = false;
 	
 private:
 	int playerInput = 7;
