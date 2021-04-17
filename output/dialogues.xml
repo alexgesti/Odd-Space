@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 
 <dialogueTree>
+  
   <dialogue Id="0">
     <node text="Why did he do that? That small old man knocked me down with a beer bottle and now I stink of alcohol."  id="0"  hasOptions="false">
       <dialogue option="X" returnCode="0" nextNode="1"/>
@@ -9,6 +10,7 @@
       <dialogue option="X" returnCode="0" nextNode="1"/>
     </node>
   </dialogue>
+  
   <dialogue Id="1">
     <!---<node text="Well how lovely, i think i'm going to explode if i stay nearby" id="2" hasOptions="false" lastSentence="true">
      <dialogue option="X" returnCode="0" nextNode="1"/> 
@@ -48,6 +50,7 @@
         <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
  </dialogue>
+  
 <dialogue Id="2">
     <node text="Hey Boy, do you have a second?" id="14" hasOptions="true">
          <dialogue option="1: Can I even refuse?" returnCode="0" nextNode="15"/>
@@ -94,6 +97,7 @@
          <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
 </dialogue>
+  
 <dialogue Id="3">
     <node text="What, what do you want? I think i told your friends earlier that i'm not interested in knowing the truth behind the creation of the universe."  id="27" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="28"/> 
@@ -102,6 +106,7 @@
          <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
 </dialogue>
+  
 <dialogue Id="4">
  <node text="Look who woke up after a free trip here, jajajaja you deadhead." id="29" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="30"/> 
@@ -176,11 +181,13 @@
          <dialogue option="X" returnCode="0" nextNode="1"/> 
     </node>
   </dialogue>
+  
   <dialogue Id="5">
     <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then."  id="0"  hasOptions="false" lastSentence="true">
       <dialogue option="X" returnCode="0" nextNode="1"/>
     </node>
   </dialogue>
+  
   <dialogue Id="6">
   <node text="So, ready for the job Ray?"  id="0"  hasOptions="true">
     <dialogue option="1: No, i still have to do something else." returnCode="0" nextNode="1"/>
@@ -193,4 +200,12 @@
       <dialogue option="X" returnCode="1" nextNode="0"/>
     </node>
   </dialogue>
+
+  <dialogue Id="7">
+    <node text="Should I even touch it?"  id="0"  hasOptions="true">
+      <dialogue option="1: Flush." returnCode="1" nextNode="-1"/>
+      <dialogue option="2: Walk away." returnCode="0" nextNode="-1" lastSentence="true"/>
+    </node>
+  </dialogue>
+  
 </dialogueTree>

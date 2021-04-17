@@ -170,11 +170,22 @@ void DialogueSystem::PerformDialogue(int treeId)
 	if (playerInput >= 0 && playerInput < currentNode->dialogueOptions.size())
 	{
 		for (int i = 0; i < dialogueTrees[treeId]->dialogueNodes.size(); i++)
+		{
+			// If a dialogue with options is the last dialogue
+			if (currentNode->dialogueOptions[playerInput]->nextNode = -1)
+			{
+				// trigger event if needed and stop conversation
+				if (currentNode->dialogueOptions[playerInput]->returnCode == 1) triggerEvent = true;
+				inConversation = false;
+				break;
+			}
+
 			if (currentNode->dialogueOptions[playerInput]->nextNode == dialogueTrees[treeId]->dialogueNodes[i]->nodeId)
 			{
 				currentNode = dialogueTrees[treeId]->dialogueNodes[i];
 				break;
 			}
+		}
 	}
 
 	//BlitDialog();

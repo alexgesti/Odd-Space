@@ -61,8 +61,8 @@ bool SceneManager::Start()
 	//current = new Logo(input, render, tex);
 	//current = new Title(win, input, render, tex);
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
-	current = new Cantina(this);
-	//current = new Wc(this);
+	//current = new Cantina(this);
+	current = new Wc(this);
 	//current = new Exterior(this);
 	current->Load();
 

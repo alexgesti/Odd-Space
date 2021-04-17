@@ -133,6 +133,7 @@ bool Cantina::Update(float dt)
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
 
+	// Dialogue things
 	if (sceneManager->collision->currentInteraction != '/0')
 	{
 
@@ -196,11 +197,11 @@ bool Cantina::Update(float dt)
 			}
 		}
 
+		// If we are not in conversation, draw X
 		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
-
-		if (!sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect)) sceneManager->toDrawX = false;
 	}
 
+	// If there's no interaction and X is being drawn, stop drawing it
 	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
 
 	// If legendary pirate conversation has been deactivated don't draw the X
@@ -216,6 +217,8 @@ bool Cantina::Update(float dt)
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
+
+	// End of dialogue things
 	
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;
