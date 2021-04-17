@@ -172,7 +172,7 @@ void DialogueSystem::PerformDialogue(int treeId)
 		for (int i = 0; i < dialogueTrees[treeId]->dialogueNodes.size(); i++)
 		{
 			// If a dialogue with options is the last dialogue
-			if (currentNode->dialogueOptions[playerInput]->nextNode = -1)
+			if (currentNode->dialogueOptions[playerInput]->nextNode == -1)
 			{
 				// trigger event if needed and stop conversation
 				if (currentNode->dialogueOptions[playerInput]->returnCode == 1) triggerEvent = true;

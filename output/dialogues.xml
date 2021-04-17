@@ -108,7 +108,7 @@
 </dialogue>
   
 <dialogue Id="4">
- <node text="Look who woke up after a free trip here, jajajaja you deadhead." id="29" hasOptions="false">
+ <node text="Look who woke up after a free trip here, hahahaha you deadhead." id="29" hasOptions="false">
          <dialogue option="X" returnCode="0" nextNode="30"/> 
     </node>
  <node text="It was you crashing into me in the middle of nowhere in the first place you crazy old man. How do you expect me to return to my fancy ship?" id="30" hasOptions="false">
@@ -204,7 +204,7 @@
   <dialogue Id="7">
     <node text="Should I even touch it?"  id="0"  hasOptions="true">
       <dialogue option="1: Flush." returnCode="1" nextNode="-1"/>
-      <dialogue option="2: Walk away." returnCode="0" nextNode="-1" lastSentence="true"/>
+      <dialogue option="2: Walk away." returnCode="0" nextNode="-1"/>
     </node>
   </dialogue>
   
