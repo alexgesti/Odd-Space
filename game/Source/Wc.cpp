@@ -138,6 +138,8 @@ bool Wc::Update(float dt)
 				{
 					audio->PlayFx(wcFx);
 					toDrawX = false;
+					enemyEncounter += 1500;
+
 				}
 
 				collision->currentInteraction = '/0';
@@ -154,6 +156,17 @@ bool Wc::Update(float dt)
 		audio->FadeOutFx(100);
 		TransitionToScene(SceneType::CANTINA);
 		map->doorHit = false;
+	}
+
+	//Enemy Encounter
+	if (entityManager->CreateEntity(EntityType::HERO)->position != entityManager->CreateEntity(EntityType::HERO)->temPos)
+	{
+		enemyEncounter += rand() % 5;
+		if (enemyEncounter > rand() % (8500) + 1500)
+		{
+			enemyEncounter = 0;
+			TransitionToScene(SceneType::BATTLE);
+		}
 	}
 
 	return true;
@@ -177,6 +190,8 @@ bool Wc::Unload()
 {
 	// TODO: Unload all resources
 	*previousScene = SceneType::WC;
+
+	enemyEncounter = 0;
 
 	map->Unload();
 	delete map;

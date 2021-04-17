@@ -43,15 +43,6 @@ public:
 
     SDL_Rect GetBounds();
 
-public:
-
-    // ----- OLD CAPTAIN VARIABLES ----- //
-    // Old Captain position
-    iPoint temPos;
-    // Old Captain collision
-    iPoint playerCollision[4];
-    // --------------------------------- //
-
 private:
 
     // ----- OLD CAPTAIN VARIABLES ----- //

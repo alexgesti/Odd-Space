@@ -154,6 +154,16 @@ bool Cantina::Update(float dt)
 		map->doorHit = false;
 	}
 
+	//Enemy Encounter
+	if (entityManager->CreateEntity(EntityType::HERO)->position != entityManager->CreateEntity(EntityType::HERO)->temPos)
+	{
+		enemyEncounter += rand() % 5;
+		if (enemyEncounter > rand() % (8500) + 1500)
+		{
+			enemyEncounter = 0;
+			TransitionToScene(SceneType::BATTLE);
+		}		
+	}
 
 	animBarmanIdle->Update();
 
@@ -180,6 +190,8 @@ bool Cantina::Unload()
 {
 	// TODO: Unload all resources
 	*previousScene = SceneType::CANTINA;
+
+	enemyEncounter = 0;
 
 	map->Unload();
 	delete map;

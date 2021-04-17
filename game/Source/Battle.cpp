@@ -46,7 +46,7 @@ bool Battle::Load()
 
     UI = tex->Load("assets/sprites/UI/UI_Text.png");
 
-    if (*entityManager->previousScene == SceneType::CANTINA)
+    if (*entityManager->previousScene == SceneType::CANTINA || *entityManager->previousScene == SceneType::WC)
     {
         if (map->Load("combat_cantina_interior.tmx") == true)
         {
@@ -383,10 +383,10 @@ bool Battle::Unload()
     buttons.buttonsEnemies.buttonBack = nullptr;
 
     if (entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
-        entityManager->entities[0].At(0)->data->infoEntities.info.HP = 1;
+        entityManager->entities[0].At(0)->data->infoEntities.info.HP = entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
 
     if (entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
-        entityManager->entities[0].At(1)->data->infoEntities.info.HP = 1;
+        entityManager->entities[0].At(1)->data->infoEntities.info.HP = entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;
     return false;
 }
 

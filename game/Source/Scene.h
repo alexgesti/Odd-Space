@@ -64,6 +64,8 @@ public:
 
     bool transitionRequired;
     SceneType nextScene;
+
+    int enemyEncounter = 0;
 };
 
 #endif // __SCENE_H__

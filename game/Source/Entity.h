@@ -76,6 +76,7 @@ public:
 
     // Possible properties, it depends on how generic we
     // want our Entity class, maybe it's not renderable...
+    iPoint temPos;
     iPoint position;        // Use a float instead?
     bool transitioning = false;
     bool renderable = false;

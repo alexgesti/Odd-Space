@@ -49,8 +49,6 @@ public:
 public:
 
     // ----- PLAYER VARIABLES ----- //
-    // Player position
-    iPoint temPos;
     // Player collision
     iPoint playerCollision[4];
     // ---------------------------- //
