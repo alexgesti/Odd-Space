@@ -92,8 +92,8 @@ void Speak::Draw()
 		else if (nextLine) textToRender2.push_back(copText.GetString()[i]);
 	}
 
-	render->DrawText(font, textToRender.c_str(), 15, 610, 25, 0, { 255, 255, 255, 255 });
-	if(textToRender2 != "") render->DrawText(font, textToRender2.c_str(), 15, 640, 25, 0, { 255, 255, 255, 255 });
+	render->DrawText(font, textToRender.c_str(), 15, 600, 21, 0, { 255, 255, 255, 255 });
+	if(textToRender2 != "") render->DrawText(font, textToRender2.c_str(), 15, 645, 21, 0, { 255, 255, 255, 255 });
 }
 
 void Speak::SayText(SString text, bool slowly)

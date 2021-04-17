@@ -49,11 +49,18 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		sceneManager->render->camera.x = -32;
 		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint (900, 650);
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint (990, 550);
 	}
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
+
+	if (!sceneManager->initialTextSaid)
+	{
+		sceneManager->dialogueSystem->SetConversation(0);
+		sceneManager->dialogueSystem->inConversation = true;
+		sceneManager->initialTextSaid = true;
+	}
 
 	//map = new Map(tex);
 
@@ -110,6 +117,34 @@ bool Exterior::Update(float dt)
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
+
+	if (sceneManager->collision->currentInteraction != '/0')
+	{
+
+		SDL_Rect playerRect;
+		playerRect.x = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
+		playerRect.y = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
+		playerRect.w = playerRect.h = 32;
+
+		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting == true)
+		{
+			if (sceneManager->collision->currentInteraction == "crazyman" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+				sceneManager->dialogueSystem->SetConversation(1);
+				sceneManager->dialogueSystem->inConversation = true;
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+			}
+		}
+
+		if(!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
+
+		if (!sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect)) sceneManager->toDrawX = false;
+	}
+
+	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
 
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;

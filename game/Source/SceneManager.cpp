@@ -50,8 +50,10 @@ bool SceneManager::Awake()
 // Called before the first frame
 bool SceneManager::Start()
 {
+
 	font = new Font("assets/typo/Adore64.xml", tex);
 	speak = new Speak(audio, render, font, input, tex);
+	dialogueSystem->speak = speak;
 	xMark = tex->Load("assets/sprites/UI/X_mark.png");
 
 	previousScene = new SceneType;
@@ -60,11 +62,9 @@ bool SceneManager::Start()
 	//current = new Title(win, input, render, tex);
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
-	current = new Wc(this);
-	//current = new Exterior(this);
+	//current = new Wc(this);
+	current = new Exterior(this);
 	current->Load();
-
-	dialogueSystem->speak = speak;
 
 	next = nullptr;
 

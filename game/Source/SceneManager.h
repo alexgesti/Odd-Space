@@ -66,6 +66,8 @@ public:
 
 	bool toDrawX = false;
 
+	bool initialTextSaid = false;
+
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)
 	bool onTransition;
