@@ -15,7 +15,7 @@ DialogueSystem::~DialogueSystem() {}
 
 bool DialogueSystem::Start()
 {
-	LoadDialogue("dialogue_test.xml");
+	LoadDialogue("dialogues.xml");
 	currentNode = dialogueTrees[id]->dialogueNodes[0];
 	//PerformDialogue(Id);
 	font = new Font("assets/typo/Adore64.xml", tex);
@@ -181,9 +181,9 @@ bool DialogueSystem::LoadDialogue(const char* file)
 	}
 	else
 	{
-		pugi::xml_node n = dialogues.first_child().child("dialogueExample");
+		pugi::xml_node n = dialogues.first_child().child("dialogue");
 
-		for (n; n != NULL; n = n.next_sibling("dialogueExample"))
+		for (n; n != NULL; n = n.next_sibling("dialogue"))
 		{
 			DialogueTree* tree = new DialogueTree;
 			tree->treeId = n.attribute("Id").as_int();
