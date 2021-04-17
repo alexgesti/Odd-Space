@@ -142,11 +142,13 @@ bool Player::Update(float dt)
         if ((input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && input->joystickState() == false || (pad.l_y < 0.75f && pad.l_x > -0.75f && pad.l_x < 0.75f) && input->joystickState() == true)
         {
             position.y -= (PLAYER_MOVE_SPEED * dt);
+            //render->camera.y += (PLAYER_MOVE_SPEED * dt);
             if (currentAnimation != animHeroWalkUp) currentAnimation = animHeroWalkUp;
         }
         if ((input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) && input->joystickState() == false || (pad.l_y > -0.75f && pad.l_x > -0.75f && pad.l_x < 0.75f) && input->joystickState() == true)
         {
             position.y += (PLAYER_MOVE_SPEED * dt + 1);
+            //render->camera.y -= (PLAYER_MOVE_SPEED * dt + 1);
             if (currentAnimation != animHeroWalkDown) currentAnimation = animHeroWalkDown;
         }
 

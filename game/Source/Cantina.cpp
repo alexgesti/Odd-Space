@@ -68,6 +68,9 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(768, 750);
 	}
 
+	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
+	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
+
 	//map = new Map(tex);
 
 	// L03: DONE: Load map
