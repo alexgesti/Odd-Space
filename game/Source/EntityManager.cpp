@@ -163,3 +163,19 @@ bool EntityManager::Draw()
 
 	return true;
 }
+
+// Destroy an existing Entity
+bool EntityManager::DestroyEntity(int i)
+{
+
+	ListItem<Entity*>* list = NULL;
+	list = entities[i].start;
+
+	while (list != NULL)
+	{
+		list->data->UnLoad();
+		list = list->next;
+	}
+
+	return true;
+}

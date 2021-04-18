@@ -343,7 +343,10 @@ bool Battle::Draw()
 bool Battle::Unload()
 {
     // Delete buttons and textures
+    entityManager->DestroyEntity(1);
     entityManager->entities[1].Clear();
+
+    tex->UnLoad(UI);
 	
 	map->Unload();
     delete map;

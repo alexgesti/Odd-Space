@@ -293,6 +293,10 @@ bool Cantina::Unload()
 
 	enemyEncounter = 0;
 
+	sceneManager->tex->UnLoad(texBarman);
+
+	delete animBarmanIdle;
+
 	map->Unload();
 	delete map;
 	map = nullptr;

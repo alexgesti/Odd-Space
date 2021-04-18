@@ -83,8 +83,6 @@ bool DrunkCustomer::Draw()
     return false;
 }
 
-
-
 void DrunkCustomer::SetTexture(SDL_Texture *tex)
 {
     drunkCustomerTexture = tex;
@@ -93,4 +91,13 @@ void DrunkCustomer::SetTexture(SDL_Texture *tex)
 SDL_Rect DrunkCustomer::GetBounds()
 {
     return { position.x, position.y, width, height };
+}
+
+bool DrunkCustomer::UnLoad()
+{
+    tex->UnLoad(drunkCustomerTexture);
+    
+    delete drunkCustomerAnim;
+    
+    return false;
 }

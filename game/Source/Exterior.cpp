@@ -230,6 +230,11 @@ bool Exterior::Unload()
 
 	enemyEncounter = 0;
 
+	sceneManager->tex->UnLoad(texCrazyManCantina);
+
+	delete animCrazyManIdle;
+	delete animCrazyManWalkLeft;
+
 	map->Unload();
 	delete map;
 	map = nullptr;

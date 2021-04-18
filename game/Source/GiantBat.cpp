@@ -94,3 +94,12 @@ SDL_Rect GiantBat::GetBounds()
 {
     return { position.x, position.y, width, height };
 }
+
+bool GiantBat::UnLoad()
+{
+    tex->UnLoad(giantBatTexture);
+
+    delete giantBatAnim;
+
+    return false;
+}

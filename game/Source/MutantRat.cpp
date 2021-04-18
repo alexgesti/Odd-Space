@@ -96,3 +96,12 @@ SDL_Rect MutantRat::GetBounds()
 {
     return { position.x, position.y, width, height };
 }
+
+bool MutantRat::UnLoad()
+{
+    tex->UnLoad(mutantRatTexture);
+    
+    delete mutantRatAnim;
+
+    return false;
+}

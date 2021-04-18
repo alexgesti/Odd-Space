@@ -66,6 +66,11 @@ public:
         return true;
     }
 
+    virtual bool UnLoad()
+    {
+        return true;
+    }
+
 public:
 
     EntityType type;

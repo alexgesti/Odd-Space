@@ -44,6 +44,8 @@ public:
 
 	bool Draw();
 
+	bool DestroyEntity(int i);
+
 public:
 
 	List<Entity*> entities[4];

@@ -86,3 +86,9 @@ SDL_Rect StandardPirates::GetBounds()
 {
     return { position.x, position.y, width, height };
 }
+
+bool StandardPirates::UnLoad()
+{
+   
+    return false;
+}

@@ -28,7 +28,7 @@ public:
 
     bool Draw();
 
-
+    bool UnLoad();
 
     void SetTexture(SDL_Texture *tex);
 
