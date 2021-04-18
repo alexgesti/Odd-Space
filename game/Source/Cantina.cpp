@@ -143,9 +143,9 @@ bool Cantina::Update(float dt)
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) sceneManager->speak->SayText("This is a very very long sample", true);
+	//if (sceneManager->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN) sceneManager->speak->SayText("This is a very very long sample", true);
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) sceneManager->speak->SayText("This is another very long sample", true);
+	//if (sceneManager->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) sceneManager->speak->SayText("This is another very long sample", true);
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
 

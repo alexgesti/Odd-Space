@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <save_state>
 	<scenemanager>
-		<Camera y="-45" />
+		<Camera y="-48" />
 		<Scene scene="4" />
 	</scenemanager>
 	<entitymanager>
-		<Player x="932" y="405" hp="15" />
+		<Player x="910" y="600" hp="15" />
 		<Captain hp="20" />
 	</entitymanager>
 </save_state>
