@@ -40,7 +40,8 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
-	sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
+	if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
+	else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 
 	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/toilet.wav");
 

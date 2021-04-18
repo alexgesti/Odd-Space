@@ -72,14 +72,20 @@ bool SaveFileManager::LoadGame()
 
 		pugi::xml_node node = file.child("save_state");
 
-		sceneManager->render->camera.y = node.child("Camera").attribute("y").as_int();
+		// Load sceneManager things
+		sceneManager->render->camera.y = node.child("scenemanager").child("Camera").attribute("y").as_int();
 
-		SceneType aux;
-		aux = (SceneType)node.child("Scene").attribute("scene").as_int();
-		if (sceneManager->currentscenetype != aux)
+		int aux;
+		aux = node.child("scenemanager").child("Scene").attribute("scene").as_int();
+		if (sceneManager->currentscenetype != (SceneType)aux)
 		{
-			sceneManager->current->TransitionToScene(aux);
+			sceneManager->current->TransitionToScene((SceneType)aux);
 		}
+
+		// Load entity things
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x = node.child("entitymanager").child("Player").attribute("x").as_int();
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y = node.child("entitymanager").child("Player").attribute("y").as_int();
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = true;
 
 		if (ret == true)
 		{
@@ -101,6 +107,7 @@ bool SaveFileManager::SaveGame() const
 	pugi::xml_document file;
 	pugi::xml_node base = file.append_child("save_state");
 
+	// Scene save
 	pugi::xml_node node = base.append_child(sceneManager->name.GetString());
 	
 	// Things to save
@@ -110,6 +117,14 @@ bool SaveFileManager::SaveGame() const
 	camerasave.append_attribute("y") = sceneManager->render->camera.y;
 
 	scenesave.append_attribute("scene") = (int)sceneManager->currentscenetype;
+
+	//Entities save
+	node = base.append_child(sceneManager->entityManager->name.GetString());
+
+	pugi::xml_node playersave = node.append_child("Player");
+
+	playersave.append_attribute("x") = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
+	playersave.append_attribute("y") = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
 
 	bool succ = file.save_file("save_game.xml");
 	if (succ != true)

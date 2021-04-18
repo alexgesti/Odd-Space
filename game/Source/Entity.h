@@ -83,6 +83,8 @@ public:
     bool renderable = false;
     bool interacting = false;
     bool inBattle = false;
+
+    bool loadedPos = false;
 };
 
 #endif // __ENTITY_H__

@@ -62,7 +62,8 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		sceneManager->render->camera.x = 80;
 		sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
 
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(128, 195);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(128, 195);
+		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 
 	/*else if (*sceneManager->previousScene == SceneType::BATTLE)
@@ -78,7 +79,8 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		sceneManager->render->camera.x = 80;
 		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(768, 750);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(768, 750);
+		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
