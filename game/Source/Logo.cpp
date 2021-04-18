@@ -3,22 +3,23 @@
 #include "Input.h"
 #include "Render.h"
 #include "Textures.h"
+#include "Audio.h"
 
 #define LOGO_FADE_SPEED 1.0f
 
-
-
 // Constructor
-Logo::Logo(Input* input, Render* render, Textures* tex)
+Logo::Logo(Input* input, Render* render, Textures* tex, Audio* audio)
 {
     this->input = input;
     this->render = render;
     this->tex = tex;
-
+    this->audio = audio;
 
     state = 0;
     timeCounter = 0.0f;
     logoAlpha = 0.0f;
+
+    temporalLogoSound = audio->LoadFx("Assets/Audio/Fx/level_up.wav");
 }
 // Destructor
 Logo::~Logo()
@@ -51,6 +52,7 @@ bool Logo::Update(float dt)
         if (logoAlpha > 1.0f)
         {
             logoAlpha = 1.0f;
+            audio->PlayFx(temporalLogoSound);
             state = 2;
         }
     }

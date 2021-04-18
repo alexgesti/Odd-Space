@@ -11,6 +11,7 @@
 
 
 // Constructor
+
 Battle::Battle(SceneManager* sceneManager)
 {
     this->sceneManager = sceneManager;
@@ -18,6 +19,8 @@ Battle::Battle(SceneManager* sceneManager)
     map = new Map(sceneManager->tex);
     
     name.Create("battle");
+
+    selected = sceneManager->audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
 }
 // Destructor
 Battle::~Battle()
@@ -160,6 +163,8 @@ bool Battle::Load()
     chooseMenu = 1;
     f = 0;
     c = 0;
+
+    //audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
 
     return false;
 }
@@ -405,14 +410,30 @@ void Battle::PlayerMenu(float dt)
 {
     GamePad& pad = sceneManager->input->pads[0];
 
-    switch(chooseMenu)
+    switch (chooseMenu)
     {
         //Choose Action Menu
     case 1:
-        if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerSkill[f][c++];
-        if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerSkill[f][c--];
-        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerSkill[f++][c];
-        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerSkill[f--][c];
+        if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN)
+        {
+            controllerSkill[f][c++];
+            sceneManager->audio->PlayFx(selected);
+        }
+        if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)
+        {
+            controllerSkill[f][c--];
+            sceneManager->audio->PlayFx(selected);
+        }
+        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+        {
+            controllerSkill[f++][c];
+            sceneManager->audio->PlayFx(selected);
+        }
+        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+        {
+            controllerSkill[f--][c];
+            sceneManager->audio->PlayFx(selected);
+        }
         //Establecer limites fila/columna botones
         if (f > 1) f = 0;
         if (f < 0) f = 1;
@@ -430,10 +451,26 @@ void Battle::PlayerMenu(float dt)
 
         //Choose Skill Menu
     case 2:
-        if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerSkill[f][c++];
-        if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerSkill[f][c--];
-        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerSkill[f++][c];
-        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerSkill[f--][c];
+        if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN)
+        {
+            controllerSkill[f][c++];
+            sceneManager->audio->PlayFx(selected);
+        }
+        if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)
+        {
+            controllerSkill[f][c--];
+            sceneManager->audio->PlayFx(selected);
+        }
+        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+        {
+            controllerSkill[f++][c];
+            sceneManager->audio->PlayFx(selected);
+        }
+        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+        {
+            controllerSkill[f--][c];
+            sceneManager->audio->PlayFx(selected);
+        }
         //Establecer limites fila/columna botones
         if (f > 1) f = 0;
         if (f < 0) f = 1;
@@ -458,8 +495,11 @@ void Battle::PlayerMenu(float dt)
 
         //Choose Enemy Menu
     case 3:
-        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerSkill[f++][c];
-
+        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+        {
+            controllerSkill[f++][c];
+            sceneManager->audio->PlayFx(selected);
+        }
         //Establecer limites fila/columna botones
         if (f < 0) f = totalEnemies + 1;
         if (f > totalEnemies + 1) f = 0;
@@ -469,6 +509,7 @@ void Battle::PlayerMenu(float dt)
         if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
         {
             controllerSkill[f--][c];
+            sceneManager->audio->PlayFx(selected);
 
             if (f < 0) f = totalEnemies + 1;
             if (f > totalEnemies + 1) f = 0;
@@ -601,32 +642,38 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         {
         case 1:
             //Ataque
+            sceneManager->audio->PlayFx(selected);
             chooseMenu = 3;
             break;
 
         case 2:
             //Defensa
+            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.defense = true;
             ChangeTurns();
             break;
 
         case 3:
             //Skill
+            sceneManager->audio->PlayFx(selected);
             chooseMenu = 2;
             break;
 
         case 4:
             //Items
+            sceneManager->audio->PlayFx(selected);
             break;
 
         case 5:
             //Run
+            sceneManager->audio->PlayFx(selected);
             BattleEscaped();
             ChangeTurns();
             break;
 
         case 6:
             //Back
+            sceneManager->audio->PlayFx(selected);
             switch (characterTurn)
             {
                 //Hero Turn
@@ -652,32 +699,38 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         switch (control->id)
         {
         case 7:
+            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
             chooseMenu = 3;
             break;
 
         case 8:
+            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].picked = true;
             chooseMenu = 3;
             break;
 
         case 9:
+            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
             chooseMenu = 3;
             break;
 
         case 10:
+            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].picked = true;
             chooseMenu = 3;
             break;
 
         case 11:
+            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
             chooseMenu = 3;
             break;
 
         case 12:
             //Back
+            sceneManager->audio->PlayFx(selected);
             chooseMenu = 1;
             break;
 
@@ -692,30 +745,35 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         switch (control->id)
         {
         case 13:
+            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies;
             ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
             break;
 
         case 14:
+            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 1;
             ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
             break;
 
         case 15:
+            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 2;
             ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
             break;
 
         case 16:
+            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 3;
             ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
             break;
 
         case 17:
+            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 4;
             ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
@@ -724,6 +782,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         case 18:
             //Back
             {
+            sceneManager->audio->PlayFx(selected);
             bool skillPicked = false;
             for (int s = 0; s < 5; s++)
             {
@@ -762,7 +821,6 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         case 0:
             if (sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.HP > 0)
                 buttons.buttonsEnemies.buttonEnemy1->Update(sceneManager->input, controllerEnemy[f], 0.016f);
-
         default:
             buttons.buttonsEnemies.buttonBack->Update(sceneManager->input, controllerEnemy[f], 0.016f);
             break;

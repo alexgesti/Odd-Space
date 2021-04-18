@@ -4,11 +4,13 @@
 
 
 // Constructor
-Title::Title(SceneManager* sceneManager) : Scene()
+Title::Title(SceneManager* sceneManager, Audio* audio) : Scene()
 {
    this->sceneManager = sceneManager;
+   this->audio = audio;
 
-    // GUI: Initialize required controls for the screen
+   temporalAppearTitle = audio->LoadFx("Assets/Audio/Fx/spells_fx.wav");
+   selected = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
 }
 // Destructor
 Title::~Title()
@@ -20,6 +22,7 @@ Title::~Title()
 bool Title::Load()
 {
     bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
+    audio->PlayMusic("Assets/Audio/Music/menu_music1.ogg", 2);
 
     // Buttons
     buttons.buttonPlay = new GuiButton(1, { 400, 480, 160, 75 }, "New Game");
@@ -41,10 +44,32 @@ bool Title::Update(float dt)
 
     GamePad& pad = sceneManager->input->pads[0];
 
-    if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[c++];
-    if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[c--];
-    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
-    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
+    if (oneTime)
+    {
+        audio->PlayFx(temporalAppearTitle);
+        oneTime = false;
+    }
+
+    if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN)
+    {
+        controllerMenu[c++];
+        audio->PlayFx(selected);
+    }
+    if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)
+    {
+        controllerMenu[c--];
+        audio->PlayFx(selected);
+    }
+    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+    {
+        controllerMenu[f++][c];
+        audio->PlayFx(selected);
+    }
+    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+    {
+        controllerMenu[f--][c];
+        audio->PlayFx(selected);
+    }
 
     if (f > 1) f = 0;
     if (f < 0) f = 1;
@@ -95,14 +120,18 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
+        audio->PlayFx(selected);
         TransitionToScene(SceneType::EXTERIOR);
         break;
     case 2:
+        audio->PlayFx(selected);
         sceneManager->loadrequested = true;
         break;
     case 3:
+        audio->PlayFx(selected);
         break;
     case 4:
+        audio->PlayFx(selected);
         sceneManager->gameIsWorking = false;
         break;
     default: break;

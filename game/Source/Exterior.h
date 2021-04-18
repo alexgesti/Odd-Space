@@ -6,6 +6,7 @@
 
 #include "Scene.h"
 #include "Font.h"
+#include "Audio.h"
 #include "Animation.h"
 
 class Map;
@@ -17,7 +18,7 @@ class Exterior : public Scene
 public:
 
     // Constructor
-    Exterior(SceneManager* sceneManager);
+    Exterior(SceneManager* sceneManager, Audio* audio);
     // Destructor
     virtual ~Exterior();
 
@@ -49,6 +50,7 @@ private:
 private:
 
     Map* map;
+    Audio* audio;
 
     SceneManager* sceneManager;
 };

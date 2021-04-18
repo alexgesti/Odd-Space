@@ -59,16 +59,16 @@ bool SceneManager::Start()
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
-	//current = new Logo(input, render, tex);
-	current = new Title(this);
-	currentscenetype = SceneType::TITLE;
+	current = new Logo(input, render, tex, audio);
+	//current = new Title(this, audio);
+	currentscenetype = SceneType::LOGO;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
 	//current = new Exterior(this);
 	current->Load();
 
-	pause = new PauseMenu(this);
+	pause = new PauseMenu(this, audio);
 	pause->Load();
 
 	dialogueSystem->speak = speak;
@@ -221,11 +221,11 @@ bool SceneManager::Update(float dt)
 
 		switch (current->nextScene)
 		{
-		case SceneType::LOGO: next = new Logo(input, render, tex); break;
-		case SceneType::TITLE: next = new Title(this); break;
+		case SceneType::LOGO: next = new Logo(input, render, tex, audio); break;
+		case SceneType::TITLE: next = new Title(this, audio); break;
 		case SceneType::CANTINA: next = new Cantina(this); break;
 		case SceneType::WC: next = new Wc(this); break;
-		case SceneType::EXTERIOR: next = new Exterior(this); break;
+		case SceneType::EXTERIOR: next = new Exterior(this, audio); break;
 		case SceneType::BATTLE: next = new Battle(this); break;
 		default: break;
 		}

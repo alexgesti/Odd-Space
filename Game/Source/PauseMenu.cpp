@@ -3,9 +3,12 @@
 #include "SceneManager.h"
 
 // Constructor
-PauseMenu::PauseMenu(SceneManager* sceneManager)
+PauseMenu::PauseMenu(SceneManager* sceneManager, Audio* audio)
 {
     this->sceneManager = sceneManager;
+    this->audio = audio;
+
+    selected = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
 }
 // Destructor
 PauseMenu::~PauseMenu()
@@ -40,8 +43,16 @@ bool PauseMenu::Update(float dt)
 {
     GamePad& pad = sceneManager->input->pads[0];
 
-    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) f++;
-    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) f--;
+    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+    {
+        audio->PlayFx(selected);
+        f++;
+    }
+    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+    {
+        audio->PlayFx(selected);
+        f--;
+    }
     //Establecer limites fila/columna botones
     if (f > 5) f = 0;
     if (f < 0) f = 5;
@@ -101,17 +112,26 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 {
     switch (control->id)
     {
-    case 1: break;
-    case 2: break;
-    case 3: break;
+    case 1:
+        audio->PlayFx(selected);
+        break;
+    case 2: 
+        audio->PlayFx(selected);
+        break;
+    case 3: 
+        audio->PlayFx(selected); 
+        break;
     case 4: 
+        audio->PlayFx(selected);
         sceneManager->gameIsWorking = false;
         break;
     case 5: 
+        audio->PlayFx(selected);
         sceneManager->saverequested = true;
         //sceneManager->currentgamerequested = true;
         break;
     case 6: 
+        audio->PlayFx(selected);
         sceneManager->loadrequested = true;
         break;
     default: break;

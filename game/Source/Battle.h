@@ -101,6 +101,8 @@ private:
 
     bool playerMenu = true;
 
+    int selected = 0;
+
     //UI Controller
     int chooseMenu;
     int f;
