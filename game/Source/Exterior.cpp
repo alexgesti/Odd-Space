@@ -134,9 +134,9 @@ bool Exterior::Update(float dt)
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) map->drawColliders = !map->drawColliders;
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
-	if (sceneManager->collision->currentInteraction != '/0' && crazyManInteract == true)
+	if (sceneManager->collision->currentInteraction != '/0' && sceneManager->crazyManActive == true)
 	{
 
 		SDL_Rect playerRect;
@@ -170,7 +170,7 @@ bool Exterior::Update(float dt)
 	if (sceneManager->dialogueSystem->currentNode->nodeId == 12)
 	{
 		flagMoving = true;
-		crazyManInteract = false;
+		sceneManager->crazyManActive = false;
 	}
 	if (sceneManager->dialogueSystem->inConversation == false)
 	{
@@ -232,6 +232,10 @@ bool Exterior::Update(float dt)
 		{
 			posCrazyMan.x -= 200 * dt;
 		}
+		else
+		{
+			sceneManager->crazyManDrawable = false;
+		}
 	}
 
 
@@ -246,8 +250,11 @@ bool Exterior::Draw()
 	map->Draw(sceneManager->render);
 
 	//player->Draw(render);
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	sceneManager->render->DrawTexture(texCrazyManCantina, posCrazyMan.x, posCrazyMan.y, &rect);
+	if (sceneManager->crazyManActive == true || sceneManager->crazyManDrawable == true)
+	{
+		SDL_Rect rect = currentAnimation->GetCurrentFrame();
+		sceneManager->render->DrawTexture(texCrazyManCantina, posCrazyMan.x, posCrazyMan.y, &rect);
+	}
 
 	sceneManager->entityManager->Draw();
 

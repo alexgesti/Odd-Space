@@ -59,13 +59,13 @@ bool SceneManager::Start()
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
-	//current = new Logo(input, render, tex, audio);
+	current = new Logo(input, render, tex, audio);
 	//current = new Title(this, audio);
-	currentscenetype = SceneType::EXTERIOR;
+	currentscenetype = SceneType::LOGO;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
-	current = new Exterior(this);
+	//current = new Exterior(this);
 	current->Load();
 
 	pause = new PauseMenu(this, audio);
@@ -116,10 +116,10 @@ bool SceneManager::Update(float dt)
 	if (!onTransition)
 	{
 		//General Debug Keys
-		if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 			win->ToggleFullscreen(win->window);
 
-		if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		{
 			entityManager->CreateEntity(EntityType::HERO)->noClip = !entityManager->CreateEntity(EntityType::HERO)->noClip;
 		}

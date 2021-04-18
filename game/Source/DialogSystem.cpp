@@ -27,9 +27,11 @@ bool DialogueSystem::Start()
 
 bool DialogueSystem::Update(float dt)
 {
+	GamePad& pad = input->pads[0];
+
 	if (inConversation)
 	{
-		if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
+		if ((input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 0;
 			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
@@ -38,7 +40,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
+		if ((input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 1;
 			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
@@ -67,7 +69,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+		if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
 		{
 			// Finish speaking sentence
 			if (speak->speaking) speak->Finish();

@@ -37,7 +37,9 @@ bool Logo::Load()
 
 bool Logo::Update(float dt)
 {
-    if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+    GamePad& pad = input->pads[0];
+
+    if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
     {
         TransitionToScene(SceneType::TITLE);
     }

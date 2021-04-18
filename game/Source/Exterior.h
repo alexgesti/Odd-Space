@@ -42,7 +42,6 @@ private:
     Animation* currentAnimation;
     bool flagMoving = false;
     iPoint posCrazyMan = { 16 * 32 - 16, 20 * 32 - 52 };
-    bool crazyManInteract = true;
     bool crazyManTalking = false;
     // ------------------------------- //
     

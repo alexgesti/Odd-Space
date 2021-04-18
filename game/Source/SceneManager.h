@@ -81,6 +81,11 @@ public:
 
 	bool exitGame = false;
 
+
+
+	bool crazyManActive = true;
+	bool crazyManDrawable = true;
+
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)
 	bool onTransition;
