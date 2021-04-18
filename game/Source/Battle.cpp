@@ -351,6 +351,7 @@ bool Battle::Unload()
 	map->Unload();
     delete map;
     map = nullptr;
+    SDL_Color antiBug = { 0, 0, 0, 0 };
 
     delete buttons.buttonsMenu.buttonAttack;
     buttons.buttonsMenu.buttonAttack = nullptr;
@@ -378,19 +379,29 @@ bool Battle::Unload()
     delete buttons.buttonsSkills.buttonBack;
     buttons.buttonsSkills.buttonBack = nullptr;
 
-    delete buttons.buttonsEnemies.buttonEnemy5;
-    buttons.buttonsEnemies.buttonEnemy5 = nullptr;
-    delete buttons.buttonsEnemies.buttonEnemy4;
-    buttons.buttonsEnemies.buttonEnemy4 = nullptr;
-    delete buttons.buttonsEnemies.buttonEnemy3;
-    buttons.buttonsEnemies.buttonEnemy3 = nullptr;
-    delete buttons.buttonsEnemies.buttonEnemy2;
-    buttons.buttonsEnemies.buttonEnemy2 = nullptr;
-    delete buttons.buttonsEnemies.buttonEnemy1;
-    buttons.buttonsEnemies.buttonEnemy1 = nullptr;
-    delete buttons.buttonsEnemies.buttonBack;
-    buttons.buttonsEnemies.buttonBack = nullptr;
-
+    switch (totalEnemies)
+    {
+    case 4:
+        delete buttons.buttonsEnemies.buttonEnemy5;
+        buttons.buttonsEnemies.buttonEnemy5 = nullptr;
+    case 3:
+        delete buttons.buttonsEnemies.buttonEnemy4;
+        buttons.buttonsEnemies.buttonEnemy4 = nullptr;
+    case 2:
+        delete buttons.buttonsEnemies.buttonEnemy3;
+        buttons.buttonsEnemies.buttonEnemy3 = nullptr;
+    case 1:
+        delete buttons.buttonsEnemies.buttonEnemy2;
+        buttons.buttonsEnemies.buttonEnemy2 = nullptr;
+    case 0:
+        delete buttons.buttonsEnemies.buttonEnemy1;
+        buttons.buttonsEnemies.buttonEnemy1 = nullptr;
+    default:
+        delete buttons.buttonsEnemies.buttonBack;
+        buttons.buttonsEnemies.buttonBack = nullptr;
+        break;
+    }
+    
     if (entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
         entityManager->entities[0].At(0)->data->infoEntities.info.HP = entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
 

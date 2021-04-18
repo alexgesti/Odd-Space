@@ -86,6 +86,11 @@ bool SaveFileManager::LoadGame()
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x = node.child("entitymanager").child("Player").attribute("x").as_int();
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y = node.child("entitymanager").child("Player").attribute("y").as_int();
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = true;
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP = node.child("entitymanager").child("Player").attribute("hp").as_int();
+
+		sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP = node.child("entitymanager").child("Captain").attribute("hp").as_int();
+
+
 
 		if (ret == true)
 		{
@@ -122,9 +127,13 @@ bool SaveFileManager::SaveGame() const
 	node = base.append_child(sceneManager->entityManager->name.GetString());
 
 	pugi::xml_node playersave = node.append_child("Player");
+	pugi::xml_node captainsave = node.append_child("Captain");
 
 	playersave.append_attribute("x") = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
 	playersave.append_attribute("y") = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
+	playersave.append_attribute("hp") = sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP;
+
+	captainsave.append_attribute("hp") = sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP;
 
 	bool succ = file.save_file("save_game.xml");
 	if (succ != true)

@@ -21,7 +21,7 @@ public:
 		int interactions = map->properties.list.At(1)->data->value;
 		int wallLayer = map->properties.list.At(2)->data->value;
 		
-		if (player != nullptr)
+		if (player != NULL)
 		{
 			for (int i = 0; i < 4; i++)
 			{
