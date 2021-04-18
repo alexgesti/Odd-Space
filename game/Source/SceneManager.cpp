@@ -61,6 +61,7 @@ bool SceneManager::Start()
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
 	current = new Title(this);
+	currentscenetype = SceneType::TITLE;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
@@ -143,6 +144,7 @@ bool SceneManager::Update(float dt)
 			{
 				transitionAlpha = 1.0f;
 
+				currentscenetype = current->nextScene;
 				current->Unload();	// Unload current screen
 				next->Load();	// Load next screen
 

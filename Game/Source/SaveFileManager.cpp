@@ -74,8 +74,12 @@ bool SaveFileManager::LoadGame()
 
 		sceneManager->render->camera.y = node.child("Camera").attribute("y").as_int();
 
-		//sceneManager->current->transitionRequired = true;
-		//sceneManager->current->nextScene = (SceneType)node.child("Scene").attribute("scene").as_int();
+		SceneType aux;
+		aux = (SceneType)node.child("Scene").attribute("scene").as_int();
+		if (sceneManager->currentscenetype != aux)
+		{
+			sceneManager->current->TransitionToScene(aux);
+		}
 
 		if (ret == true)
 		{
@@ -105,7 +109,7 @@ bool SaveFileManager::SaveGame() const
 
 	camerasave.append_attribute("y") = sceneManager->render->camera.y;
 
-	//scenesave.append_attribute("scene") = (int)sceneManager->current->nextScene;
+	scenesave.append_attribute("scene") = (int)sceneManager->currentscenetype;
 
 	bool succ = file.save_file("save_game.xml");
 	if (succ != true)

@@ -59,6 +59,7 @@ public:
 	Speak* speak;
 
 	SceneType* previousScene;
+	SceneType currentscenetype;
 	Scene* current;
 	Scene* pause;
 	Scene* next;
