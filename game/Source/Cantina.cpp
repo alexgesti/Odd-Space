@@ -272,15 +272,14 @@ bool Cantina::Draw()
 
 	//player->Draw(render);
 
-	sceneManager->entityManager->Draw();
-
-
 	SDL_Rect rect = animBarmanIdle->GetCurrentFrame();
 	sceneManager->render->DrawTexture(texBarman, 31 * 32, 16 * 32 - 16, &rect);
 
 	rect = animLegendaryPirateIdle->GetCurrentFrame();
 	sceneManager->render->DrawTexture(texLegendaryPirate, 11 * 32 - 8, 12 * 32 - 3, &rect);
 
+
+	sceneManager->entityManager->Draw();
 
 	return false;
 }
