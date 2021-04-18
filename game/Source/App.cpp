@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "SceneManager.h"
 #include "DialogSystem.h"
+#include "SaveFileManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -31,6 +32,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager(input, render, tex);
 	dialogueSystem = new DialogueSystem(input, render, tex);
 	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem);
+
+	// Not modules
+	saveFileManager = new SaveFileManager(sceneManager);
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -177,6 +181,19 @@ void App::PrepareUpdate()
 void App::FinishUpdate()
 {
 	// This is a good place to call Load / Save functions
+	if (sceneManager->loadrequested)
+	{
+		saveFileManager->LoadGame();
+		sceneManager->loadrequested = false;
+	}
+	if (sceneManager->saverequested)
+	{
+		saveFileManager->SaveGame();
+		sceneManager->saverequested = false;
+		//sceneManager->newgamerequested = false;
+		//sceneManager->currentgamerequested = false;
+	}
+
 	FramerateLogic();
 
 	static char title[256];
@@ -294,6 +311,20 @@ const char* App::GetOrganization() const
 {
 	return organization.GetString();
 }
+
+// Load / Save
+/*void App::LoadGameRequest(const char* fileName)
+{
+	loadgamerequested = true;
+	loadedgame.Create(fileName);
+}
+
+// ---------------------------------------
+void App::SaveGameRequest(const char* fileName) const
+{
+	savegamerequested = true;
+	savedgame.Create(fileName);
+}*/
 
 void App::FramerateLogic()
 {

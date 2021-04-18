@@ -107,8 +107,13 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
     case 4: 
         sceneManager->gameIsWorking = false;
         break;
-    case 5: break;
-    case 6: break;
+    case 5: 
+        sceneManager->saverequested = true;
+        //sceneManager->currentgamerequested = true;
+        break;
+    case 6: 
+        sceneManager->loadrequested = true;
+        break;
     default: break;
     }
 

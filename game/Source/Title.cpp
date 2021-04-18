@@ -95,11 +95,10 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
-    {
         TransitionToScene(SceneType::EXTERIOR);
         break;
-    }
     case 2:
+        sceneManager->loadrequested = true;
         break;
     case 3:
         break;

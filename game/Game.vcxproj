@@ -119,6 +119,7 @@
     <ClCompile Include="Source\Cantina.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\Render.cpp" />
+    <ClCompile Include="Source\SaveFileManager.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\Speak.cpp" />
     <ClCompile Include="Source\StandardPirates.cpp" />
@@ -151,6 +152,7 @@
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Queue.h" />
+    <ClInclude Include="Source\SaveFileManager.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Cantina.h" />
     <ClInclude Include="Source\Audio.h" />

@@ -7,8 +7,6 @@
 #define MAX_ZOOM 3.0f
 #define MIN_ZOOM 0.3f
 
-
-
 class SceneManager;
 class SDL_Texture;
 

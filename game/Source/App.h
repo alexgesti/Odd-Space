@@ -5,8 +5,11 @@
 #include "List.h"
 #include "PerfTimer.h"
 #include "Timer.h"
+#include "Log.h"
 
 #include "PugiXml/src/pugixml.hpp"
+
+#define SAVE_STATE_FILNAME "save_game.xml"
 
 // Modules
 class Window;
@@ -17,6 +20,7 @@ class Audio;
 class EntityManager;
 class SceneManager;
 class DialogueSystem;
+class SaveFileManager;
 
 class App
 {
@@ -24,23 +28,21 @@ public:
 
 	// Constructor
 	App(int argc, char* args[]);
+
 	// Destructor
 	virtual ~App();
 
-
 	// Called before render is available
 	bool Awake();
+
 	// Called before the first frame
 	bool Start();
-
 
 	// Called each loop iteration
 	bool Update();
 
 	// Called before quitting
 	bool CleanUp();
-
-
 
 	// Add a new module to handle
 	void AddModule(Module* module);
@@ -84,6 +86,9 @@ public:
 	EntityManager* entityManager;
 	SceneManager* sceneManager;
 	DialogueSystem* dialogueSystem;
+
+	// Not modules
+	SaveFileManager* saveFileManager;
 
 	bool isPause = false;
 

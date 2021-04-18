@@ -72,6 +72,11 @@ public:
 
 	bool initialTextSaid = false;
 
+	bool newgamerequested = false;
+	bool currentgamerequested = false;
+	bool saverequested = false;
+	bool loadrequested = false;
+
 	bool exitGame = false;
 
 private:
