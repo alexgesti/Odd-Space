@@ -78,9 +78,6 @@ private:
     Animation* animHeroWalkRight = new Animation();
     // -------------------------- //
 
-    Entities hero;
-    Entities oldCaptain;
-
 private:
 
     Input* input;
