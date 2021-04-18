@@ -19,7 +19,6 @@ Logo::Logo(Input* input, Render* render, Textures* tex, Audio* audio)
     timeCounter = 0.0f;
     logoAlpha = 0.0f;
 
-    temporalLogoSound = audio->LoadFx("Assets/Audio/Fx/level_up.wav");
 }
 // Destructor
 Logo::~Logo()
@@ -31,6 +30,8 @@ Logo::~Logo()
 bool Logo::Load()
 {
     logo = tex->Load("assets/sprites/Logo/logo_chaoticevil.png");
+
+    temporalLogoSound = audio->LoadFx("Assets/Audio/Fx/level_up.wav");
     return true;
 }
 
@@ -89,5 +90,7 @@ bool Logo::Draw()
 bool Logo::Unload()
 {
     tex->UnLoad(logo);
+
+    audio->UnloadFx(temporalLogoSound);
     return true;
 }
