@@ -20,6 +20,8 @@ bool DialogueSystem::Start()
 	//PerformDialogue(Id);
 	font = new Font("assets/typo/Adore64.xml", tex);
 	optionsTex = tex->Load("assets/sprites/UI/UI_Text.png");
+	//nameTex = optionsTex;
+	nameTex = tex->Load("assets/sprites/UI/UI_Text.png");
 	return true;
 }
 
@@ -108,6 +110,13 @@ bool DialogueSystem::Draw()
 
 	else if (speak->textSaid && !showOptions)
 		showOptions = true;
+
+	if (speak->speaking || showOptions)
+	{
+		SDL_Rect section = {0, 479, 225, 65};
+		render->DrawTexture(nameTex, -render->camera.x, -render->camera.y + 481, &section);
+		render->DrawText(font, currentNode->name.c_str(), 15, 508, 16, 0, { 255, 255, 255, 255 });
+	}
 
 	/*if (!speak->speaking && showOptions)
 	{
@@ -226,6 +235,7 @@ bool DialogueSystem::LoadNodes(pugi::xml_node& trees, DialogueTree* example)
 		node->nodeId = n.attribute("id").as_int();
 		node->hasOptions = n.attribute("hasOptions").as_bool(true);
 		node->lastSentence = n.attribute("lastSentence").as_bool(false);
+		node->name = n.attribute("name").as_string();
 		LoadOptions(n, node);
 		example->dialogueNodes.push_back(node);
 	}

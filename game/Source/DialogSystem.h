@@ -43,6 +43,7 @@ public:
 	int nodeId;
 	bool hasOptions;
 	bool lastSentence;
+	string name;
 };
 
 class DialogueTree
@@ -104,7 +105,10 @@ private:
 	bool showOptions;
 	bool nextSentence = true;
 
-	//Options quad texture
+	// Options quad texture
 	SDL_Texture* optionsTex;
+
+	// Name quad texture
+	SDL_Texture* nameTex;
 };
 #endif // __DIALOGSYSTEM_H__
