@@ -273,6 +273,11 @@ bool Battle::Draw()
     rect = { 225, 433, 225, 117 };
     sceneManager->render->DrawTexture(UI, 225, 433, &rect);
 
+    sceneManager->render->DrawText(sceneManager->font, "Ray", 15, 448, 25, 0, { 255, 255, 255, 255 });
+    sceneManager->render->DrawText(sceneManager->font, "Captain", 240, 448, 25, 0, { 255, 255, 255, 255 });
+
+    // NEED TO PUT LIFE OF CHARACTERS
+
     //render->DrawTexture(UI, 0, 0, )
 
     sceneManager->entityManager->Draw();
