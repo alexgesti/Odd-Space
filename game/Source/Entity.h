@@ -88,6 +88,7 @@ public:
     bool renderable = false;
     bool interacting = false;
     bool inBattle = false;
+    bool inConversation = false;
 
     bool loadedPos = false;
 };

@@ -125,7 +125,7 @@ bool Player::Update(float dt)
     // Temporary position used for collisions
     temPos = position;
 
-    if (!transitioning && !isPause) // Don't move while transitioning between scenes
+    if (!transitioning && !isPause && !inConversation) // Don't move while transitioning between scenes
     {
         // +1 makes velocities equal on both directions
         if ((input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && input->joystickState() == false || (pad.l_x < -0.75f && pad.l_y > -0.75f && pad.l_y < 0.75f) && input->joystickState() == true)

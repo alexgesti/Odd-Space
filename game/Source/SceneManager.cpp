@@ -176,9 +176,11 @@ bool SceneManager::Update(float dt)
 
 	if (dialogueSystem->inConversation)
 	{
+		if (!entityManager->CreateEntity(EntityType::HERO)->inConversation) entityManager->CreateEntity(EntityType::HERO)->inConversation = true;
 		speak->Update(dt);
 		dialogueSystem->Draw();
 	}
+	else if(entityManager->CreateEntity(EntityType::HERO)->inConversation) entityManager->CreateEntity(EntityType::HERO)->inConversation = false;
 
 	// Draw full screen rectangle in front of everything
 	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
