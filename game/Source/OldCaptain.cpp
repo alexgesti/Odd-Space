@@ -35,29 +35,29 @@ Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityTyp
     //
     // Animation pushbacks
     //
-    animOldCaptainWalkLeft->loop = true;
-    animOldCaptainWalkLeft->speed = 0.08f;
+    animOldCaptainWalkUp->loop = true;
+    animOldCaptainWalkUp->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animOldCaptainWalkLeft->PushBack({ 48 * i, 96, 48, 96 });
-    animOldCaptainWalkLeft->PushBack({ 48 , 96, 48, 96 });
+        animOldCaptainWalkUp->PushBack({ 48 * i, 0, 48, 96 });
+    animOldCaptainWalkUp->PushBack({ 48, 0, 48, 96 });
 
     animOldCaptainWalkDown->loop = true;
     animOldCaptainWalkDown->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animOldCaptainWalkDown->PushBack({ 48 * i, 0, 48, 96 });
-    animOldCaptainWalkDown->PushBack({ 48, 0, 48, 96 });
+        animOldCaptainWalkDown->PushBack({ 48 * i, 96, 48, 96 });
+    animOldCaptainWalkDown->PushBack({ 48, 96, 48, 96 });
+
+    animOldCaptainWalkLeft->loop = true;
+    animOldCaptainWalkLeft->speed = 0.08f;
+    for (int i = 0; i < 3; ++i)
+        animOldCaptainWalkLeft->PushBack({ 48 * i, 192, 48, 96 });
+    animOldCaptainWalkLeft->PushBack({ 48 , 192, 48, 96 });
 
     animOldCaptainWalkRight->loop = true;
     animOldCaptainWalkRight->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animOldCaptainWalkRight->PushBack({ 48 * i, 192, 48, 96 });
-    animOldCaptainWalkRight->PushBack({ 48, 192, 48, 96 });
-
-    animOldCaptainWalkUp->loop = true;
-    animOldCaptainWalkUp->speed = 0.08f;
-    for (int i = 0; i < 3; ++i)
-        animOldCaptainWalkUp->PushBack({ 48 * i, 288, 48, 96 });
-    animOldCaptainWalkUp->PushBack({ 48, 288, 48, 96 });
+        animOldCaptainWalkRight->PushBack({ 48 * i, 288, 48, 96 });
+    animOldCaptainWalkRight->PushBack({ 48, 288, 48, 96 });
 
 
     //

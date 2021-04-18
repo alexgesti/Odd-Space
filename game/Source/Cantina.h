@@ -51,6 +51,9 @@ private:
     SDL_Texture* texLegendaryPirate;
     Animation* animLegendaryPirateIdle = new Animation();
 
+    SDL_Texture* texOldCaptain;
+    Animation* animOldCaptainSitting = new Animation();
+
     bool barmanConv1 = false;
     bool barmanConv2 = false;
     bool oldCapConv = false;

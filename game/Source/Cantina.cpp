@@ -40,12 +40,18 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 	animLegendaryPirateIdle->PushBack({ 0,0,48,96 });
 	animLegendaryPirateIdle->PushBack({ 48,0,48,96 });
 
+	animOldCaptainSitting->loop = true;
+	animOldCaptainSitting->speed = 0.03f;
+	animOldCaptainSitting->PushBack({ 0,384,48,96 });
+	animOldCaptainSitting->PushBack({ 48,384,48,96 });
+
 
 	//
 	// Load textures
 	//
 	texBarman = sceneManager->tex->Load("assets/sprites/npcs/npc_barman_v01_w.png");
 	texLegendaryPirate = sceneManager->tex->Load("assets/sprites/npcs/npc_legendarypirate_v01_w.png");
+	texOldCaptain = sceneManager->tex->Load("assets/sprites/player/char_oldcaptain_v01_w.png");
 
 
 	name.Create("cantina");
@@ -260,6 +266,7 @@ bool Cantina::Update(float dt)
 	// Animation updates
 	animBarmanIdle->Update();
 	animLegendaryPirateIdle->Update();
+	animOldCaptainSitting->Update();
 
 	return true;
 }
@@ -276,6 +283,9 @@ bool Cantina::Draw()
 
 	rect = animLegendaryPirateIdle->GetCurrentFrame();
 	sceneManager->render->DrawTexture(texLegendaryPirate, 11 * 32 - 8, 12 * 32 - 3, &rect);
+	
+	rect = animOldCaptainSitting->GetCurrentFrame();
+	sceneManager->render->DrawTexture(texOldCaptain, 13 * 32 - 8, 12 * 32 - 3, &rect);
 
 
 	sceneManager->entityManager->Draw();
@@ -292,11 +302,14 @@ bool Cantina::Unload()
 
 	sceneManager->tex->UnLoad(texBarman);
 	sceneManager->tex->UnLoad(texLegendaryPirate);
+	sceneManager->tex->UnLoad(texOldCaptain);
 
 	delete animBarmanIdle;
 	animBarmanIdle = nullptr;
 	delete animLegendaryPirateIdle;
 	animLegendaryPirateIdle = nullptr;
+	delete animOldCaptainSitting;
+	animOldCaptainSitting = nullptr;
 
 	map->Unload();
 	delete map;
