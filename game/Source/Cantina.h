@@ -40,12 +40,16 @@ public:
     bool Unload();
 
 private:
+
     Map* map;
 
     SceneManager* sceneManager;
 
     SDL_Texture* texBarman;
     Animation* animBarmanIdle = new Animation();
+
+    SDL_Texture* texLegendaryPirate;
+    Animation* animLegendaryPirateIdle = new Animation();
 
     bool barmanConv1 = false;
     bool barmanConv2 = false;

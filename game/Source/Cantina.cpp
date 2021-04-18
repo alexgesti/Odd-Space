@@ -27,12 +27,26 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 		RELEASE_ARRAY(data);
 	}
 
-	texBarman = sceneManager->tex->Load("assets/sprites/npcs/npc_barman_v01_w.png");
-
+	//
+	// Animation pushbacks
+	//
 	animBarmanIdle->loop = true;
 	animBarmanIdle->speed = 0.05f;
 	animBarmanIdle->PushBack({ 0,0,48,96 });
 	animBarmanIdle->PushBack({ 48,0,48,96 });
+
+	animLegendaryPirateIdle->loop = true;
+	animLegendaryPirateIdle->speed = 0.03f;
+	animLegendaryPirateIdle->PushBack({ 0,0,48,96 });
+	animLegendaryPirateIdle->PushBack({ 48,0,48,96 });
+
+
+	//
+	// Load textures
+	//
+	texBarman = sceneManager->tex->Load("assets/sprites/npcs/npc_barman_v01_w.png");
+	texLegendaryPirate = sceneManager->tex->Load("assets/sprites/npcs/npc_legendarypirate_v01_w.png");
+
 
 	name.Create("cantina");
 }
@@ -244,7 +258,9 @@ bool Cantina::Update(float dt)
 		}		
 	}
 
+	// Animation updates
 	animBarmanIdle->Update();
+	animLegendaryPirateIdle->Update();
 
 	return true;
 }
@@ -261,6 +277,10 @@ bool Cantina::Draw()
 
 	SDL_Rect rect = animBarmanIdle->GetCurrentFrame();
 	sceneManager->render->DrawTexture(texBarman, 31 * 32, 16 * 32 - 16, &rect);
+
+	rect = animLegendaryPirateIdle->GetCurrentFrame();
+	sceneManager->render->DrawTexture(texLegendaryPirate, 11 * 32 - 8, 12 * 32 - 3, &rect);
+
 
 	return false;
 }
