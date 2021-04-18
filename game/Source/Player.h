@@ -44,6 +44,8 @@ public:
     // ----- PLAYER VARIABLES ----- //
     // Player collision
     iPoint playerCollision[4];
+    // Current Player animation
+    Animation* currentAnimation;
     // ---------------------------- //
 
 private:
@@ -53,8 +55,6 @@ private:
     int width, height;
     // Player sprite sheets
     SDL_Texture* heroTexture;
-    // Current Player animation
-    Animation* currentAnimation;
     
     // ---------------------------- //
 

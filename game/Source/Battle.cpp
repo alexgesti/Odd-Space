@@ -153,7 +153,9 @@ bool Battle::Load()
 
     //Render Players
     entityManager->CreateEntity(EntityType::HERO)->position = iPoint(350, 250);
+    entityManager->CreateEntity(EntityType::HERO)->inBattle = true;
     entityManager->CreateEntity(EntityType::CAPTAIN)->position = iPoint(450, 350);
+    entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = true;
 
     //Calculo de turno
     int playerSPD = 0;
@@ -318,7 +320,7 @@ bool Battle::Draw()
             buttons.buttonsEnemies.buttonEnemy1->Draw(render, font);
 
     default:
-        buttons.buttonsEnemies.buttonBack->Draw(render, font);
+        if(chooseMenu == 3) buttons.buttonsEnemies.buttonBack->Draw(render, font);
         break;
     }
 
@@ -391,6 +393,9 @@ bool Battle::Unload()
 
     if (entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
         entityManager->entities[0].At(1)->data->infoEntities.info.HP = entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;
+
+    entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
+    entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
 
     //*entityManager->previousScene = SceneType::BATTLE;
 

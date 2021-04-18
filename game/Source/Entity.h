@@ -82,7 +82,7 @@ public:
     bool isPause = false;
     bool renderable = false;
     bool interacting = false;
-    //SDL_Texture* texture;
+    bool inBattle = false;
 };
 
 #endif // __ENTITY_H__

@@ -61,10 +61,6 @@ private:
 	Input* input;
 	Render* render;
 	Textures* tex;
-
-	//Number of list created
-	int numList = 4;
-
 };
 
 #endif // __ENTITYMANAGER_H__

@@ -156,8 +156,12 @@ bool Player::Update(float dt)
         else interacting = false;
     }
 
-    if (position == temPos) currentAnimation->SetCurrentFrame(1);
-    else currentAnimation->Update();
+    if(inBattle == true) currentAnimation = animHeroWalkRight;
+    else
+    {
+        if (position == temPos) currentAnimation->SetCurrentFrame(1);
+        else currentAnimation->Update();
+    }
 
     return true;
 }

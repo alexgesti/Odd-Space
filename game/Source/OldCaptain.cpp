@@ -35,11 +35,11 @@ Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityTyp
     //
     // Animation pushbacks
     //
-    animOldCaptainWalkUp->loop = true;
-    animOldCaptainWalkUp->speed = 0.08f;
+    animOldCaptainWalkLeft->loop = true;
+    animOldCaptainWalkLeft->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animOldCaptainWalkUp->PushBack({ 48 * i, 96, 48, 96 });
-    animOldCaptainWalkUp->PushBack({ 48 , 96, 48, 96 });
+        animOldCaptainWalkLeft->PushBack({ 48 * i, 96, 48, 96 });
+    animOldCaptainWalkLeft->PushBack({ 48 , 96, 48, 96 });
 
     animOldCaptainWalkDown->loop = true;
     animOldCaptainWalkDown->speed = 0.08f;
@@ -47,17 +47,17 @@ Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityTyp
         animOldCaptainWalkDown->PushBack({ 48 * i, 0, 48, 96 });
     animOldCaptainWalkDown->PushBack({ 48, 0, 48, 96 });
 
-    animOldCaptainWalkLeft->loop = true;
-    animOldCaptainWalkLeft->speed = 0.08f;
-    for (int i = 0; i < 3; ++i)
-        animOldCaptainWalkLeft->PushBack({ 48 * i, 192, 48, 96 });
-    animOldCaptainWalkLeft->PushBack({ 48, 192, 48, 96 });
-
     animOldCaptainWalkRight->loop = true;
     animOldCaptainWalkRight->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animOldCaptainWalkRight->PushBack({ 48 * i, 288, 48, 96 });
-    animOldCaptainWalkRight->PushBack({ 48, 288, 48, 96 });
+        animOldCaptainWalkRight->PushBack({ 48 * i, 192, 48, 96 });
+    animOldCaptainWalkRight->PushBack({ 48, 192, 48, 96 });
+
+    animOldCaptainWalkUp->loop = true;
+    animOldCaptainWalkUp->speed = 0.08f;
+    for (int i = 0; i < 3; ++i)
+        animOldCaptainWalkUp->PushBack({ 48 * i, 288, 48, 96 });
+    animOldCaptainWalkUp->PushBack({ 48, 288, 48, 96 });
 
 
     //
@@ -116,8 +116,13 @@ bool Captain::Update(float dt)
     // Temporary position used for animation render
     temPos = position;
 
-    if (position == temPos) currentAnimation->SetCurrentFrame(1);
-    else currentAnimation->Update();
+
+    if (inBattle == true) currentAnimation = animOldCaptainWalkRight;
+    else
+    {
+        if (position == temPos) currentAnimation->SetCurrentFrame(1);
+        else currentAnimation->Update();
+    }
 
     return true;
 }
@@ -131,8 +136,11 @@ bool Captain::Draw()
     //render->DrawTexture(texture, position.x, position.y, rec);
 
     //render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
-    SDL_Rect rect = currentAnimation->GetCurrentFrame();
-    render->DrawTexture(oldCaptainTexture, (int)position.x - 8, (int)position.y - 64, &rect);
+    if (inBattle == true)
+    {
+        SDL_Rect rect = currentAnimation->GetCurrentFrame();
+        render->DrawTexture(oldCaptainTexture, (int)position.x - 8, (int)position.y - 64, &rect);
+    }
 
     return false;
 }
