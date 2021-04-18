@@ -5,7 +5,7 @@
 		<Scene scene="2" />
 	</scenemanager>
 	<entitymanager>
-		<Player x="740" y="590" hp="15" />
+		<Player x="768" y="647" hp="15" />
 		<Captain hp="20" />
 	</entitymanager>
 </save_state>

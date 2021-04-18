@@ -82,8 +82,6 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		sceneManager->initialTextSaid = true;
 	}
 
-	sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
-
 	//map = new Map(tex);
 
 	// L03: DONE: Load map

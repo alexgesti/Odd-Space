@@ -121,11 +121,13 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     {
     case 1:
         audio->PlayFx(selected);
+        sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
         TransitionToScene(SceneType::EXTERIOR);
         break;
     case 2:
         audio->PlayFx(selected);
         sceneManager->loadrequested = true;
+        sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
         break;
     case 3:
         audio->PlayFx(selected);
