@@ -33,8 +33,6 @@ public:
 
     bool Draw();
 
-
-
     SDL_Rect GetBounds();
 
     static void SetCollision(Collision* collision, Player* player);

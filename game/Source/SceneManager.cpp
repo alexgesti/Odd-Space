@@ -215,7 +215,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::CANTINA: next = new Cantina(this); break;
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
-		case SceneType::BATTLE: next = new Battle(win, input, render, tex, entityManager, font, speak); break;
+		case SceneType::BATTLE: next = new Battle(this); break;
 		default: break;
 		}
 

@@ -7,24 +7,18 @@
 //#define MAX_ZOOM 3.0f
 //#define MIN_ZOOM 0.3f
 
-
-
-class Window;
-class Input;
-class Render;
-class Textures;
-class EntityManager;
-class SDL_Texture;
-class GuiButton;
 class Map;
-class Speak;
+
+class SceneManager;
+
+class GuiButton;
 
 class Battle : public Scene
 {
 public:
 
     // Constructor
-    Battle(Window* win, Input* input, Render* render, Textures* tex, EntityManager* entityManager, Font* font, Speak* speak);
+    Battle(SceneManager* sceneManager);
     // Destructor
     virtual ~Battle();
 
@@ -62,16 +56,9 @@ public:
 
 private:
 
-    Window* win;
-    Input* input;
-    Render* render;
-    Textures* tex;
-    EntityManager* entityManager;
     Map* map;
 
-    Speak* speak;
-
-    Font* font;
+    SceneManager* sceneManager;
 
     SDL_Texture* UI;
 

@@ -36,7 +36,6 @@ public:
 
 	// Additional methods
 	Entity* CreateEntity(EntityType type);
-	void DestroyEntity(Entity* entity);
 
 	void AddEntity(Entity* entity);
 
