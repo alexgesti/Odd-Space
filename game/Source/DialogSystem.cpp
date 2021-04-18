@@ -30,6 +30,7 @@ bool DialogueSystem::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_1) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 0;
+			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
 			PerformDialogue(id);
 
 			nextSentence = true;
@@ -38,6 +39,7 @@ bool DialogueSystem::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_2) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 1;
+			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
 			PerformDialogue(id);
 
 			nextSentence = true;
@@ -46,6 +48,7 @@ bool DialogueSystem::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
 		{
 			playerInput = 2;
+			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
 			PerformDialogue(id);
 
 			nextSentence = true;
@@ -70,12 +73,14 @@ bool DialogueSystem::Update(float dt)
 			// If it's last sentence disable dialogueSystem
 			else if (currentNode->lastSentence)
 			{
+				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
 				inConversation = false;
 			}
 
 			// If the sentence has no options continue with the next line of dialogue
 			else if(!currentNode->hasOptions)
 			{
+				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
 				playerInput = 0;
 				PerformDialogue(id);
 				nextSentence = true;
@@ -165,11 +170,22 @@ void DialogueSystem::PerformDialogue(int treeId)
 	if (playerInput >= 0 && playerInput < currentNode->dialogueOptions.size())
 	{
 		for (int i = 0; i < dialogueTrees[treeId]->dialogueNodes.size(); i++)
+		{
+			// If a dialogue with options is the last dialogue
+			if (currentNode->dialogueOptions[playerInput]->nextNode == -1)
+			{
+				// trigger event if needed and stop conversation
+				if (currentNode->dialogueOptions[playerInput]->returnCode == 1) triggerEvent = true;
+				inConversation = false;
+				break;
+			}
+
 			if (currentNode->dialogueOptions[playerInput]->nextNode == dialogueTrees[treeId]->dialogueNodes[i]->nodeId)
 			{
 				currentNode = dialogueTrees[treeId]->dialogueNodes[i];
 				break;
 			}
+		}
 	}
 
 	//BlitDialog();
@@ -224,6 +240,7 @@ bool DialogueSystem::LoadOptions(pugi::xml_node& response, DialogueNode* answers
 		DialogueOption* selection = new DialogueOption;
 		selection->text.assign(option.attribute("option").as_string());
 		selection->nextNode = option.attribute("nextNode").as_int();
+		selection->returnCode = option.attribute("returnCode").as_int();
 		answers->dialogueOptions.push_back(selection);
 		answers->answersList.Add((option.attribute("option").as_string()));
 	}

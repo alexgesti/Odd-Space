@@ -60,11 +60,15 @@ public:
 
 	SceneType* previousScene;
 	Scene* current;
+	Scene* pause;
 	Scene* next;
 
 	Font* font;
 
 	bool toDrawX = false;
+	bool isPause = false;
+
+	bool GameIsWorking = true;
 
 	bool initialTextSaid = false;
 

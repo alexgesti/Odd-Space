@@ -114,6 +114,7 @@
     <ClCompile Include="Source\Map.cpp" />
     <ClCompile Include="Source\MutantRat.cpp" />
     <ClCompile Include="Source\OldCaptain.cpp" />
+    <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Cantina.cpp" />
     <ClCompile Include="Source\Player.cpp" />
@@ -146,6 +147,7 @@
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\MutantRat.h" />
     <ClInclude Include="Source\OldCaptain.h" />
+    <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Queue.h" />

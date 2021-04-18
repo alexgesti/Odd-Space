@@ -102,7 +102,6 @@ bool Wc::Update(float dt)
 
 	if (sceneManager->collision->currentInteraction != '/0')
 	{
-
 		SDL_Rect playerRect;
 		playerRect.x = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
 		playerRect.y = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
@@ -112,24 +111,34 @@ bool Wc::Update(float dt)
 		{
 			if (sceneManager->collision->currentInteraction == "flush" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 			{
-				if (!sceneManager->audio->IsPlaying(wcFx))
+				// Start dialogue
+				if (!sceneManager->audio->IsPlaying(wcFx) && !sceneManager->dialogueSystem->inConversation)
 				{
-					sceneManager->audio->PlayFx(wcFx);
+					sceneManager->dialogueSystem->SetConversation(7);
+					sceneManager->dialogueSystem->inConversation = true;
+
 					sceneManager->toDrawX = false;
-					enemyEncounter += 1500;
 
+					sceneManager->collision->currentInteraction = '/0';
 				}
-
-				sceneManager->collision->currentInteraction = '/0';
 			}
 		}
 
-		else if (!sceneManager->audio->IsPlaying(wcFx)) sceneManager->toDrawX = true;
-
-		if (!sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect)) sceneManager->toDrawX = false;
+		// If conversation and WCfx ended draw X to interact again
+		if (!sceneManager->dialogueSystem->inConversation && !sceneManager->audio->IsPlaying(wcFx)) sceneManager->toDrawX = true;
 	}
 
+	// If there's no interaction and X is being drawn, stop drawing it
 	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
+
+	// If conversation ended and event is triggered, play WCfx
+	if (!sceneManager->dialogueSystem->inConversation && sceneManager->dialogueSystem->triggerEvent)
+	{
+		sceneManager->audio->PlayFx(wcFx);
+		sceneManager->toDrawX = false;
+		enemyEncounter += 1500;
+		sceneManager->dialogueSystem->triggerEvent = false;
+	}
 
 	if (map->doorHit)
 	{

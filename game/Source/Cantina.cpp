@@ -34,7 +34,6 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 	animBarmanIdle->PushBack({ 0,0,48,96 });
 	animBarmanIdle->PushBack({ 48,0,48,96 });
 
-
 	name.Create("cantina");
 }
 // Destructor
@@ -133,6 +132,7 @@ bool Cantina::Update(float dt)
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
 
+	// Dialogue things
 	if (sceneManager->collision->currentInteraction != '/0')
 	{
 
@@ -145,7 +145,49 @@ bool Cantina::Update(float dt)
 		{
 			if (sceneManager->collision->currentInteraction == "barman" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 			{
-				sceneManager->dialogueSystem->SetConversation(2);
+				// If player talks with barman again before talking to old captain
+				if (barmanConv1 && !oldCapConv)
+				{
+					sceneManager->dialogueSystem->SetConversation(5);
+					sceneManager->dialogueSystem->inConversation = true;
+				}
+
+				// Triggers second conversation with barman & battle event
+				else if (barmanConv1 && oldCapConv && !barmanConv2)
+				{
+					sceneManager->dialogueSystem->SetConversation(6);
+					sceneManager->dialogueSystem->inConversation = true;
+					barmanConv2 = true;
+				}
+
+				// First time player talks with barman
+				else
+				{
+					sceneManager->dialogueSystem->SetConversation(2);
+					sceneManager->dialogueSystem->inConversation = true;
+					barmanConv1 = true;
+				}
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+				barmanConv1 = true;
+			}
+
+			if (sceneManager->collision->currentInteraction == "captain" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+				sceneManager->dialogueSystem->SetConversation(4);
+				sceneManager->dialogueSystem->inConversation = true;
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+				oldCapConv = true;
+			}
+
+			if (sceneManager->collision->currentInteraction == "legendary" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect) && !oldCapConv)
+			{
+				sceneManager->dialogueSystem->SetConversation(3);
 				sceneManager->dialogueSystem->inConversation = true;
 
 				sceneManager->toDrawX = false;
@@ -154,12 +196,28 @@ bool Cantina::Update(float dt)
 			}
 		}
 
+		// If we are not in conversation, draw X
 		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
-
-		if (!sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect)) sceneManager->toDrawX = false;
 	}
 
+	// If there's no interaction and X is being drawn, stop drawing it
 	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
+
+	// If legendary pirate conversation has been deactivated don't draw the X
+	if(sceneManager->collision->currentInteraction == "legendary" && oldCapConv) sceneManager->toDrawX = false;
+
+	// Second barman conversation can trigger a battle event
+	if (barmanConv2 && !sceneManager->dialogueSystem->inConversation)
+	{
+		barmanConv2 = false;
+		if (sceneManager->dialogueSystem->triggerEvent)
+		{
+			sceneManager->dialogueSystem->triggerEvent = false;
+			TransitionToScene(SceneType::BATTLE);
+		}
+	}
+
+	// End of dialogue things
 	
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;

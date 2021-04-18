@@ -5,6 +5,7 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Animation.h"
 
 #include "SDL/include/SDL.h"
 
@@ -13,17 +14,13 @@ class Input;
 class Render;
 class Textures;
 
-enum class GiantBatAnim
-{
-    IDLE
-};
 
 class GiantBat : public Enemy
 {
 public:
 
     // Get unique instance of the class
-    static GiantBat* GetInstance(Input* input, Render* render);
+    static GiantBat* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -40,10 +37,8 @@ public:
 
 public:
 
-    SDL_Texture* texture;   // StandartPirates spritesheet
-
-    GiantBatAnim currentAnim;
-
+    Animation* giantBatAnim = new Animation();
+    SDL_Texture* giantBatTexture;
     int width, height;
 
 private:
@@ -52,7 +47,7 @@ private:
     // Singleton instance
     static GiantBat* instance;
     // Private Constructor
-    GiantBat(Input* input, Render* render);
+    GiantBat(Input* input, Render* render, Textures* tex);
     // Private Destructor
     virtual ~GiantBat();
     // Declare the copy constructor and the assignment operator
@@ -65,6 +60,7 @@ private:
 
     Input* input;
     Render* render;
+    Textures* tex;
 };
 
 #endif // __GIANTBAT_H__

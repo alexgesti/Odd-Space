@@ -96,6 +96,9 @@
     <ClCompile Include="Source\OldCaptain.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\PauseMenu.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="Source\OldCaptain.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseMenu.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

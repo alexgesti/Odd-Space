@@ -46,6 +46,10 @@ private:
 
     SDL_Texture* texBarman;
     Animation* animBarmanIdle = new Animation();
+
+    bool barmanConv1 = false;
+    bool barmanConv2 = false;
+    bool oldCapConv = false;
 };
 
 #endif // __CANTINA_H__

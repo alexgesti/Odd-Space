@@ -4,15 +4,15 @@
 
 #include "Input.h"
 #include "Render.h"
-//#include "Textures.h"
+#include "Textures.h"
 
 
 
 DrunkCustomer* DrunkCustomer::instance = nullptr;
 // Instance creator
-DrunkCustomer* DrunkCustomer::GetInstance(Input* input, Render* render)
+DrunkCustomer* DrunkCustomer::GetInstance(Input* input, Render* render, Textures* tex)
 {
-    instance = new DrunkCustomer(input, render);
+    instance = new DrunkCustomer(input, render, tex);
     LOG("Returning drunk customer instance");
 
     return instance;
@@ -24,13 +24,13 @@ void DrunkCustomer::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-DrunkCustomer::DrunkCustomer(Input* input, Render* render) : Enemy(EnemyType::DRUNKCUSTOMER)
+DrunkCustomer::DrunkCustomer(Input* input, Render* render, Textures* tex) : Enemy(EnemyType::DRUNKCUSTOMER)
 {
     this->input = input;
     this->render = render;
+    this->tex = tex;
 
-
-    texture = NULL;
+    drunkCustomerTexture = NULL;
     position = iPoint(0, 0);
 
     width = 16;
@@ -46,6 +46,15 @@ DrunkCustomer::DrunkCustomer(Input* input, Render* render) : Enemy(EnemyType::DR
     infoEntities.stats.LCK = 5;
 
     // Define Player animations
+    drunkCustomerTexture = this->tex->Load("assets/sprites/enemies/char_enemydrunk_v01_w.png");
+
+    drunkCustomerAnim->loop = true;
+    drunkCustomerAnim->speed = 0.15f;
+   
+    drunkCustomerAnim->PushBack({ 0, 0, 70, 78 });
+    drunkCustomerAnim->PushBack({ 70, 0, 70, 78 });
+    drunkCustomerAnim->PushBack({ 140, 0, 70, 78 });
+    drunkCustomerAnim->PushBack({ 70, 0, 70, 78 });
 }
 // Destructor
 DrunkCustomer::~DrunkCustomer()
@@ -55,6 +64,7 @@ DrunkCustomer::~DrunkCustomer()
 
 bool DrunkCustomer::Update(float dt)
 {
+    drunkCustomerAnim->Update();
     return true;
 }
 
@@ -65,10 +75,9 @@ bool DrunkCustomer::Draw()
     {
         // TODO: Calculate the corresponding rectangle depending on the
         // animation state and animation frame
-        //SDL_Rect rec = { 0 };
-        //render->DrawTexture(texture, position.x, position.y, rec);
+        SDL_Rect rec = drunkCustomerAnim->GetCurrentFrame();
+        render->DrawTexture(drunkCustomerTexture, position.x, position.y, &rec);
 
-        render->DrawRectangle(GetBounds(), 0, 0, 255, 255);
     }
 
     return false;
@@ -78,7 +87,7 @@ bool DrunkCustomer::Draw()
 
 void DrunkCustomer::SetTexture(SDL_Texture *tex)
 {
-    texture = tex;
+    drunkCustomerTexture = tex;
 }
 
 SDL_Rect DrunkCustomer::GetBounds()

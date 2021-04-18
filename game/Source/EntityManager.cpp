@@ -99,13 +99,13 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		switch (*previousScene)
 		{
 		case SceneType::CANTINA: 
-			ret = DrunkCustomer::GetInstance(input, render);
+			ret = DrunkCustomer::GetInstance(input, render, tex);
 			break;
 		case SceneType::WC: 
-			ret = MutantRat::GetInstance(input, render);
+			ret = MutantRat::GetInstance(input, render, tex);
 			break;
 		case SceneType::EXTERIOR: 
-			ret = GiantBat::GetInstance(input, render);
+			ret = GiantBat::GetInstance(input, render, tex);
 			break;
 		default: 
 			ret = StandardPirates::GetInstance(input, render);

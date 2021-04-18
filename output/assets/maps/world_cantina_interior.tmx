@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="35" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="4">
+<map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="35" height="27" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="6">
  <editorsettings>
   <export target="world_cantina_interior.tmx" format="tmx"/>
  </editorsettings>
@@ -10965,9 +10965,9 @@
    <tile/>
    <tile/>
    <tile/>
+   <tile gid="318"/>
    <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="318"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11415,6 +11415,16 @@
   <object id="2" x="992" y="640" width="32" height="32">
    <properties>
     <property name="interaction" value="barman"/>
+   </properties>
+  </object>
+  <object id="4" x="352" y="448" width="32" height="32">
+   <properties>
+    <property name="interaction" value="legendary"/>
+   </properties>
+  </object>
+  <object id="5" x="416" y="448" width="32" height="32">
+   <properties>
+    <property name="interaction" value="captain"/>
    </properties>
   </object>
  </objectgroup>

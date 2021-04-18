@@ -6,6 +6,7 @@
 #include "Wc.h"
 #include "Battle.h"
 #include "Exterior.h"
+#include "PauseMenu.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -66,6 +67,10 @@ bool SceneManager::Start()
 	//current = new Exterior(this);
 	current->Load();
 
+	pause = new PauseMenu(this);
+	pause->Load();
+
+	dialogueSystem->speak = speak;
 	next = nullptr;
 
 	return true;
@@ -105,6 +110,7 @@ bool SceneManager::PreUpdate()
 // Called each loop iteration
 bool SceneManager::Update(float dt)
 {
+	GamePad& pad = input->pads[0];
 
 	if (!onTransition)
 	{
@@ -112,7 +118,18 @@ bool SceneManager::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 			win->ToggleFullscreen(win->window);
 
-		current->Update(dt);
+		if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) isPause = !isPause;
+
+		if (isPause)
+		{
+			pause->Update(dt);
+			entityManager->CreateEntity(EntityType::HERO)->isPause = true;
+		}
+		else
+		{
+			current->Update(dt);
+			entityManager->CreateEntity(EntityType::HERO)->isPause = false;
+		}
 	}
 	else
 	{
@@ -162,10 +179,7 @@ bool SceneManager::Update(float dt)
 	}
 
 	// Draw full screen rectangle in front of everything
-	if (onTransition)
-	{
-		render->DrawRectangle({ -render->camera.x, -render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
-	}
+	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
 
 	// L12b: Debug pathfinding
 	/*
@@ -204,6 +218,8 @@ bool SceneManager::Update(float dt)
 		current->transitionRequired = false;
 	}
 
+	if(isPause) pause->Draw();
+
 	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) dialogueSystem->inConversation = !dialogueSystem->inConversation;
 
 	return true;
@@ -212,9 +228,7 @@ bool SceneManager::Update(float dt)
 // Called each loop iteration
 bool SceneManager::PostUpdate()
 {
-	bool ret = true;
-	if (exitGame == true) return false;
-	return ret;
+	return GameIsWorking;
 }
 
 // Called before quitting

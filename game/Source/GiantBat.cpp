@@ -4,15 +4,15 @@
 
 #include "Input.h"
 #include "Render.h"
-//#include "Textures.h"
+#include "Textures.h"
 
 
 
 GiantBat* GiantBat::instance = nullptr;
 // Instance creator
-GiantBat* GiantBat::GetInstance(Input* input, Render* render)
+GiantBat* GiantBat::GetInstance(Input* input, Render* render,Textures* tex)
 {
-    instance = new GiantBat(input, render);
+    instance = new GiantBat(input, render, tex);
     LOG("Returning giant bat instance");
 
     return instance;
@@ -24,13 +24,13 @@ void GiantBat::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-GiantBat::GiantBat(Input* input, Render* render) : Enemy(EnemyType::GIANTBAT)
+GiantBat::GiantBat(Input* input, Render* render, Textures* tex) : Enemy(EnemyType::GIANTBAT)
 {
     this->input = input;
     this->render = render;
+    this->tex = tex;
 
-
-    texture = NULL;
+    giantBatTexture = NULL;
     position = iPoint(0, 0);
 
     width = 16;
@@ -46,6 +46,15 @@ GiantBat::GiantBat(Input* input, Render* render) : Enemy(EnemyType::GIANTBAT)
     infoEntities.stats.LCK = 5;
 
     // Define Player animations
+    giantBatTexture = this->tex->Load("assets/sprites/enemies/char_enemybat_v01_w.png");
+
+    giantBatAnim->loop = true;
+    giantBatAnim->speed = 0.25f;
+
+    giantBatAnim->PushBack({ 0, 0, 97, 79 });
+    giantBatAnim->PushBack({ 97, 0, 97, 79 });
+    giantBatAnim->PushBack({ 194, 0, 97, 79 });
+    giantBatAnim->PushBack({ 97, 0, 97, 79 });
 }
 // Destructor
 GiantBat::~GiantBat()
@@ -55,6 +64,7 @@ GiantBat::~GiantBat()
 
 bool GiantBat::Update(float dt)
 {
+    giantBatAnim->Update();
     return true;
 }
 
@@ -65,10 +75,9 @@ bool GiantBat::Draw()
     {
         // TODO: Calculate the corresponding rectangle depending on the
         // animation state and animation frame
-        //SDL_Rect rec = { 0 };
-        //render->DrawTexture(texture, position.x, position.y, rec);
+        SDL_Rect rec = giantBatAnim->GetCurrentFrame();
+        render->DrawTexture(giantBatTexture, position.x, position.y, &rec);
 
-        render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
     }
 
     return false;
@@ -78,7 +87,7 @@ bool GiantBat::Draw()
 
 void GiantBat::SetTexture(SDL_Texture *tex)
 {
-    texture = tex;
+    giantBatTexture = tex;
 }
 
 SDL_Rect GiantBat::GetBounds()
