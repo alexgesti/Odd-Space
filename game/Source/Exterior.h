@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "Font.h"
 #include "Animation.h"
+#include "Point.h"
 
 class Map;
 
@@ -39,6 +40,10 @@ private:
     // ----- CRAZY MAN VARIABLES ----- //
     SDL_Texture* texCrazyManCantina;
     Animation* currentAnimation;
+    bool flagMoving = false;
+    iPoint posCrazyMan = { 16 * 32 - 16, 20 * 32 - 52 };
+    bool crazyManInteract = true;
+    bool crazyManTalking = false;
     // ------------------------------- //
     
     // ----- ANIMATION SETS ----- //

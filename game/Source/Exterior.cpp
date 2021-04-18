@@ -136,7 +136,7 @@ bool Exterior::Update(float dt)
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
-	if (sceneManager->collision->currentInteraction != '/0')
+	if (sceneManager->collision->currentInteraction != '/0' && crazyManInteract == true)
 	{
 
 		SDL_Rect playerRect;
@@ -154,6 +154,8 @@ bool Exterior::Update(float dt)
 				sceneManager->toDrawX = false;
 
 				sceneManager->collision->currentInteraction = '/0';
+
+				crazyManTalking = true;
 			}
 		}
 
@@ -164,12 +166,31 @@ bool Exterior::Update(float dt)
 
 	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
 
+
+	if (sceneManager->dialogueSystem->currentNode->nodeId == 12)
+	{
+		flagMoving = true;
+		crazyManInteract = false;
+	}
+	if (sceneManager->dialogueSystem->inConversation == false)
+	{
+		crazyManTalking = false;
+	}
+
+
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;
 
 	// Camera stops at limits
-	if (sceneManager->render->camera.y < BOTTOM_CAMERA_LIMIT) sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
-	else if (sceneManager->render->camera.y > TOP_CAMERA_LIMIT) sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
+	if (crazyManTalking == true)
+	{
+		sceneManager->render->camera.y = -140;
+	}
+	else
+	{
+		if (sceneManager->render->camera.y < BOTTOM_CAMERA_LIMIT) sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
+		else if (sceneManager->render->camera.y > TOP_CAMERA_LIMIT) sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
+	}
 
 	if (map->doorHit)
 	{
@@ -202,6 +223,18 @@ bool Exterior::Update(float dt)
 		}
 	}
 
+
+	if (flagMoving == true)
+	{
+		currentAnimation = animCrazyManWalkLeft;
+
+		if (posCrazyMan.x > -100)
+		{
+			posCrazyMan.x -= 200 * dt;
+		}
+	}
+
+
 	currentAnimation->Update();
 
 	return true;
@@ -214,7 +247,7 @@ bool Exterior::Draw()
 
 	//player->Draw(render);
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	sceneManager->render->DrawTexture(texCrazyManCantina, 16 * 32 - 16, 20 * 32 - 52, &rect);
+	sceneManager->render->DrawTexture(texCrazyManCantina, posCrazyMan.x, posCrazyMan.y, &rect);
 
 	sceneManager->entityManager->Draw();
 

@@ -43,6 +43,7 @@ public:
 	int nodeId;
 	bool hasOptions;
 	bool lastSentence;
+	string name;
 };
 
 class DialogueTree
@@ -81,17 +82,20 @@ public:
 	void SetConversation(int id);
 
 public:
+
 	Speak* speak;
 	Font* font;
 
 	bool inConversation = false;
 	bool triggerEvent = false;
+
+	DialogueNode* currentNode;
 	
 private:
+
 	int playerInput = 7;
 	int id = 0;
 	std::vector <DialogueTree*> dialogueTrees;
-	DialogueNode* currentNode;
 	pugi::xml_document	dialogues;
 
 	Input* input;
@@ -101,7 +105,10 @@ private:
 	bool showOptions;
 	bool nextSentence = true;
 
-	//Options quad texture
+	// Options quad texture
 	SDL_Texture* optionsTex;
+
+	// Name quad texture
+	SDL_Texture* nameTex;
 };
 #endif // __DIALOGSYSTEM_H__
