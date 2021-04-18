@@ -13,6 +13,9 @@ Exterior::Exterior(SceneManager* sceneManager) : Scene()
 {
 	this->sceneManager = sceneManager;
 
+	name.Create("cantina");
+
+
 	map = new Map(sceneManager->tex);
 
 	// L03: DONE: Load map
@@ -33,9 +36,16 @@ Exterior::Exterior(SceneManager* sceneManager) : Scene()
 	for (int i = 0; i < 2; ++i)
 		animCrazyManIdle->PushBack({ 60 * i, 0, 60, 96 });
 
-	crazyManCantina = sceneManager->tex->Load("assets/sprites/npcs/npc_crazymancantina_v01_w.png");
+	animCrazyManWalkLeft->loop = true;
+	animCrazyManWalkLeft->speed = 0.05f;
+	for (int i = 0; i < 3; ++i)
+		animCrazyManWalkLeft->PushBack({ 60 * i, 96, 60, 96 });
+	animCrazyManWalkLeft->PushBack({ 60, 96, 60, 96 });
 
-	name.Create("cantina");
+	currentAnimation = animCrazyManIdle;
+
+
+	texCrazyManCantina = sceneManager->tex->Load("assets/sprites/npcs/npc_crazymancantina_v01_w.png");
 }
 // Destructor
 Exterior::~Exterior()
@@ -192,7 +202,7 @@ bool Exterior::Update(float dt)
 		}
 	}
 
-	animCrazyManIdle->Update();
+	currentAnimation->Update();
 
 	return true;
 }
@@ -203,8 +213,8 @@ bool Exterior::Draw()
 	map->Draw(sceneManager->render);
 
 	//player->Draw(render);
-	SDL_Rect rect = animCrazyManIdle->GetCurrentFrame();
-	sceneManager->render->DrawTexture(crazyManCantina, 16 * 32 - 16, 20 * 32 - 52, &rect);
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	sceneManager->render->DrawTexture(texCrazyManCantina, 16 * 32 - 16, 20 * 32 - 52, &rect);
 
 	sceneManager->entityManager->Draw();
 

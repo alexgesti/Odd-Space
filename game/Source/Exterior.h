@@ -36,10 +36,14 @@ public:
 
 private:
 
-    SDL_Texture* crazyManCantina;
-
+    // ----- CRAZY MAN VARIABLES ----- //
+    SDL_Texture* texCrazyManCantina;
+    Animation* currentAnimation;
+    // ------------------------------- //
+    
     // ----- ANIMATION SETS ----- //
     Animation* animCrazyManIdle = new Animation();
+    Animation* animCrazyManWalkLeft = new Animation();
     // -------------------------- //
 
 private:
