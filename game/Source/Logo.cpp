@@ -91,6 +91,6 @@ bool Logo::Unload()
 {
     tex->UnLoad(logo);
 
-    audio->UnloadFx(temporalLogoSound);
+    audio->UnloadFx(temporalLogoSound - 1);
     return true;
 }

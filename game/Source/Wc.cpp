@@ -183,7 +183,7 @@ bool Wc::Unload()
 	delete map;
 	map = nullptr;
 
-	sceneManager->audio->UnloadFx(wcFx);
+	sceneManager->audio->UnloadFx(wcFx - 1);
 
 	return true;
 }
