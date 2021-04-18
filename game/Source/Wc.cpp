@@ -99,8 +99,6 @@ bool Wc::Update(float dt)
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN) map->noClip = !map->noClip;
-
 	if (sceneManager->collision->currentInteraction != '/0')
 	{
 		SDL_Rect playerRect;

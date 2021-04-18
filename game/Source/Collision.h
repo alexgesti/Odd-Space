@@ -31,7 +31,7 @@ public:
 				{
 					for (int x = 0; x < map->data.width; x++)
 					{
-						if (wallLayer != -1 && map->data.layers.At(wallLayer)->data->Get(pos[i].x, pos[i].y) != 0 && map->noClip == false &&
+						if (wallLayer != -1 && map->data.layers.At(wallLayer)->data->Get(pos[i].x, pos[i].y) != 0 &&
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 						{
 							if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;

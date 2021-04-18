@@ -89,6 +89,7 @@ public:
     bool interacting = false;
     bool inBattle = false;
     bool inConversation = false;
+    bool noClip = false;
 
     bool loadedPos = false;
 };

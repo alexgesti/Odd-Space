@@ -119,6 +119,17 @@ bool SceneManager::Update(float dt)
 		if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 			win->ToggleFullscreen(win->window);
 
+		if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
+		{
+			entityManager->CreateEntity(EntityType::HERO)->noClip = !entityManager->CreateEntity(EntityType::HERO)->noClip;
+		}
+
+		if (entityManager->CreateEntity(EntityType::HERO)->noClip == true)
+		{
+			for (int p = 0; p < entityManager->entities[0].Count(); p++)
+				entityManager->entities[0].At(p)->data->infoEntities.info.HP = entityManager->entities[0].At(p)->data->infoEntities.info.maxHP;
+		}
+
 		if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) isPause = !isPause;
 
 		if (isPause)
