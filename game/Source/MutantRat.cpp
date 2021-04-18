@@ -102,6 +102,7 @@ bool MutantRat::UnLoad()
     tex->UnLoad(mutantRatTexture);
     
     delete mutantRatAnim;
+    mutantRatAnim = nullptr;
 
     return false;
 }

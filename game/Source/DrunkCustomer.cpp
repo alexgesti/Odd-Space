@@ -98,6 +98,7 @@ bool DrunkCustomer::UnLoad()
     tex->UnLoad(drunkCustomerTexture);
     
     delete drunkCustomerAnim;
+    drunkCustomerAnim = nullptr;
     
     return false;
 }

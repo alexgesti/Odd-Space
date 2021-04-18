@@ -233,7 +233,9 @@ bool Exterior::Unload()
 	sceneManager->tex->UnLoad(texCrazyManCantina);
 
 	delete animCrazyManIdle;
+	animCrazyManIdle = nullptr;
 	delete animCrazyManWalkLeft;
+	animCrazyManWalkLeft = nullptr;
 
 	map->Unload();
 	delete map;

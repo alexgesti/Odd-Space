@@ -100,6 +100,7 @@ bool GiantBat::UnLoad()
     tex->UnLoad(giantBatTexture);
 
     delete giantBatAnim;
+    giantBatAnim = nullptr;
 
     return false;
 }
