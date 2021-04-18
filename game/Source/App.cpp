@@ -180,7 +180,7 @@ void App::FinishUpdate()
 	FramerateLogic();
 
 	static char title[256];
-	sprintf_s(title, 256, "Platformer Game (The Crossing) (FPS: %i / Av.FPS: %.2f / Last Frame Ms: %02u ms / Last dt: %.3f / Play Time: %.3f / Frame Count: %I64u",
+	sprintf_s(title, 256, "Odd Space (FPS: %i / Av.FPS: %.2f / Last Frame Ms: %02u ms / Last dt: %.3f / Play Time: %.3f / Frame Count: %I64u",
 		prevlastsecframecount, averagefps, lastframems, dt, secondssincestartup, framecount);
 
 	win->SetTitle(title);

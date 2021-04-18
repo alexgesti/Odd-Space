@@ -68,7 +68,7 @@ public:
 	bool toDrawX = false;
 	bool isPause = false;
 
-	bool GameIsWorking = true;
+	bool gameIsWorking = true;
 
 	bool initialTextSaid = false;
 

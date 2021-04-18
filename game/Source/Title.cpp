@@ -104,7 +104,7 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     case 3:
         break;
     case 4:
-        sceneManager->exitGame = true;
+        sceneManager->gameIsWorking = false;
         break;
     default: break;
     }

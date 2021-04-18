@@ -105,7 +105,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
     case 2: break;
     case 3: break;
     case 4: 
-        sceneManager->GameIsWorking = false;
+        sceneManager->gameIsWorking = false;
         break;
     case 5: break;
     case 6: break;
