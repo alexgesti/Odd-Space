@@ -120,7 +120,7 @@ bool Player::Update(float dt)
 {
     GamePad& pad = input->pads[0];
 
-    if (noClip == false) if (collision->player == nullptr) collision->player = this;
+    if (noClip == false) collision->player = this;
     else collision->player = nullptr;
 
     // Temporary position used for collisions
