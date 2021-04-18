@@ -68,6 +68,7 @@ public:
 
 	bool toDrawX = false;
 	bool isPause = false;
+	bool pauseMusicFaded = false;
 
 	bool gameIsWorking = true;
 
