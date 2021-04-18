@@ -111,7 +111,7 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 		Mix_FreeMusic(music);
 	}
 
-	music = Mix_LoadMUS(path);
+	if(path != NULL) music = Mix_LoadMUS(path);
 
 	if(music == NULL)
 	{
@@ -228,5 +228,27 @@ void Audio::FadeOutFx(int ms)
 	for (int i = 0; i < fxPlaying.Count(); i++)
 	{
 		Mix_FadeOutChannel(fxPlaying.At(i)->data.channel, ms);
+	}
+}
+
+void Audio::FadeOutMusic(float time)
+{
+	if (music != NULL)
+	{
+		if (time > 0.0f)
+		{
+			Mix_FadeOutMusic(int(time * 1000.0f));
+		}
+	}
+}
+
+void Audio::FadeInMusic(float time)
+{
+	if (music != NULL)
+	{
+		if (time > 0.0f)
+		{
+			Mix_FadeInMusic(music, -1, int(time * 1000.0f));
+		}
 	}
 }

@@ -9,10 +9,9 @@
 
 
 // Constructor
-Exterior::Exterior(SceneManager* sceneManager, Audio* audio) : Scene()
+Exterior::Exterior(SceneManager* sceneManager) : Scene()
 {
 	this->sceneManager = sceneManager;
-	this->audio = audio;
 
 	name.Create("cantina");
 
@@ -83,7 +82,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		sceneManager->initialTextSaid = true;
 	}
 
-	audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
+	sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
 
 	//map = new Map(tex);
 

@@ -28,10 +28,8 @@ public:
 	// Destructor
 	virtual ~Audio();
 
-
 	// Called before render is available
 	bool Awake(pugi::xml_node&);
-
 
 	// Called before quitting
 	bool CleanUp();
@@ -53,6 +51,10 @@ public:
 
 	// FadeOut all audio
 	void FadeOutFx(int ms);
+
+	void FadeOutMusic(float time);
+
+	void FadeInMusic(float time);
 
 private:
 

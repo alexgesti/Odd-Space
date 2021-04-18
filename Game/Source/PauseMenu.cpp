@@ -41,6 +41,12 @@ bool PauseMenu::Load()
 
 bool PauseMenu::Update(float dt)
 {
+    if (!sceneManager->pauseMusicFaded)
+    {
+        audio->FadeOutMusic(0.5f);
+        sceneManager->pauseMusicFaded = true;
+    }
+
     GamePad& pad = sceneManager->input->pads[0];
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)

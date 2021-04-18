@@ -139,6 +139,12 @@ bool SceneManager::Update(float dt)
 		}
 		else
 		{
+			if (pauseMusicFaded)
+			{
+				audio->FadeInMusic(0.5f);
+				pauseMusicFaded = false;
+			}
+
 			current->Update(dt);
 			entityManager->CreateEntity(EntityType::HERO)->isPause = false;
 		}
@@ -225,7 +231,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::TITLE: next = new Title(this, audio); break;
 		case SceneType::CANTINA: next = new Cantina(this); break;
 		case SceneType::WC: next = new Wc(this); break;
-		case SceneType::EXTERIOR: next = new Exterior(this, audio); break;
+		case SceneType::EXTERIOR: next = new Exterior(this); break;
 		case SceneType::BATTLE: next = new Battle(this); break;
 		default: break;
 		}
