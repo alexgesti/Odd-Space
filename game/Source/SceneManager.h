@@ -72,6 +72,8 @@ public:
 
 	bool initialTextSaid = false;
 
+	bool exitGame = false;
+
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)
 	bool onTransition;

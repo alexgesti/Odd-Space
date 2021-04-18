@@ -60,10 +60,10 @@ bool SceneManager::Start()
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex);
-	//current = new Title(win, input, render, tex);
+	current = new Title(this);
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
-	current = new Wc(this);
+	//current = new Wc(this);
 	//current = new Exterior(this);
 	current->Load();
 
@@ -207,7 +207,7 @@ bool SceneManager::Update(float dt)
 		switch (current->nextScene)
 		{
 		case SceneType::LOGO: next = new Logo(input, render, tex); break;
-		case SceneType::TITLE: next = new Title(win, input, render, tex); break;
+		case SceneType::TITLE: next = new Title(this); break;
 		case SceneType::CANTINA: next = new Cantina(this); break;
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
@@ -222,7 +222,6 @@ bool SceneManager::Update(float dt)
 
 	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) dialogueSystem->inConversation = !dialogueSystem->inConversation;
 
-	//if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) return false;
 	return true;
 }
 

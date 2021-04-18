@@ -1,22 +1,12 @@
 #include "Title.h"
 
-#include "Window.h"
-#include "Input.h"
-#include "Render.h"
-#include "Textures.h"
-
-
-
-
+#include "SceneManager.h"
 
 
 // Constructor
-Title::Title(Window* win, Input* input, Render* render, Textures* tex)
+Title::Title(SceneManager* sceneManager) : Scene()
 {
-    this->win = win;
-    this->input = input;
-    this->render = render;
-    this->tex = tex;
+   this->sceneManager = sceneManager;
 
     // GUI: Initialize required controls for the screen
 }
@@ -29,31 +19,69 @@ Title::~Title()
 
 bool Title::Load()
 {
-    bgTitle = tex->Load("assets/sprites/MainScreen/title_screen.png");
+    bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
+
+    // Buttons
+    buttons.buttonPlay = new GuiButton(1, { 400, 480, 160, 75 }, "New Game");
+    buttons.buttonPlay->SetObserver(this);
+    buttons.buttonContinue = new GuiButton(2, { 680, 480, 160, 75 }, "Continue");
+    buttons.buttonContinue->SetObserver(this);
+    buttons.buttonSettings = new GuiButton(3, { 405, 560, 160, 75 }, "Settings");
+    buttons.buttonSettings->SetObserver(this);
+    buttons.buttonExit = new GuiButton(4, { 720, 560, 160, 75 }, "Exit");
+    buttons.buttonExit->SetObserver(this);
+
+
     return false;
 }
 
 bool Title::Update(float dt)
 {
-    if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) TransitionToScene(SceneType::CANTINA);
-        bool ret = false;
+    bool ret = false;
 
-        if (input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-            win->ToggleFullscreen(win->window);
+    GamePad& pad = sceneManager->input->pads[0];
 
+    if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN) controllerMenu[c++];
+    if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN) controllerMenu[c--];
+    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN) controllerMenu[f++][c];
+    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN) controllerMenu[f--][c];
+
+    if (f > 1) f = 0;
+    if (f < 0) f = 1;
+    if (c > 1) c = 0;
+    if (c < 0) c = 1;
+
+    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[f][c], dt);
+    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[f][c], dt);
+    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[f][c], dt);
+    buttons.buttonExit->Update(sceneManager->input, controllerMenu[f][c], dt);
     return ret;
 }
 
 bool Title::Draw()
 {
-    render->DrawTexture(bgTitle, render->camera.x, render->camera.y);
+    sceneManager->render->DrawTexture(bgTitle, sceneManager->render->camera.x, sceneManager->render->camera.y);
+
+    buttons.buttonPlay->Draw(sceneManager->render, sceneManager->font);
+    buttons.buttonContinue->Draw(sceneManager->render, sceneManager->font);
+    buttons.buttonSettings->Draw(sceneManager->render, sceneManager->font);
+    buttons.buttonExit->Draw(sceneManager->render, sceneManager->font);
     return false;
 }
 
 bool Title::Unload()
 {
     // Delete buttons and textures
-    tex->UnLoad(bgTitle);
+    sceneManager->tex->UnLoad(bgTitle);
+
+    delete buttons.buttonPlay;
+    buttons.buttonPlay = nullptr;
+    delete buttons.buttonContinue;
+    buttons.buttonContinue = nullptr;
+    delete buttons.buttonSettings;
+    buttons.buttonSettings = nullptr;
+    delete buttons.buttonExit;
+    buttons.buttonExit = nullptr;
     return false;
 }
 
@@ -62,16 +90,23 @@ bool Title::Unload()
 //----------------------------------------------------------
 // Manage GUI events for this screen
 //----------------------------------------------------------
-/*bool Title::OnGuiMouseClickEvent(GuiControl* control)
+bool Title::OnGuiMouseClickEvent(GuiControl* control)
 {
-    switch (control->type)
+    switch (control->id)
     {
-    case GuiControlType::BUTTON:
+    case 1:
     {
-        if (control->id == 1) TransitionToScene(SceneType::GAMEPLAY);
-        else if (control->id == 2) return false; // TODO: Exit request
+        TransitionToScene(SceneType::EXTERIOR);
+        break;
     }
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        sceneManager->exitGame = true;
+        break;
     default: break;
     }
     return true;
-}*/
+}
