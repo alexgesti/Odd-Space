@@ -7,13 +7,13 @@
       <dialogue option="X" returnCode="0" nextNode="1"/>
     </node>
     <node text="I'm sure he went to that bar to drink another one, better go and talk to him. I need to know where I ended up."  id="1" hasOptions="false" lastSentence="true" name="Ray">
-      <dialogue option="X" returnCode="0" nextNode="1"/>
+      <dialogue option="." returnCode="0" nextNode="1"/>
     </node>
   </dialogue>
   
   <dialogue Id="1">
     <!---<node text="Well how lovely, i think i'm going to explode if i stay nearby" id="2" hasOptions="false" lastSentence="true">
-     <dialogue option="X" returnCode="0" nextNode="1"/> 
+     <dialogue option="." returnCode="0" nextNode="1"/> 
     </node>-->
     <node text="Heeyyy Boy!!" id="3" hasOptions="false" name="Crazy Man">
      <dialogue option="X" returnCode="0" nextNode="4"/> 
@@ -32,7 +32,7 @@
         <dialogue option="X" returnCode="0" nextNode="8"/> 
     </node>
     <node text="That was unexpected, I better go inside and see if the old man is there." id="8" hasOptions="false" lastSentence="true" name="Ray">
-        <dialogue option="X" returnCode="0" nextNode="1"/> 
+        <dialogue option="." returnCode="0" nextNode="1"/> 
     </node>
     <node text="No, I don't want your money, I'm here to tell you a secret, I buried the biggest treasure in this asteroid but I don't remember where I left it." id="9" hasOptions="false" name="Crazy Man">
         <dialogue option="X" returnCode="0" nextNode="10"/> 
@@ -47,7 +47,7 @@
         <dialogue option="X" returnCode="0" nextNode="13"/> 
     </node>
     <node text="All right, nice, he just... never mind, we're not seeing him again." id="13" hasOptions="false" lastSentence="true" name="Ray">
-        <dialogue option="X" returnCode="0" nextNode="1"/> 
+        <dialogue option="." returnCode="0" nextNode="1"/> 
     </node>
  </dialogue>
   
@@ -94,7 +94,7 @@
          <dialogue option="X" returnCode="0" nextNode="27"/> 
     </node>
     <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then." id="27" hasOptions="false" lastSentence="true" name="Ray">
-         <dialogue option="X" returnCode="0" nextNode="1"/> 
+         <dialogue option="." returnCode="0" nextNode="1"/> 
     </node>
 </dialogue>
   
@@ -103,7 +103,7 @@
          <dialogue option="X" returnCode="0" nextNode="28"/> 
     </node>
  <node text="Now get away or suffer my legendary wrath!" id="28" hasOptions="false" lastSentence="true" name="Legendary Pirate">
-         <dialogue option="X" returnCode="0" nextNode="1"/> 
+         <dialogue option="." returnCode="0" nextNode="1"/> 
     </node>
 </dialogue>
   
@@ -178,13 +178,13 @@
          <dialogue option="X" returnCode="0" nextNode="52"/> 
     </node>
 <node text="Okay, come back after I finish my drinks so I can give you the map for the first item." id="52" hasOptions="false" lastSentence="true" name="Legendary Pirate">
-         <dialogue option="X" returnCode="0" nextNode="1"/> 
+         <dialogue option="." returnCode="0" nextNode="1"/> 
     </node>
   </dialogue>
   
   <dialogue Id="5">
     <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then."  id="0"  hasOptions="false" lastSentence="true" name="Ray">
-      <dialogue option="X" returnCode="0" nextNode="1"/>
+      <dialogue option="." returnCode="0" nextNode="1"/>
     </node>
   </dialogue>
   
@@ -197,7 +197,7 @@
     <dialogue option="X" returnCode="0" nextNode="0"/>
    </node>
     <node text="Nicely said, take these super awesome weapons, it's your turn to fight."  id="2"  hasOptions="false" lastSentence="true" name="Barman">
-      <dialogue option="X" returnCode="1" nextNode="0"/>
+      <dialogue option="." returnCode="1" nextNode="0"/>
     </node>
   </dialogue>
 
