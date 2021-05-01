@@ -249,7 +249,7 @@ bool Battle::Update(float dt)
         {
             totalEnemiesHP += sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP;
         }
-        if (totalEnemiesHP <= 0) LOG("You Win");
+        if (totalEnemiesHP <= 0) TransitionToScene(*sceneManager->entityManager->previousScene);
 
         playerMenu = true;
     }
@@ -262,6 +262,8 @@ bool Battle::Draw()
     // BG
     map->Draw(sceneManager->render);
 
+    sceneManager->entityManager->Draw();
+
     //Menu
     SDL_Rect rect = { 0, 550, 500, 170 };
     sceneManager->render->DrawTexture(UI, 0, 550, &rect);
@@ -273,14 +275,27 @@ bool Battle::Draw()
     rect = { 225, 433, 225, 117 };
     sceneManager->render->DrawTexture(UI, 225, 433, &rect);
 
+    //HERO
+    //NAME
     sceneManager->render->DrawText(sceneManager->font, "Ray", 15, 448, 25, 0, { 255, 255, 255, 255 });
-    sceneManager->render->DrawText(sceneManager->font, "Captain", 240, 448, 25, 0, { 255, 255, 255, 255 });
+    //HP
+    std::string HPHero = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP);
+    sceneManager->render->DrawText(sceneManager->font, HPHero.c_str(), 15, 500, 25, 0, { 255, 255, 255, 255 });
+    //SP
+    std::string SPHero = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.SP);
+    sceneManager->render->DrawText(sceneManager->font, SPHero.c_str(), 15, 520, 25, 0, { 255, 255, 255, 255 });
 
-    // NEED TO PUT LIFE OF CHARACTERS
+    //HERO
+    //NAME
+    sceneManager->render->DrawText(sceneManager->font, "Captain", 240, 448, 25, 0, { 255, 255, 255, 255 });
+    //HP
+    std::string HPCaptain = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP);
+    sceneManager->render->DrawText(sceneManager->font, HPCaptain.c_str(), 240, 500, 25, 0, { 255, 255, 255, 255 });
+    //SP
+    std::string SPCaptain = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.SP);
+    sceneManager->render->DrawText(sceneManager->font, SPCaptain.c_str(), 240, 520, 25, 0, { 255, 255, 255, 255 });
 
     //render->DrawTexture(UI, 0, 0, )
-
-    sceneManager->entityManager->Draw();
 
     //Action Draw
     buttons.buttonsMenu.buttonAttack->Draw(sceneManager->render, sceneManager->font);
