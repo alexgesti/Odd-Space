@@ -44,6 +44,7 @@ private:
     SceneManager* sceneManager;
 
     SDL_Texture* bgTitle;
+    SDL_Texture* titleName;
 
     struct Buttons
     {
@@ -53,13 +54,14 @@ private:
         GuiButton* buttonExit;
     }buttons;
 
-    int f;
     int c;
-    int controllerMenu[2][2] = { {1, 2}, {3, 4} };
+    int controllerMenu[4] = { 1, 2, 3, 4 };
 
     bool oneTime = true;
     int temporalAppearTitle = 0;
     int selected = 0;
+
+    int pos1 = 1280;
 };
 
 #endif // __SCENETITLE_H__

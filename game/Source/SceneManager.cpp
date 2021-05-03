@@ -59,9 +59,9 @@ bool SceneManager::Start()
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
-	current = new Logo(input, render, tex, audio);
-	//current = new Title(this, audio);
-	currentscenetype = SceneType::LOGO;
+	//current = new Logo(input, render, tex, audio);
+	current = new Title(this, audio);
+	currentscenetype = SceneType::TITLE;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
