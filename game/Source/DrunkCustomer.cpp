@@ -51,10 +51,10 @@ DrunkCustomer::DrunkCustomer(Input* input, Render* render, Textures* tex) : Enem
     drunkCustomerAnim->loop = true;
     drunkCustomerAnim->speed = 0.15f;
    
-    drunkCustomerAnim->PushBack({ 0, 0, 70, 78 });
-    drunkCustomerAnim->PushBack({ 70, 0, 70, 78 });
-    drunkCustomerAnim->PushBack({ 140, 0, 70, 78 });
-    drunkCustomerAnim->PushBack({ 70, 0, 70, 78 });
+    drunkCustomerAnim->PushBack({ 0, 0, 112, 128  });
+    drunkCustomerAnim->PushBack({ 112, 0, 112, 128 });
+    drunkCustomerAnim->PushBack({ 224, 0, 112, 128 });
+    drunkCustomerAnim->PushBack({ 112, 0, 112, 128 });
 }
 // Destructor
 DrunkCustomer::~DrunkCustomer()
