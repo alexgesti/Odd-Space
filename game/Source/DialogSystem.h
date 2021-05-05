@@ -107,8 +107,5 @@ private:
 
 	// Options quad texture
 	SDL_Texture* optionsTex;
-
-	// Name quad texture
-	SDL_Texture* nameTex;
 };
 #endif // __DIALOGSYSTEM_H__
