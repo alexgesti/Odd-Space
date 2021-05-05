@@ -21,7 +21,6 @@ bool DialogueSystem::Start()
 	font = new Font("assets/typo/Adore64.xml", tex);
 	optionsTex = tex->Load("assets/sprites/UI/UI_Text.png");
 	//nameTex = optionsTex;
-	nameTex = tex->Load("assets/sprites/UI/UI_Text.png");
 	return true;
 }
 
@@ -115,9 +114,7 @@ bool DialogueSystem::Draw()
 
 	if (speak->speaking || showOptions)
 	{
-		SDL_Rect section = {0, 479, 225, 65};
-		render->DrawTexture(nameTex, -render->camera.x, -render->camera.y + 481, &section);
-		render->DrawText(font, currentNode->name.c_str(), 15, 508, 16, 0, { 255, 255, 255, 255 });
+		render->DrawText(font, currentNode->name.c_str(), 15, 508, 20, 0, { 255, 255, 255, 255 });
 	}
 
 	/*if (!speak->speaking && showOptions)

@@ -69,8 +69,8 @@ void Speak::Draw()
 {
 	//SDL_Rect rect = { 0, 540, 1280, 180 };
 	//render->DrawRectangle(rect, 0, 0, 0, 255, true, false);
-	SDL_Rect rect = { 0, 0, 1280, 174 };
-	render->DrawTexture(dialogueTex, -render->camera.x, -render->camera.y + 546, &rect);
+	SDL_Rect section = { 0, 174, 1280, 231 };
+	render->DrawTexture(dialogueTex, -render->camera.x, -render->camera.y + 488, &section);
 
 	std::string textToRender;
 	std::string textToRender2 = "";
