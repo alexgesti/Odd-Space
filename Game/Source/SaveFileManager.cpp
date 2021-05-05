@@ -9,9 +9,13 @@
 SaveFileManager::SaveFileManager(SceneManager* sceneManager)
 {
 	this->sceneManager = sceneManager;
+	encrypt = new Encrypt();
 }
 
-SaveFileManager::~SaveFileManager() {}
+SaveFileManager::~SaveFileManager() 
+{
+	delete encrypt;
+}
 
 // Load / Save
 void SaveFileManager::LoadGameRequest(const char* fileName)
@@ -60,6 +64,9 @@ bool SaveFileManager::SaveState(pugi::xml_node& data) const
 // then call all the modules to load themselves
 bool SaveFileManager::LoadGame()
 {
+	savedgame.Clear();
+	savedgame.Create(encrypt->Decrypt("save_game_encrypted.xml", "save_game.xml").c_str());
+
 	bool ret = false;
 
 	pugi::xml_document file;
@@ -85,7 +92,7 @@ bool SaveFileManager::LoadGame()
 		// Load entity things
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x = node.child("entitymanager").child("Player").attribute("x").as_int();
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y = node.child("entitymanager").child("Player").attribute("y").as_int();
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = true;
+		if (sceneManager->currentscenetype != (SceneType)aux) sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = true;
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP = node.child("entitymanager").child("Player").attribute("hp").as_int();
 
 		sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP = node.child("entitymanager").child("Captain").attribute("hp").as_int();
@@ -98,6 +105,8 @@ bool SaveFileManager::LoadGame()
 		}
 	}
 	else LOG("Could not load game state xml file savegame.xml. pugi error: %s", result.description());
+
+	savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
 
 	return ret;
 }
@@ -135,12 +144,15 @@ bool SaveFileManager::SaveGame() const
 
 	captainsave.append_attribute("hp") = sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP;
 
-	bool succ = file.save_file("save_game.xml");
+	bool succ = file.save_file(fileName.GetString());
 	if (succ != true)
 	{
 		LOG("File save error. pugi error: %d", pugi::status_internal_error);
 	}
 	else LOG("... finished saving");
+
+	savedgame.Clear();
+	savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
 
 	return ret;
 }

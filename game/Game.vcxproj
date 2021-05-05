@@ -131,6 +131,7 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Battle.h" />
     <ClInclude Include="Source\DialogSystem.h" />
+    <ClInclude Include="Source\Encrypt.h" />
     <ClInclude Include="Source\Exterior.h" />
     <ClInclude Include="Source\Collision.h" />
     <ClInclude Include="Source\DrunkCustomer.h" />

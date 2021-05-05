@@ -142,6 +142,10 @@ bool Battle::Load()
         break;
     }
 
+    selectedEnemies[0] = totalEnemies;
+    selectedEnemies[1] = totalEnemies;
+    selectedEnemies[2] = totalEnemies;
+
     //Render Players
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(350, 250);
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = true;

@@ -61,7 +61,7 @@ private:
     int temporalAppearTitle = 0;
     int selected = 0;
 
-    int pos1 = 1280;
+    int pos1 = 12;
 };
 
 #endif // __SCENETITLE_H__

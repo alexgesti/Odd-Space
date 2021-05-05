@@ -246,6 +246,9 @@
     <ClInclude Include="Source\SaveFileManager.h">
       <Filter>Modules</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Encrypt.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">

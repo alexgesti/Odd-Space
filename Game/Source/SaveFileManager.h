@@ -5,6 +5,8 @@
 #include "Log.h"
 #include "SDL/include/SDL.h"
 
+#include "Encrypt.h"
+
 class SaveFileManager
 {
 public:
@@ -30,11 +32,14 @@ private:
 
 	SceneManager* sceneManager;
 
+	Encrypt* encrypt;
+
 public:
 
 	SString loadedgame;
 	mutable SString savedgame;
 	bool savedataexist;
+	SString fileName = "save_game.xml";
 
 };
 #endif // __SAVEFILEMANAGER_H__
