@@ -43,7 +43,7 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
 	else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 
-	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/toilet.wav");
+	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/world_toilet_fx.wav");
 
 	//map = new Map(tex);
 
@@ -58,9 +58,6 @@ bool Wc::Load() /*EntityManager entityManager)*/
 
 		RELEASE_ARRAY(data);
 	}*/
-
-	// Load music
-	//AudioManager::PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	// Load game entities
 	//Player* player = (Player*)entityManager->CreateEntity(EntityType::PLAYER);

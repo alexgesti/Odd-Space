@@ -9,7 +9,7 @@ Title::Title(SceneManager* sceneManager, Audio* audio) : Scene()
    this->sceneManager = sceneManager;
    this->audio = audio;
 
-   temporalAppearTitle = audio->LoadFx("Assets/Audio/Fx/spells_fx.wav");
+   temporalAppearTitle = audio->LoadFx("Assets/Audio/Fx/battle_strike_fx.wav");
    selected = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
 }
 // Destructor
@@ -23,7 +23,7 @@ bool Title::Load()
 {
     bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
     titleName = sceneManager->tex->Load("assets/sprites/MainScreen/odd_space_logo.png");
-    audio->PlayMusic("Assets/Audio/Music/menu_music1.ogg", 2);
+    audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
 
     // Buttons
     buttons.buttonPlay = new GuiButton(1, { 150, 180, 160, 75 }, "New Game");

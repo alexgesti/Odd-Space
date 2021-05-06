@@ -31,7 +31,7 @@ bool Logo::Load()
 {
     logo = tex->Load("assets/sprites/Logo/logo_chaoticevil.png");
 
-    temporalLogoSound = audio->LoadFx("Assets/Audio/Fx/level_up.wav");
+    temporalLogoSound = audio->LoadFx("Assets/Audio/Fx/battle_win_music.wav");
     return true;
 }
 

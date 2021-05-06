@@ -96,9 +96,6 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		RELEASE_ARRAY(data);
 	}*/
 
-	// Load music
-	//AudioManager::PlayMusic("Assets/Audio/Music/music_spy.ogg");
-
 	// Load game entities
 	//Player* player = (Player*)entityManager->CreateEntity(EntityType::PLAYER);
 	//player->SetTexture(tex->Load("Assets/Textures/player.png"));

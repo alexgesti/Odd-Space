@@ -106,8 +106,6 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		RELEASE_ARRAY(data);
 	}*/
 
-	// Load music
-	//AudioManager::PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	// Load game entities
 	//Player* player = (Player*)entityManager->CreateEntity(EntityType::PLAYER);
