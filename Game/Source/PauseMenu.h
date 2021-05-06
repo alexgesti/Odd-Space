@@ -53,8 +53,6 @@ private:
     GuiButton* buttonSave;
     GuiButton* buttonLoad;
     int buttonMenuMax[6] = { 1, 2, 3, 4, 5, 6 };
-
-    int selected = 0;
 };
 
 #endif // __SCENELOGO_H__

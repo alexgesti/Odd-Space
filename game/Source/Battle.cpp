@@ -19,8 +19,6 @@ Battle::Battle(SceneManager* sceneManager)
     map = new Map(sceneManager->tex);
     
     name.Create("battle");
-
-    selected = sceneManager->audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
 }
 // Destructor
 Battle::~Battle()
@@ -59,31 +57,31 @@ bool Battle::Load()
     }
 
     // Buttons Principal Menu
-    buttons.buttonsMenu.buttonAttack = new GuiButton(1, { 10, 560, 160, 75 }, "Attack");
+    buttons.buttonsMenu.buttonAttack = new GuiButton(1, { 10, 560, 160, 75 }, "Attack", sceneManager->audio);
     buttons.buttonsMenu.buttonAttack->SetObserver(this);
-    buttons.buttonsMenu.buttonGuard = new GuiButton(2, { 170, 560, 160, 75 }, "Guard");
+    buttons.buttonsMenu.buttonGuard = new GuiButton(2, { 170, 560, 160, 75 }, "Guard", sceneManager->audio);
     buttons.buttonsMenu.buttonGuard->SetObserver(this);
-    buttons.buttonsMenu.buttonSkills = new GuiButton(3, { 330, 560, 160, 75 }, "Skill");
+    buttons.buttonsMenu.buttonSkills = new GuiButton(3, { 330, 560, 160, 75 }, "Skill", sceneManager->audio);
     buttons.buttonsMenu.buttonSkills->SetObserver(this);
-    buttons.buttonsMenu.buttonItem = new GuiButton(4, { 10, 635, 160, 75 }, "Items");
+    buttons.buttonsMenu.buttonItem = new GuiButton(4, { 10, 635, 160, 75 }, "Items", sceneManager->audio);
     buttons.buttonsMenu.buttonItem->SetObserver(this);
-    buttons.buttonsMenu.buttonRun = new GuiButton(5, { 170, 635, 160, 75 }, "Run");
+    buttons.buttonsMenu.buttonRun = new GuiButton(5, { 170, 635, 160, 75 }, "Run", sceneManager->audio);
     buttons.buttonsMenu.buttonRun->SetObserver(this);
-    buttons.buttonsMenu.buttonBack = new GuiButton(6, { 330, 635, 160, 75 }, "Back");
+    buttons.buttonsMenu.buttonBack = new GuiButton(6, { 330, 635, 160, 75 }, "Back", sceneManager->audio);
     buttons.buttonsMenu.buttonBack->SetObserver(this);
 
     //Buttons Skills
-    buttons.buttonsSkills.buttonSkill1 = new GuiButton(7, { 511, 560, 253, 75 }, "Skill 1");
+    buttons.buttonsSkills.buttonSkill1 = new GuiButton(7, { 511, 560, 253, 75 }, "Skill 1", sceneManager->audio);
     buttons.buttonsSkills.buttonSkill1->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill2 = new GuiButton(8, { 764, 560, 253, 75 }, "Skill 2");
+    buttons.buttonsSkills.buttonSkill2 = new GuiButton(8, { 764, 560, 253, 75 }, "Skill 2", sceneManager->audio);
     buttons.buttonsSkills.buttonSkill2->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill3 = new GuiButton(9, { 1017, 560, 253, 75 }, "Skill 3");
+    buttons.buttonsSkills.buttonSkill3 = new GuiButton(9, { 1017, 560, 253, 75 }, "Skill 3", sceneManager->audio);
     buttons.buttonsSkills.buttonSkill3->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill4 = new GuiButton(10, { 511, 635, 253, 75 }, "Skill 4");
+    buttons.buttonsSkills.buttonSkill4 = new GuiButton(10, { 511, 635, 253, 75 }, "Skill 4", sceneManager->audio);
     buttons.buttonsSkills.buttonSkill4->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill5 = new GuiButton(11, { 764, 635, 253, 75 }, "Skill 5");
+    buttons.buttonsSkills.buttonSkill5 = new GuiButton(11, { 764, 635, 253, 75 }, "Skill 5", sceneManager->audio);
     buttons.buttonsSkills.buttonSkill5->SetObserver(this);
-    buttons.buttonsSkills.buttonBack = new GuiButton(12, { 1017, 635, 253, 75 }, "Back");
+    buttons.buttonsSkills.buttonBack = new GuiButton(12, { 1017, 635, 253, 75 }, "Back", sceneManager->audio);
     buttons.buttonsSkills.buttonBack->SetObserver(this);
 
     //Buttons & Generation Enemies
@@ -94,7 +92,7 @@ bool Battle::Load()
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->position = iPoint(850, 580);
 
-        buttons.buttonsEnemies.buttonEnemy5 = new GuiButton(17, { 950, 580, 325, 75 }, "Enemy 4");
+        buttons.buttonsEnemies.buttonEnemy5 = new GuiButton(17, { 950, 580, 325, 75 }, "Enemy 4", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy5->text = sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy5->SetObserver(this);
         controllerEnemy[4] = 17;
@@ -103,7 +101,7 @@ bool Battle::Load()
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->position = iPoint(850, 490);
 
-        buttons.buttonsEnemies.buttonEnemy4 = new GuiButton(16, { 950, 490, 325, 75 }, "Enemy 3");
+        buttons.buttonsEnemies.buttonEnemy4 = new GuiButton(16, { 950, 490, 325, 75 }, "Enemy 3", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy4->text = sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy4->SetObserver(this);
         controllerEnemy[3] = 16;
@@ -112,7 +110,7 @@ bool Battle::Load()
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->position = iPoint(850, 400);
 
-        buttons.buttonsEnemies.buttonEnemy3 = new GuiButton(15, { 950, 400, 325, 75 }, "Enemy 2");
+        buttons.buttonsEnemies.buttonEnemy3 = new GuiButton(15, { 950, 400, 325, 75 }, "Enemy 2", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy3->text = sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy3->SetObserver(this);
         controllerEnemy[2] = 15;
@@ -121,7 +119,7 @@ bool Battle::Load()
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->position = iPoint(850, 310);
 
-        buttons.buttonsEnemies.buttonEnemy2 = new GuiButton(14, { 950, 310, 325, 75 }, "Enemy 1");
+        buttons.buttonsEnemies.buttonEnemy2 = new GuiButton(14, { 950, 310, 325, 75 }, "Enemy 1", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy2->text = sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy2->SetObserver(this);
         controllerEnemy[1] = 14;
@@ -130,21 +128,17 @@ bool Battle::Load()
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies)->data->position = iPoint(850, 220);
 
-        buttons.buttonsEnemies.buttonEnemy1 = new GuiButton(13, { 950, 220, 325, 75 }, "Enemy 0");
+        buttons.buttonsEnemies.buttonEnemy1 = new GuiButton(13, { 950, 220, 325, 75 }, "Enemy 0", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy1->text = sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy1->SetObserver(this);
         controllerEnemy[0] = 13;
 
     default:
-        buttons.buttonsEnemies.buttonBack = new GuiButton(18, { 1150, 640, 100, 75 }, "Back");
+        buttons.buttonsEnemies.buttonBack = new GuiButton(18, { 1150, 640, 100, 75 }, "Back", sceneManager->audio);
         buttons.buttonsEnemies.buttonBack->SetObserver(this);
         controllerEnemy[totalEnemies + 1] = 18;
         break;
     }
-
-    selectedEnemies[0] = totalEnemies;
-    selectedEnemies[1] = totalEnemies;
-    selectedEnemies[2] = totalEnemies;
 
     //Render Players
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(350, 250);
@@ -156,14 +150,24 @@ bool Battle::Load()
     int playerSPD = 0;
     int enemySPD = 0;
 
-    for (int p = 0; p < sceneManager->entityManager->entities[0].Count(); p++) playerSPD += sceneManager->entityManager->entities[0].At(p)->data->infoEntities.stats.SPD;
-    for (int e = 0; e <= totalEnemies; e++) enemySPD += sceneManager->entityManager->entities[1].At(e)->data->infoEntities.stats.SPD;
+    for (int p = 0; p < sceneManager->entityManager->entities[0].Count(); p++)
+    {
+        playerSPD += sceneManager->entityManager->entities[0].At(p)->data->infoEntities.stats.SPD;
+        selectedEnemies[p] = totalEnemies;
+    }
+    for (int e = 0; e <= totalEnemies; e++)
+    {
+        enemySPD += sceneManager->entityManager->entities[1].At(e)->data->infoEntities.stats.SPD;
+        selectedCharacters[e] = -1;
+    }
 
     if (playerSPD >= enemySPD) playerMenu = true;
     else playerMenu = false;
 
     //Inicializar variables
     characterTurn = 0;
+    actualCharacterAnim = 0;
+    actualEnemyAnim = 0;
     chooseMenu = 1;
     f = 0;
     c = 0;
@@ -187,11 +191,13 @@ bool Battle::Update(float dt)
         {
         //Hero Turn
         case 0:
+            if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
             PlayerMenu(dt);
             break;
 
         //Captain Turn
         case 1:
+            if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
             PlayerMenu(dt);
             break;
         }
@@ -199,63 +205,99 @@ bool Battle::Update(float dt)
     //Enemy Turn
     if (!playerMenu)
     {
-        //Attack Players
-        for (int p = 0; p < sceneManager->entityManager->entities[0].Count(); p++)
-            if (sceneManager->entityManager->entities[0].At(p)->data->infoEntities.attack == true)
+        if (!animation)
+        {
+            for (int e = 0; e <= totalEnemies; e++)
             {
-                DamagePlayer(p);
-                sceneManager->entityManager->entities[0].At(p)->data->infoEntities.attack = false;
+                if (sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP > 0)
+                {
+                    switch (rand() % 3)
+                    {
+                        //Attack Hero
+                    case 0:
+                        if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)  selectedCharacters[e] = 1;
+                        else  selectedCharacters[e] = 0;
+                        break;
+
+                        //Attack Captain
+                    case 1:
+                    case 2:
+                        if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)  selectedCharacters[e] = 0;
+                        else  selectedCharacters[e] = 1;
+                        break;
+                    }
+
+                    sceneManager->entityManager->entities[1].At(e)->data->infoEntities.attack = true;
+                }
             }
 
-        //Enemy Turn
-        for (int e = 0; e <= totalEnemies; e++)
+            animation = true;
+        }
+        else
         {
-            switch (rand() % 3)
+            //Animation Players
+            if (actualCharacterAnim < 2 &&
+                sceneManager->entityManager->entities[0].At(actualCharacterAnim)->data->infoEntities.attack == true &&
+                sceneManager->entityManager->entities[0].At(actualCharacterAnim)->data->infoEntities.info.HP > 0)
             {
-                //Attack Hero
-            case 0:
-                if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
-                else characterTurn = 0;
-                break;
+                sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->hurtAnim->Update();
 
-                //Attack Captain
-            case 1:
-            case 2:
-                if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
-                else characterTurn = 1;
-                break;
+                if (sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->hurtAnim->HasFinished() == true)
+                {
+                    DamagePlayer(actualCharacterAnim);
+                    sceneManager->entityManager->entities[0].At(actualCharacterAnim)->data->infoEntities.attack = false;
+                    sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->hurtAnim->Reset();
+                    actualCharacterAnim++;
+                }
             }
+            else if (actualCharacterAnim < 2) actualCharacterAnim++;
 
-            if (sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP > 0) DamageEnemy(e);
+            //Animation Enemies
+            if (actualEnemyAnim < totalEnemies + 1 && actualCharacterAnim == 2 &&
+                sceneManager->entityManager->entities[1].At(actualEnemyAnim)->data->infoEntities.attack == true &&
+                sceneManager->entityManager->entities[1].At(actualEnemyAnim)->data->infoEntities.info.HP > 0)
+            {
+                sceneManager->entityManager->entities[0].At(selectedCharacters[actualEnemyAnim])->data->hurtAnim->Update();
+
+                if (sceneManager->entityManager->entities[0].At(selectedCharacters[actualEnemyAnim])->data->hurtAnim->HasFinished() == true)
+                {
+                    DamageEnemy(actualEnemyAnim);
+                    sceneManager->entityManager->entities[1].At(actualEnemyAnim)->data->infoEntities.attack = false;
+                    sceneManager->entityManager->entities[0].At(selectedCharacters[actualEnemyAnim])->data->hurtAnim->Reset();
+                    actualEnemyAnim++;
+                }
+            }
+            else if (actualEnemyAnim < totalEnemies + 1 && actualCharacterAnim == 2) actualEnemyAnim++;
+
+            if (actualEnemyAnim == (totalEnemies + 1) && actualCharacterAnim == 2)
+            {
+                actualCharacterAnim = 0;
+                actualEnemyAnim = 0;
+
+                //Console Read
+                LOG("HP Hero:%d\tHP Captain:%d\n", sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP, sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP);
+                for (int e = 0; e <= totalEnemies; e++)
+                    LOG("HP Enemy %d: %d", totalEnemies - e, sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP);
+                LOG("\n");
+
+                //Lose Condition
+                if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
+                    sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
+                    TransitionToScene(*sceneManager->entityManager->previousScene);
+
+                //Win Condition
+                int totalEnemiesHP = 0;
+                for (int e = 0; e <= totalEnemies; e++)
+                {
+                    totalEnemiesHP += sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP;
+                    if (sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP > 0) break;
+                }
+                if (totalEnemiesHP <= 0) TransitionToScene(*sceneManager->entityManager->previousScene);
+
+                animation = false;
+                playerMenu = true;
+            }
         }
-
-        //Death Hero
-        if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
-            sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0;
-        //Death Captain
-        if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
-            sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0;
-
-        LOG("HP Hero:%d\tHP Captain:%d\n", sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP, sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP);
-        for (int e = 0; e <= totalEnemies; e++) 
-            if (sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP > 0)
-                LOG("HP Enemy %d: %d", totalEnemies - e, sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP);
-        LOG("\n");
-
-        //Lose
-        if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
-            sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
-            TransitionToScene(*sceneManager->entityManager->previousScene);
-
-        //Win
-        int totalEnemiesHP = 0;
-        for (int e = 0; e <= totalEnemies; e++)
-        {
-            totalEnemiesHP += sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP;
-        }
-        if (totalEnemiesHP <= 0) TransitionToScene(*sceneManager->entityManager->previousScene);
-
-        playerMenu = true;
     }
 
     return ret;
@@ -272,6 +314,9 @@ bool Battle::Draw()
     SDL_Rect rect = { 0, 550, 500, 170 };
     sceneManager->render->DrawTexture(UI, 0, 550, &rect);
 
+    rect = { 500, 550, 780, 170 };
+    sceneManager->render->DrawTexture(UI, 500, 550, &rect);
+
     //Player
     rect = { 0, 433, 225, 117 };
     sceneManager->render->DrawTexture(UI, 0, 433, &rect);
@@ -279,27 +324,21 @@ bool Battle::Draw()
     rect = { 225, 433, 225, 117 };
     sceneManager->render->DrawTexture(UI, 225, 433, &rect);
 
-    //HERO
-    //NAME
-    sceneManager->render->DrawText(sceneManager->font, "Ray", 15, 448, 25, 0, { 255, 255, 255, 255 });
-    //HP
-    std::string HPHero = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP);
-    sceneManager->render->DrawText(sceneManager->font, HPHero.c_str(), 15, 500, 25, 0, { 255, 255, 255, 255 });
-    //SP
-    std::string SPHero = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.SP);
-    sceneManager->render->DrawText(sceneManager->font, SPHero.c_str(), 15, 520, 25, 0, { 255, 255, 255, 255 });
+    for (int p = 0; p < sceneManager->entityManager->entities[0].Count(); p++)
+    {
+        //NAME
+        std::string name = sceneManager->entityManager->entities[0].At(p)->data->infoEntities.info.name.GetString();
+        sceneManager->render->DrawText(sceneManager->font, name.c_str(), 15 + (225 * p), 448, 25, 0, { 255, 255, 255, 255 });
+        //HP
+        std::string HP = std::to_string(sceneManager->entityManager->entities[0].At(p)->data->infoEntities.info.HP);
+        std::string maxHP = std::to_string(sceneManager->entityManager->entities[0].At(p)->data->infoEntities.info.maxHP);
+        sceneManager->render->DrawText(sceneManager->font, ("HP: " + HP + " / " + maxHP).c_str(), 15 + (225 * p), 493, 20, 0, { 255, 255, 255, 255 });
+        //SP
+        std::string SP = std::to_string(sceneManager->entityManager->entities[0].At(p)->data->infoEntities.info.SP);
+        std::string maxSP = std::to_string(sceneManager->entityManager->entities[0].At(p)->data->infoEntities.info.maxSP);
+        sceneManager->render->DrawText(sceneManager->font, ("SP: " + SP + " / " + maxSP).c_str(), 15 + (225 * p), 518, 20, 0, { 255, 255, 255, 255 });
 
-    //HERO
-    //NAME
-    sceneManager->render->DrawText(sceneManager->font, "Captain", 240, 448, 25, 0, { 255, 255, 255, 255 });
-    //HP
-    std::string HPCaptain = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP);
-    sceneManager->render->DrawText(sceneManager->font, HPCaptain.c_str(), 240, 500, 25, 0, { 255, 255, 255, 255 });
-    //SP
-    std::string SPCaptain = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.SP);
-    sceneManager->render->DrawText(sceneManager->font, SPCaptain.c_str(), 240, 520, 25, 0, { 255, 255, 255, 255 });
-
-    //render->DrawTexture(UI, 0, 0, )
+    }
 
     //Action Draw
     buttons.buttonsMenu.buttonAttack->Draw(sceneManager->render, sceneManager->font);
@@ -337,17 +376,40 @@ bool Battle::Draw()
         break;
     }
 
-    //Skill Draw
-    if (playerMenu == true && chooseMenu == 2)
+    //Draw text aux window
+    if (playerMenu == true)
     {
-        rect = { 500, 550, 780, 170 };
-        sceneManager->render->DrawTexture(UI, 500, 550, &rect);
-        buttons.buttonsSkills.buttonSkill1->Draw(sceneManager->render, sceneManager->font);
-        buttons.buttonsSkills.buttonSkill2->Draw(sceneManager->render, sceneManager->font);
-        buttons.buttonsSkills.buttonSkill3->Draw(sceneManager->render, sceneManager->font);
-        buttons.buttonsSkills.buttonSkill4->Draw(sceneManager->render, sceneManager->font);
-        buttons.buttonsSkills.buttonSkill5->Draw(sceneManager->render, sceneManager->font);
-        buttons.buttonsSkills.buttonBack->Draw(sceneManager->render, sceneManager->font);
+        //Skill Draw
+        if (chooseMenu == 2)
+        {
+            buttons.buttonsSkills.buttonSkill1->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill2->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill3->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill4->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill5->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonBack->Draw(sceneManager->render, sceneManager->font);
+        }
+        //Draw update text
+        else
+        {
+            std::string name = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.info.name.GetString();
+            sceneManager->render->DrawText(sceneManager->font, ("What will do " + name + " ?").c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
+        }
+    }
+    else
+    {
+        if (actualCharacterAnim < 2 && actualEnemyAnim == 0)
+        {
+            std::string namePlayer = sceneManager->entityManager->entities[0].At(actualCharacterAnim)->data->infoEntities.info.name.GetString();
+            std::string nameEnemy = sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->infoEntities.info.name.GetString();
+            sceneManager->render->DrawText(sceneManager->font, (namePlayer + " has attacked " + nameEnemy).c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
+        }
+        if (actualCharacterAnim == 2 && actualEnemyAnim < totalEnemies + 1)
+        {
+            std::string namePlayer = sceneManager->entityManager->entities[0].At(selectedCharacters[actualEnemyAnim])->data->infoEntities.info.name.GetString();
+            std::string nameEnemy = sceneManager->entityManager->entities[1].At(actualEnemyAnim)->data->infoEntities.info.name.GetString();
+            sceneManager->render->DrawText(sceneManager->font, (nameEnemy + " has attacked " + namePlayer).c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
+        }
     }
 
     return false;
@@ -439,25 +501,17 @@ void Battle::PlayerMenu(float dt)
         //Choose Action Menu
     case 1:
         if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN)
-        {
             controllerSkill[f][c++];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)
-        {
             controllerSkill[f][c--];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-        {
             controllerSkill[f++][c];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-        {
             controllerSkill[f--][c];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         //Establecer limites fila/columna botones
         if (f > 1) f = 0;
         if (f < 0) f = 1;
@@ -476,25 +530,17 @@ void Battle::PlayerMenu(float dt)
         //Choose Skill Menu
     case 2:
         if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN)
-        {
             controllerSkill[f][c++];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)
-        {
             controllerSkill[f][c--];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-        {
             controllerSkill[f++][c];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-        {
             controllerSkill[f--][c];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         //Establecer limites fila/columna botones
         if (f > 1) f = 0;
         if (f < 0) f = 1;
@@ -520,10 +566,8 @@ void Battle::PlayerMenu(float dt)
         //Choose Enemy Menu
     case 3:
         if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-        {
             controllerSkill[f++][c];
-            sceneManager->audio->PlayFx(selected);
-        }
+
         //Establecer limites fila/columna botones
         if (f < 0) f = totalEnemies + 1;
         if (f > totalEnemies + 1) f = 0;
@@ -533,7 +577,6 @@ void Battle::PlayerMenu(float dt)
         if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
         {
             controllerSkill[f--][c];
-            sceneManager->audio->PlayFx(selected);
 
             if (f < 0) f = totalEnemies + 1;
             if (f > totalEnemies + 1) f = 0;
@@ -575,6 +618,7 @@ void Battle::PlayerMenu(float dt)
 void Battle::BattleEscaped()
 {
     if (rand() % 6 != 0) TransitionToScene(*sceneManager->entityManager->previousScene);
+    else ChangeTurns();
 }
 
 void Battle::DamagePlayer(int player)
@@ -602,7 +646,8 @@ void Battle::DamagePlayer(int player)
         else sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= damageDealt;
     }
 
-    sceneManager->entityManager->entities[0].At(player)->data->infoEntities.attack = false;
+    if (sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP <= 0)
+        sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP = 0;
 }
 
 void Battle::ChangeTurns()
@@ -612,7 +657,8 @@ void Battle::ChangeTurns()
     {
         //Hero Turn
     case 0:
-        characterTurn = 1;
+        if(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) playerMenu = false;
+        else characterTurn = 1;
         break;
 
         //Captain Turn
@@ -627,29 +673,32 @@ void Battle::DamageEnemy(int enemy)
 {
     int damageDealt = sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.stats.ATK +
         rand() % ((3 * sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.info.LVL) / 2) -
-        (sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.stats.DEF / 4);
+        (sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.stats.DEF / 4);
 
     if (damageDealt <= 0) damageDealt = 0;
 
     //Player Dodge
-    if ((((3 * sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.stats.SPD) / 4 -
+    if ((((3 * sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.stats.SPD) / 4 -
         sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.stats.SPD) /
-        (rand() % (200 - sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.stats.LCK) + 1)) >= 1);
+        (rand() % (200 - sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.stats.LCK) + 1)) >= 1);
 
     //Enemy Attack
     else
     {
         //Player Defense
-        if (sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.defense == true) damageDealt = (3 * damageDealt) / 4;
+        if (sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.defense == true) damageDealt = (3 * damageDealt) / 4;
 
         //Critical
         if ((((sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.stats.SPD / 2) -
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.stats.SPD) /
+            sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.stats.SPD) /
             (rand() % (200 - sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.stats.LCK) + 1)) >= 1)
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.info.HP -= (damageDealt * 2);
+            sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= (damageDealt * 2);
 
-        else sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.info.HP -= damageDealt;
+        else sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= damageDealt;
     }
+
+    if (sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP <= 0)
+        sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP = 0;
 }
 
 
@@ -666,49 +715,32 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         {
         case 1:
             //Ataque
-            sceneManager->audio->PlayFx(selected);
             chooseMenu = 3;
             break;
 
         case 2:
             //Defensa
-            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.defense = true;
             ChangeTurns();
             break;
 
         case 3:
             //Skill
-            sceneManager->audio->PlayFx(selected);
             chooseMenu = 2;
             break;
 
         case 4:
             //Items
-            sceneManager->audio->PlayFx(selected);
             break;
 
         case 5:
             //Run
-            sceneManager->audio->PlayFx(selected);
             BattleEscaped();
-            ChangeTurns();
             break;
 
         case 6:
             //Back
-            sceneManager->audio->PlayFx(selected);
-            switch (characterTurn)
-            {
-                //Hero Turn
-            case 0:
-                break;
-
-                //Captain Turn
-            case 1:
-                characterTurn = 0;
-                break;
-            }
+            characterTurn = 0;
             break;
 
         default: break;
@@ -723,38 +755,32 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         switch (control->id)
         {
         case 7:
-            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
             chooseMenu = 3;
             break;
 
         case 8:
-            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].picked = true;
             chooseMenu = 3;
             break;
 
         case 9:
-            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
             chooseMenu = 3;
             break;
 
         case 10:
-            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].picked = true;
             chooseMenu = 3;
             break;
 
         case 11:
-            sceneManager->audio->PlayFx(selected);
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
             chooseMenu = 3;
             break;
 
         case 12:
             //Back
-            sceneManager->audio->PlayFx(selected);
             chooseMenu = 1;
             break;
 
@@ -769,61 +795,52 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         switch (control->id)
         {
         case 13:
-            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies;
-            ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
+            ChangeTurns();
             break;
 
         case 14:
-            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 1;
-            ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
+            ChangeTurns();
             break;
 
         case 15:
-            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 2;
-            ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
+            ChangeTurns();
             break;
 
         case 16:
-            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 3;
-            ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
+            ChangeTurns();
             break;
 
         case 17:
-            sceneManager->audio->PlayFx(selected);
             selectedEnemies[characterTurn] = totalEnemies - 4;
-            ChangeTurns();
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = true;
+            ChangeTurns();
             break;
 
         case 18:
             //Back
-            {
-            sceneManager->audio->PlayFx(selected);
-            bool skillPicked = false;
+            chooseMenu = 1;
             for (int s = 0; s < 5; s++)
             {
                 if (sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[s].picked == true)
-                    skillPicked = true;
+                    chooseMenu = 2;
+
                 sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[s].picked = false;
             }
-            if (skillPicked == true) chooseMenu = 2;
-            else chooseMenu = 1;
-            } 
             break;
 
         default: break;
         }
         f = -1;
 
-        //Update Buttons
+        //Update buttons to make them white again
         switch (totalEnemies)
         {
         case 4:

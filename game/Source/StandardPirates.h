@@ -3,20 +3,11 @@
 
 #include "Enemy.h"
 
-#include "Point.h"
-#include "SString.h"
-
-#include "SDL/include/SDL.h"
-
 
 class Input;
 class Render;
 class Textures;
 
-enum class StandardPiratesAnim
-{
-    IDLE
-};
 
 class StandardPirates : public Enemy
 {
@@ -40,10 +31,8 @@ public:
 
 public:
 
+    Animation* standardPirateAnim = new Animation();
     SDL_Texture* texture;   // StandartPirates spritesheet
-
-    StandardPiratesAnim currentAnim;
-
     int width, height;
 
 private:

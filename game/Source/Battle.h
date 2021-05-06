@@ -96,12 +96,14 @@ private:
     } buttons;
 
     int totalEnemies;
-    int selectedEnemies[3];
+    int selectedEnemies[2];
+    int selectedCharacters[5];
     int characterTurn;
 
     bool playerMenu = true;
-
-    int selected = 0;
+    bool animation = false;
+    int actualCharacterAnim;
+    int actualEnemyAnim;
 
     //UI Controller
     int chooseMenu;

@@ -3,6 +3,9 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Animation.h"
+
+#include "SDL/include/SDL.h"
 
 
 struct Info
@@ -54,7 +57,13 @@ class Entity
 {
 public:
 
-    Entity(EntityType type) : type(type), active(true) {}
+    Entity(EntityType type) : type(type), active(true) 
+    {
+        hurtAnim->loop = false;
+        hurtAnim->speed = 0.15f;
+        for (int i = -1; i < 8; ++i)
+            hurtAnim->PushBack({ 64 * i, 0, 64, 96 });
+    }
 
     virtual bool Update(float dt)
     {
@@ -75,9 +84,10 @@ public:
 
     EntityType type;
     Entities infoEntities;
+    SDL_Texture* hurtTexture;
+    //Animation* currentGeneralAnimation;
+    Animation* hurtAnim = new Animation();
     bool active = true;
-    //SString name;         // Entity name identifier?
-    //uint32 id;            // Entity identifier?
 
     // Possible properties, it depends on how generic we
     // want our Entity class, maybe it's not renderable...

@@ -109,6 +109,9 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
 
     // Define Player current animation
     currentAnimation = animHeroWalkDown;
+
+    //Define Hurt Texture
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
 }
 // Destructor
 Player::~Player()
@@ -157,7 +160,11 @@ bool Player::Update(float dt)
         else interacting = false;
     }
 
-    if(inBattle == true) currentAnimation = animHeroWalkRight;
+    if (inBattle == true)
+    {      
+        currentAnimation = animHeroWalkRight;
+        currentAnimation->SetCurrentFrame(1);
+    }
     else
     {
         if (position == temPos) currentAnimation->SetCurrentFrame(1);
@@ -178,6 +185,9 @@ bool Player::Draw()
     //render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
     SDL_Rect rect = currentAnimation->GetCurrentFrame();
     render->DrawTexture(heroTexture, (int)position.x - 16, (int)position.y - 64, &rect);
+
+    rect = hurtAnim->GetCurrentFrame();
+    render->DrawTexture(hurtTexture, (int)position.x - 16, (int)position.y - 64, &rect);
 
 
     return false;

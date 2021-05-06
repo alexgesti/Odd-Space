@@ -55,6 +55,9 @@ GiantBat::GiantBat(Input* input, Render* render, Textures* tex) : Enemy(EnemyTyp
     giantBatAnim->PushBack({ 97, 0, 97, 79 });
     giantBatAnim->PushBack({ 194, 0, 97, 79 });
     giantBatAnim->PushBack({ 97, 0, 97, 79 });
+
+    //Define Hurt Texture
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
 }
 // Destructor
 GiantBat::~GiantBat()
@@ -78,6 +81,8 @@ bool GiantBat::Draw()
         SDL_Rect rec = giantBatAnim->GetCurrentFrame();
         render->DrawTexture(giantBatTexture, position.x, position.y, &rec);
 
+        rec = hurtAnim->GetCurrentFrame();
+        render->DrawTexture(hurtTexture, position.x, position.y, &rec);
     }
 
     return false;

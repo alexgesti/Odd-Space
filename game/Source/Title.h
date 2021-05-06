@@ -54,12 +54,11 @@ private:
         GuiButton* buttonExit;
     }buttons;
 
-    int c;
+    int f;
     int controllerMenu[4] = { 1, 2, 3, 4 };
 
     bool oneTime = true;
     int temporalAppearTitle = 0;
-    int selected = 0;
 
     int pos1 = 12;
 };

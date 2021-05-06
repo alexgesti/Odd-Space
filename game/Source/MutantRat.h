@@ -3,16 +3,11 @@
 
 #include "Enemy.h"
 
-#include "Point.h"
-#include "SString.h"
-#include "Animation.h"
-
-#include "SDL/include/SDL.h"
-
 
 class Input;
 class Render;
 class Textures;
+
 
 class MutantRat : public Enemy
 {

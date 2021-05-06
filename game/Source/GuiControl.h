@@ -4,6 +4,7 @@
 #include "Input.h"
 #include "Render.h"
 #include "Scene.h"
+#include "Audio.h"
 
 #include "Point.h"
 #include "SString.h"
@@ -91,6 +92,7 @@ public:
     //Font font;              // Text font
 
     Scene* observer;        // Observer module (it should probably be an array/list)
+    Audio* audio;
 };
 
 #endif // __GUICONTROL_H__

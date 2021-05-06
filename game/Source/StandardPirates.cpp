@@ -46,7 +46,8 @@ StandardPirates::StandardPirates(Input* input, Render* render) : Enemy(EnemyType
     infoEntities.stats.SPD = 7;
     infoEntities.stats.LCK = 2;
 
-    // Define Player animations
+    //Define Hurt Texture
+    //hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
 }
 // Destructor
 StandardPirates::~StandardPirates()
@@ -70,6 +71,9 @@ bool StandardPirates::Draw()
         //render->DrawTexture(texture, position.x, position.y, rec);
 
         render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
+
+        SDL_Rect rect = hurtAnim->GetCurrentFrame();
+        render->DrawTexture(hurtTexture, (int)position.x - 16, (int)position.y - 64, &rect);
     }
 
     return false;

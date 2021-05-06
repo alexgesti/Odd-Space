@@ -72,7 +72,7 @@ Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityTyp
     height = 32;
 
     //Hero stats
-    infoEntities.info.name = "Old Captain";
+    infoEntities.info.name = "Captain";
     infoEntities.info.HP = 20;
     infoEntities.info.SP = 15;
     infoEntities.info.maxHP = 20;
@@ -104,6 +104,9 @@ Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityTyp
 
     // Define Old Captain current animation
     currentAnimation = animOldCaptainWalkDown;
+
+    //Define Hurt Texture
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
 }
 // Destructor
 Captain::~Captain()
@@ -117,7 +120,11 @@ bool Captain::Update(float dt)
     temPos = position;
 
 
-    if (inBattle == true) currentAnimation = animOldCaptainWalkRight;
+    if (inBattle == true)
+    {
+        currentAnimation = animOldCaptainWalkRight;
+        currentAnimation->SetCurrentFrame(1);
+    }
     else
     {
         if (position == temPos) currentAnimation->SetCurrentFrame(1);
@@ -140,6 +147,9 @@ bool Captain::Draw()
     {
         SDL_Rect rect = currentAnimation->GetCurrentFrame();
         render->DrawTexture(oldCaptainTexture, (int)position.x - 8, (int)position.y - 64, &rect);
+
+        rect = hurtAnim->GetCurrentFrame();
+        render->DrawTexture(hurtTexture, (int)position.x - 8, (int)position.y - 64, &rect);
     }
 
     return false;

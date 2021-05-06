@@ -55,6 +55,9 @@ DrunkCustomer::DrunkCustomer(Input* input, Render* render, Textures* tex) : Enem
     drunkCustomerAnim->PushBack({ 112, 0, 112, 128 });
     drunkCustomerAnim->PushBack({ 224, 0, 112, 128 });
     drunkCustomerAnim->PushBack({ 112, 0, 112, 128 });
+
+    //Define Hurt Texture
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
 }
 // Destructor
 DrunkCustomer::~DrunkCustomer()
@@ -78,6 +81,8 @@ bool DrunkCustomer::Draw()
         SDL_Rect rec = drunkCustomerAnim->GetCurrentFrame();
         render->DrawTexture(drunkCustomerTexture, position.x, position.y, &rec);
 
+        rec = hurtAnim->GetCurrentFrame();
+        render->DrawTexture(hurtTexture, position.x, position.y, &rec);
     }
 
     return false;

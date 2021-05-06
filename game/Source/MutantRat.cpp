@@ -56,6 +56,9 @@ MutantRat::MutantRat(Input* input, Render* render, Textures* tex) : Enemy(EnemyT
     mutantRatAnim->PushBack({ 64, 0, 64, 64 });
     mutantRatAnim->PushBack({ 128, 0, 64, 64 });
     mutantRatAnim->PushBack({ 64, 0, 64, 64 });
+
+    //Define Hurt Texture
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
 }
 // Destructor
 MutantRat::~MutantRat()
@@ -79,7 +82,8 @@ bool MutantRat::Draw()
         SDL_Rect rec = mutantRatAnim->GetCurrentFrame();
         render->DrawTexture(mutantRatTexture, position.x, position.y, &rec);
 
-
+        rec = hurtAnim->GetCurrentFrame();
+        render->DrawTexture(hurtTexture, position.x, position.y, &rec);
     }
 
     return false;

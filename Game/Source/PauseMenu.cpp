@@ -7,8 +7,6 @@ PauseMenu::PauseMenu(SceneManager* sceneManager, Audio* audio)
 {
     this->sceneManager = sceneManager;
     this->audio = audio;
-
-    selected = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
 }
 // Destructor
 PauseMenu::~PauseMenu()
@@ -21,17 +19,17 @@ bool PauseMenu::Load()
 {
     pause = sceneManager->tex->Load("assets/sprites/UI/UI_MenuPause.png");
 
-    buttonItems = new GuiButton(1, { 150, 109, 240, 81 }, "Items");
+    buttonItems = new GuiButton(1, { 150, 109, 240, 81 }, "Items", sceneManager->audio);
     buttonItems->SetObserver(this);
-    buttonSkills = new GuiButton(2, { 150, 203, 240, 81 }, "Skills");
+    buttonSkills = new GuiButton(2, { 150, 203, 240, 81 }, "Skills", sceneManager->audio);
     buttonSkills->SetObserver(this);
-    buttonEquip = new GuiButton(3, { 110, 297, 240, 81 }, "Equipment");
+    buttonEquip = new GuiButton(3, { 110, 297, 240, 81 }, "Equipment", sceneManager->audio);
     buttonEquip->SetObserver(this);
-    buttonSettings = new GuiButton(4, { 163, 391, 240, 81 }, "Exit"); // ESTO DEBERÁ SER SETTINGS, PARA LA VERTICAL SLICE SE DEJARÁ COMO UN "EXIT" YA QUE ESTE ESTARÁ DENTRO DE LAS OPCIONES (X es 125)
+    buttonSettings = new GuiButton(4, { 163, 391, 240, 81 }, "Exit", sceneManager->audio); // ESTO DEBERÁ SER SETTINGS, PARA LA VERTICAL SLICE SE DEJARÁ COMO UN "EXIT" YA QUE ESTE ESTARÁ DENTRO DE LAS OPCIONES (X es 125)
     buttonSettings->SetObserver(this);
-    buttonSave = new GuiButton(5, { 160, 485, 240, 81 }, "Save");
+    buttonSave = new GuiButton(5, { 160, 485, 240, 81 }, "Save", sceneManager->audio);
     buttonSave->SetObserver(this);
-    buttonLoad = new GuiButton(6, { 160, 579, 240, 81 }, "Load");
+    buttonLoad = new GuiButton(6, { 160, 579, 240, 81 }, "Load", sceneManager->audio);
     buttonLoad->SetObserver(this);
 
     f = 0;
@@ -50,15 +48,11 @@ bool PauseMenu::Update(float dt)
     GamePad& pad = sceneManager->input->pads[0];
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-    {
-        audio->PlayFx(selected);
         f++;
-    }
+
     if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-    {
-        audio->PlayFx(selected);
         f--;
-    }
+
     //Establecer limites fila/columna botones
     if (f > 5) f = 0;
     if (f < 0) f = 5;
@@ -119,25 +113,19 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
-        audio->PlayFx(selected);
         break;
     case 2: 
-        audio->PlayFx(selected);
         break;
     case 3: 
-        audio->PlayFx(selected); 
         break;
     case 4: 
-        audio->PlayFx(selected);
         sceneManager->gameIsWorking = false;
         break;
     case 5: 
-        audio->PlayFx(selected);
         sceneManager->saverequested = true;
         //sceneManager->currentgamerequested = true;
         break;
     case 6: 
-        audio->PlayFx(selected);
         sceneManager->loadrequested = true;
         break;
     default: break;

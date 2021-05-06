@@ -10,7 +10,6 @@ Title::Title(SceneManager* sceneManager, Audio* audio) : Scene()
    this->audio = audio;
 
    temporalAppearTitle = audio->LoadFx("Assets/Audio/Fx/battle_strike_fx.wav");
-   selected = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
 }
 // Destructor
 Title::~Title()
@@ -26,13 +25,13 @@ bool Title::Load()
     audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
 
     // Buttons
-    buttons.buttonPlay = new GuiButton(1, { 150, 180, 160, 75 }, "New Game");
+    buttons.buttonPlay = new GuiButton(1, { 150, 180, 160, 75 }, "New Game", sceneManager->audio);
     buttons.buttonPlay->SetObserver(this);
-    buttons.buttonContinue = new GuiButton(2, { 155, 280, 160, 75 }, "Continue");
+    buttons.buttonContinue = new GuiButton(2, { 155, 280, 160, 75 }, "Continue", sceneManager->audio);
     buttons.buttonContinue->SetObserver(this);
-    buttons.buttonSettings = new GuiButton(3, { 155, 380, 160, 75 }, "Settings");
+    buttons.buttonSettings = new GuiButton(3, { 155, 380, 160, 75 }, "Settings", sceneManager->audio);
     buttons.buttonSettings->SetObserver(this);
-    buttons.buttonExit = new GuiButton(4, { 195, 480, 160, 75 }, "Exit");
+    buttons.buttonExit = new GuiButton(4, { 195, 480, 160, 75 }, "Exit", sceneManager->audio);
     buttons.buttonExit->SetObserver(this);
 
 
@@ -52,23 +51,18 @@ bool Title::Update(float dt)
     }
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-    {
-        controllerMenu[c++];
-        audio->PlayFx(selected);
-    }
+        controllerMenu[f++];
+
     if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-    {
-        controllerMenu[c--];
-        audio->PlayFx(selected);
-    }
+        controllerMenu[f--];
 
-    if (c > 3) c = 0;
-    if (c < 0) c = 3;
+    if (f > 3) f = 0;
+    if (f < 0) f = 3;
 
-    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[c], dt);
-    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[c], dt);
-    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[c], dt);
-    buttons.buttonExit->Update(sceneManager->input, controllerMenu[c], dt);
+    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[f], dt);
+    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[f], dt);
+    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[f], dt);
+    buttons.buttonExit->Update(sceneManager->input, controllerMenu[f], dt);
 
     if (pos1 <= 0)
     {
@@ -124,20 +118,16 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
-        audio->PlayFx(selected);
         sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
         TransitionToScene(SceneType::EXTERIOR);
         break;
     case 2:
-        audio->PlayFx(selected);
         sceneManager->loadrequested = true;
         sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
         break;
     case 3:
-        audio->PlayFx(selected);
         break;
     case 4:
-        audio->PlayFx(selected);
         sceneManager->gameIsWorking = false;
         break;
     default: break;
