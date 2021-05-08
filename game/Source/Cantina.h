@@ -39,6 +39,9 @@ public:
     // Unload this scene
     bool Unload();
 
+    // Declare on mouse click event
+    bool OnGuiMouseClickEvent(GuiControl* control);
+
 private:
 
     Map* map;

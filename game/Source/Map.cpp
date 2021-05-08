@@ -593,6 +593,18 @@ bool Map::LoadTilesetDetails(pugi::xml_node& tileset_node, TileSet* set)
 		set->offsetY = 0;
 	}
 
+	set->tileCount = 0;
+	pugi::xml_node actualNode = tileset_node.child("tile");
+	while (actualNode.child("properties"))
+	{
+		set->tileProperty[set->tileCount].tileId = actualNode.attribute("id").as_int();
+		// Load layer properties
+		LoadProperties(actualNode, set->tileProperty[set->tileCount].properties);
+
+		actualNode = actualNode.next_sibling();
+		set->tileCount++;
+	}
+
 	return ret;
 }
 

@@ -278,3 +278,16 @@ bool Exterior::Unload()
 
 	return true;
 }
+
+//----------------------------------------------------------
+// Manage GUI events for this screen
+//----------------------------------------------------------
+bool Exterior::OnGuiMouseClickEvent(GuiControl* control)
+{
+	if (sceneManager->dialogueSystem->inConversation)
+	{
+		sceneManager->dialogueSystem->OnGuiMouseClickEvent(control);
+	}
+
+	return true;
+}

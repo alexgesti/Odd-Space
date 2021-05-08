@@ -1,12 +1,7 @@
 #include "DialogSystem.h"
 
-#include "Input.h"
-#include "Render.h"
-#include "Textures.h"
 #include "Font.h"
 #include "Speak.h"
-
-#include "SDL/include/SDL.h"
 
 
 DialogueSystem::DialogueSystem() {}
@@ -21,40 +16,35 @@ bool DialogueSystem::Start()
 	font = new Font("assets/typo/Adore64.xml", tex);
 	optionsTex = tex->Load("assets/sprites/UI/UI_Text.png");
 	//nameTex = optionsTex;
+
+	// Buttons Dialog
+	buttonOpt1 = new GuiButton(1, { 511, 384, 757, 50 }, "Option 1", audio);
+	buttonOpt2 = new GuiButton(2, { 511, 434, 757, 50 }, "Option 2", audio);
+	buttonOpt3 = new GuiButton(3, { 511, 484, 757, 50 }, "Option 3", audio);
+
 	return true;
 }
 
 bool DialogueSystem::Update(float dt)
-{
+{	
 	GamePad& pad = input->pads[0];
 
 	if (inConversation)
 	{
-		if ((input->GetKey(SDL_SCANCODE_1) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && !currentNode->lastSentence && currentNode->hasOptions)
+		if (!currentNode->lastSentence && currentNode->hasOptions)
 		{
-			playerInput = 0;
-			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-			PerformDialogue(id);
+			if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+				controllerMenu[c++];
 
-			nextSentence = true;
-		}
+			if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+				controllerMenu[c--];
 
-		if ((input->GetKey(SDL_SCANCODE_2) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) && !currentNode->lastSentence && currentNode->hasOptions)
-		{
-			playerInput = 1;
-			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-			PerformDialogue(id);
+			if (c > 2) c = 0;
+			if (c < 0) c = 2;
 
-			nextSentence = true;
-		}
-
-		if (input->GetKey(SDL_SCANCODE_3) == KEY_DOWN && !currentNode->lastSentence && currentNode->hasOptions)
-		{
-			playerInput = 2;
-			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-			PerformDialogue(id);
-
-			nextSentence = true;
+			buttonOpt1->Update(input, controllerMenu[c], dt);
+			buttonOpt2->Update(input, controllerMenu[c], dt);
+			buttonOpt3->Update(input, controllerMenu[c], dt);
 		}
 
 		// Restart conversation
@@ -68,7 +58,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
+		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
 		{
 			// Finish speaking sentence
 			if (speak->speaking) speak->Finish();
@@ -132,12 +122,14 @@ bool DialogueSystem::Draw()
 
 	if (showOptions)
 	{
+		//Render rectangle UI
 		if (currentNode->hasOptions)
 		{
 			SDL_Rect rect = { 500, 550, 780, 170 };
-			render->DrawTexture(optionsTex, -render->camera.x + 500, -render->camera.y + 376, &rect);
+			render->DrawTexture(optionsTex, -render->camera.x + 500, -render->camera.y + 375, &rect);
 		}
 
+		//Check all the posible answers
 		char response[300] = { 0 };
 		for (int i = 0; i < currentNode->answersList.Count(); i++)
 		{
@@ -149,7 +141,26 @@ bool DialogueSystem::Draw()
 				render->DrawText(font, response, 1200, 670, 17, 0, { 255, 255, 255, 255 });
 			}
 
-			else render->DrawText(font, response, 520, 360 + (60 * (i + 1)), 17, 0, { 255, 255, 255, 255 });
+			//Render options in the buttons
+			else
+			{
+				switch (i)
+				{
+				case 0:
+					buttonOpt1->text = response;
+					buttonOpt1->Draw(render, font);
+					break;
+				case 1:
+					buttonOpt2->text = response;
+					buttonOpt2->Draw(render, font);
+					break;
+				case 2:
+					buttonOpt3->text = response;
+					buttonOpt3->Draw(render, font);
+					break;
+				default: break;
+				}
+			}
 		}
 
 		// If it's the last sentence print an X as well
@@ -169,6 +180,13 @@ bool DialogueSystem::CleanUp()
 		delete dialogueTrees[i];
 	}
 	dialogueTrees.clear();
+
+	delete buttonOpt1;
+	buttonOpt1 = nullptr;
+	delete buttonOpt2;
+	buttonOpt2 = nullptr;
+	delete buttonOpt3;
+	buttonOpt3 = nullptr;
 
 	return true;
 }
@@ -263,4 +281,48 @@ void DialogueSystem::SetConversation(int id)
 	currentNode = dialogueTrees[this->id]->dialogueNodes[0];
 	speak->Finish();
 	nextSentence = true;
+}
+
+void DialogueSystem::GetObserver(Scene* scene)
+{
+	buttonOpt1->SetObserver(scene);
+	buttonOpt2->SetObserver(scene);
+	buttonOpt3->SetObserver(scene);
+}
+
+//----------------------------------------------------------
+// Manage GUI events for this screen
+//----------------------------------------------------------
+bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
+{
+	if (!currentNode->lastSentence && currentNode->hasOptions && !speak->speaking)
+	{
+		switch (control->id)
+		{
+		case 1:
+			playerInput = 0;
+			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+			PerformDialogue(id);
+
+			nextSentence = true;
+			break;
+		case 2:
+			playerInput = 1;
+			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+			PerformDialogue(id);
+
+			nextSentence = true;
+			break;
+		case 3:
+			playerInput = 2;
+			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+			PerformDialogue(id);
+
+			nextSentence = true;
+			break;
+		default: break;
+		}
+	}
+
+	return true;
 }

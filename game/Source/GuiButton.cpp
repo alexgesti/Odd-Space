@@ -24,7 +24,7 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
         input->GetMousePosition(mouseX, mouseY);
 
         // Check collision between mouse and button bounds
-        /*if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
+       /* if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
             (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
         {
             buttonSelected = id;

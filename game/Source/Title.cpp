@@ -51,18 +51,18 @@ bool Title::Update(float dt)
     }
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-        controllerMenu[f++];
+        controllerMenu[c++];
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-        controllerMenu[f--];
+        controllerMenu[c--];
 
-    if (f > 3) f = 0;
-    if (f < 0) f = 3;
+    if (c > 3) c = 0;
+    if (c < 0) c = 3;
 
-    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[f], dt);
-    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[f], dt);
-    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[f], dt);
-    buttons.buttonExit->Update(sceneManager->input, controllerMenu[f], dt);
+    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[c], dt);
+    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[c], dt);
+    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[c], dt);
+    buttons.buttonExit->Update(sceneManager->input, controllerMenu[c], dt);
 
     if (pos1 <= 0)
     {

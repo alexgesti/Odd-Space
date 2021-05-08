@@ -54,7 +54,7 @@ private:
         GuiButton* buttonExit;
     }buttons;
 
-    int f;
+    int c;
     int controllerMenu[4] = { 1, 2, 3, 4 };
 
     bool oneTime = true;

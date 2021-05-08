@@ -30,7 +30,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	tex = new Textures(render);
 	audio = new Audio();
 	entityManager = new EntityManager(input, render, tex);
-	dialogueSystem = new DialogueSystem(input, render, tex);
+	dialogueSystem = new DialogueSystem(input, render, tex, audio);
 	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem);
 
 	// Not modules

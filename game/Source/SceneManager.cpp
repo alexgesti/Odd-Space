@@ -169,6 +169,8 @@ bool SceneManager::Update(float dt)
 				current = next;		// Assign next pointer
 				next = nullptr;
 
+				dialogueSystem->GetObserver(current);
+
 				// Activate fade out effect to next loaded screen
 				fadeOutCompleted = true;
 			}

@@ -184,3 +184,16 @@ bool Wc::Unload()
 
 	return true;
 }
+
+//----------------------------------------------------------
+// Manage GUI events for this screen
+//----------------------------------------------------------
+bool Wc::OnGuiMouseClickEvent(GuiControl* control)
+{
+	if (sceneManager->dialogueSystem->inConversation)
+	{
+		sceneManager->dialogueSystem->OnGuiMouseClickEvent(control);
+	}
+
+	return true;
+}

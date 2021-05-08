@@ -1,21 +1,25 @@
 #ifndef __DIALOGSYSTEM_H__
 #define __DIALOGSYSTEM_H__
 
-#include "App.h"
 #include "Log.h"
 #include <string>
 #include <iostream>
 #include <vector>
+
 #include "Render.h"
 #include "Textures.h"
 #include "Module.h"
 #include "Input.h"
+#include "Audio.h"
+#include "GuiButton.h"
+
 #include "SDL/include/SDL.h"
 
 using namespace std;
 
 class DialogueNode;
 class Speak;
+class GuiButton;
 struct SDL_Texture;
 
 class DialogueOption
@@ -62,11 +66,12 @@ class DialogueSystem : public Module
 {
 public:
 	DialogueSystem();
-	DialogueSystem(Input* input, Render* render, Textures* tex)
+	DialogueSystem(Input* input, Render* render, Textures* tex, Audio* audio)
 	{
 		this->input = input;
 		this->render = render;
 		this->tex = tex;
+		this->audio = audio;
 	}
 	~DialogueSystem();
 
@@ -80,6 +85,11 @@ public:
 	bool Draw();
 
 	void SetConversation(int id);
+
+	void GetObserver(Scene* scene);
+
+	// Declare on mouse click event
+	bool OnGuiMouseClickEvent(GuiControl* control);
 
 public:
 
@@ -101,11 +111,18 @@ private:
 	Input* input;
 	Render* render;
 	Textures* tex;
+	Audio* audio;
 
 	bool showOptions;
 	bool nextSentence = true;
 
 	// Options quad texture
 	SDL_Texture* optionsTex;
+
+	GuiButton* buttonOpt1;
+	GuiButton* buttonOpt2;
+	GuiButton* buttonOpt3;
+	int controllerMenu[3] = { 1, 2, 3 };
+	int c = 0;
 };
 #endif // __DIALOGSYSTEM_H__
