@@ -192,12 +192,14 @@ bool Battle::Update(float dt)
         //Hero Turn
         case 0:
             if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
+            sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
             PlayerMenu(dt);
             break;
 
         //Captain Turn
         case 1:
             if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
+            sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
             PlayerMenu(dt);
             break;
         }
@@ -283,7 +285,11 @@ bool Battle::Update(float dt)
                 //Lose Condition
                 if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
+                {
+                    sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
+                    sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
                     TransitionToScene(*sceneManager->entityManager->previousScene);
+                }
 
                 //Win Condition
                 int totalEnemiesHP = 0;
@@ -292,7 +298,12 @@ bool Battle::Update(float dt)
                     totalEnemiesHP += sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP;
                     if (sceneManager->entityManager->entities[1].At(e)->data->infoEntities.info.HP > 0) break;
                 }
-                if (totalEnemiesHP <= 0) TransitionToScene(*sceneManager->entityManager->previousScene);
+                if (totalEnemiesHP <= 0)
+                {
+                    sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
+                    sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
+                    TransitionToScene(*sceneManager->entityManager->previousScene);
+                }
 
                 animation = false;
                 playerMenu = true;
@@ -617,7 +628,12 @@ void Battle::PlayerMenu(float dt)
 
 void Battle::BattleEscaped()
 {
-    if (rand() % 6 != 0) TransitionToScene(*sceneManager->entityManager->previousScene);
+    if (rand() % 6 != 0)
+    {
+        sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
+        sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
+        TransitionToScene(*sceneManager->entityManager->previousScene);
+    }
     else ChangeTurns();
 }
 

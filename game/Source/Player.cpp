@@ -112,6 +112,12 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
 
     //Define Hurt Texture
     hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
+
+    //Define Shield Texture
+    shieldTexture = this->tex->Load("assets/sprites/combat/cmb_shield_v01.png");
+
+    //Define Death Texture
+    deathTexture = this->tex->Load("assets/sprites/combat/cmb_death_v01.png");
 }
 // Destructor
 Player::~Player()
@@ -164,6 +170,7 @@ bool Player::Update(float dt)
     {      
         currentAnimation = animHeroWalkRight;
         currentAnimation->SetCurrentFrame(1);
+        if (infoEntities.info.HP <= 0) deathAnim->Update();
     }
     else
     {
@@ -183,12 +190,25 @@ bool Player::Draw()
     //render->DrawTexture(texture, position.x, position.y, rec);
 
     //render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
-    SDL_Rect rect = currentAnimation->GetCurrentFrame();
-    render->DrawTexture(heroTexture, (int)position.x - 16, (int)position.y - 64, &rect);
+    if (infoEntities.info.HP > 0)
+    {
+        SDL_Rect rect = currentAnimation->GetCurrentFrame();
+        render->DrawTexture(heroTexture, (int)position.x - 16, (int)position.y - 64, &rect);
+    }
+    else if (infoEntities.info.HP <= 0)
+    {
+        SDL_Rect rect_death = deathAnim->GetCurrentFrame();
+        render->DrawTexture(deathTexture, (int)position.x - 40, (int)position.y - 64, &rect_death);
+    }
 
-    rect = hurtAnim->GetCurrentFrame();
-    render->DrawTexture(hurtTexture, (int)position.x - 16, (int)position.y - 64, &rect);
+    SDL_Rect rect_hurt = hurtAnim->GetCurrentFrame();
+    render->DrawTexture(hurtTexture, (int)position.x - 16, (int)position.y - 64, &rect_hurt);
 
+    if (infoEntities.defense)
+    {
+        SDL_Rect rect_def = { 0, 0, 64, 96 };
+        render->DrawTexture(shieldTexture, (int)position.x + 40, (int)position.y - 64, &rect_def);
+    }
 
     return false;
 }

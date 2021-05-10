@@ -63,6 +63,12 @@ public:
         hurtAnim->speed = 0.15f;
         for (int i = -1; i < 8; ++i)
             hurtAnim->PushBack({ 64 * i, 0, 64, 96 });
+
+        deathAnim->loop = true;
+        deathAnim->speed = 0.15f;
+        for (int i = 0; i < 4; i++) deathAnim->PushBack({ 128 * i, 0, 128, 96 });
+        deathAnim->PushBack({ 256, 0, 128, 96 });
+        deathAnim->PushBack({ 128, 0, 128, 96 });
     }
 
     virtual bool Update(float dt)
@@ -85,8 +91,11 @@ public:
     EntityType type;
     Entities infoEntities;
     SDL_Texture* hurtTexture;
+    SDL_Texture* shieldTexture;
+    SDL_Texture* deathTexture;
     //Animation* currentGeneralAnimation;
     Animation* hurtAnim = new Animation();
+    Animation* deathAnim = new Animation();
     bool active = true;
 
     // Possible properties, it depends on how generic we
