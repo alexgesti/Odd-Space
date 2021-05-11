@@ -81,7 +81,7 @@ public:
 
 	bool exitGame = false;
 
-
+	bool wasBattle = false;
 
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;

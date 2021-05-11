@@ -62,7 +62,16 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(990, 325);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
+	else if (sceneManager->wasBattle == true)
+	{
+		sceneManager->render->camera.x = -32;
+		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos;
+		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
+
+		sceneManager->wasBattle = false;
+	}
 	else
 	{
 		sceneManager->render->camera.x = -32;
@@ -129,7 +138,11 @@ bool Exterior::Update(float dt)
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+	{
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+		TransitionToScene(SceneType::BATTLE);
+	}
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
@@ -216,6 +229,7 @@ bool Exterior::Update(float dt)
 		if (enemyEncounter > rand() % (8500) + 1500)
 		{
 			enemyEncounter = 0;
+			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
