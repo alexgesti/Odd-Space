@@ -67,7 +67,6 @@ bool SceneManager::Start()
 	//current = new Cantina(this);
 	//current = new Wc(this);
 	//current = new Exterior(this);
-	//current = new Exterior(this);
 
 	current->Load();
 

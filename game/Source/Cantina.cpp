@@ -170,7 +170,7 @@ bool Cantina::Update(float dt)
 			{
 				// DUNGEON KEY
 				//sceneManager->dungeonKey = true;
-				
+
 				// If player talks with barman again before talking to old captain
 				if (barmanConv1 && !oldCapConv)
 				{

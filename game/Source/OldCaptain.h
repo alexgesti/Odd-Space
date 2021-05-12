@@ -3,34 +3,17 @@
 
 #include "Entity.h"
 
-#include "Point.h"
-#include "SString.h"
-#include "Animation.h"
 
-#include "SDL/include/SDL.h"
-
-
-
-class Input;
 class Render;
 class Textures;
 
-class Collision;
-
-enum class CaptainAnim
-{
-    IDLE,
-    WALK,
-    JUMP,
-    CLIMB
-};
 
 class Captain : public Entity
 {
 public:
 
     // Get unique instance of the class
-    static Captain* GetInstance(Input* input, Render* render, Textures* tex);
+    static Captain* GetInstance(Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -59,7 +42,7 @@ private:
     // Singleton instance
     static Captain* instance;
     // Private Constructor
-    Captain(Input* input, Render* render, Textures* tex);
+    Captain(Render* render, Textures* tex);
     // Private Destructor
     virtual ~Captain();
     // Declare the copy constructor and the assignment operator
@@ -78,11 +61,8 @@ private:
 
 private:
 
-    Input* input;
     Render* render;
     Textures* tex;
-
-    Collision* collision;
 };
 
-#endif // __PLAYER_H__
+#endif // __OLDCAPTAIN_H__

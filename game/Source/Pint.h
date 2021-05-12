@@ -1,24 +1,26 @@
-#ifndef __MUTANTRAT_H__
-#define __MUTANTRAT_H__
+#ifndef __PINT_H__
+#define __PINT_H__
 
-#include "Enemy.h"
+#include "Item.h"
 
 
 class Render;
 class Textures;
 
 
-class MutantRat : public Enemy
+class Pint : public Item
 {
 public:
 
     // Get unique instance of the class
-    static MutantRat* GetInstance(Render* render, Textures* tex);
+    static Pint* GetInstance(Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
 
     bool Update(float dt);
+
+    void ItemFunction(int* HP, int* SP, int maxHP, int maxSP);
 
     bool Draw();
 
@@ -30,29 +32,26 @@ public:
 
 public:
 
-    Animation* mutantRatAnim = new Animation();
-    SDL_Texture* mutantRatTexture;
-    int width, height;
+    SDL_Texture* texture;
 
 private:
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
-    static MutantRat* instance;
+    static Pint* instance;
     // Private Constructor
-    MutantRat(Render* render, Textures* tex);
+    Pint(Render* render, Textures* tex);
     // Private Destructor
-    virtual ~MutantRat();
+    virtual ~Pint();
     // Declare the copy constructor and the assignment operator
     // as private (or delete them explicitly) to prevent cloning your object
-    MutantRat(const MutantRat&);
-    MutantRat& operator=(const MutantRat&);
+    Pint(const Pint&);
+    Pint& operator=(const Pint&);
     // ----------------------------- //
 
 private:
 
     Render* render;
-    Textures* tex;
 };
 
-#endif // __MUTANTRAT_H__
+#endif // __PINT_H__

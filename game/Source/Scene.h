@@ -13,7 +13,7 @@ enum class SceneType
     WC,
     EXTERIOR,
     BATTLE,
-    DUNGEON_EXT,
+    DUNGEON_EXT
 };
 
 class Scene

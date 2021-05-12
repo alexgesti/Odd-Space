@@ -5,17 +5,26 @@
 #include "Textures.h"
 #include "SceneManager.h"
 
+//Characters
 #include "Player.h"
 #include "OldCaptain.h"
-#include "Enemy.h"
+//Enemies
 #include "MutantRat.h"
 #include "GiantBat.h"
 #include "DrunkCustomer.h"
-#include "StandardPirates.h"
-//#include "Item.h"
+#include "StandardPirate.h"
+//Items
+#include "CookedPlate.h"
+#include "StrongRon.h"
+#include "RawMeat.h"
+#include "Pint.h"
+#include "LargeRawMeat.h"
+#include "Jug.h"
+#include "ElaboratedPlate.h"
 
 #include "Defs.h"
 #include "Log.h"
+#include <time.h>
 
 
 
@@ -38,6 +47,8 @@ bool EntityManager::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Entity Manager");
 	bool ret = true;
+
+	srand(time(NULL));
 
 	return ret;
 }
@@ -89,7 +100,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 
 	case EntityType::CAPTAIN:
-		ret = Captain::GetInstance(input, render, tex);
+		ret = Captain::GetInstance(render, tex);
 
 		// Created entities are added to the list
 		if (ret != nullptr && (Captain*)entities[0].At(1) == nullptr) entities[0].Add(ret);
@@ -98,17 +109,17 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	case EntityType::ENEMY:
 		switch (*previousScene)
 		{
-		case SceneType::CANTINA: 
-			ret = DrunkCustomer::GetInstance(input, render, tex);
+		case SceneType::CANTINA:
+			ret = DrunkCustomer::GetInstance(render, tex);
 			break;
-		case SceneType::WC: 
-			ret = MutantRat::GetInstance(input, render, tex);
+		case SceneType::WC:
+			ret = MutantRat::GetInstance(render, tex);
 			break;
-		case SceneType::EXTERIOR: 
-			ret = GiantBat::GetInstance(input, render, tex);
+		case SceneType::EXTERIOR:
+			ret = GiantBat::GetInstance(render, tex);
 			break;
-		default: 
-			ret = StandardPirates::GetInstance(input, render);
+		default:
+			ret = StandardPirates::GetInstance(render, tex);
 			break;
 		}
 
@@ -116,7 +127,64 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		if (ret != nullptr) entities[1].Add(ret);
 		break;
 
-	//case EntityType::ITEM: ret = new Item();  break;
+	case EntityType::ITEM:
+	{
+		int drop = rand() % 3;
+		for (int d = 0; d < drop; d++)
+		{
+			switch (rand() % 15)
+			{
+				//20%
+			case 0:
+			case 1:
+			case 2:
+				ret = RawMeat::GetInstance(render, tex);
+				break;
+
+				//20%
+			case 3:
+			case 4:
+			case 5:
+				ret = Pint::GetInstance(render, tex);
+				break;
+
+				//13%
+			case 6:
+			case 7:
+				ret = LargeRawMeat::GetInstance(render, tex);
+				break;
+
+				//13%
+			case 8:
+			case 9:
+				ret = Jug::GetInstance(render, tex);
+				break;
+
+				//13%
+			case 10:
+			case 11:
+				ret = CookedPlate::GetInstance(render, tex);
+				break;
+
+				//13%
+			case 12:
+			case 13:
+				ret = StrongRon::GetInstance(render, tex);
+				break;
+
+				//7%
+			case 14:
+				ret = ElaboratedPlate::GetInstance(render, tex);
+				break;
+
+			default: break;
+			}
+
+			if (ret != nullptr) entities[2].Add(ret);
+		}
+		break;
+	}
+
 	default: break;
 	}
 
@@ -129,18 +197,18 @@ bool EntityManager::UpdateAll(float dt, bool doLogic)
 	if (doLogic)
 	{
 		//Same lenght as entities
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 3; i++)
 		{
 			// TODO: Update all entities 
 			ListItem<Entity*>* list = NULL;
-		list = entities[i].start;
+			list = entities[i].start;
 
-		while (list != NULL)
-		{
-			list->data->Update(dt);
-			list = list->next;
+			while (list != NULL)
+			{
+				list->data->Update(dt);
+				list = list->next;
+			}
 		}
-	}
 	}
 
 	return true;
@@ -149,7 +217,7 @@ bool EntityManager::UpdateAll(float dt, bool doLogic)
 bool EntityManager::Draw()
 {
 	//Same lenght as entities
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < 3; i++)
 	{
 		ListItem<Entity*>* list = NULL;
 		list = entities[i].start;
@@ -174,6 +242,7 @@ bool EntityManager::DestroyEntity(int i)
 	while (list != NULL)
 	{
 		list->data->UnLoad();
+		if (list->next == NULL) list->data->ResetInstance();
 		list = list->next;
 	}
 

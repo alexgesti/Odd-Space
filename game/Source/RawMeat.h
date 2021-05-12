@@ -1,25 +1,26 @@
-#ifndef __STANDARDPIRATES_H__
-#define __STANDARDPIRATES_H__
+#ifndef __RAWMEAT_H__
+#define __RAWMEAT_H__
 
-#include "Enemy.h"
+#include "Item.h"
 
 
-class Input;
 class Render;
 class Textures;
 
 
-class StandardPirates : public Enemy
+class RawMeat : public Item
 {
 public:
 
     // Get unique instance of the class
-    static StandardPirates* GetInstance(Input* input, Render* render);
+    static RawMeat* GetInstance(Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
 
     bool Update(float dt);
+
+    void ItemFunction(int* HP, int* SP, int maxHP, int maxSP);
 
     bool Draw();
 
@@ -31,28 +32,25 @@ public:
 
 public:
 
-    Animation* standardPirateAnim = new Animation();
-    SDL_Texture* texture;   // StandartPirates spritesheet
-    int width, height;
+    SDL_Texture* texture;
 
 private:
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
-    static StandardPirates* instance;
+    static RawMeat* instance;
     // Private Constructor
-    StandardPirates(Input* input, Render* render);
+    RawMeat(Render* render, Textures* tex);
     // Private Destructor
-    virtual ~StandardPirates();
+    virtual ~RawMeat();
     // Declare the copy constructor and the assignment operator
     // as private (or delete them explicitly) to prevent cloning your object
-    StandardPirates(const StandardPirates&);
-    StandardPirates& operator=(const StandardPirates&);
+    RawMeat(const RawMeat&);
+    RawMeat& operator=(const RawMeat&);
     // ----------------------------- //
 
 private:
 
-    Input* input;
     Render* render;
 };
 

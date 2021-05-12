@@ -1,5 +1,5 @@
-#ifndef __MUTANTRAT_H__
-#define __MUTANTRAT_H__
+#ifndef __STANDARDPIRATE_H__
+#define __STANDARDPIRATE_H__
 
 #include "Enemy.h"
 
@@ -8,12 +8,12 @@ class Render;
 class Textures;
 
 
-class MutantRat : public Enemy
+class StandardPirates : public Enemy
 {
 public:
 
     // Get unique instance of the class
-    static MutantRat* GetInstance(Render* render, Textures* tex);
+    static StandardPirates* GetInstance(Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -24,29 +24,29 @@ public:
 
     bool UnLoad();
 
-    void SetTexture(SDL_Texture *tex);
+    void SetTexture(SDL_Texture* tex);
 
     SDL_Rect GetBounds();
 
 public:
 
-    Animation* mutantRatAnim = new Animation();
-    SDL_Texture* mutantRatTexture;
+    Animation* standardPirateAnim = new Animation();
+    SDL_Texture* standardPirateTexture;
     int width, height;
 
 private:
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
-    static MutantRat* instance;
+    static StandardPirates* instance;
     // Private Constructor
-    MutantRat(Render* render, Textures* tex);
+    StandardPirates(Render* render, Textures* tex);
     // Private Destructor
-    virtual ~MutantRat();
+    virtual ~StandardPirates();
     // Declare the copy constructor and the assignment operator
     // as private (or delete them explicitly) to prevent cloning your object
-    MutantRat(const MutantRat&);
-    MutantRat& operator=(const MutantRat&);
+    StandardPirates(const StandardPirates&);
+    StandardPirates& operator=(const StandardPirates&);
     // ----------------------------- //
 
 private:
@@ -55,4 +55,4 @@ private:
     Textures* tex;
 };
 
-#endif // __MUTANTRAT_H__
+#endif // __STANDARDPIRATE_H__

@@ -96,10 +96,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\Battle.cpp" />
+    <ClCompile Include="Source\CookedPlate.cpp" />
     <ClCompile Include="Source\DialogSystem.cpp" />
     <ClCompile Include="Source\DrunkCustomer.cpp" />
-    <ClCompile Include="Source\ElaboratedPlate.cpp" />
     <ClCompile Include="Source\DungeonExt.cpp" />
+    <ClCompile Include="Source\ElaboratedPlate.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Exterior.cpp" />
     <ClCompile Include="Source\Font.cpp" />
@@ -108,6 +109,8 @@
     <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\GuiSlider.cpp" />
+    <ClCompile Include="Source\Jug.cpp" />
+    <ClCompile Include="Source\LargeRawMeat.cpp" />
     <ClCompile Include="Source\Logo.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -119,12 +122,15 @@
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Cantina.cpp" />
+    <ClCompile Include="Source\Pint.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\RawMeat.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\SaveFileManager.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\Speak.cpp" />
-    <ClCompile Include="Source\StandardPirates.cpp" />
+    <ClCompile Include="Source\StandardPirate.cpp" />
+    <ClCompile Include="Source\StrongRon.cpp" />
     <ClCompile Include="Source\Textures.cpp" />
     <ClCompile Include="Source\Timer.cpp" />
     <ClCompile Include="Source\Title.cpp" />
@@ -132,9 +138,10 @@
     <ClCompile Include="Source\Window.cpp" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Battle.h" />
+    <ClInclude Include="Source\CookedPlate.h" />
     <ClInclude Include="Source\DialogSystem.h" />
-    <ClInclude Include="Source\ElaboratedPlate.h" />
     <ClInclude Include="Source\DungeonExt.h" />
+    <ClInclude Include="Source\ElaboratedPlate.h" />
     <ClInclude Include="Source\Encrypt.h" />
     <ClInclude Include="Source\Exterior.h" />
     <ClInclude Include="Source\Collision.h" />
@@ -149,14 +156,19 @@
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\GuiSlider.h" />
+    <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\Jug.h" />
+    <ClInclude Include="Source\LargeRawMeat.h" />
     <ClInclude Include="Source\Logo.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\MutantRat.h" />
     <ClInclude Include="Source\OldCaptain.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PerfTimer.h" />
+    <ClInclude Include="Source\Pint.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Queue.h" />
+    <ClInclude Include="Source\RawMeat.h" />
     <ClInclude Include="Source\SaveFileManager.h" />
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Cantina.h" />
@@ -167,7 +179,8 @@
     <ClInclude Include="Source\Render.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\Speak.h" />
-    <ClInclude Include="Source\StandardPirates.h" />
+    <ClInclude Include="Source\StandardPirate.h" />
+    <ClInclude Include="Source\StrongRon.h" />
     <ClInclude Include="Source\Textures.h" />
     <ClInclude Include="Source\Timer.h" />
     <ClInclude Include="Source\Title.h" />
