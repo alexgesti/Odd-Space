@@ -76,21 +76,13 @@ private:
 
         struct ButtonsSkills
         {
-            GuiButton* buttonSkill1;
-            GuiButton* buttonSkill2;
-            GuiButton* buttonSkill3;
-            GuiButton* buttonSkill4;
-            GuiButton* buttonSkill5;
+            GuiButton* buttonSkill[5];
             GuiButton* buttonBack;
         } buttonsSkills;
 
         struct ButtonsEnemy
         {
-            GuiButton* buttonEnemy1;
-            GuiButton* buttonEnemy2;
-            GuiButton* buttonEnemy3;
-            GuiButton* buttonEnemy4;
-            GuiButton* buttonEnemy5;
+            GuiButton* buttonEnemy[5];
             GuiButton* buttonBack;
         } buttonsEnemies;
     } buttons;

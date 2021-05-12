@@ -2,7 +2,6 @@
 
 #include "Log.h"
 
-#include "Input.h"
 #include "Render.h"
 #include "Textures.h"
 
@@ -10,9 +9,9 @@
 
 GiantBat* GiantBat::instance = nullptr;
 // Instance creator
-GiantBat* GiantBat::GetInstance(Input* input, Render* render,Textures* tex)
+GiantBat* GiantBat::GetInstance(Render* render,Textures* tex)
 {
-    instance = new GiantBat(input, render, tex);
+    instance = new GiantBat(render, tex);
     LOG("Returning giant bat instance");
 
     return instance;
@@ -24,9 +23,8 @@ void GiantBat::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-GiantBat::GiantBat(Input* input, Render* render, Textures* tex) : Enemy(EnemyType::GIANTBAT)
+GiantBat::GiantBat(Render* render, Textures* tex) : Enemy(EnemyType::GIANTBAT)
 {
-    this->input = input;
     this->render = render;
     this->tex = tex;
 

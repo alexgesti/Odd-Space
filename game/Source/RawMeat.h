@@ -1,24 +1,26 @@
-#ifndef __MUTANTRAT_H__
-#define __MUTANTRAT_H__
+#ifndef __RAWMEAT_H__
+#define __RAWMEAT_H__
 
-#include "Enemy.h"
+#include "Item.h"
 
 
 class Render;
 class Textures;
 
 
-class MutantRat : public Enemy
+class RawMeat : public Item
 {
 public:
 
     // Get unique instance of the class
-    static MutantRat* GetInstance(Render* render, Textures* tex);
+    static RawMeat* GetInstance(Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
 
     bool Update(float dt);
+
+    void ItemFunction(int* HP, int* SP, int maxHP, int maxSP);
 
     bool Draw();
 
@@ -30,29 +32,26 @@ public:
 
 public:
 
-    Animation* mutantRatAnim = new Animation();
-    SDL_Texture* mutantRatTexture;
-    int width, height;
+    SDL_Texture* texture;
 
 private:
 
     // ----- SINGLETON METHODS ----- //
     // Singleton instance
-    static MutantRat* instance;
+    static RawMeat* instance;
     // Private Constructor
-    MutantRat(Render* render, Textures* tex);
+    RawMeat(Render* render, Textures* tex);
     // Private Destructor
-    virtual ~MutantRat();
+    virtual ~RawMeat();
     // Declare the copy constructor and the assignment operator
     // as private (or delete them explicitly) to prevent cloning your object
-    MutantRat(const MutantRat&);
-    MutantRat& operator=(const MutantRat&);
+    RawMeat(const RawMeat&);
+    RawMeat& operator=(const RawMeat&);
     // ----------------------------- //
 
 private:
 
     Render* render;
-    Textures* tex;
 };
 
-#endif // __MUTANTRAT_H__
+#endif // __STANDARDPIRATES_H__

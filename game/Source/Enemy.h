@@ -3,9 +3,6 @@
 
 #include "Entity.h"
 
-#include "Point.h"
-#include "SString.h"
-
 
 enum class EnemyType
 {
@@ -20,22 +17,11 @@ class Enemy : public Entity
 {
 public:
 
-    Enemy(EnemyType type) : Entity(EntityType::ENEMY), type(type), active(true) {}
-
-    virtual bool Update(float dt)
-    {
-        return true;
-    }
-
-    virtual bool Draw()
-    {
-        return true;
-    }
+    Enemy(EnemyType type) : Entity(EntityType::ENEMY), enemyType(type) {}
 
 public:
 
-    EnemyType type;
-    bool active = true;
+    EnemyType enemyType;
 };
 
 #endif // __ENTITY_H__

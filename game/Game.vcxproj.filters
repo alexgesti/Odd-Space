@@ -60,9 +60,6 @@
     <ClCompile Include="Source\GuiSlider.cpp">
       <Filter>GuiControl</Filter>
     </ClCompile>
-    <ClCompile Include="Source\StandardPirates.cpp">
-      <Filter>Entities\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Map.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -101,6 +98,30 @@
     </ClCompile>
     <ClCompile Include="Source\SaveFileManager.cpp">
       <Filter>Modules</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RawMeat.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StandardPirate.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\CookedPlate.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ElaboratedPlate.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Jug.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LargeRawMeat.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\StrongRon.cpp">
+      <Filter>Entities\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Pint.cpp">
+      <Filter>Entities\Items</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -192,9 +213,6 @@
     <ClInclude Include="Source\GuiSlider.h">
       <Filter>GuiControl</Filter>
     </ClInclude>
-    <ClInclude Include="Source\StandardPirates.h">
-      <Filter>Entities\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Enemy.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
@@ -249,6 +267,33 @@
     <ClInclude Include="Source\Encrypt.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\RawMeat.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Item.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StandardPirate.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\CookedPlate.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ElaboratedPlate.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Jug.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LargeRawMeat.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\StrongRon.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Pint.h">
+      <Filter>Entities\Items</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -274,6 +319,9 @@
     </Filter>
     <Filter Include="Entities\Enemies">
       <UniqueIdentifier>{d2364ebb-34b6-4d31-a6af-b80b2f7d8a57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Entities\Items">
+      <UniqueIdentifier>{66b8da8b-7182-4c06-8e86-f963ea0e73f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
