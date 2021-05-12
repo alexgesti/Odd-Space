@@ -62,6 +62,8 @@ public:
 	SDL_Rect viewport;
 	SDL_Color background;
 
+	iPoint prevCam;
+
 	uint scale;
 
 private:

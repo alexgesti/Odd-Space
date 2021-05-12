@@ -106,6 +106,7 @@ bool Wc::Update(float dt)
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 	{
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+		sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 		TransitionToScene(SceneType::BATTLE);
 	}
 
@@ -166,6 +167,7 @@ bool Wc::Update(float dt)
 		{
 			enemyEncounter = 0;
 			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+			sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
