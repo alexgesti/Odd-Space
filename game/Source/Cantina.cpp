@@ -71,15 +71,16 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(128, 195);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
-
-	/*else if (*sceneManager->previousScene == SceneType::BATTLE)
+	else if (sceneManager->wasBattle == true)
 	{
-		sceneManager->render->camera.x = 80;
-		sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
+		sceneManager->render->camera.x = -32;
+		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = sceneManager->entityManager->CreateEntity(EntityType::HERO)->temPos;
-	}*/
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos;
+		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 
+		sceneManager->wasBattle = false;
+	}
 	else
 	{
 		sceneManager->render->camera.x = 80;
@@ -145,7 +146,11 @@ bool Cantina::Update(float dt)
 
 	//if (sceneManager->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN) sceneManager->speak->SayText("This is another very long sample", true);
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+	{
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+		TransitionToScene(SceneType::BATTLE);
+	}
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
@@ -230,6 +235,7 @@ bool Cantina::Update(float dt)
 		if (sceneManager->dialogueSystem->triggerEvent)
 		{
 			sceneManager->dialogueSystem->triggerEvent = false;
+			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
@@ -257,6 +263,7 @@ bool Cantina::Update(float dt)
 		if (enemyEncounter > rand() % (8500) + 1500)
 		{
 			enemyEncounter = 0;
+			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
 			TransitionToScene(SceneType::BATTLE);
 		}		
 	}
