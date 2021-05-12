@@ -102,6 +102,7 @@ public:
     // want our Entity class, maybe it's not renderable...
     iPoint temPos;
     iPoint position;        // Use a float instead?
+    iPoint prevPos;
     bool transitioning = false;
     bool isPause = false;
     bool renderable = false;

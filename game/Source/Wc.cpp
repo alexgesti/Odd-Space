@@ -40,8 +40,19 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
-	if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
+	if (sceneManager->wasBattle == true)
+	{
+
+	if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos;
 	else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
+
+	sceneManager->wasBattle = false;
+	}
+	else
+	{
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(64, 285);
+		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
+	}
 
 	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/world_toilet_fx.wav");
 
@@ -92,7 +103,11 @@ bool Wc::Update(float dt)
 	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
 	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN) TransitionToScene(SceneType::BATTLE);
+	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+	{
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+		TransitionToScene(SceneType::BATTLE);
+	}
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
@@ -150,6 +165,7 @@ bool Wc::Update(float dt)
 		if (enemyEncounter > rand() % (8500) + 1500)
 		{
 			enemyEncounter = 0;
+			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}

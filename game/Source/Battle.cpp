@@ -288,6 +288,7 @@ bool Battle::Update(float dt)
                 {
                     sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
+                    sceneManager->wasBattle = true;
                     TransitionToScene(*sceneManager->entityManager->previousScene);
                 }
 
@@ -302,6 +303,7 @@ bool Battle::Update(float dt)
                 {
                     sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
+                    sceneManager->wasBattle = true;
                     TransitionToScene(*sceneManager->entityManager->previousScene);
                 }
 
@@ -632,6 +634,7 @@ void Battle::BattleEscaped()
     {
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
         sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
+        sceneManager->wasBattle = true;
         TransitionToScene(*sceneManager->entityManager->previousScene);
     }
     else ChangeTurns();
