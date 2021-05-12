@@ -4,6 +4,7 @@
 #include "Enemy.h"
 
 
+class Input;
 class Render;
 class Textures;
 
@@ -13,7 +14,7 @@ class StandardPirates : public Enemy
 public:
 
     // Get unique instance of the class
-    static StandardPirates* GetInstance(Render* render, Textures* tex);
+    static StandardPirates* GetInstance(Input* input, Render* render);
     // Delete the instance
     static void ResetInstance();
 
@@ -24,14 +25,14 @@ public:
 
     bool UnLoad();
 
-    void SetTexture(SDL_Texture* tex);
+    void SetTexture(SDL_Texture *tex);
 
     SDL_Rect GetBounds();
 
 public:
 
     Animation* standardPirateAnim = new Animation();
-    SDL_Texture* standardPirateTexture;
+    SDL_Texture* texture;   // StandartPirates spritesheet
     int width, height;
 
 private:
@@ -40,7 +41,7 @@ private:
     // Singleton instance
     static StandardPirates* instance;
     // Private Constructor
-    StandardPirates(Render* render, Textures* tex);
+    StandardPirates(Input* input, Render* render);
     // Private Destructor
     virtual ~StandardPirates();
     // Declare the copy constructor and the assignment operator
@@ -51,8 +52,8 @@ private:
 
 private:
 
+    Input* input;
     Render* render;
-    Textures* tex;
 };
 
 #endif // __STANDARDPIRATES_H__

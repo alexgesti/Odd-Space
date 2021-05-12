@@ -4,16 +4,16 @@
 #include "Enemy.h"
 
 
+class Input;
 class Render;
 class Textures;
-
 
 class DrunkCustomer : public Enemy
 {
 public:
 
     // Get unique instance of the class
-    static DrunkCustomer* GetInstance(Render* render, Textures* tex);
+    static DrunkCustomer* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -40,7 +40,7 @@ private:
     // Singleton instance
     static DrunkCustomer* instance;
     // Private Constructor
-    DrunkCustomer(Render* render, Textures* tex);
+    DrunkCustomer(Input* input, Render* render, Textures* tex);
     // Private Destructor
     virtual ~DrunkCustomer();
     // Declare the copy constructor and the assignment operator
@@ -51,6 +51,7 @@ private:
 
 private:
 
+    Input* input;
     Render* render;
     Textures* tex;
 };

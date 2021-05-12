@@ -4,6 +4,7 @@
 #include "Enemy.h"
 
 
+class Input;
 class Render;
 class Textures;
 
@@ -13,7 +14,7 @@ class MutantRat : public Enemy
 public:
 
     // Get unique instance of the class
-    static MutantRat* GetInstance(Render* render, Textures* tex);
+    static MutantRat* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
 
@@ -40,7 +41,7 @@ private:
     // Singleton instance
     static MutantRat* instance;
     // Private Constructor
-    MutantRat(Render* render, Textures* tex);
+    MutantRat(Input* input, Render* render, Textures* tex);
     // Private Destructor
     virtual ~MutantRat();
     // Declare the copy constructor and the assignment operator
@@ -51,6 +52,7 @@ private:
 
 private:
 
+    Input* input;
     Render* render;
     Textures* tex;
 };

@@ -2,6 +2,7 @@
 
 #include "Log.h"
 
+#include "Input.h"
 #include "Render.h"
 #include "Textures.h"
 
@@ -9,9 +10,9 @@
 
 MutantRat* MutantRat::instance = nullptr;
 // Instance creator
-MutantRat* MutantRat::GetInstance(Render* render, Textures* tex)
+MutantRat* MutantRat::GetInstance(Input* input, Render* render, Textures* tex)
 {
-    instance = new MutantRat(render,tex);
+    instance = new MutantRat(input, render,tex);
     LOG("Returning mutant rat instance");
 
     return instance;
@@ -23,8 +24,9 @@ void MutantRat::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-MutantRat::MutantRat(Render* render, Textures* tex) : Enemy(EnemyType::MUTANTRAT)
+MutantRat::MutantRat(Input* input, Render* render, Textures* tex) : Enemy(EnemyType::MUTANTRAT)
 {
+    this->input = input;
     this->render = render;
     this->tex = tex;
 

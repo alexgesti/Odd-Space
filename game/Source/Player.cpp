@@ -2,9 +2,9 @@
 
 #include "Log.h"
 
+#include "Input.h"
 #include "Render.h"
 #include "Textures.h"
-#include "Input.h"
 
 #include "Collision.h"
 
@@ -167,7 +167,7 @@ bool Player::Update(float dt)
     }
 
     if (inBattle == true)
-    {
+    {      
         currentAnimation = animHeroWalkRight;
         currentAnimation->SetCurrentFrame(1);
         if (infoEntities.info.HP <= 0) deathAnim->Update();
