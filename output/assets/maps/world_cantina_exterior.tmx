@@ -14,6 +14,7 @@
  <tileset firstgid="495" name="Collisions" tilewidth="32" tileheight="32" tilecount="3" columns="3">
   <image source="prop_collsions_v01.png" width="96" height="33"/>
  </tileset>
+ <tileset firstgid="498" source="../../../../Proyecto_2_Assets/Worlds/Dungeon_Exterior_World/collisions.tsx"/>
  <layer id="8" name="Suelo" width="42" height="25">
   <data>
    <tile/>
@@ -2104,9 +2105,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="337"/>
+   <tile gid="337"/>
+   <tile gid="337"/>
    <tile/>
    <tile/>
    <tile/>
@@ -11593,9 +11594,9 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="499"/>
+   <tile gid="499"/>
+   <tile gid="499"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12650,9 +12651,9 @@
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
-   <tile gid="495"/>
+   <tile/>
+   <tile/>
+   <tile/>
    <tile gid="495"/>
    <tile gid="495"/>
    <tile gid="495"/>
