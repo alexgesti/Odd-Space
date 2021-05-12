@@ -5,8 +5,12 @@
   <property name="interactions" type="int" value="13"/>
   <property name="wallLayer" type="int" value="11"/>
  </properties>
- <tileset firstgid="1" source="collisions.tsx"/>
- <tileset firstgid="4" source="prop_dungeon_v01_w.tsx"/>
+ <tileset firstgid="1" name="Collisions" tilewidth="32" tileheight="32" tilecount="3" columns="3">
+  <image source="prop_collsions_v01.png" width="96" height="33"/>
+ </tileset>
+ <tileset firstgid="4" name="Dungeon" tilewidth="32" tileheight="32" tilecount="240" columns="30">
+  <image source="prop_dungeon_v01_w.png" width="960" height="256"/>
+ </tileset>
  <layer id="5" name="Pared" width="42" height="23">
   <data>
    <tile gid="110"/>
