@@ -2,6 +2,7 @@
 
 #include "Log.h"
 
+#include "Input.h"
 #include "Render.h"
 #include "Textures.h"
 
@@ -9,13 +10,10 @@
 
 DrunkCustomer* DrunkCustomer::instance = nullptr;
 // Instance creator
-DrunkCustomer* DrunkCustomer::GetInstance(Render* render, Textures* tex)
+DrunkCustomer* DrunkCustomer::GetInstance(Input* input, Render* render, Textures* tex)
 {
-    if (instance == nullptr)
-    {
-        instance = new DrunkCustomer(render, tex);
-        LOG("Returning drunk customer instance");
-    }
+    instance = new DrunkCustomer(input, render, tex);
+    LOG("Returning drunk customer instance");
 
     return instance;
 }
@@ -26,8 +24,9 @@ void DrunkCustomer::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-DrunkCustomer::DrunkCustomer(Render* render, Textures* tex) : Enemy(EnemyType::DRUNKCUSTOMER)
+DrunkCustomer::DrunkCustomer(Input* input, Render* render, Textures* tex) : Enemy(EnemyType::DRUNKCUSTOMER)
 {
+    this->input = input;
     this->render = render;
     this->tex = tex;
 

@@ -60,6 +60,9 @@
     <ClCompile Include="Source\GuiSlider.cpp">
       <Filter>GuiControl</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StandardPirates.cpp">
+      <Filter>Entities\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="Source\Map.cpp">
       <Filter>Entities</Filter>
     </ClCompile>
@@ -215,6 +218,9 @@
     <ClInclude Include="Source\GuiSlider.h">
       <Filter>GuiControl</Filter>
     </ClInclude>
+    <ClInclude Include="Source\StandardPirates.h">
+      <Filter>Entities\Enemies</Filter>
+    </ClInclude>
     <ClInclude Include="Source\Enemy.h">
       <Filter>Entities\Enemies</Filter>
     </ClInclude>
@@ -323,9 +329,6 @@
     </Filter>
     <Filter Include="Entities\Enemies">
       <UniqueIdentifier>{d2364ebb-34b6-4d31-a6af-b80b2f7d8a57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Entities\Items">
-      <UniqueIdentifier>{66b8da8b-7182-4c06-8e86-f963ea0e73f9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

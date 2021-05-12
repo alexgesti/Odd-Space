@@ -71,16 +71,16 @@ bool Battle::Load()
     buttons.buttonsMenu.buttonBack->SetObserver(this);
 
     //Buttons Skills
-    buttons.buttonsSkills.buttonSkill[0] = new GuiButton(7, { 511, 560, 253, 75 }, "Skill 1", sceneManager->audio);
-    buttons.buttonsSkills.buttonSkill[0]->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill[1] = new GuiButton(8, { 764, 560, 253, 75 }, "Skill 2", sceneManager->audio);
-    buttons.buttonsSkills.buttonSkill[1]->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill[2] = new GuiButton(9, { 1017, 560, 253, 75 }, "Skill 3", sceneManager->audio);
-    buttons.buttonsSkills.buttonSkill[2]->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill[3] = new GuiButton(10, { 511, 635, 253, 75 }, "Skill 4", sceneManager->audio);
-    buttons.buttonsSkills.buttonSkill[3]->SetObserver(this);
-    buttons.buttonsSkills.buttonSkill[4] = new GuiButton(11, { 764, 635, 253, 75 }, "Skill 5", sceneManager->audio);
-    buttons.buttonsSkills.buttonSkill[4]->SetObserver(this);
+    buttons.buttonsSkills.buttonSkill1 = new GuiButton(7, { 511, 560, 253, 75 }, "Skill 1", sceneManager->audio);
+    buttons.buttonsSkills.buttonSkill1->SetObserver(this);
+    buttons.buttonsSkills.buttonSkill2 = new GuiButton(8, { 764, 560, 253, 75 }, "Skill 2", sceneManager->audio);
+    buttons.buttonsSkills.buttonSkill2->SetObserver(this);
+    buttons.buttonsSkills.buttonSkill3 = new GuiButton(9, { 1017, 560, 253, 75 }, "Skill 3", sceneManager->audio);
+    buttons.buttonsSkills.buttonSkill3->SetObserver(this);
+    buttons.buttonsSkills.buttonSkill4 = new GuiButton(10, { 511, 635, 253, 75 }, "Skill 4", sceneManager->audio);
+    buttons.buttonsSkills.buttonSkill4->SetObserver(this);
+    buttons.buttonsSkills.buttonSkill5 = new GuiButton(11, { 764, 635, 253, 75 }, "Skill 5", sceneManager->audio);
+    buttons.buttonsSkills.buttonSkill5->SetObserver(this);
     buttons.buttonsSkills.buttonBack = new GuiButton(12, { 1017, 635, 253, 75 }, "Back", sceneManager->audio);
     buttons.buttonsSkills.buttonBack->SetObserver(this);
 
@@ -92,45 +92,45 @@ bool Battle::Load()
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->position = iPoint(850, 580);
 
-        buttons.buttonsEnemies.buttonEnemy[4] = new GuiButton(17, { 950, 580, 325, 75 }, "Enemy 4", sceneManager->audio);
-        buttons.buttonsEnemies.buttonEnemy[4]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.name;
-        buttons.buttonsEnemies.buttonEnemy[4]->SetObserver(this);
+        buttons.buttonsEnemies.buttonEnemy5 = new GuiButton(17, { 950, 580, 325, 75 }, "Enemy 4", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy5->text = sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.name;
+        buttons.buttonsEnemies.buttonEnemy5->SetObserver(this);
         controllerEnemy[4] = 17;
 
     case 3:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->position = iPoint(850, 490);
 
-        buttons.buttonsEnemies.buttonEnemy[3] = new GuiButton(16, { 950, 490, 325, 75 }, "Enemy 3", sceneManager->audio);
-        buttons.buttonsEnemies.buttonEnemy[3]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.name;
-        buttons.buttonsEnemies.buttonEnemy[3]->SetObserver(this);
+        buttons.buttonsEnemies.buttonEnemy4 = new GuiButton(16, { 950, 490, 325, 75 }, "Enemy 3", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy4->text = sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.name;
+        buttons.buttonsEnemies.buttonEnemy4->SetObserver(this);
         controllerEnemy[3] = 16;
 
     case 2:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->position = iPoint(850, 400);
 
-        buttons.buttonsEnemies.buttonEnemy[2] = new GuiButton(15, { 950, 400, 325, 75 }, "Enemy 2", sceneManager->audio);
-        buttons.buttonsEnemies.buttonEnemy[2]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.name;
-        buttons.buttonsEnemies.buttonEnemy[2]->SetObserver(this);
+        buttons.buttonsEnemies.buttonEnemy3 = new GuiButton(15, { 950, 400, 325, 75 }, "Enemy 2", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy3->text = sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.name;
+        buttons.buttonsEnemies.buttonEnemy3->SetObserver(this);
         controllerEnemy[2] = 15;
 
     case 1:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->position = iPoint(850, 310);
 
-        buttons.buttonsEnemies.buttonEnemy[1] = new GuiButton(14, { 950, 310, 325, 75 }, "Enemy 1", sceneManager->audio);
-        buttons.buttonsEnemies.buttonEnemy[1]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.name;
-        buttons.buttonsEnemies.buttonEnemy[1]->SetObserver(this);
+        buttons.buttonsEnemies.buttonEnemy2 = new GuiButton(14, { 950, 310, 325, 75 }, "Enemy 1", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy2->text = sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.name;
+        buttons.buttonsEnemies.buttonEnemy2->SetObserver(this);
         controllerEnemy[1] = 14;
 
     case 0:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
         sceneManager->entityManager->entities[1].At(totalEnemies)->data->position = iPoint(850, 220);
 
-        buttons.buttonsEnemies.buttonEnemy[0] = new GuiButton(13, { 950, 220, 325, 75 }, "Enemy 0", sceneManager->audio);
-        buttons.buttonsEnemies.buttonEnemy[0]->text = sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.name;
-        buttons.buttonsEnemies.buttonEnemy[0]->SetObserver(this);
+        buttons.buttonsEnemies.buttonEnemy1 = new GuiButton(13, { 950, 220, 325, 75 }, "Enemy 0", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy1->text = sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.name;
+        buttons.buttonsEnemies.buttonEnemy1->SetObserver(this);
         controllerEnemy[0] = 13;
 
     default:
@@ -192,12 +192,14 @@ bool Battle::Update(float dt)
         //Hero Turn
         case 0:
             if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
+            sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
             PlayerMenu(dt);
             break;
 
         //Captain Turn
         case 1:
             if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
+            sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
             PlayerMenu(dt);
             break;
         }
@@ -273,8 +275,6 @@ bool Battle::Update(float dt)
             {
                 actualCharacterAnim = 0;
                 actualEnemyAnim = 0;
-                sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
-                sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
 
                 //Console Read
                 LOG("HP Hero:%d\tHP Captain:%d\n", sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP, sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP);
@@ -301,8 +301,9 @@ bool Battle::Update(float dt)
                 }
                 if (totalEnemiesHP <= 0)
                 {
+                    sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
+                    sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
                     sceneManager->wasBattle = true;
-                    sceneManager->entityManager->CreateEntity(EntityType::ITEM);
                     TransitionToScene(*sceneManager->entityManager->previousScene);
                 }
 
@@ -361,10 +362,32 @@ bool Battle::Draw()
     buttons.buttonsMenu.buttonBack->Draw(sceneManager->render, sceneManager->font);
 
     //Enemy Draw
-    for (int be = 0; be <= totalEnemies; be++)
-        if (sceneManager->entityManager->entities[1].At(totalEnemies - be)->data->infoEntities.info.HP > 0)
-            buttons.buttonsEnemies.buttonEnemy[be]->Draw(sceneManager->render, sceneManager->font);
-    if (chooseMenu == 3) buttons.buttonsEnemies.buttonBack->Draw(sceneManager->render, sceneManager->font);
+    switch (totalEnemies)
+    {
+    case 4:
+        if (sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.HP > 0)
+            buttons.buttonsEnemies.buttonEnemy5->Draw(sceneManager->render, sceneManager->font);
+
+    case 3:
+        if (sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.HP > 0)
+            buttons.buttonsEnemies.buttonEnemy4->Draw(sceneManager->render, sceneManager->font);
+
+    case 2:
+        if (sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.HP > 0)
+            buttons.buttonsEnemies.buttonEnemy3->Draw(sceneManager->render, sceneManager->font);
+
+    case 1:
+        if (sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.HP > 0)
+            buttons.buttonsEnemies.buttonEnemy2->Draw(sceneManager->render, sceneManager->font);
+
+    case 0:
+        if (sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.HP > 0)
+            buttons.buttonsEnemies.buttonEnemy1->Draw(sceneManager->render, sceneManager->font);
+
+    default:
+        if(chooseMenu == 3) buttons.buttonsEnemies.buttonBack->Draw(sceneManager->render, sceneManager->font);
+        break;
+    }
 
     //Draw text aux window
     if (playerMenu == true)
@@ -372,8 +395,11 @@ bool Battle::Draw()
         //Skill Draw
         if (chooseMenu == 2)
         {
-            for (int bs = 0; bs < 5; bs++)
-                buttons.buttonsSkills.buttonSkill[bs]->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill1->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill2->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill3->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill4->Draw(sceneManager->render, sceneManager->font);
+            buttons.buttonsSkills.buttonSkill5->Draw(sceneManager->render, sceneManager->font);
             buttons.buttonsSkills.buttonBack->Draw(sceneManager->render, sceneManager->font);
         }
         //Draw update text
@@ -391,10 +417,10 @@ bool Battle::Draw()
             std::string nameEnemy = sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->infoEntities.info.name.GetString();
             sceneManager->render->DrawText(sceneManager->font, (namePlayer + " has attacked " + nameEnemy).c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
         }
-        else if (actualCharacterAnim == 2 && actualEnemyAnim < totalEnemies + 1)
+        if (actualCharacterAnim == 2 && actualEnemyAnim < totalEnemies + 1)
         {
-            std::string nameEnemy = sceneManager->entityManager->entities[1].At(actualEnemyAnim)->data->infoEntities.info.name.GetString();
             std::string namePlayer = sceneManager->entityManager->entities[0].At(selectedCharacters[actualEnemyAnim])->data->infoEntities.info.name.GetString();
+            std::string nameEnemy = sceneManager->entityManager->entities[1].At(actualEnemyAnim)->data->infoEntities.info.name.GetString();
             sceneManager->render->DrawText(sceneManager->font, (nameEnemy + " has attacked " + namePlayer).c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
         }
     }
@@ -428,21 +454,41 @@ bool Battle::Unload()
     delete buttons.buttonsMenu.buttonBack;
     buttons.buttonsMenu.buttonBack = nullptr;
 
-    for (int bs = 0; bs < 5; bs++)
-    {
-        delete buttons.buttonsSkills.buttonSkill[bs];
-        buttons.buttonsSkills.buttonSkill[bs] = nullptr;
-    }
+    delete buttons.buttonsSkills.buttonSkill1;
+    buttons.buttonsSkills.buttonSkill1 = nullptr;
+    delete buttons.buttonsSkills.buttonSkill2;
+    buttons.buttonsSkills.buttonSkill2 = nullptr;
+    delete buttons.buttonsSkills.buttonSkill3;
+    buttons.buttonsSkills.buttonSkill3 = nullptr;
+    delete buttons.buttonsSkills.buttonSkill4;
+    buttons.buttonsSkills.buttonSkill4 = nullptr;
+    delete buttons.buttonsSkills.buttonSkill5;
+    buttons.buttonsSkills.buttonSkill5 = nullptr;
     delete buttons.buttonsSkills.buttonBack;
     buttons.buttonsSkills.buttonBack = nullptr;
 
-    for (int be = 0; be <= totalEnemies; be++)
+    switch (totalEnemies)
     {
-        delete buttons.buttonsEnemies.buttonEnemy[be];
-        buttons.buttonsEnemies.buttonEnemy[be] = nullptr;
+    case 4:
+        delete buttons.buttonsEnemies.buttonEnemy5;
+        buttons.buttonsEnemies.buttonEnemy5 = nullptr;
+    case 3:
+        delete buttons.buttonsEnemies.buttonEnemy4;
+        buttons.buttonsEnemies.buttonEnemy4 = nullptr;
+    case 2:
+        delete buttons.buttonsEnemies.buttonEnemy3;
+        buttons.buttonsEnemies.buttonEnemy3 = nullptr;
+    case 1:
+        delete buttons.buttonsEnemies.buttonEnemy2;
+        buttons.buttonsEnemies.buttonEnemy2 = nullptr;
+    case 0:
+        delete buttons.buttonsEnemies.buttonEnemy1;
+        buttons.buttonsEnemies.buttonEnemy1 = nullptr;
+    default:
+        delete buttons.buttonsEnemies.buttonBack;
+        buttons.buttonsEnemies.buttonBack = nullptr;
+        break;
     }
-    delete buttons.buttonsEnemies.buttonBack;
-    buttons.buttonsEnemies.buttonBack = nullptr;
     
     if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
@@ -515,12 +561,18 @@ void Battle::PlayerMenu(float dt)
         if (c < 0) c = 2;
 
         //Rename Buttons
-        for (int bs = 0; bs < 5; bs++)
-            buttons.buttonsSkills.buttonSkill[bs]->text = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[bs].name;
+        buttons.buttonsSkills.buttonSkill1->text = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].name;
+        buttons.buttonsSkills.buttonSkill2->text = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].name;
+        buttons.buttonsSkills.buttonSkill3->text = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].name;
+        buttons.buttonsSkills.buttonSkill4->text = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].name;
+        buttons.buttonsSkills.buttonSkill5->text = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].name;
 
         //Update Buttons
-        for (int bs = 0; bs < 5; bs++)
-            buttons.buttonsSkills.buttonSkill[bs]->Update(sceneManager->input, controllerSkill[f][c], dt);
+        buttons.buttonsSkills.buttonSkill1->Update(sceneManager->input, controllerSkill[f][c], dt);
+        buttons.buttonsSkills.buttonSkill2->Update(sceneManager->input, controllerSkill[f][c], dt);
+        buttons.buttonsSkills.buttonSkill3->Update(sceneManager->input, controllerSkill[f][c], dt);
+        buttons.buttonsSkills.buttonSkill4->Update(sceneManager->input, controllerSkill[f][c], dt);
+        buttons.buttonsSkills.buttonSkill5->Update(sceneManager->input, controllerSkill[f][c], dt);
         buttons.buttonsSkills.buttonBack->Update(sceneManager->input, controllerSkill[f][c], dt);
         break;
 
@@ -546,9 +598,32 @@ void Battle::PlayerMenu(float dt)
         }
         
         //Update Buttons
-        for (int be = 0; be <= totalEnemies; be++)
-            buttons.buttonsEnemies.buttonEnemy[be]->Update(sceneManager->input, controllerEnemy[f], dt);
-        buttons.buttonsEnemies.buttonBack->Update(sceneManager->input, controllerEnemy[f], dt);
+        switch (totalEnemies)
+        {
+        case 4:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy5->Update(sceneManager->input, controllerEnemy[f], dt);
+
+        case 3:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy4->Update(sceneManager->input, controllerEnemy[f], dt);
+
+        case 2:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy3->Update(sceneManager->input, controllerEnemy[f], dt);
+
+        case 1:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy2->Update(sceneManager->input, controllerEnemy[f], dt);
+
+        case 0:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy1->Update(sceneManager->input, controllerEnemy[f], dt);
+
+        default:
+            buttons.buttonsEnemies.buttonBack->Update(sceneManager->input, controllerEnemy[f], dt);
+            break;
+        }
         break;
     }
 }
@@ -785,11 +860,34 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         f = -1;
 
         //Update buttons to make them white again
-        for (int be = 0; be <= totalEnemies; be++)
-            buttons.buttonsEnemies.buttonEnemy[be]->Update(sceneManager->input, controllerEnemy[f], 0.016f);
+        switch (totalEnemies)
+        {
+        case 4:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy5->Update(sceneManager->input, controllerEnemy[f], 0.016f);
+
+        case 3:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy4->Update(sceneManager->input, controllerEnemy[f], 0.016f);
+
+        case 2:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy3->Update(sceneManager->input, controllerEnemy[f], 0.016f);
+
+        case 1:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy2->Update(sceneManager->input, controllerEnemy[f], 0.016f);
+
+        case 0:
+            if (sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.HP > 0)
+                buttons.buttonsEnemies.buttonEnemy1->Update(sceneManager->input, controllerEnemy[f], 0.016f);
+        default:
+            buttons.buttonsEnemies.buttonBack->Update(sceneManager->input, controllerEnemy[f], 0.016f);
+            break;
+        }
         f = 0;
         c = 0;
-        break;
+    break;
     }
 
     return true;

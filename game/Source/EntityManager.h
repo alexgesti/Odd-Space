@@ -9,6 +9,7 @@
 
 class Input;
 class Render;
+class Player;
 class Textures;
 
 enum class SceneType;
@@ -46,7 +47,7 @@ public:
 
 public:
 
-	List<Entity*> entities[3];
+	List<Entity*> entities[4];
 
 	float accumulatedTime = 0.0f;
 	float updateMsCycle = 0.0f;

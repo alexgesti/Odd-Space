@@ -71,8 +71,6 @@ public:
         deathAnim->PushBack({ 128, 0, 128, 96 });
     }
 
-    virtual void ResetInstance() {}
-
     virtual bool Update(float dt)
     {
         return true;
@@ -107,6 +105,7 @@ public:
     iPoint prevPos;
     bool transitioning = false;
     bool isPause = false;
+    bool renderable = false;
     bool interacting = false;
     bool inBattle = false;
     bool inConversation = false;

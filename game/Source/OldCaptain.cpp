@@ -2,16 +2,19 @@
 
 #include "Log.h"
 
+#include "Input.h"
 #include "Render.h"
 #include "Textures.h"
+
+#include "Collision.h"
 
 
 
 Captain* Captain::instance = nullptr;
 // Instance creator
-Captain* Captain::GetInstance(Render* render, Textures* tex)
+Captain* Captain::GetInstance(Input* input, Render* render, Textures* tex)
 {
-    if (instance == nullptr) instance = new Captain(render, tex);
+    if (instance == nullptr) instance = new Captain(input, render, tex);
     //else LOG("Returning player instance");
 
     return instance;
@@ -23,8 +26,9 @@ void Captain::ResetInstance()
     instance = nullptr;
 }
 // Constructor
-Captain::Captain(Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
+Captain::Captain(Input* input, Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
 {
+    this->input = input;
     this->render = render;
     this->tex = tex;
 
