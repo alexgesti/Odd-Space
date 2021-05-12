@@ -38686,11 +38686,6 @@
     <property name="interaction" value="circular_lever"/>
    </properties>
   </object>
-  <object id="8" x="1504" y="479.625" width="63.625" height="32.375">
-   <properties>
-    <property name="interaction" value="circular_lever"/>
-   </properties>
-  </object>
   <object id="9" x="896.25" y="928.174" width="63.5" height="31.4091">
    <properties>
     <property name="interaction" value="cross_lever"/>
