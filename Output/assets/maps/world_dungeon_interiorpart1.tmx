@@ -38708,7 +38708,7 @@
   </object>
   <object id="12" x="351.909" y="1088.19" width="191.652" height="31.5909">
    <properties>
-    <property name="interaction" value="door_boss_1"/>
+    <property name="interaction" value="door_boss_2"/>
    </properties>
   </object>
  </objectgroup>
