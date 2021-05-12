@@ -168,6 +168,9 @@ bool Cantina::Update(float dt)
 		{
 			if (sceneManager->collision->currentInteraction == "barman" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 			{
+				// DUNGEON KEY
+				//sceneManager->dungeonKey = true;
+				
 				// If player talks with barman again before talking to old captain
 				if (barmanConv1 && !oldCapConv)
 				{

@@ -7,6 +7,7 @@
 #include "Battle.h"
 #include "Exterior.h"
 #include "PauseMenu.h"
+#include "DungeonExt.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -66,6 +67,8 @@ bool SceneManager::Start()
 	//current = new Cantina(this);
 	//current = new Wc(this);
 	//current = new Exterior(this);
+	//current = new Exterior(this);
+
 	current->Load();
 
 	pause = new PauseMenu(this, audio);
@@ -235,6 +238,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
 		case SceneType::BATTLE: next = new Battle(this); break;
+		case SceneType::DUNGEON_EXT: next = new DungeonExt(this); break;
 		default: break;
 		}
 

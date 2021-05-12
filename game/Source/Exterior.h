@@ -3,6 +3,7 @@
 
 #define BOTTOM_CAMERA_LIMIT -48
 #define TOP_CAMERA_LIMIT 0
+#define UPPER_DOOR 500
 
 #include "Scene.h"
 #include "Font.h"

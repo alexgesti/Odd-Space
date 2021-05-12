@@ -100,6 +100,7 @@
     <ClCompile Include="Source\DialogSystem.cpp" />
     <ClCompile Include="Source\DrunkCustomer.cpp" />
     <ClCompile Include="Source\ElaboratedPlate.cpp" />
+    <ClCompile Include="Source\DungeonExt.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Exterior.cpp" />
     <ClCompile Include="Source\Font.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="Source\CookedPlate.h" />
     <ClInclude Include="Source\DialogSystem.h" />
     <ClInclude Include="Source\ElaboratedPlate.h" />
+    <ClInclude Include="Source\DungeonExt.h" />
     <ClInclude Include="Source\Encrypt.h" />
     <ClInclude Include="Source\Exterior.h" />
     <ClInclude Include="Source\Collision.h" />

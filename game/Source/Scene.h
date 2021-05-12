@@ -12,7 +12,8 @@ enum class SceneType
     CANTINA,
     WC,
     EXTERIOR,
-    BATTLE
+    BATTLE,
+    DUNGEON_EXT,
 };
 
 class Scene

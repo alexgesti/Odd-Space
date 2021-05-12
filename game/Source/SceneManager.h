@@ -83,6 +83,9 @@ public:
 
 	bool wasBattle = false;
 
+	// DUNGEON KEY
+	//bool dungeonKey = false;
+
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;
 

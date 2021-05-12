@@ -62,6 +62,14 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(990, 325);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
+	else if (*sceneManager->previousScene == SceneType::DUNGEON_EXT)
+	{
+		sceneManager->render->camera.x = -32;
+		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
+
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(880, 700);
+		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
+	}
 	else if (sceneManager->wasBattle == true)
 	{
 		sceneManager->render->camera.x = -32;
@@ -205,7 +213,8 @@ bool Exterior::Update(float dt)
 
 	if (map->doorHit)
 	{
-		TransitionToScene(SceneType::CANTINA);
+		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR) TransitionToScene(SceneType::CANTINA);
+		else TransitionToScene(SceneType::DUNGEON_EXT);
 		map->doorHit = false;
 	}
 
