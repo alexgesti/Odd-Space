@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="42" height="23" tilewidth="32" tileheight="32" infinite="0" nextlayerid="20" nextobjectid="4">
  <properties>
-  <property name="doorLayer" type="int" value="10"/>
-  <property name="interactions" type="int" value="13"/>
-  <property name="wallLayer" type="int" value="11"/>
+  <property name="doorLayer" type="int" value="3"/>
+  <property name="wallLayer" type="int" value="4"/>
  </properties>
  <tileset firstgid="1" name="Collisions" tilewidth="32" tileheight="32" tilecount="3" columns="3">
   <image source="prop_collsions_v01.png" width="96" height="33"/>
