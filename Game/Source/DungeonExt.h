@@ -1,7 +1,7 @@
 #ifndef __DUNGEONEXT_H__
 #define __DUNGEONEXT_H__
 
-#define BOTTOM_CAMERA_LIMIT 0
+#define BOTTOM_CAMERA_LIMIT -16
 #define TOP_CAMERA_LIMIT 0
 #define UPPER_DOOR 512
 

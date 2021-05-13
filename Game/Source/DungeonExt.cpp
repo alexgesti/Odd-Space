@@ -44,12 +44,12 @@ bool DungeonExt::Load()
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 	// When DUNGEON F1 Ready change CANTINA TO DUNGEON
-	else if (*sceneManager->previousScene == SceneType::CANTINA)
+	else if (*sceneManager->previousScene == SceneType::DUNGEON_F1)
 	{
 		sceneManager->render->camera.x = -32;
 		sceneManager->render->camera.y = 0;
 
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(656, 390);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(656, 400);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 	else if (sceneManager->wasBattle == true)
@@ -111,7 +111,7 @@ bool DungeonExt::Update(float dt)
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
 		// Añadir feedback text y X button
 		sceneManager->audio->PlayFx(stairsFx);
-		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR)) TransitionToScene(SceneType::CANTINA);
+		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR)) TransitionToScene(SceneType::DUNGEON_F1);
 		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y > UPPER_DOOR) TransitionToScene(SceneType::EXTERIOR);
 
 		map->doorHit = false;

@@ -9,6 +9,7 @@
 #include "PauseMenu.h"
 #include "DungeonExt.h"
 #include "DungeonF1.h"
+#include "DungeonF2.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -70,9 +71,10 @@ bool SceneManager::Start()
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
-	//current = new Exterior(this);
-	current = new DungeonF1(this);
-	currentscenetype = SceneType::DUNGEON_F1;
+	current = new Exterior(this);
+	//current = new DungeonF1(this);
+	//current = new DungeonF2(this);
+	currentscenetype = SceneType::DUNGEON_EXT;
 	current->Load();
 
 	pause = new PauseMenu(this, audio);
@@ -244,6 +246,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::BATTLE: next = new Battle(this); break;
 		case SceneType::DUNGEON_EXT: next = new DungeonExt(this); break;
 		case SceneType::DUNGEON_F1: next = new DungeonF1(this); break;
+		case SceneType::DUNGEON_F2: next = new DungeonF2(this); break;
 		default: break;
 		}
 

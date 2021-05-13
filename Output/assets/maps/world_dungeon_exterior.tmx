@@ -2922,6 +2922,9 @@
   </data>
  </layer>
  <layer id="15" name="Collisions_Door" width="42" height="23">
+  <properties>
+   <property name="drawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>
@@ -3892,6 +3895,9 @@
   </data>
  </layer>
  <layer id="16" name="Collisions_Wall" width="42" height="23">
+  <properties>
+   <property name="drawable" type="int" value="0"/>
+  </properties>
   <data>
    <tile/>
    <tile/>

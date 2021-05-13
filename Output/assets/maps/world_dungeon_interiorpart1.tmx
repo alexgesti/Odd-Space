@@ -14,9 +14,6 @@
  <tileset firstgid="241" name="prop_collsions_v01" tilewidth="32" tileheight="32" tilecount="3" columns="3">
   <image source="prop_collsions_v01.png" width="96" height="33"/>
  </tileset>
- <tileset firstgid="244" name="collisions" tilewidth="32" tileheight="32" tilecount="3" columns="3">
-  <image source="prop_collsions_v01.png" width="96" height="33"/>
- </tileset>
  <layer id="8" name="Suelo" width="92" height="70">
   <data>
    <tile/>
@@ -33583,8 +33580,8 @@
    <tile/>
    <tile/>
    <tile gid="243"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile gid="243"/>
    <tile/>
    <tile/>
@@ -34852,8 +34849,8 @@
    <tile/>
    <tile/>
    <tile gid="243"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile gid="243"/>
    <tile/>
    <tile/>
@@ -34890,8 +34887,8 @@
    <tile/>
    <tile/>
    <tile gid="243"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile gid="243"/>
    <tile/>
    <tile/>
@@ -35387,12 +35384,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile/>
    <tile/>
    <tile/>
@@ -36675,12 +36672,12 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
-   <tile gid="246"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile/>
    <tile/>
    <tile/>

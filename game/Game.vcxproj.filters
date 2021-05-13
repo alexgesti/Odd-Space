@@ -129,6 +129,9 @@
     <ClCompile Include="Source\DungeonF1.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\DungeonF2.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -304,6 +307,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\DungeonF1.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\DungeonF2.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

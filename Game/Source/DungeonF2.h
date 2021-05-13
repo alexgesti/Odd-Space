@@ -1,12 +1,9 @@
-#ifndef __DUNGEONF1_H__
-#define __DUNGEONF1_H__
+#ifndef __DUNGEONF2_H__
+#define __DUNGEONF2_H__
 
-#define BOTTOM_CAMERA_LIMIT -1520
-#define TOP_CAMERA_LIMIT -257
-#define RIGHT_CAMERA_LIMIT -1664
-#define LEFT_CAMERA_LIMIT 0
-#define HORIZONTAL_DOOR 1536
-#define END_DOOR 960
+#define BOTTOM_CAMERA_LIMIT -1104
+#define TOP_CAMERA_LIMIT 0
+#define UPPER_DOOR 512
 
 #include "Scene.h"
 #include "Font.h"
@@ -16,14 +13,14 @@ class Map;
 
 class SceneManager;
 
-class DungeonF1 : public Scene
+class DungeonF2 : public Scene
 {
 public:
 
     // Constructor
-    DungeonF1(SceneManager* sceneManager);
+    DungeonF2(SceneManager* sceneManager);
     // Destructor
-    virtual ~DungeonF1();
+    virtual ~DungeonF2();
 
 
     // Load this scene
@@ -41,6 +38,7 @@ public:
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
+
     int stairsFx;
 
 private:
@@ -52,4 +50,4 @@ private:
 };
 
 
-#endif // !__DUNGEONF1_H__
+#endif // !__DUNGEONF2_H__
