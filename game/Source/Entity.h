@@ -106,7 +106,6 @@ public:
     iPoint position;        // Use a float instead?
     iPoint prevPos;
     bool transitioning = false;
-    bool isPause = false;
     bool interacting = false;
     bool inBattle = false;
     bool inConversation = false;

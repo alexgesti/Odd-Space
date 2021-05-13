@@ -15,13 +15,13 @@ public:
     virtual ~GuiButton();
 
     bool Update(Input* input, int buttonSelected, float dt);
-    bool Draw(Render* render, Font* font, bool camera = true);
+    bool Draw(Render* render, Font* font);
 
 private:
 
     // Gui Button specific properties
     // Maybe some animation properties for state change?
-    int selected = 0;
+    int hover = 0;
     int press = 0;
     int unavaliable = 0;
     bool soundReproduced = true;

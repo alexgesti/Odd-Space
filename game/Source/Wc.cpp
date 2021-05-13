@@ -57,8 +57,6 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	}
 
 	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/world_toilet_fx.wav");
-	
-
 
 	//map = new Map(tex);
 

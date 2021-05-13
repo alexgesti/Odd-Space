@@ -7,7 +7,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, Audio* audio)
     this->id = id;
     this->audio = audio;
 
-    selected = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
+    hover = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
     unavaliable = audio->LoadFx("Assets/Audio/Fx/unavaliable_ui.wav");
     press = audio->LoadFx("Assets/Audio/Fx/press_ui.wav");
 }
@@ -20,77 +20,71 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 {
     GamePad& pad = input->pads[0];
 
-    if (state != GuiControlState::DISABLED)
+    /*int mouseX, mouseY;
+    input->GetMousePosition(mouseX, mouseY);
+
+    // Check collision between mouse and button bounds
+    if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
+        (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
     {
-        int mouseX, mouseY;
-        input->GetMousePosition(mouseX, mouseY);
-
-        // Check collision between mouse and button bounds
-       /* if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
-            (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
+        buttonSelected = id;
+        
+        state = GuiControlState::FOCUSED;
+         
+        if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
         {
-            buttonSelected = id;
-            
-            state = GuiControlState::FOCUSED;
-             
-            if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_REPEAT)
-            {
-                state = GuiControlState::PRESSED;
-            }
-
-            // If mouse button pressed -> Generate event!
-            if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
-            {
-                NotifyObserver();
-            }
-        }*/
-        if (id == buttonSelected)
-        {
-            state = GuiControlState::FOCUSED;
-
-            if (soundReproduced == false)
-            {
-                audio->PlayFx(selected);
-                soundReproduced = true;
-            }
-
-            if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
-            {
-                state = GuiControlState::PRESSED;
-                audio->PlayFx(press);
-                soundReproduced = true;
-            }
-
-            if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT && state == GuiControlState::DISABLED || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && state == GuiControlState::DISABLED)
-            {
-                state = GuiControlState::DISABLED;
-                audio->PlayFx(unavaliable);
-                soundReproduced = true;
-            }
-
-            // If mouse button pressed -> Generate event!
-            if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
-            {
-                NotifyObserver();
-                audio->PlayFx(selected);
-            }
+            state = GuiControlState::PRESSED;
         }
-        else
+
+        // If mouse button pressed -> Generate event!
+        if (input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KEY_UP)
         {
-            state = GuiControlState::NORMAL;
-            soundReproduced = false;
+            NotifyObserver();
         }
+    }*/
+
+    if (id == buttonSelected)
+    {
+        if (state != GuiControlState::DISABLED) state = GuiControlState::FOCUSED;
+
+        if (soundReproduced == false)
+        {
+            audio->PlayFx(hover);
+            soundReproduced = true;
+        }
+
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
+        {
+            if (state == GuiControlState::DISABLED) audio->PlayFx(unavaliable);
+            else state = GuiControlState::PRESSED;
+        }
+
+        // If mouse button pressed -> Generate event!
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP && state == GuiControlState::DISABLED)
+        {
+            NotifyObserver();
+            audio->PlayFx(press);
+        }
+    }
+    else
+    {
+        if (state != GuiControlState::DISABLED) state = GuiControlState::NORMAL;
+        soundReproduced = false;
     }
 
     return false;
 }
 
-bool GuiButton::Draw(Render* render, Font* font, bool camera)
+bool GuiButton::Draw(Render* render, Font* font)
 {
     // Draw the right button depending on state
     switch (state)
     {
-    case GuiControlState::DISABLED: render->DrawRectangle(bounds, 0, 0, 100, 255, true, camera);
+    case GuiControlState::DISABLED: 
+        if (font != nullptr)
+        {
+            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 100, 100, 100, 255 });
+        }
         break;
     case GuiControlState::NORMAL:
         if (font != nullptr)

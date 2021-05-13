@@ -43,8 +43,6 @@ private:
     SceneManager* sceneManager;
 
     int wcFx;
-
-
 };
 
 #endif // __WC_H__
