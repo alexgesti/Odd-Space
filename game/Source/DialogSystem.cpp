@@ -67,6 +67,9 @@ bool DialogueSystem::Update(float dt)
 			else if (currentNode->lastSentence)
 			{
 				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
+				// Añadimos la opción 0 porque es la única que hay
+				if (currentNode->dialogueOptions.at(0)->notRepeat == true)
+					completedDialoguesId.Add(id);
 				inConversation = false;
 			}
 
@@ -203,6 +206,7 @@ void DialogueSystem::PerformDialogue(int treeId)
 				// trigger event if needed and stop conversation
 				if (currentNode->dialogueOptions[playerInput]->returnCode == 1) triggerEvent = true;
 				inConversation = false;
+				if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
 				break;
 			}
 
@@ -268,6 +272,7 @@ bool DialogueSystem::LoadOptions(pugi::xml_node& response, DialogueNode* answers
 		selection->text.assign(option.attribute("option").as_string());
 		selection->nextNode = option.attribute("nextNode").as_int();
 		selection->returnCode = option.attribute("returnCode").as_int();
+		selection->notRepeat = option.attribute("notRepeat").as_int();
 		answers->dialogueOptions.push_back(selection);
 		answers->answersList.Add((option.attribute("option").as_string()));
 	}
@@ -302,6 +307,7 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 		case 1:
 			playerInput = 0;
 			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+			if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
 			PerformDialogue(id);
 
 			nextSentence = true;
@@ -309,6 +315,7 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 		case 2:
 			playerInput = 1;
 			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+			if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
 			PerformDialogue(id);
 
 			nextSentence = true;
@@ -316,6 +323,7 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 		case 3:
 			playerInput = 2;
 			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+			if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
 			PerformDialogue(id);
 
 			nextSentence = true;

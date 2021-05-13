@@ -47,6 +47,7 @@ private:
     bool flagMoving = false;
     iPoint posCrazyMan = { 16 * 32 - 16, 20 * 32 - 52 };
     bool crazyManTalking = false;
+    bool crazyManExists = true;
     // ------------------------------- //
     
     // ----- ANIMATION SETS ----- //

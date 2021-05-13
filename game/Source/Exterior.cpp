@@ -94,11 +94,26 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
-	if (!sceneManager->initialTextSaid)
+	if (!sceneManager->initialExtTextSaid)
 	{
-		sceneManager->dialogueSystem->SetConversation(0);
-		sceneManager->dialogueSystem->inConversation = true;
-		sceneManager->initialTextSaid = true;
+		bool alreadySaid = false;
+		for (int i = 0; i < sceneManager->dialogueSystem->completedDialoguesId.Count(); i++)
+		{
+			if (sceneManager->dialogueSystem->completedDialoguesId.At(i)->data == 0)
+			{
+				alreadySaid = true;
+				break;
+			}
+		}
+
+		if (!alreadySaid)
+		{
+			sceneManager->dialogueSystem->SetConversation(0);
+			sceneManager->dialogueSystem->inConversation = true;
+			sceneManager->dialogueSystem->completedDialoguesId.Add(0);
+		}
+
+		sceneManager->initialExtTextSaid = true;
 	}
 
 	//map = new Map(tex);
@@ -129,6 +144,8 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 	//player = new Player();
 	//player->position = iPoint(200, 400);
 
+	if (sceneManager->dialogueSystem->completedDialoguesId.Find(1) != -1) crazyManExists = false;
+
 	return false;
 }
 
@@ -157,7 +174,7 @@ bool Exterior::Update(float dt)
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
 
-	if (sceneManager->collision->currentInteraction != '/0' && sceneManager->crazyManActive == true)
+	if (sceneManager->collision->currentInteraction != '/0' && crazyManExists)
 	{
 
 		SDL_Rect playerRect;
@@ -191,8 +208,8 @@ bool Exterior::Update(float dt)
 	if (sceneManager->dialogueSystem->currentNode->nodeId == 12)
 	{
 		flagMoving = true;
-		sceneManager->crazyManActive = false;
 	}
+
 	if (sceneManager->dialogueSystem->inConversation == false)
 	{
 		crazyManTalking = false;
@@ -223,7 +240,7 @@ bool Exterior::Update(float dt)
 
 	if (sceneManager->collision->currentInteraction != '/0')
 	{
-		if (sceneManager->collision->currentInteraction == "crazyman")
+		if (sceneManager->collision->currentInteraction == "crazyman" && crazyManExists)
 		{
 			if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting == true)
 			{
@@ -259,7 +276,7 @@ bool Exterior::Update(float dt)
 		}
 		else
 		{
-			sceneManager->crazyManDrawable = false;
+			crazyManExists = false;
 		}
 	}
 
@@ -275,7 +292,7 @@ bool Exterior::Draw()
 	map->Draw(sceneManager->render);
 
 	//player->Draw(render);
-	if (sceneManager->crazyManActive == true || sceneManager->crazyManDrawable == true)
+	if (crazyManExists)
 	{
 		SDL_Rect rect = currentAnimation->GetCurrentFrame();
 		sceneManager->render->DrawTexture(texCrazyManCantina, posCrazyMan.x, posCrazyMan.y, &rect);

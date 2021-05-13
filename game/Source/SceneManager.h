@@ -72,8 +72,6 @@ public:
 
 	bool gameIsWorking = true;
 
-	bool initialTextSaid = false;
-
 	bool newgamerequested = false;
 	bool currentgamerequested = false;
 	bool saverequested = false;
@@ -86,10 +84,8 @@ public:
 
 	// DUNGEON KEY
 	//bool dungeonKey = false;
-
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;
-
 
 	//sounds
 	int doorClose;
@@ -97,6 +93,9 @@ public:
 	
 	int volumeMusic;
 	int volumeFx;
+
+	// --- SCENE-SPECIFIC VARIABLES --- //
+	bool initialExtTextSaid = false;
 
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)

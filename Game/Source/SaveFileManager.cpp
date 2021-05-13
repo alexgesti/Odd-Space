@@ -97,16 +97,50 @@ bool SaveFileManager::LoadGame()
 
 		sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP = node.child("entitymanager").child("Captain").attribute("hp").as_int();
 
+		if (ret == true)
+		{
+			LOG("...finished loading");
+		}
 
+		LoadDialogueFile();
+	}
+	else LOG("Could not load game state xml file savegame.xml. pugi error: %s", result.description());
+
+	savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
+
+	return ret;
+}
+
+bool SaveFileManager::LoadDialogueFile()
+{
+	bool ret = false;
+
+	pugi::xml_document file;
+	pugi::xml_parse_result result = file.load_file("save_completed_dialogues.xml");
+
+	if (result != NULL)
+	{
+		LOG("Loading completed dialogues from save_completed_dialogues.xml...");
+		ret = true;
+
+		pugi::xml_node node = file.child("Saved_dialogues");
+
+		pugi::xml_node dialogue;
+		for (dialogue = node.child("Dialogue"); dialogue && ret; dialogue = dialogue.next_sibling("Dialogue"))
+		{
+			sceneManager->dialogueSystem->completedDialoguesId.Add(dialogue.attribute("Id").as_int());
+		}
+
+		// Initial exterior dialogue
+		//if (sceneManager->dialogueSystem->completedDialoguesId.Find(0) != -1) sceneManager->initialExtTextSaid = true;
 
 		if (ret == true)
 		{
 			LOG("...finished loading");
 		}
 	}
-	else LOG("Could not load game state xml file savegame.xml. pugi error: %s", result.description());
 
-	savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
+	else LOG("Could not load completed dialogues xml file Saved_dialogues.xml. pugi error: %s", result.description());
 
 	return ret;
 }
@@ -151,8 +185,43 @@ bool SaveFileManager::SaveGame() const
 	}
 	else LOG("... finished saving");
 
+	SaveDialogueFile();
+
 	savedgame.Clear();
 	savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
+
+	return ret;
+}
+
+bool SaveFileManager::SaveDialogueFile() const
+{
+	bool ret = true;
+
+	LOG("Saving Game State to save_completed_dialogues.xml");
+
+	pugi::xml_document file;
+	pugi::xml_node base = file.append_child("Saved_dialogues");
+
+	// Save dialogue IDs
+	ListItem<int>* item;
+	item = sceneManager->dialogueSystem->completedDialoguesId.start;
+
+	int i = 0;
+
+	while (item != NULL)
+	{
+		pugi::xml_node dialogue = base.append_child("Dialogue");
+		dialogue.append_attribute("Id") = sceneManager->dialogueSystem->completedDialoguesId.At(i)->data;
+		item = item->next;
+		i++;
+	}
+
+	bool succ = file.save_file("save_completed_dialogues.xml");
+	if (succ != true)
+	{
+		LOG("File save error. pugi error: %d", pugi::status_internal_error);
+	}
+	else LOG("... finished saving");
 
 	return ret;
 }

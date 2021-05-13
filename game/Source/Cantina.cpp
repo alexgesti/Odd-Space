@@ -123,6 +123,9 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 	//player = new Player();
 	//player->position = iPoint(200, 400);
 
+	if (sceneManager->dialogueSystem->completedDialoguesId.Find(2) != -1) barmanConv1 = true;
+	if (sceneManager->dialogueSystem->completedDialoguesId.Find(4) != -1) oldCapConv = true;
+
 	return false;
 }
 
@@ -201,7 +204,7 @@ bool Cantina::Update(float dt)
 				barmanConv1 = true;
 			}
 
-			if (sceneManager->collision->currentInteraction == "captain" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			if (sceneManager->collision->currentInteraction == "captain" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect) && !oldCapConv)
 			{
 				sceneManager->dialogueSystem->SetConversation(4);
 				sceneManager->dialogueSystem->inConversation = true;
@@ -225,6 +228,9 @@ bool Cantina::Update(float dt)
 
 		// If we are not in conversation, draw X
 		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
+
+		// If we already talked with old captain and we are trying to interact with him
+		if (sceneManager->collision->currentInteraction == "captain" && oldCapConv && sceneManager->toDrawX) sceneManager->toDrawX = false;
 	}
 
 	// If there's no interaction and X is being drawn, stop drawing it

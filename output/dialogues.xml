@@ -47,7 +47,7 @@
         <dialogue option="X" returnCode="0" nextNode="13"/> 
     </node>
     <node text="All right, nice, he just... never mind, we're not seeing him again." id="13" hasOptions="false" lastSentence="true" name="Ray">
-        <dialogue option="." returnCode="0" nextNode="1"/> 
+        <dialogue option="." returnCode="0" nextNode="1" notRepeat="1"/> 
     </node>
  </dialogue>
   
@@ -94,7 +94,7 @@
          <dialogue option="X" returnCode="0" nextNode="27"/> 
     </node>
     <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then." id="27" hasOptions="false" lastSentence="true" name="Ray">
-         <dialogue option="." returnCode="0" nextNode="1"/> 
+         <dialogue option="." returnCode="0" nextNode="1" notRepeat="1"/> 
     </node>
 </dialogue>
   
@@ -178,7 +178,7 @@
          <dialogue option="X" returnCode="0" nextNode="52"/> 
     </node>
 <node text="Okay, come back after I finish my drinks so I can give you the map for the first item." id="52" hasOptions="false" lastSentence="true" name="Legendary Pirate">
-         <dialogue option="." returnCode="0" nextNode="1"/> 
+         <dialogue option="." returnCode="0" nextNode="1" notRepeat="1"/> 
     </node>
   </dialogue>
   

@@ -69,13 +69,14 @@ bool SceneManager::Start()
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex, audio);
 	current = new Title(this);
-	currentscenetype = SceneType::TITLE;
+	//currentscenetype = SceneType::TITLE;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
 	//current = new Exterior(this);
 	//current = new DungeonF1(this);
 	//current = new DungeonF2(this);
+	currentscenetype = SceneType::TITLE;
 	current->Load();
 
 	options = new OptionsMenu(this);
@@ -83,6 +84,7 @@ bool SceneManager::Start()
 	pause->Load();
 
 	dialogueSystem->speak = speak;
+	dialogueSystem->GetObserver(current);
 	next = nullptr;
 
 	return true;

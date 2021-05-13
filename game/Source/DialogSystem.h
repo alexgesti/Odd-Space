@@ -12,6 +12,7 @@
 #include "Input.h"
 #include "Audio.h"
 #include "GuiButton.h"
+#include "DynArray.h"
 
 #include "SDL/include/SDL.h"
 
@@ -32,6 +33,7 @@ public:
 	string text;
 	int returnCode;
 	int nextNode;
+	int notRepeat;
 };
 
 class DialogueNode
@@ -100,6 +102,9 @@ public:
 	bool triggerEvent = false;
 
 	DialogueNode* currentNode;
+
+	//DynArray<int> completedDialoguesId;
+	List<int> completedDialoguesId;
 	
 private:
 

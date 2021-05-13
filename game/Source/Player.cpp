@@ -162,7 +162,7 @@ bool Player::Update(float dt)
             if (currentAnimation != animHeroWalkDown) currentAnimation = animHeroWalkDown;
         }
 
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) interacting = true;
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) interacting = true;
         else interacting = false;
     }
 

@@ -28,6 +28,9 @@ public:
 	bool LoadGame();
 	bool SaveGame() const;
 
+	bool SaveDialogueFile() const;
+	bool LoadDialogueFile();
+
 private:
 
 	SceneManager* sceneManager;
