@@ -63,6 +63,7 @@ public:
 	Scene* next;
 	Scene* pause;
 	Scene* options;
+	Scene* items;
 
 	Font* font;
 

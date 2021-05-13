@@ -8,6 +8,7 @@
 #include "Exterior.h"
 #include "PauseMenu.h"
 #include "OptionsMenu.h"
+#include "ItemsMenu.h"
 #include "DungeonExt.h"
 #include "DungeonF1.h"
 #include "DungeonF2.h"
@@ -69,7 +70,6 @@ bool SceneManager::Start()
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex, audio);
 	current = new Title(this);
-	//currentscenetype = SceneType::TITLE;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
@@ -80,6 +80,7 @@ bool SceneManager::Start()
 	current->Load();
 
 	options = new OptionsMenu(this);
+	items = new ItemsMenu(this);
 	pause = new PauseMenu(this);
 	pause->Load();
 
@@ -152,8 +153,7 @@ bool SceneManager::Update(float dt)
 			entityManager->CreateEntity(EntityType::HERO)->transitioning = !entityManager->CreateEntity(EntityType::HERO)->transitioning;
 		}
 
-		if (isPause)
-			pause->Update(dt);
+		if (isPause) pause->Update(dt);
 		else
 		{
 			if (pauseMusicFaded)
@@ -280,6 +280,7 @@ bool SceneManager::CleanUp()
 
 	pause->Unload();
 	options->Unload();
+	items->Unload();
 
 	tex->UnLoad(xMark);
 

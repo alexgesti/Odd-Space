@@ -55,6 +55,15 @@ bool PauseMenu::Update(float dt)
         }
         else sceneManager->options->Update(dt);
     }
+    else if (openItems)
+    {
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
+            openItems = false;
+            sceneManager->items->Unload();
+        }
+        else sceneManager->items->Update(dt);
+    }
     else
     {
         if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
@@ -94,6 +103,7 @@ bool PauseMenu::Draw()
     buttonLoad->Draw(sceneManager->render, sceneManager->font);
 
     if (openOptions) sceneManager->options->Draw();
+    if (openItems) sceneManager->items->Draw();
 
     return true;
 }
@@ -103,6 +113,7 @@ bool PauseMenu::Unload()
     sceneManager->tex->UnLoad(pause);
 
     if (openOptions) sceneManager->options->Unload();
+    if (openItems) sceneManager->items->Unload();
 
     delete buttonItems;
     buttonItems = nullptr;
@@ -128,6 +139,8 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
+        sceneManager->items->Load();
+        openItems = true;
         break;
     case 2: 
         break;

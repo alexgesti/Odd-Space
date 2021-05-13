@@ -111,6 +111,7 @@
     <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\GuiSlider.cpp" />
+    <ClCompile Include="Source\ItemsMenu.cpp" />
     <ClCompile Include="Source\Jug.cpp" />
     <ClCompile Include="Source\LargeRawMeat.cpp" />
     <ClCompile Include="Source\Logo.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\GuiSlider.h" />
     <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\ItemsMenu.h" />
     <ClInclude Include="Source\Jug.h" />
     <ClInclude Include="Source\LargeRawMeat.h" />
     <ClInclude Include="Source\Logo.h" />

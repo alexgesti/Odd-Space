@@ -1,6 +1,8 @@
 #ifndef __ITEMSMENU_H__
 #define __ITEMSMENU_H__
 
+#define MAX_ITEMS 10
+
 #include "Scene.h"
 #include "GuiButton.h"
 
@@ -36,7 +38,9 @@ private:
     SceneManager* sceneManager;
 
     int f;
-    int buttonItems[4] = { 1, 2, 3, 4 };
+    int buttonItems[MAX_ITEMS];
+
+    GuiButton* itemsButtons[MAX_ITEMS];
 
     SDL_Texture* itemsText;
 };

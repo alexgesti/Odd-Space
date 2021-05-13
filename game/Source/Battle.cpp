@@ -180,6 +180,8 @@ bool Battle::Update(float dt)
 {
     bool ret = false;
 
+    GamePad& pad = sceneManager->input->pads[0];
+
     //Evitar el free movement del player
     sceneManager->entityManager->entities[0].At(0)->data->transitioning = true;
 
@@ -192,12 +194,18 @@ bool Battle::Update(float dt)
         case 0:
             if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
             PlayerMenu(dt);
+
+            if (openItems) sceneManager->items->Update(dt);
+
             break;
 
         //Captain Turn
         case 1:
             if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
             PlayerMenu(dt);
+
+            if (openItems) sceneManager->items->Update(dt);
+
             break;
         }
     }
@@ -398,6 +406,8 @@ bool Battle::Draw()
         }
     }
 
+    if (openItems) sceneManager->items->Draw();
+
     return false;
 }
 
@@ -408,6 +418,8 @@ bool Battle::Unload()
     sceneManager->entityManager->entities[1].Clear();
 
     sceneManager->tex->UnLoad(UI);
+
+    if (openItems) sceneManager->items->Unload();
 	
 	map->Unload();
     delete map;
@@ -674,6 +686,8 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
         case 4:
             //Items
+            sceneManager->items->Load();
+            openItems = true;
             break;
 
         case 5:

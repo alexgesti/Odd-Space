@@ -97,6 +97,8 @@ private:
     int actualCharacterAnim;
     int actualEnemyAnim;
 
+    bool openItems = false;
+
     //UI Controller
     int chooseMenu;
     int f;
