@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.4" tiledversion="1.4.2" orientation="orthogonal" renderorder="right-down" width="92" height="70" tilewidth="32" tileheight="32" infinite="0" nextlayerid="25" nextobjectid="13">
+ <editorsettings>
+  <export target="world_dungeon_interiorpart1.tmx" format="tmx"/>
+ </editorsettings>
  <properties>
   <property name="doorLayer" type="int" value="3"/>
   <property name="interactions" type="int" value="6"/>
@@ -11,7 +14,9 @@
  <tileset firstgid="241" name="prop_collsions_v01" tilewidth="32" tileheight="32" tilecount="3" columns="3">
   <image source="prop_collsions_v01.png" width="96" height="33"/>
  </tileset>
- <tileset firstgid="244" source="../../../../Proyecto_2_Assets/Worlds/Dungeon_InteriorPart2_World/collisions.tsx"/>
+ <tileset firstgid="244" name="collisions" tilewidth="32" tileheight="32" tilecount="3" columns="3">
+  <image source="prop_collsions_v01.png" width="96" height="33"/>
+ </tileset>
  <layer id="8" name="Suelo" width="92" height="70">
   <data>
    <tile/>
