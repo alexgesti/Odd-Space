@@ -53,6 +53,8 @@ Exterior::~Exterior()
 
 bool Exterior::Load() /*EntityManager entityManager)*/
 {
+	sceneManager->audio->PlayFx(sceneManager->doorClose);
+
 
 	if (*sceneManager->previousScene == SceneType::CANTINA)
 	{
@@ -213,6 +215,7 @@ bool Exterior::Update(float dt)
 
 	if (map->doorHit)
 	{
+		sceneManager->audio->PlayFx(sceneManager->doorOpen);
 		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR) TransitionToScene(SceneType::CANTINA);
 		else TransitionToScene(SceneType::DUNGEON_EXT);
 		map->doorHit = false;

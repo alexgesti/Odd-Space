@@ -1,25 +1,26 @@
-#ifndef __WC_H__
-#define __WC_H__
+#ifndef __DUNGEONF2_H__
+#define __DUNGEONF2_H__
 
-#define BOTTOM_CAMERA_LIMIT -1100
-#define TOP_CAMERA_LIMIT 1000
+#define BOTTOM_CAMERA_LIMIT -1104
+#define TOP_CAMERA_LIMIT 0
+#define UPPER_DOOR 512
 
 #include "Scene.h"
 #include "Font.h"
-#include "Point.h"
+#include "Animation.h"
 
 class Map;
 
 class SceneManager;
 
-class Wc : public Scene
+class DungeonF2 : public Scene
 {
 public:
 
     // Constructor
-    Wc(SceneManager* sceneManager);
+    DungeonF2(SceneManager* sceneManager);
     // Destructor
-    virtual ~Wc();
+    virtual ~DungeonF2();
 
 
     // Load this scene
@@ -37,14 +38,16 @@ public:
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
+
+    int stairsFx;
+
 private:
+
     Map* map;
 
     SceneManager* sceneManager;
 
-    int wcFx;
-
-
 };
 
-#endif // __WC_H__
+
+#endif // !__DUNGEONF2_H__

@@ -8,6 +8,8 @@
 #include "Exterior.h"
 #include "PauseMenu.h"
 #include "DungeonExt.h"
+#include "DungeonF1.h"
+#include "DungeonF2.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -58,16 +60,21 @@ bool SceneManager::Start()
 	dialogueSystem->speak = speak;
 	xMark = tex->Load("assets/sprites/UI/X_mark.png");
 
+	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
+	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
+
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex, audio);
-	current = new Title(this, audio);
-	currentscenetype = SceneType::TITLE;
+	//current = new Title(this, audio);
+	//currentscenetype = SceneType::TITLE;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
-	//current = new Exterior(this);
-
+	current = new Exterior(this);
+	//current = new DungeonF1(this);
+	//current = new DungeonF2(this);
+	currentscenetype = SceneType::DUNGEON_EXT;
 	current->Load();
 
 	pause = new PauseMenu(this, audio);
@@ -238,6 +245,8 @@ bool SceneManager::Update(float dt)
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
 		case SceneType::BATTLE: next = new Battle(this); break;
 		case SceneType::DUNGEON_EXT: next = new DungeonExt(this); break;
+		case SceneType::DUNGEON_F1: next = new DungeonF1(this); break;
+		case SceneType::DUNGEON_F2: next = new DungeonF2(this); break;
 		default: break;
 		}
 
@@ -267,6 +276,9 @@ bool SceneManager::CleanUp()
 	if (current != nullptr) current->Unload();
 
 	tex->UnLoad(xMark);
+	audio->UnloadFx(doorClose);
+	audio->UnloadFx(doorOpen);
+
 
 	return true;
 }

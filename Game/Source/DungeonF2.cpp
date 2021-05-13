@@ -1,4 +1,4 @@
-#include "DungeonExt.h"
+#include "DungeonF2.h"
 
 #include "SceneManager.h"
 #include "Map.h"
@@ -7,13 +7,13 @@
 #include "Log.h"
 
 // Constructor
-DungeonExt::DungeonExt(SceneManager* sceneManager) : Scene()
+DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 {
 	this->sceneManager = sceneManager;
 
 	map = new Map(sceneManager->tex);
 
-	if (map->Load("world_dungeon_exterior.tmx") == true)
+	if (map->Load("world_dungeon_interiorpart2.tmx") == true)
 	{
 		int w, h;
 		uchar* data = NULL;
@@ -22,38 +22,33 @@ DungeonExt::DungeonExt(SceneManager* sceneManager) : Scene()
 
 		RELEASE_ARRAY(data);
 	}
-	name.Create("dungeon_ext");
+	name.Create("dungeon_f2");
 
 	stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
 }
 
 // Destructor
-DungeonExt::~DungeonExt()
+DungeonF2::~DungeonF2()
 {}
 
-bool DungeonExt::Load()
+bool DungeonF2::Load()
 {
 
 
-	if (*sceneManager->previousScene == SceneType::EXTERIOR)
+	if (*sceneManager->previousScene == SceneType::DUNGEON_F1)
 	{
-		sceneManager->render->camera.x = -32;
-		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
+		sceneManager->render->camera.x = 160;
+		sceneManager->render->camera.y = -808;
 
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(656, 665);
-		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
-	}
-	// When DUNGEON F1 Ready change CANTINA TO DUNGEON
-	else if (*sceneManager->previousScene == SceneType::DUNGEON_F1)
-	{
-		sceneManager->render->camera.x = -32;
-		sceneManager->render->camera.y = 0;
-
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(656, 400);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(848, 1168);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 	else if (sceneManager->wasBattle == true)
 	{
+
+		sceneManager->render->camera.x = 160;
+		sceneManager->render->camera.y = sceneManager->render->prevCam.y;
+
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos;
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 
@@ -61,15 +56,15 @@ bool DungeonExt::Load()
 	}
 	else
 	{
-		sceneManager->render->camera.x = -32;
-		sceneManager->render->camera.y = 0;
+		sceneManager->render->camera.x = 160;
+		sceneManager->render->camera.y = -808;
 
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(656, 390);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(848, 1168);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 
-	
-	
+
+
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
@@ -86,7 +81,7 @@ inline bool CheckCollision(SDL_Rect rec1, SDL_Rect rec2)
 	else return false;
 }
 
-bool DungeonExt::Update(float dt)
+bool DungeonF2::Update(float dt)
 {
 	sceneManager->collision->CheckCollision(map);
 
@@ -98,7 +93,7 @@ bool DungeonExt::Update(float dt)
 	}
 
 	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
-	
+
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;
 
@@ -111,8 +106,7 @@ bool DungeonExt::Update(float dt)
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
 		// Añadir feedback text y X button
 		sceneManager->audio->PlayFx(stairsFx);
-		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR)) TransitionToScene(SceneType::DUNGEON_F1);
-		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y > UPPER_DOOR) TransitionToScene(SceneType::EXTERIOR);
+		TransitionToScene(SceneType::DUNGEON_F1);
 
 		map->doorHit = false;
 	}
@@ -129,11 +123,11 @@ bool DungeonExt::Update(float dt)
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
-	
+
 	return true;
 }
 
-bool DungeonExt::Draw()
+bool DungeonF2::Draw()
 {
 	// Draw map
 	map->Draw(sceneManager->render);
@@ -143,9 +137,9 @@ bool DungeonExt::Draw()
 	return false;
 }
 
-bool DungeonExt::Unload()
+bool DungeonF2::Unload()
 {
-	*sceneManager->previousScene = SceneType::DUNGEON_EXT;
+	*sceneManager->previousScene = SceneType::DUNGEON_F2;
 
 	enemyEncounter = 0;
 
@@ -159,7 +153,7 @@ bool DungeonExt::Unload()
 //----------------------------------------------------------
 // Manage GUI events for this screen
 //----------------------------------------------------------
-bool DungeonExt::OnGuiMouseClickEvent(GuiControl* control)
+bool DungeonF2::OnGuiMouseClickEvent(GuiControl* control)
 {
 	if (sceneManager->dialogueSystem->inConversation)
 	{

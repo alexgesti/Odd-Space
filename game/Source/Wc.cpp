@@ -35,6 +35,8 @@ Wc::~Wc()
 
 bool Wc::Load() /*EntityManager entityManager)*/
 {
+	sceneManager->audio->PlayFx(sceneManager->doorClose);
+
 	sceneManager->render->camera.x = 530;
 	sceneManager->render->camera.y = 130;
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
@@ -55,6 +57,8 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	}
 
 	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/world_toilet_fx.wav");
+	
+
 
 	//map = new Map(tex);
 
@@ -154,7 +158,8 @@ bool Wc::Update(float dt)
 
 	if (map->doorHit)
 	{
-		sceneManager->audio->FadeOutFx(100);
+		sceneManager->audio->PlayFx(sceneManager->doorOpen);
+		//sceneManager->audio->FadeOutFx(2000);
 		TransitionToScene(SceneType::CANTINA);
 		map->doorHit = false;
 	}

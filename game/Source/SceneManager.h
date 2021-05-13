@@ -89,6 +89,12 @@ public:
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;
 
+
+	//sonuds
+
+	int doorClose;
+	int doorOpen;
+
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)
 	bool onTransition;
