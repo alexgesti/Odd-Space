@@ -90,6 +90,8 @@ public:
 	// Not modules
 	SaveFileManager* saveFileManager;
 
+	bool isPause = false;
+
 	uint32 cappedms;
 	uint64 framecount = 0;
 

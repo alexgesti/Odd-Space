@@ -2,17 +2,20 @@
 #define __SCENELOGO_H__
 
 #include "Scene.h"
-#include "Textures.h"
+#include "Audio.h"
 
-class SceneManager;
-class SDL_Texture;
+#include "SDL/include/SDL.h"
+
+class Input;
+class Render;
+class Textures;
 
 class Logo : public Scene
 {
 public:
 
     // Constructor
-    Logo(SceneManager* sceneManager);
+    Logo(Input* input, Render* render, Textures* tex, Audio* audio);
     // Destructor
     virtual ~Logo();
 
@@ -31,13 +34,18 @@ public:
 
 private:
 
-    SceneManager* sceneManager;
-
     SDL_Texture* logo = nullptr;
 
     int state;
     float timeCounter;
-    float logoAlpha;  
+    float logoAlpha;
+
+private:
+
+    Input* input;
+    Render* render;
+    Textures* tex;
+    Audio* audio;
 
     int temporalLogoSound = 0;
 };

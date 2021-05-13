@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "GuiButton.h"
+#include "Audio.h"
 
 #define MAX_ZOOM 3.0f
 #define MIN_ZOOM 0.3f
@@ -15,7 +16,7 @@ class Title : public Scene
 public:
 
     // Constructor
-    Title(SceneManager* sceneManager);
+    Title(SceneManager* sceneManager, Audio* audio);
     // Destructor
     virtual ~Title();
 
@@ -33,11 +34,13 @@ public:
     bool Unload();
 
 
+
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
 private:
     
+    Audio* audio;
     SceneManager* sceneManager;
 
     SDL_Texture* bgTitle;
@@ -55,7 +58,6 @@ private:
     int controllerMenu[4] = { 1, 2, 3, 4 };
 
     bool oneTime = true;
-    bool openOptions = false;
     int temporalAppearTitle = 0;
 
     int pos1 = 12;

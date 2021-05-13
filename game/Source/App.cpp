@@ -339,20 +339,9 @@ void App::FramerateLogic()
 	secondssincestartup = startuptime.ReadSec();
 	lastframems = frametime.Read();
 
-	if (sceneManager->capped)
+	int delayTime = (1000 / cappedms) - lastframems;
+	if (delayTime > 0)
 	{
-		int delayTime = (1000 / cappedms) - lastframems;
-		if (delayTime > 0)
-		{
-			SDL_Delay((Uint32)delayTime);
-		}
-	}
-	else
-	{
-		int delayTime = lastframems;
-		if (delayTime > 0)
-		{
-			SDL_Delay((Uint32)delayTime);
-		}
+		SDL_Delay((Uint32)delayTime);
 	}
 }

@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "GuiButton.h"
+#include "Audio.h"
 
 #include "SDL/include/SDL.h"
 
@@ -13,7 +14,7 @@ class PauseMenu : public Scene
 public:
 
     // Constructor
-    PauseMenu(SceneManager* sceneManager);
+    PauseMenu(SceneManager* sceneManager, Audio* audio);
 
     // Destructor
     virtual ~PauseMenu();
@@ -35,13 +36,16 @@ public:
 
 private:
 
-    SceneManager* sceneManager;
+    SDL_Texture* pause = nullptr;
 
-    bool openOptions = false;
+private:
+
+    Audio* audio;
+    SceneManager* sceneManager;
 
     int f;
 
-    SDL_Texture* pause = nullptr;
+    SDL_Texture* pauseText;
     GuiButton* buttonItems;
     GuiButton* buttonSkills;
     GuiButton* buttonEquip;
@@ -51,4 +55,4 @@ private:
     int buttonMenuMax[6] = { 1, 2, 3, 4, 5, 6 };
 };
 
-#endif // __PAUSEMENU_H__
+#endif // __SCENELOGO_H__

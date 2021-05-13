@@ -7,7 +7,6 @@
 #include "Battle.h"
 #include "Exterior.h"
 #include "PauseMenu.h"
-#include "OptionsMenu.h"
 #include "DungeonExt.h"
 
 #include "Defs.h"
@@ -25,8 +24,6 @@ SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* 
 	onTransition = false;
 	fadeOutCompleted = false;
 	transitionAlpha = 0.0f;
-	volumeMusic = 128;
-	volumeFx = 128;
 
 	this->input = input;
 	this->render = render;
@@ -55,6 +52,7 @@ bool SceneManager::Awake()
 // Called before the first frame
 bool SceneManager::Start()
 {
+
 	font = new Font("assets/typo/Adore64.xml", tex);
 	speak = new Speak(audio, render, font, input, tex);
 	dialogueSystem->speak = speak;
@@ -63,7 +61,7 @@ bool SceneManager::Start()
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex, audio);
-	current = new Title(this);
+	current = new Title(this, audio);
 	currentscenetype = SceneType::TITLE;
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
@@ -72,8 +70,7 @@ bool SceneManager::Start()
 
 	current->Load();
 
-	options = new OptionsMenu(this);
-	pause = new PauseMenu(this);
+	pause = new PauseMenu(this, audio);
 	pause->Load();
 
 	dialogueSystem->speak = speak;
@@ -121,8 +118,6 @@ bool SceneManager::Update(float dt)
 	if (!onTransition)
 	{
 		//General Debug Keys
-		if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) dialogueSystem->inConversation = !dialogueSystem->inConversation;
-
 		if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
 			win->ToggleFullscreen(win->window);
 
@@ -137,15 +132,13 @@ bool SceneManager::Update(float dt)
 				entityManager->entities[0].At(p)->data->infoEntities.info.HP = entityManager->entities[0].At(p)->data->infoEntities.info.maxHP;
 		}
 
-		if ((input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) &&
-			(currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE))
-		{
-			isPause = !isPause;
-			entityManager->CreateEntity(EntityType::HERO)->transitioning = !entityManager->CreateEntity(EntityType::HERO)->transitioning;
-		}
+		if ((input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) && (currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE)) isPause = !isPause;
 
 		if (isPause)
+		{
 			pause->Update(dt);
+			entityManager->CreateEntity(EntityType::HERO)->isPause = true;
+		}
 		else
 		{
 			if (pauseMusicFaded)
@@ -155,6 +148,7 @@ bool SceneManager::Update(float dt)
 			}
 
 			current->Update(dt);
+			entityManager->CreateEntity(EntityType::HERO)->isPause = false;
 		}
 	}
 	else
@@ -212,8 +206,6 @@ bool SceneManager::Update(float dt)
 	// Draw full screen rectangle in front of everything
 	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
 
-	if (isPause) pause->Draw();
-
 	// L12b: Debug pathfinding
 	/*
 	app->input->GetMousePosition(mouseX, mouseY);
@@ -239,8 +231,8 @@ bool SceneManager::Update(float dt)
 
 		switch (current->nextScene)
 		{
-		case SceneType::LOGO: next = new Logo(this); break;
-		case SceneType::TITLE: next = new Title(this); break;
+		case SceneType::LOGO: next = new Logo(input, render, tex, audio); break;
+		case SceneType::TITLE: next = new Title(this, audio); break;
 		case SceneType::CANTINA: next = new Cantina(this); break;
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
@@ -251,6 +243,12 @@ bool SceneManager::Update(float dt)
 
 		current->transitionRequired = false;
 	}
+
+	if(isPause) pause->Draw();
+
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) dialogueSystem->inConversation = !dialogueSystem->inConversation;
+
+	//if (input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN) gameIsWorking = false;
 
 	return true;
 }
@@ -267,9 +265,6 @@ bool SceneManager::CleanUp()
 	LOG("Freeing scene");
 
 	if (current != nullptr) current->Unload();
-
-	pause->Unload();
-	options->Unload();
 
 	tex->UnLoad(xMark);
 

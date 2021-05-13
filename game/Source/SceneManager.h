@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Scene.h"
 
+class GuiButton;
+
 #include "Input.h"
 #include "Render.h"
 #include "Textures.h"
@@ -15,7 +17,6 @@
 #include "Speak.h"
 
 class Font;
-class GuiButton;
 
 class SceneManager : public Module
 {
@@ -60,9 +61,8 @@ public:
 	SceneType* previousScene;
 	SceneType currentscenetype;
 	Scene* current;
-	Scene* next;
 	Scene* pause;
-	Scene* options;
+	Scene* next;
 
 	Font* font;
 
@@ -80,7 +80,6 @@ public:
 	bool loadrequested = false;
 
 	bool exitGame = false;
-	bool capped = true;
 
 	bool wasBattle = false;
 
@@ -89,9 +88,6 @@ public:
 
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;
-
-	int volumeMusic;
-	int volumeFx;
 
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)

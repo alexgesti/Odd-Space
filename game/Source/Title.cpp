@@ -4,11 +4,12 @@
 
 
 // Constructor
-Title::Title(SceneManager* sceneManager) : Scene()
+Title::Title(SceneManager* sceneManager, Audio* audio) : Scene()
 {
    this->sceneManager = sceneManager;
+   this->audio = audio;
 
-   temporalAppearTitle = sceneManager->audio->LoadFx("Assets/Audio/Fx/battle_strike_fx.wav");
+   temporalAppearTitle = audio->LoadFx("Assets/Audio/Fx/battle_strike_fx.wav");
 }
 // Destructor
 Title::~Title()
@@ -21,7 +22,7 @@ bool Title::Load()
 {
     bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
     titleName = sceneManager->tex->Load("assets/sprites/MainScreen/odd_space_logo.png");
-    sceneManager->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
+    audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
 
     // Buttons
     buttons.buttonPlay = new GuiButton(1, { 150, 180, 160, 75 }, "New Game", sceneManager->audio);
@@ -45,35 +46,23 @@ bool Title::Update(float dt)
 
     if (oneTime)
     {
-        sceneManager->audio->PlayFx(temporalAppearTitle);
+        audio->PlayFx(temporalAppearTitle);
         oneTime = false;
     }
 
-    if(openOptions)
-    {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
-        {
-            openOptions = false;
-            sceneManager->options->Unload();
-        }
-        else sceneManager->options->Update(dt);
-    }
-    else
-    {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-            controllerMenu[c++];
+    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+        controllerMenu[c++];
 
-        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-            controllerMenu[c--];
+    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+        controllerMenu[c--];
 
-        if (c > 3) c = 0;
-        if (c < 0) c = 3;
+    if (c > 3) c = 0;
+    if (c < 0) c = 3;
 
-        buttons.buttonPlay->Update(sceneManager->input, controllerMenu[c], dt);
-        buttons.buttonContinue->Update(sceneManager->input, controllerMenu[c], dt);
-        buttons.buttonSettings->Update(sceneManager->input, controllerMenu[c], dt);
-        buttons.buttonExit->Update(sceneManager->input, controllerMenu[c], dt);
-    }
+    buttons.buttonPlay->Update(sceneManager->input, controllerMenu[c], dt);
+    buttons.buttonContinue->Update(sceneManager->input, controllerMenu[c], dt);
+    buttons.buttonSettings->Update(sceneManager->input, controllerMenu[c], dt);
+    buttons.buttonExit->Update(sceneManager->input, controllerMenu[c], dt);
 
     if (pos1 <= 0)
     {
@@ -99,9 +88,6 @@ bool Title::Draw()
     buttons.buttonSettings->Draw(sceneManager->render, sceneManager->font);
     sceneManager->render->DrawTexture(bgTitle, 127, 483, &button);
     buttons.buttonExit->Draw(sceneManager->render, sceneManager->font);
-
-    if (openOptions) sceneManager->options->Draw();
-
     return false;
 }
 
@@ -110,8 +96,6 @@ bool Title::Unload()
     // Delete buttons and textures
     sceneManager->tex->UnLoad(bgTitle);
     sceneManager->tex->UnLoad(titleName);
-
-    if (openOptions) sceneManager->options->Unload();
 
     delete buttons.buttonPlay;
     buttons.buttonPlay = nullptr;
@@ -142,8 +126,6 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
         sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
         break;
     case 3:
-        sceneManager->options->Load();
-        openOptions = true;
         break;
     case 4:
         sceneManager->gameIsWorking = false;
