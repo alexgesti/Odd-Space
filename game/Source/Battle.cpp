@@ -195,7 +195,15 @@ bool Battle::Update(float dt)
             if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
             PlayerMenu(dt);
 
-            if (openItems) sceneManager->items->Update(dt);
+            if (openItems)
+            {
+                if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+                {
+                    openItems = false;
+                    sceneManager->items->Unload();
+                }
+                else sceneManager->items->Update(dt);
+            }
 
             break;
 
@@ -204,7 +212,15 @@ bool Battle::Update(float dt)
             if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
             PlayerMenu(dt);
 
-            if (openItems) sceneManager->items->Update(dt);
+            if (openItems)
+            {
+                if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+                {
+                    openItems = false;
+                    sceneManager->items->Unload();
+                }
+                else sceneManager->items->Update(dt);
+            }
 
             break;
         }
