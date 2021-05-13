@@ -22,6 +22,8 @@ private:
     // Gui Button specific properties
     // Maybe some animation properties for state change?
     int selected = 0;
+    int press = 0;
+    int unavaliable = 0;
     bool soundReproduced = true;
 };
 

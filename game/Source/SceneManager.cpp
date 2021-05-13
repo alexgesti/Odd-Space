@@ -58,6 +58,9 @@ bool SceneManager::Start()
 	dialogueSystem->speak = speak;
 	xMark = tex->Load("assets/sprites/UI/X_mark.png");
 
+	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
+	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
+
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
 	//current = new Logo(input, render, tex, audio);
@@ -267,6 +270,9 @@ bool SceneManager::CleanUp()
 	if (current != nullptr) current->Unload();
 
 	tex->UnLoad(xMark);
+	audio->UnloadFx(doorClose);
+	audio->UnloadFx(doorOpen);
+
 
 	return true;
 }

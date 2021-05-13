@@ -62,6 +62,7 @@ Cantina::~Cantina()
 
 bool Cantina::Load() /*EntityManager entityManager)*/
 {
+	sceneManager->audio->PlayFx(sceneManager->doorClose);
 
 	if (*sceneManager->previousScene == SceneType::WC)
 	{
@@ -256,7 +257,8 @@ bool Cantina::Update(float dt)
 
 	if (map->doorHit)
 	{
-		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR) TransitionToScene(SceneType::WC);
+		sceneManager->audio->PlayFx(sceneManager->doorOpen);
+		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR)TransitionToScene(SceneType::WC);
 		else TransitionToScene(SceneType::EXTERIOR);
 		map->doorHit = false;
 	}

@@ -8,6 +8,8 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, Audio* audio)
     this->audio = audio;
 
     selected = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
+    unavaliable = audio->LoadFx("Assets/Audio/Fx/unavaliable_ui.wav");
+    press = audio->LoadFx("Assets/Audio/Fx/press_ui.wav");
 }
 
 GuiButton::~GuiButton()
@@ -55,6 +57,15 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
             if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
             {
                 state = GuiControlState::PRESSED;
+                audio->PlayFx(press);
+                soundReproduced = true;
+            }
+
+            if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT && state == GuiControlState::DISABLED || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && state == GuiControlState::DISABLED)
+            {
+                state = GuiControlState::DISABLED;
+                audio->PlayFx(unavaliable);
+                soundReproduced = true;
             }
 
             // If mouse button pressed -> Generate event!

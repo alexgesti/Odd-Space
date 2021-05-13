@@ -23,6 +23,8 @@ DungeonExt::DungeonExt(SceneManager* sceneManager) : Scene()
 		RELEASE_ARRAY(data);
 	}
 	name.Create("dungeon_ext");
+
+	stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
 }
 
 // Destructor
@@ -31,6 +33,8 @@ DungeonExt::~DungeonExt()
 
 bool DungeonExt::Load()
 {
+
+
 	if (*sceneManager->previousScene == SceneType::EXTERIOR)
 	{
 		sceneManager->render->camera.x = -32;
@@ -106,6 +110,7 @@ bool DungeonExt::Update(float dt)
 	{
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
 		// Añadir feedback text y X button
+		sceneManager->audio->PlayFx(stairsFx);
 		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR)) TransitionToScene(SceneType::CANTINA);
 		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y > UPPER_DOOR) TransitionToScene(SceneType::EXTERIOR);
 
