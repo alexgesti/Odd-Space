@@ -11,7 +11,6 @@
 
 
 // Constructor
-
 Battle::Battle(SceneManager* sceneManager)
 {
     this->sceneManager = sceneManager;

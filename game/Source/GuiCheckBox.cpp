@@ -1,24 +1,28 @@
 #include "GuiCheckBox.h"
 
-GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(GuiControlType::CHECKBOX, id)
+GuiCheckBox::GuiCheckBox(uint32 id, SDL_Rect bounds, const char* text, Audio* audio) : GuiControl(GuiControlType::CHECKBOX, id)
 {
     this->bounds = bounds;
     this->text = text;
+    this->id = id;
+    this->audio = audio;
 }
 
 GuiCheckBox::~GuiCheckBox()
 {
 }
 
-bool GuiCheckBox::Update(Input* input, float dt)
+bool GuiCheckBox::Update(Input* input, int buttonSelected, float dt)
 {
+    GamePad& pad = input->pads[0];
+
     if (state != GuiControlState::DISABLED)
     {
         int mouseX, mouseY;
         input->GetMousePosition(mouseX, mouseY);
 
         // Check collision between mouse and button bounds
-        if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
+        /*if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) && 
             (mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h)))
         {
             state = GuiControlState::FOCUSED;
@@ -34,8 +38,35 @@ bool GuiCheckBox::Update(Input* input, float dt)
                 checked = !checked;
                 NotifyObserver();
             }
+        }*/
+        if (id == buttonSelected)
+        {
+            state = GuiControlState::FOCUSED;
+
+            if (soundReproduced == false)
+            {
+                audio->PlayFx(selected);
+                soundReproduced = true;
+            }
+
+            if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
+            {
+                state = GuiControlState::PRESSED;
+            }
+
+            // If mouse button pressed -> Generate event!
+            if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
+            {
+                checked = !checked;
+                NotifyObserver();
+                audio->PlayFx(selected);
+            }
         }
-        else state = GuiControlState::NORMAL;
+        else
+        {
+            state = GuiControlState::NORMAL;
+            soundReproduced = false;
+        }
     }
 
     return false;

@@ -3,10 +3,9 @@
 #include "SceneManager.h"
 
 // Constructor
-PauseMenu::PauseMenu(SceneManager* sceneManager, Audio* audio)
+PauseMenu::PauseMenu(SceneManager* sceneManager)
 {
     this->sceneManager = sceneManager;
-    this->audio = audio;
 }
 // Destructor
 PauseMenu::~PauseMenu()
@@ -25,7 +24,7 @@ bool PauseMenu::Load()
     buttonSkills->SetObserver(this);
     buttonEquip = new GuiButton(3, { 110, 297, 240, 81 }, "Equipment", sceneManager->audio);
     buttonEquip->SetObserver(this);
-    buttonSettings = new GuiButton(4, { 163, 391, 240, 81 }, "Exit", sceneManager->audio); // ESTO DEBERÁ SER SETTINGS, PARA LA VERTICAL SLICE SE DEJARÁ COMO UN "EXIT" YA QUE ESTE ESTARÁ DENTRO DE LAS OPCIONES (X es 125)
+    buttonSettings = new GuiButton(4, { 120, 391, 240, 81 }, "Settings", sceneManager->audio); // ESTO DEBERÁ SER SETTINGS, PARA LA VERTICAL SLICE SE DEJARÁ COMO UN "EXIT" YA QUE ESTE ESTARÁ DENTRO DE LAS OPCIONES (X es 125)
     buttonSettings->SetObserver(this);
     buttonSave = new GuiButton(5, { 160, 485, 240, 81 }, "Save", sceneManager->audio);
     buttonSave->SetObserver(this);
@@ -41,28 +40,40 @@ bool PauseMenu::Update(float dt)
 {
     if (!sceneManager->pauseMusicFaded)
     {
-        audio->FadeOutMusic(0.5f);
+        sceneManager->audio->FadeOutMusic(0.5f);
         sceneManager->pauseMusicFaded = true;
     }
 
     GamePad& pad = sceneManager->input->pads[0];
 
-    if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-        f++;
+    if (openOptions)
+    {
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
+            openOptions = false;
+            sceneManager->options->Unload();
+        }
+        else sceneManager->options->Update(dt);
+    }
+    else
+    {
+        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+            f++;
 
-    if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-        f--;
+        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+            f--;
 
-    //Establecer limites fila/columna botones
-    if (f > 5) f = 0;
-    if (f < 0) f = 5;
+        //Establecer limites fila/columna botones
+        if (f > 5) f = 0;
+        if (f < 0) f = 5;
 
-    buttonItems->Update(sceneManager->input, buttonMenuMax[f], dt);
-    buttonSkills->Update(sceneManager->input, buttonMenuMax[f], dt);
-    buttonEquip->Update(sceneManager->input, buttonMenuMax[f], dt);
-    buttonSettings->Update(sceneManager->input, buttonMenuMax[f], dt);
-    buttonSave->Update(sceneManager->input, buttonMenuMax[f], dt);
-    buttonLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonItems->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonSkills->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonEquip->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonSettings->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonSave->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
+    }
 
     return true;
 }
@@ -82,12 +93,16 @@ bool PauseMenu::Draw()
     buttonSave->Draw(sceneManager->render, sceneManager->font);
     buttonLoad->Draw(sceneManager->render, sceneManager->font);
 
+    if (openOptions) sceneManager->options->Draw();
+
     return true;
 }
 
 bool PauseMenu::Unload()
 {
     sceneManager->tex->UnLoad(pause);
+
+    if (openOptions) sceneManager->options->Unload();
 
     delete buttonItems;
     buttonItems = nullptr;
@@ -119,7 +134,8 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
     case 3: 
         break;
     case 4: 
-        sceneManager->gameIsWorking = false;
+        sceneManager->options->Load();
+        openOptions = true;
         break;
     case 5: 
         sceneManager->saverequested = true;

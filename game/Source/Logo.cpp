@@ -1,19 +1,13 @@
 #include "Logo.h"
 
-#include "Input.h"
-#include "Render.h"
-#include "Textures.h"
-#include "Audio.h"
+#include "SceneManager.h"
 
 #define LOGO_FADE_SPEED 1.0f
 
 // Constructor
-Logo::Logo(Input* input, Render* render, Textures* tex, Audio* audio)
+Logo::Logo(SceneManager* sceneManager)
 {
-    this->input = input;
-    this->render = render;
-    this->tex = tex;
-    this->audio = audio;
+    this->sceneManager = sceneManager;
 
     state = 0;
     timeCounter = 0.0f;
@@ -29,17 +23,17 @@ Logo::~Logo()
 
 bool Logo::Load()
 {
-    logo = tex->Load("assets/sprites/Logo/logo_chaoticevil.png");
+    logo = sceneManager->tex->Load("assets/sprites/Logo/logo_chaoticevil.png");
 
-    temporalLogoSound = audio->LoadFx("Assets/Audio/Fx/battle_win_music.wav");
+    temporalLogoSound = sceneManager->audio->LoadFx("Assets/Audio/Fx/battle_win_music.wav");
     return true;
 }
 
 bool Logo::Update(float dt)
 {
-    GamePad& pad = input->pads[0];
+    GamePad& pad = sceneManager->input->pads[0];
 
-    if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
+    if (sceneManager->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
     {
         TransitionToScene(SceneType::TITLE);
     }
@@ -55,7 +49,7 @@ bool Logo::Update(float dt)
         if (logoAlpha > 1.0f)
         {
             logoAlpha = 1.0f;
-            audio->PlayFx(temporalLogoSound);
+            sceneManager->audio->PlayFx(temporalLogoSound);
             state = 2;
         }
     }
@@ -81,18 +75,18 @@ bool Logo::Update(float dt)
 
 bool Logo::Draw()
 {
-    render->DrawRectangle({ 0, 0, 1280, 720 }, 0, 0, 0, 255);
+    sceneManager->render->DrawRectangle({ 0, 0, 1280, 720 }, 0, 0, 0, 255);
 
     SDL_SetTextureAlphaMod(logo, logoAlpha * 255);
-    render->DrawTexture(logo, render->camera.w / 2 - 600 / 2, render->camera.h / 2 - 561 / 2, NULL);
+    sceneManager->render->DrawTexture(logo, sceneManager->render->camera.w / 2 - 600 / 2, sceneManager->render->camera.h / 2 - 561 / 2, NULL);
 
     return true;
 }
 
 bool Logo::Unload()
 {
-    tex->UnLoad(logo);
+    sceneManager->tex->UnLoad(logo);
 
-    audio->UnloadFx(temporalLogoSound - 1);
+    sceneManager->audio->UnloadFx(temporalLogoSound - 1);
     return true;
 }
