@@ -54,21 +54,6 @@ public:
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
-    int loseFx;
-    int winFx;
-    int strikeFx;
-    int hurtFx;
-    int hpRecoverFx;
-    int deathFx;
-    int runFx;
-    int guardFx;
-    int reviveFx;
-    int spRecoverFx;
-    int debuffFx;
-
-
-
-
 private:
 
     Map* map;
@@ -113,6 +98,19 @@ private:
     int actualEnemyAnim;
 
     bool openItems = false;
+
+    //Fx
+    int loseFx = 0;
+    int winFx = 0;
+    int strikeFx = 0;
+    int hurtFx = 0;
+    int hpRecoverFx = 0;
+    int deathFx = 0;
+    int runFx = 0;
+    int guardFx = 0;
+    int reviveFx = 0;
+    int spRecoverFx = 0;
+    int debuffFx = 0;
 
     //UI Controller
     int chooseMenu;
