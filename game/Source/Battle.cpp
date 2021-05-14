@@ -277,7 +277,7 @@ bool Battle::Update(float dt)
                 sceneManager->entityManager->entities[0].At(actualCharacterAnim)->data->infoEntities.info.HP > 0)
             {
                 sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->hurtAnim->Update();
-                sceneManager->audio->PlayFx(strikeFx);
+                sceneManager->audio->PlayFx(strikeFx,2);
 
                 if (sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->hurtAnim->HasFinished() == true)
                 {
@@ -295,6 +295,7 @@ bool Battle::Update(float dt)
                 sceneManager->entityManager->entities[1].At(actualEnemyAnim)->data->infoEntities.info.HP > 0)
             {
                 sceneManager->entityManager->entities[0].At(selectedCharacters[actualEnemyAnim])->data->hurtAnim->Update();
+                sceneManager->audio->PlayFx(strikeFx,2);
 
                 if (sceneManager->entityManager->entities[0].At(selectedCharacters[actualEnemyAnim])->data->hurtAnim->HasFinished() == true)
                 {
@@ -650,9 +651,17 @@ void Battle::DamagePlayer(int player)
         if ((((sceneManager->entityManager->entities[0].At(player)->data->infoEntities.stats.SPD / 2) -
             sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.stats.SPD) /
             (rand() % (200 - sceneManager->entityManager->entities[0].At(player)->data->infoEntities.stats.LCK) + 1)) >= 1)
+        {
             sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= (damageDealt * 2);
+            sceneManager->audio->PlayFx(spRecoverFx);
+        }
 
-        else sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= damageDealt;
+        else
+        {
+            sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= damageDealt;
+            sceneManager->audio->PlayFx(hurtFx);
+
+        }
     }
 
     if (sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP <= 0)
@@ -701,9 +710,18 @@ void Battle::DamageEnemy(int enemy)
         if ((((sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.stats.SPD / 2) -
             sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.stats.SPD) /
             (rand() % (200 - sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.stats.LCK) + 1)) >= 1)
+        {
             sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= (damageDealt * 2);
+            sceneManager->audio->PlayFx(spRecoverFx);
 
-        else sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= damageDealt;
+        }
+
+        else
+        {
+            sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= damageDealt;
+            sceneManager->audio->PlayFx(hurtFx);
+        }
+
     }
 
     if (sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP <= 0)
@@ -730,6 +748,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         case 2:
             //Defensa
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.defense = true;
+            sceneManager->audio->PlayFx(guardFx);
             ChangeTurns();
             break;
 
@@ -746,6 +765,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
         case 5:
             //Run
+            sceneManager->audio->PlayFx(runFx);
             BattleEscaped();
             break;
 

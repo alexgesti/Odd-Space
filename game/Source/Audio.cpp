@@ -166,21 +166,21 @@ unsigned int Audio::LoadFx(const char* path)
 }
 
 // Play WAV
-bool Audio::PlayFx(unsigned int id, int repeat)
+bool Audio::PlayFx(unsigned int id,int channel, int repeat)
 {
 	bool ret = false;
 
 	if(!active)
 		return false;
 
-	int channel = 0;
+	int currentChannel = 0;
 
 	if(id > 0 && id <= fx.Count())
 	{
-		channel = Mix_PlayChannel(-1, fx[id - 1], repeat);
+		currentChannel = Mix_PlayChannel(channel, fx[id - 1], repeat);
 
 		Fx tempFx;
-		tempFx.channel = channel;
+		tempFx.channel = currentChannel;
 		tempFx.id = id;
 		fxPlaying.Add(tempFx);
 	}
