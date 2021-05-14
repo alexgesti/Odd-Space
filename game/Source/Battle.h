@@ -87,7 +87,7 @@ private:
         } buttonsEnemies;
     } buttons;
 
-    /*struct Fx
+    struct Fx
     {
         int loseFx = 0;
         int winFx = 0;
@@ -100,7 +100,8 @@ private:
         int reviveFx = 0;
         int spRecoverFx = 0;
         int debuffFx = 0;
-    }fx;*/
+        bool playOnce = false;
+    }fx;
 
     int totalEnemies;
     int selectedEnemies[2];
@@ -118,7 +119,7 @@ private:
     int c;
     int controllerMenu[2][3] = { {1, 2, 3}, {4, 5, 6} };
     int controllerSkill[2][3] = { {7, 8, 9}, {10, 11, 12} };
-    int controllerEnemy[];
+    int controllerEnemy[6];
 };
 
 #endif // __SCENEBATTLE_H__

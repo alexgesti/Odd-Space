@@ -47,7 +47,7 @@ public:
 	bool IsPlaying(uint id);
 
 	// Play a previously loaded WAV
-	bool PlayFx(unsigned int fx, int repeat = 0);
+	bool PlayFx(unsigned int fx,int channel=-1, int repeat = 0);
 
 	// FadeOut all audio
 	void FadeOutFx(int ms);
