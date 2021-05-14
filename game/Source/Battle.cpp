@@ -782,6 +782,48 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
     break;
 
     //Skills Buttons
+    switch (characterTurn) 
+    {
+    case 1:
+        switch (control->id)
+        {
+        case 7://debuff
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
+            chooseMenu = 3;
+            sceneManager->audio->PlayFx(debuffFx);
+            break;
+
+        case 8:
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].picked = true;
+            chooseMenu = 3;
+            break;
+
+        case 9://hp recover
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
+            chooseMenu = 3;
+            sceneManager->audio->PlayFx(hpRecoverFx);
+            break;
+
+        case 10:
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].picked = true;
+            chooseMenu = 3;
+            break;
+
+        case 11://revive
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
+            chooseMenu = 3;
+            sceneManager->audio->PlayFx(reviveFx);
+            break;
+
+        case 12:
+            //Back
+            chooseMenu = 1;
+            break;
+
+        default: break;
+        }
+        break;
+
     case 2:
         switch (control->id)
         {
@@ -817,10 +859,11 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
         default: break;
         }
-        f = 0;
-        c = 0;
+        break;
+    }
+    f = 0;
+    c = 0;
     break;
-
         //Enemies Buttons
     case 3:
         switch (control->id)
