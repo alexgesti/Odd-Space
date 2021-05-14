@@ -54,6 +54,21 @@ public:
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
+    int loseFx;
+    int winFx;
+    int strikeFx;
+    int hurtFx;
+    int hpRecoverFx;
+    int deathFx;
+    int runFx;
+    int guardFx;
+    int reviveFx;
+    int spRecoverFx;
+    int debuffFx;
+
+
+
+
 private:
 
     Map* map;

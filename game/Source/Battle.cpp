@@ -28,6 +28,19 @@ Battle::~Battle()
 
 bool Battle::Load()
 {
+
+    loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
+    winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
+    strikeFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_strike.wav");
+    hurtFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_hurt.wav");
+    deathFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_death.wav");
+    hpRecoverFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_hp_recover.wav");
+    guardFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_guard.wav");
+    runFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_run.wav");
+    reviveFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_revive.wav");
+    spRecoverFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_sp_recover.wav");
+    debuffFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_debuff.wav");
+
     if (sceneManager->toDrawX) sceneManager->toDrawX = false;
 
     sceneManager->render->camera = { 0, 0 };
@@ -171,7 +184,7 @@ bool Battle::Load()
     f = 0;
     c = 0;
 
-    //audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
+    sceneManager ->audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
 
     return false;
 }
@@ -264,6 +277,7 @@ bool Battle::Update(float dt)
                 sceneManager->entityManager->entities[0].At(actualCharacterAnim)->data->infoEntities.info.HP > 0)
             {
                 sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->hurtAnim->Update();
+                sceneManager->audio->PlayFx(strikeFx);
 
                 if (sceneManager->entityManager->entities[1].At(selectedEnemies[actualCharacterAnim])->data->hurtAnim->HasFinished() == true)
                 {
@@ -309,11 +323,19 @@ bool Battle::Update(float dt)
                 if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
                 {
+                    sceneManager->audio->PlayFx(loseFx);
                     sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
                     sceneManager->wasBattle = true;
                     TransitionToScene(*sceneManager->entityManager->previousScene);
                 }
+
+                //death sounds
+
+                if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)sceneManager->audio->PlayFx(deathFx);
+                if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)sceneManager->audio->PlayFx(deathFx);
+
+
 
                 //Win Condition
                 int totalEnemiesHP = 0;
@@ -324,9 +346,11 @@ bool Battle::Update(float dt)
                 }
                 if (totalEnemiesHP <= 0)
                 {
+                    sceneManager->audio->PlayFx(winFx);
                     sceneManager->wasBattle = true;
                     sceneManager->entityManager->CreateEntity(EntityType::ITEM);
                     TransitionToScene(*sceneManager->entityManager->previousScene);
+
                 }
 
                 animation = false;
@@ -481,6 +505,20 @@ bool Battle::Unload()
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
 
     //*entityManager->previousScene = SceneType::BATTLE;
+
+
+    sceneManager->audio->UnloadFx(deathFx);
+    sceneManager->audio->UnloadFx(runFx);
+    sceneManager->audio->UnloadFx(strikeFx);
+    sceneManager->audio->UnloadFx(loseFx);
+    sceneManager->audio->UnloadFx(winFx);
+    sceneManager->audio->UnloadFx(guardFx);
+    sceneManager->audio->UnloadFx(hurtFx);
+    sceneManager->audio->UnloadFx(reviveFx);
+    sceneManager->audio->UnloadFx(hpRecoverFx);
+
+
+
 
     return false;
 }
