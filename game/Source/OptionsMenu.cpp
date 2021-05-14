@@ -69,6 +69,8 @@ bool OptionsMenu::Unload()
 {
     sceneManager->tex->UnLoad(optionsText);
 
+    sceneManager->openOptions = false;
+
     delete fullScreen;
     fullScreen = nullptr;
     delete VSync;

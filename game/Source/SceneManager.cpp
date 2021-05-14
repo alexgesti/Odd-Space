@@ -68,15 +68,15 @@ bool SceneManager::Start()
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
-	//current = new Logo(this);
+	current = new Logo(this);
 	//current = new Title(this);
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
-	current = new Cantina(this);
+	//current = new Cantina(this);
 	//current = new Wc(this);
 	//current = new Exterior(this);
 	//current = new DungeonF1(this);
 	//current = new DungeonF2(this);
-	currentscenetype = SceneType::CANTINA;
+	currentscenetype = SceneType::LOGO;
 	current->Load();
 
 	options = new OptionsMenu(this);

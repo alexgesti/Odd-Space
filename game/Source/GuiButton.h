@@ -24,6 +24,8 @@ public:
     int hover = 0;
     int press = 0;
     int unavaliable = 0;
+	
+private:
     bool soundReproduced = true;
 };
 

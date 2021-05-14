@@ -92,9 +92,9 @@ public:
 
     EntityType type;
     Entities infoEntities;
-    SDL_Texture* hurtTexture;
-    SDL_Texture* shieldTexture;
-    SDL_Texture* deathTexture;
+    SDL_Texture* hurtTexture = nullptr;
+    SDL_Texture* shieldTexture = nullptr;
+    SDL_Texture* deathTexture = nullptr;
     //Animation* currentGeneralAnimation;
     Animation* hurtAnim = new Animation();
     Animation* deathAnim = new Animation();

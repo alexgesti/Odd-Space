@@ -73,6 +73,8 @@ bool ItemsMenu::Unload()
 {
     sceneManager->tex->UnLoad(itemsText);
 
+    sceneManager->openItems = false;
+
     for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
     {
         delete itemsButtons[i];

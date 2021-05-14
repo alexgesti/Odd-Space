@@ -37,9 +37,6 @@ private:
 
     SceneManager* sceneManager;
 
-    bool openOptions = false;
-    bool openItems = false;
-
     int f;
 
     SDL_Texture* pause = nullptr;

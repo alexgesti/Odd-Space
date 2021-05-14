@@ -55,19 +55,6 @@ bool Battle::Load()
         }
     }
 
-    //Fx
-    /*loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
-    winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
-    strikeFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_strike.wav");
-    hurtFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_hurt.wav");
-    deathFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_death.wav");
-    hpRecoverFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_hp_recover.wav");
-    guardFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_guard.wav");
-    runFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_run.wav");
-    reviveFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_revive.wav");
-    spRecoverFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_sp_recover.wav");
-    debuffFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_debuff.wav");*/
-
     // Buttons Principal Menu
     buttons.buttonsMenu.buttonAttack = new GuiButton(1, { 10, 560, 160, 75 }, "Attack", sceneManager->audio);
     buttons.buttonsMenu.buttonAttack->SetObserver(this);
@@ -206,18 +193,18 @@ bool Battle::Update(float dt)
         //Hero Turn
         case 0:
             if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
-            PlayerMenu(dt);
+            if(!sceneManager->openItems) PlayerMenu(dt);
 
-            if (openItems) sceneManager->items->Update(dt);
+            if (sceneManager->openItems) sceneManager->items->Update(dt);
 
             break;
 
         //Captain Turn
         case 1:
             if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
-            PlayerMenu(dt);
+            if (!sceneManager->openItems) PlayerMenu(dt);
 
-            if (openItems) sceneManager->items->Update(dt);
+            if (sceneManager->openItems) sceneManager->items->Update(dt);
 
             break;
         }
@@ -419,7 +406,7 @@ bool Battle::Draw()
         }
     }
 
-    if (openItems) sceneManager->items->Draw();
+    if (sceneManager->openItems) sceneManager->items->Draw();
 
     return false;
 }
@@ -432,7 +419,7 @@ bool Battle::Unload()
 
     sceneManager->tex->UnLoad(UI);
 
-    if (openItems) sceneManager->items->Unload();
+    if (sceneManager->openItems) sceneManager->items->Unload();
 	
 	map->Unload();
     RELEASE(map);
@@ -512,6 +499,7 @@ bool Battle::Unload()
 
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
+	
     //*entityManager->previousScene = SceneType::BATTLE;
 
     sceneManager = nullptr;
@@ -737,7 +725,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         case 4:
             //Items
             sceneManager->items->Load();
-            openItems = true;
+            sceneManager->openItems = true;
             break;
 
         case 5:

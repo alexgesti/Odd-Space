@@ -48,22 +48,16 @@ bool PauseMenu::Update(float dt)
 
     GamePad& pad = sceneManager->input->pads[0];
 
-    if (openOptions)
+    if (sceneManager->openOptions)
     {
         if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
-        {
-            openOptions = false;
-            sceneManager->options->Unload();
-        }
+        	sceneManager->options->Unload();
         else sceneManager->options->Update(dt);
     }
-    else if (openItems)
+    else if (sceneManager->openItems)
     {
         if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
-        {
-            openItems = false;
             sceneManager->items->Unload();
-        }
         else sceneManager->items->Update(dt);
     }
     else
@@ -104,8 +98,8 @@ bool PauseMenu::Draw()
     buttonSave->Draw(sceneManager->render, sceneManager->font);
     buttonLoad->Draw(sceneManager->render, sceneManager->font);
 
-    if (openOptions) sceneManager->options->Draw();
-    if (openItems) sceneManager->items->Draw();
+    if (sceneManager->openOptions) sceneManager->options->Draw();
+    if (sceneManager->openItems) sceneManager->items->Draw();
 
     return true;
 }
@@ -114,8 +108,8 @@ bool PauseMenu::Unload()
 {
     sceneManager->tex->UnLoad(pause);
 
-    if (openOptions) sceneManager->options->Unload();
-    if (openItems) sceneManager->items->Unload();
+    if (sceneManager->openOptions) sceneManager->options->Unload();
+    if (sceneManager->openItems) sceneManager->items->Unload();
 
     delete buttonItems;
     buttonItems = nullptr;
@@ -142,7 +136,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
     {
     case 1:
         sceneManager->items->Load();
-        openItems = true;
+        sceneManager->openItems = true;
         break;
     case 2: 
         break;
@@ -150,7 +144,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 4: 
         sceneManager->options->Load();
-        openOptions = true;
+        sceneManager->openOptions = true;
         break;
     case 5: 
         sceneManager->saverequested = true;

@@ -321,11 +321,11 @@
     <ClInclude Include="Source\OptionsMenu.h">
       <Filter>Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ItemsMenu.h">
-      <Filter>Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Source\easings.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemsMenu.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
