@@ -22,8 +22,10 @@ bool PauseMenu::Load()
     buttonItems->SetObserver(this);
     buttonSkills = new GuiButton(2, { 150, 203, 240, 81 }, "Skills", sceneManager->audio);
     buttonSkills->SetObserver(this);
+    buttonSkills->state = GuiControlState::DISABLED;
     buttonEquip = new GuiButton(3, { 110, 297, 240, 81 }, "Equipment", sceneManager->audio);
     buttonEquip->SetObserver(this);
+    buttonEquip->state = GuiControlState::DISABLED;
     buttonSettings = new GuiButton(4, { 120, 391, 240, 81 }, "Settings", sceneManager->audio); // ESTO DEBERÁ SER SETTINGS, PARA LA VERTICAL SLICE SE DEJARÁ COMO UN "EXIT" YA QUE ESTE ESTARÁ DENTRO DE LAS OPCIONES (X es 125)
     buttonSettings->SetObserver(this);
     buttonSave = new GuiButton(5, { 160, 485, 240, 81 }, "Save", sceneManager->audio);

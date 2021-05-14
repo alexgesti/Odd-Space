@@ -59,6 +59,11 @@ private:
     int temporalAppearTitle = 0;
 
     int pos1 = 12;
+
+    //float titlePosX = 1280 + 718;
+    float initPosY = -350;
+    float titlePosY = initPosY;
+    float currentTime = 0.0f;
 };
 
 #endif // __SCENETITLE_H__

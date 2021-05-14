@@ -1,4 +1,5 @@
 #include "Title.h"
+#include "easings.h"
 
 #include "SceneManager.h"
 
@@ -33,13 +34,24 @@ bool Title::Load()
     buttons.buttonExit = new GuiButton(4, { 195, 480, 160, 75 }, "Exit", sceneManager->audio);
     buttons.buttonExit->SetObserver(this);
 
-
     return false;
 }
 
 bool Title::Update(float dt)
 {
     bool ret = false;
+
+    /*if (titlePosX > 500.0f)
+    {
+        titlePosX = EaseBounceOut(currentTime, (float)(1280 + 718), 500.0f - (float)(1280 + 718), 3);
+        currentTime += dt;
+    }*/
+
+    if (titlePosY < (sceneManager->render->camera.y / 2 + 226))
+   {
+       titlePosY = EaseBounceOut(currentTime, initPosY, (sceneManager->render->camera.y / 2 + 226) - initPosY, 3);
+       currentTime += dt;
+   }
 
     GamePad& pad = sceneManager->input->pads[0];
 
@@ -88,7 +100,7 @@ bool Title::Draw()
 {
     SDL_Rect rect = { pos1, 0, 1280, 720 };
     sceneManager->render->DrawTexture(bgTitle, sceneManager->render->camera.x, sceneManager->render->camera.y, &rect);
-    sceneManager->render->DrawTexture(titleName, 500, sceneManager->render->camera.y / 2 + 226, NULL);
+    sceneManager->render->DrawTexture(titleName, 500, titlePosY, NULL);
      
     SDL_Rect button = { 0, 720, 224, 64 };
     sceneManager->render->DrawTexture(bgTitle, 127, 183, &button);

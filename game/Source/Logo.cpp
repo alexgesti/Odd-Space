@@ -87,6 +87,6 @@ bool Logo::Unload()
 {
     sceneManager->tex->UnLoad(logo);
 
-    sceneManager->audio->UnloadFx(temporalLogoSound - 1);
+    sceneManager->audio->UnloadFx(temporalLogoSound);
     return true;
 }
