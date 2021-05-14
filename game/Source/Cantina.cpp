@@ -19,12 +19,12 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 	// L12b: Create walkability map on map loading
 	if (map->Load("world_cantina_interior.tmx") == true)
 	{
-		int w, h;
+		/*int w, h;
 		uchar* data = NULL;
 
 		//if (map->CreateWalkabilityMap(w, h, &data)) pathFinding->SetMap(w, h, data);
 
-		RELEASE_ARRAY(data);
+		RELEASE_ARRAY(data);*/
 	}
 
 	//
@@ -323,16 +323,22 @@ bool Cantina::Unload()
 	sceneManager->tex->UnLoad(texLegendaryPirate);
 	sceneManager->tex->UnLoad(texOldCaptain);
 
-	delete animBarmanIdle;
-	animBarmanIdle = nullptr;
-	delete animLegendaryPirateIdle;
-	animLegendaryPirateIdle = nullptr;
-	delete animOldCaptainSitting;
-	animOldCaptainSitting = nullptr;
+	RELEASE(animBarmanIdle);
+	RELEASE(animLegendaryPirateIdle);
+	RELEASE(animOldCaptainSitting);
+	//delete animBarmanIdle;
+	//animBarmanIdle = nullptr;
+	//delete animLegendaryPirateIdle;
+	//animLegendaryPirateIdle = nullptr;
+	//delete animOldCaptainSitting;
+	//animOldCaptainSitting = nullptr;
 
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+	//delete map;
+	//map = nullptr;
+
+	sceneManager = nullptr;
 
 	return true;
 }

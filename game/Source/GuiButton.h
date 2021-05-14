@@ -17,7 +17,7 @@ public:
     bool Update(Input* input, int buttonSelected, float dt);
     bool Draw(Render* render, Font* font);
 
-private:
+public:
 
     // Gui Button specific properties
     // Maybe some animation properties for state change?

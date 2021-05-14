@@ -34,6 +34,7 @@ bool Title::Load()
     buttons.buttonExit = new GuiButton(4, { 195, 480, 160, 75 }, "Exit", sceneManager->audio);
     buttons.buttonExit->SetObserver(this);
 
+    finalPosY = sceneManager->render->camera.y / 2 + 226;
     return false;
 }
 
@@ -47,9 +48,9 @@ bool Title::Update(float dt)
         currentTime += dt;
     }*/
 
-    if (titlePosY < (sceneManager->render->camera.y / 2 + 226))
+    if (titlePosY < finalPosY)
    {
-       titlePosY = EaseBounceOut(currentTime, initPosY, (sceneManager->render->camera.y / 2 + 226) - initPosY, 3);
+       titlePosY = EaseBounceOut(currentTime, initPosY, finalPosY - initPosY, 2.3f);
        currentTime += dt;
    }
 

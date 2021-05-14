@@ -19,8 +19,9 @@ DrunkCustomer* DrunkCustomer::GetInstance(Render* render, Textures* tex)
 // Instance reseter
 void DrunkCustomer::ResetInstance()
 {
-    delete instance;
-    instance = nullptr;
+    RELEASE(instance);
+    //delete instance;
+    //instance = nullptr;
 }
 // Constructor
 DrunkCustomer::DrunkCustomer(Render* render, Textures* tex) : Enemy(EnemyType::DRUNKCUSTOMER)
@@ -99,9 +100,11 @@ SDL_Rect DrunkCustomer::GetBounds()
 bool DrunkCustomer::UnLoad()
 {
     tex->UnLoad(drunkCustomerTexture);
+    tex->UnLoad(hurtTexture);
     
-    delete drunkCustomerAnim;
-    drunkCustomerAnim = nullptr;
+    RELEASE(drunkCustomerAnim);
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
     
     return false;
 }

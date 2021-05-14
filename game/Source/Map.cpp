@@ -392,6 +392,8 @@ bool Map::CleanUp()
 
 	while (item != NULL)
 	{
+		tex->UnLoad(item->data->texture);
+		item->data->tileProperty->properties.list.Clear();
 		RELEASE(item->data);
 		item = item->next;
 	}
@@ -404,6 +406,7 @@ bool Map::CleanUp()
 
 	while (item2 != NULL)
 	{
+		item2->data->properties.list.Clear();
 		RELEASE(item2->data);
 		item2 = item2->next;
 	}
@@ -724,6 +727,8 @@ bool Map::Unload()
 
 	mapLoaded = false;
 
+	RELEASE(deathAnim);
+	RELEASE(hurtAnim);
 	return ret;
 }
 

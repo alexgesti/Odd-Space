@@ -94,6 +94,11 @@ bool Textures::UnLoad(SDL_Texture* texture)
 		if(texture == item->data)
 		{
 			SDL_DestroyTexture(item->data);
+			/*if (item->data != nullptr)
+			{
+				SDL_DestroyTexture(item->data);
+				item->data = nullptr;
+			}*/
 			textures.Del(item);
 			LOG("Texture destroyed succesfully\n");
 			return true;

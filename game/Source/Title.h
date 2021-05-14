@@ -62,6 +62,7 @@ private:
 
     //float titlePosX = 1280 + 718;
     float initPosY = -350;
+    float finalPosY;
     float titlePosY = initPosY;
     float currentTime = 0.0f;
 };
