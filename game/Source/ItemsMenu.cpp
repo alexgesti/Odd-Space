@@ -16,8 +16,6 @@ ItemsMenu::~ItemsMenu()
 
 bool ItemsMenu::Load()
 {
-    sceneManager->entityManager->CreateEntity(EntityType::ITEM);
-
     for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
     {
         if (i == sceneManager->entityManager->entities[2].Count())
