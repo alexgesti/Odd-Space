@@ -151,10 +151,14 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     {
     case 1:
         sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
+        sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = true;
+        sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
         TransitionToScene(SceneType::EXTERIOR);
         break;
     case 2:
         sceneManager->loadrequested = true;
+        sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = true;
+        sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
         sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
         break;
     case 3:

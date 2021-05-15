@@ -88,7 +88,42 @@ bool PauseMenu::Draw()
     SDL_Rect rect = { 1106, 0, 1105, 624 };
     sceneManager->render->DrawTexture(pause, -sceneManager->render->camera.x + 80, -sceneManager->render->camera.y + 50, &rect);
 
-    if(sceneManager->openOptions == false) sceneManager->render->DrawText(sceneManager->font, "Pause", 560, 325, 100, 0, { 255, 255, 255, 255 });
+    if (sceneManager->openOptions == false)
+    {
+        SDL_Rect face1 = { 848, 64, 168, 224 };
+        SDL_Rect face2 = { 848, 288, 168, 208 };
+        // Hero
+        sceneManager->render->DrawTexture(pause, -sceneManager->render->camera.x + (rect.w / 3), -sceneManager->render->camera.y + (rect.h / 5), &face1);
+        sceneManager->render->DrawText(sceneManager->font, "Ray", 32 + rect.w / 2, 48 + rect.h / 7, 30, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "Level", 32 + rect.w / 2, 48 + rect.h / 3.75f, 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "1", 32 + rect.w / 1.65f, 48 + rect.h / 3.75f, 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "Exp.", 32 + rect.w / 2, 48 + rect.h / 2.5f, 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "0 / 100", 32 + rect.w / 1.65f, 48 + rect.h / 2.5f, 25, 0, { 255, 255, 255, 255 });
+        std::string HP1 = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP);
+        std::string maxHP1 = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP);
+        sceneManager->render->DrawText(sceneManager->font, "HP", 32 + rect.w / 1.25f, 48 + rect.h / 3.75f, 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, (HP1 + " / " + maxHP1).c_str(), 32 + rect.w / 1.15f, 48 + rect.h / 3.75f, 25, 0, { 255, 255, 255, 255 });
+        std::string SP1 = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.SP);
+        std::string maxSP1 = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxSP);
+        sceneManager->render->DrawText(sceneManager->font, "SP", 32 + rect.w / 1.25f, 48 + rect.h / 2.5f, 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, (SP1 + " / " + maxSP1).c_str(), 32 + rect.w / 1.15f, 48 + rect.h / 2.5f, 25, 0, { 255, 255, 255, 255 });
+        // Captain
+        sceneManager->render->DrawTexture(pause, -sceneManager->render->camera.x + (rect.w / 3), -sceneManager->render->camera.y + (rect.h / 1.5f), &face2);
+        sceneManager->render->DrawText(sceneManager->font, "Captain Krock", 32 + (rect.w / 2), 48 + (rect.h / 1.7f), 30, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "Level", 32 + (rect.w / 2), 48 + (rect.h / 1.4f), 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "1", 32 + (rect.w / 1.65f), 48 + (rect.h / 1.4f), 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "Exp.", 32 + (rect.w / 2), 48 + (rect.h / 1.2f), 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, "0 / 100", 32 + (rect.w / 1.65f), 48 + (rect.h / 1.2f), 25, 0, { 255, 255, 255, 255 });
+        std::string HP2 = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP);
+        std::string maxHP2 = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP);
+        sceneManager->render->DrawText(sceneManager->font, "HP", 32 + (rect.w / 1.25f), 48 + (rect.h / 1.4f), 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, (HP2 + " / " + maxHP2).c_str(), 32 + (rect.w / 1.15f), 48 + (rect.h / 1.4f), 25, 0, { 255, 255, 255, 255 });
+        std::string SP2 = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.SP);
+        std::string maxSP2 = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxSP);
+        sceneManager->render->DrawText(sceneManager->font, "SP", 32 + (rect.w / 1.25f), 48 + (rect.h / 1.2f), 25, 0, { 255, 255, 255, 255 });
+        sceneManager->render->DrawText(sceneManager->font, (SP2 + " / " + maxSP2).c_str(), 32 + (rect.w / 1.15f), 48 + (rect.h / 1.2f), 25, 0, { 255, 255, 255, 255 });
+        LOG("%d %d", -sceneManager->render->camera.x, -sceneManager->render->camera.y);
+    }
     sceneManager->render->DrawText(sceneManager->font, "Current", 145, 67, 25, 0, { 255, 255, 255, 255 });
    
     buttonItems->Draw(sceneManager->render, sceneManager->font);
