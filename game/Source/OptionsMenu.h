@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "GuiCheckBox.h"
 #include "GuiSlider.h"
+#include "GuiButton.h"
 
 #include "SDL_mixer/include/SDL_mixer.h"
 
@@ -39,13 +40,16 @@ private:
     SceneManager* sceneManager;
 
     int f;
-    int buttonOption[4] = { 1, 2, 3, 4 };
+    int fmax;
+    int buttonOption[5] = { 1, 2, 3, 4, 5 };
 
     SDL_Texture* optionsText;
     GuiCheckBox* fullScreen;
     GuiCheckBox* VSync;
     GuiSlider* music;
     GuiSlider* fx;
+    GuiButton* exit;
+    SDL_Texture* texture;
 };
 
 #endif // __OPTIONSMENU_H__

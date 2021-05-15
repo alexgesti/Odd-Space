@@ -16,14 +16,18 @@ OptionsMenu::~OptionsMenu()
 
 bool OptionsMenu::Load()
 {
-    fullScreen = new GuiCheckBox(1, { 150, 109, 240, 81 }, "Fullscreen", sceneManager->audio);
+    texture = sceneManager->tex->Load("Assets/sprites/UI/UI_menupause.png");
+
+    fullScreen = new GuiCheckBox(1, { 400, 235, 32, 32 }, "Fullscreen", sceneManager->audio);
     fullScreen->SetObserver(this);
-    VSync = new GuiCheckBox(2, { 150, 109, 240, 81 }, "VSync", sceneManager->audio);
+    VSync = new GuiCheckBox(2, { 400, 360, 32, 32 }, "VSync", sceneManager->audio);
     VSync->SetObserver(this);
-    music = new GuiSlider(3, { 150, 109, 240, 81 }, "Music", sceneManager->audio);
+    music = new GuiSlider(3, { 400, 485, 500, 16 }, "Music", sceneManager->audio);
     music->SetObserver(this);
-    fx = new GuiSlider(4, { 150, 109, 240, 81 }, "Fx ", sceneManager->audio);
+    fx = new GuiSlider(4, { 400, 610, 500, 16 }, "Fx", sceneManager->audio);
     fx->SetObserver(this);
+    exit = new GuiButton(5, { 1075, 172, 240, 81 }, "Exit", sceneManager->audio);
+    exit->SetObserver(this);
 
     f = 0;
 
@@ -41,13 +45,16 @@ bool OptionsMenu::Update(float dt)
         f--;
 
     //Establecer limites fila/columna botones
-    if (f > 4) f = 0;
-    if (f < 0) f = 4;
+    if (sceneManager->openOptions) fmax = 4;
+    else fmax = 3;
+    if (f > fmax) f = 0;
+    if (f < 0) f = fmax;
 
     fullScreen->Update(sceneManager->input, buttonOption[f], dt);
     VSync->Update(sceneManager->input, buttonOption[f], dt);
     music->Update(sceneManager->input, buttonOption[f], dt);
     fx->Update(sceneManager->input, buttonOption[f], dt);
+    exit->Update(sceneManager->input, buttonOption[f], dt);
 
     return true;
 }
@@ -55,12 +62,17 @@ bool OptionsMenu::Update(float dt)
 bool OptionsMenu::Draw()
 {
     SDL_Rect options = { -sceneManager->render->camera.x + 345, -sceneManager->render->camera.y + 111, 830, 553 };
-    sceneManager->render->DrawRectangle(options, 0, 0, 255, 255);
+    //sceneManager->render->DrawRectangle(options, 0, 0, 255, 255);
 
-    fullScreen->Draw(sceneManager->render);
-    VSync->Draw(sceneManager->render);
-    music->Draw(sceneManager->render, sceneManager->volumeMusic);
-    fx->Draw(sceneManager->render, sceneManager->volumeFx);
+    sceneManager->render->DrawText(sceneManager->font, "Fullscreen", sceneManager->render->camera.x + 400, sceneManager->render->camera.y + 200, 25, 0, { 255, 255, 255, 255 });
+    fullScreen->Draw(sceneManager->render, texture);
+    sceneManager->render->DrawText(sceneManager->font, "VSync", sceneManager->render->camera.x + 400, sceneManager->render->camera.y + 325, 25, 0, { 255, 255, 255, 255 });
+    VSync->Draw(sceneManager->render, texture);
+    sceneManager->render->DrawText(sceneManager->font, "Music", sceneManager->render->camera.x + 400, sceneManager->render->camera.y + 450, 25, 0, { 255, 255, 255, 255 });
+    music->Draw(sceneManager->render, sceneManager->volumeMusic, texture);
+    sceneManager->render->DrawText(sceneManager->font, "Fx", sceneManager->render->camera.x + 400, sceneManager->render->camera.y + 575, 25, 0, { 255, 255, 255, 255 });
+    fx->Draw(sceneManager->render, sceneManager->volumeFx, texture);
+    if(sceneManager->openOptions) exit->Draw(sceneManager->render, sceneManager->font);
 
     return true;
 }
@@ -68,6 +80,7 @@ bool OptionsMenu::Draw()
 bool OptionsMenu::Unload()
 {
     sceneManager->tex->UnLoad(optionsText);
+    sceneManager->tex->UnLoad(texture);
 
     sceneManager->openOptions = false;
 
@@ -112,6 +125,8 @@ bool OptionsMenu::OnGuiMouseClickEvent(GuiControl* control)
             if (sceneManager->volumeFx < 128) sceneManager->volumeFx += 32;
         Mix_Volume(-1, sceneManager->volumeFx);
         break;
+    case 5: 
+        sceneManager->gameIsWorking = false;
     default: break;
     }
 

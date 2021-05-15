@@ -68,24 +68,16 @@ bool GuiSlider::Update(Input* input, int buttonSelected, float dt)
     return false;
 }
 
-bool GuiSlider::Draw(Render* render, int slide)
+bool GuiSlider::Draw(Render* render, int slide, SDL_Texture* texture)
 {
     // Draw the right button depending on state
-    switch (state)
-    {
-    case GuiControlState::DISABLED: render->DrawRectangle(bounds, 100, 100, 100, 255);
-        break;
-    case GuiControlState::NORMAL: render->DrawRectangle(bounds, 0, 255, 0, 255);
-        break;
-    case GuiControlState::FOCUSED: render->DrawRectangle(bounds, 255, 255, 0, 255);
-        break;
-    case GuiControlState::PRESSED: render->DrawRectangle(bounds, 0, 255, 255, 255);
-        break;
-    case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
-        break;
-    default:
-        break;
-    }
+    SDL_Rect rec = { 848, 32, 32, 32 };
+    SDL_Rect rec2 = { 880, 32, 32, 32 };
+    SDL_Rect rec3 = { 912, 32, 32, 32 };
 
+    render->DrawRectangle(bounds, 255, 255, 255, 255);
+    if (state == GuiControlState::FOCUSED) render->DrawTexture(texture, (bounds.x - rec.w / 2) + (bounds.w / 4) * (slide / 32), bounds.y + (bounds.h / 2) - (rec.h / 2), &rec2);
+    else if (state == GuiControlState::PRESSED) render->DrawTexture(texture, (bounds.x - rec.w / 2) + (bounds.w / 4) * (slide / 32), bounds.y + (bounds.h / 2) - (rec.h / 2), &rec3);
+    else render->DrawTexture(texture, (bounds.x - rec.w / 2) + (bounds.w / 4) * (slide / 32), bounds.y + (bounds.h / 2) - (rec.h / 2), &rec);
     return false;
 }

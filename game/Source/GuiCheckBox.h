@@ -14,7 +14,7 @@ public:
     virtual ~GuiCheckBox();
 
     bool Update(Input* input, int buttonSelected, float dt);
-    bool Draw(Render* render);
+    bool Draw(Render* render, SDL_Texture* texture);
 
 private:
 

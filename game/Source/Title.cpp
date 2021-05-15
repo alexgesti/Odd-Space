@@ -22,6 +22,7 @@ bool Title::Load()
 {
     bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
     titleName = sceneManager->tex->Load("assets/sprites/MainScreen/odd_space_logo.png");
+    optionsTex = sceneManager->tex->Load("assets/sprites/UI/UI_menupause.png");
     sceneManager->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
 
     // Buttons
@@ -113,7 +114,12 @@ bool Title::Draw()
     sceneManager->render->DrawTexture(bgTitle, 127, 483, &button);
     buttons.buttonExit->Draw(sceneManager->render, sceneManager->font);
 
-    if (openOptions) sceneManager->options->Draw();
+    if (openOptions)
+    {
+        SDL_Rect rect2 = { 0, 0, 830, 553 };
+        sceneManager->render->DrawTexture(optionsTex, 380, 150, &rect2);
+        sceneManager->options->Draw();
+    }
 
     return false;
 }

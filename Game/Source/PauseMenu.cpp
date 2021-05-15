@@ -26,7 +26,7 @@ bool PauseMenu::Load()
     buttonEquip = new GuiButton(3, { 110, 297, 240, 81 }, "Equipment", sceneManager->audio);
     buttonEquip->SetObserver(this);
     buttonEquip->state = GuiControlState::DISABLED;
-    buttonSettings = new GuiButton(4, { 120, 391, 240, 81 }, "Settings", sceneManager->audio); // ESTO DEBERÁ SER SETTINGS, PARA LA VERTICAL SLICE SE DEJARÁ COMO UN "EXIT" YA QUE ESTE ESTARÁ DENTRO DE LAS OPCIONES (X es 125)
+    buttonSettings = new GuiButton(4, { 120, 391, 240, 81 }, "Settings", sceneManager->audio);
     buttonSettings->SetObserver(this);
     buttonSave = new GuiButton(5, { 160, 485, 240, 81 }, "Save", sceneManager->audio);
     buttonSave->SetObserver(this);
@@ -88,7 +88,7 @@ bool PauseMenu::Draw()
     SDL_Rect rect = { 1106, 0, 1105, 624 };
     sceneManager->render->DrawTexture(pause, -sceneManager->render->camera.x + 80, -sceneManager->render->camera.y + 50, &rect);
 
-    sceneManager->render->DrawText(sceneManager->font, "Pause", 560, 325, 100, 0, { 255, 255, 255, 255 });
+    if(sceneManager->openOptions == false) sceneManager->render->DrawText(sceneManager->font, "Pause", 560, 325, 100, 0, { 255, 255, 255, 255 });
     sceneManager->render->DrawText(sceneManager->font, "Current", 145, 67, 25, 0, { 255, 255, 255, 255 });
    
     buttonItems->Draw(sceneManager->render, sceneManager->font);
@@ -148,7 +148,6 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 5: 
         sceneManager->saverequested = true;
-        //sceneManager->currentgamerequested = true;
         break;
     case 6: 
         sceneManager->loadrequested = true;

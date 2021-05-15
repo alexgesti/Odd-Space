@@ -59,7 +59,7 @@ bool GuiCheckBox::Update(Input* input, int buttonSelected, float dt)
         }
 
         // If mouse button pressed -> Generate event!
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP && state == GuiControlState::DISABLED)
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && state == GuiControlState::DISABLED)
         {
             checked = !checked;
             NotifyObserver();
@@ -75,29 +75,23 @@ bool GuiCheckBox::Update(Input* input, int buttonSelected, float dt)
     return false;
 }
 
-bool GuiCheckBox::Draw(Render* render)
+bool GuiCheckBox::Draw(Render* render, SDL_Texture* texture)
 {
     // Draw the right button depending on state
-    switch (state)
+    SDL_Rect rect = { 880, 0, 32, 32 }; //Check
+    SDL_Rect rect2 = { 848, 0, 32, 32 }; //Nocheck
+    SDL_Rect rect3 = { 912, 0, 32, 32 }; //NoCheckEncima
+    SDL_Rect rect4 = { 944, 0, 32, 32 }; //checkEncima
+
+    if (state == GuiControlState::FOCUSED)
     {
-    case GuiControlState::DISABLED:
+        if (checked) render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect4);
+        else render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect3);
+    }
+    else
     {
-        if (checked) render->DrawRectangle(bounds, 100, 100, 100, 255);
-        else render->DrawRectangle(bounds, 100, 100, 100, 255);
-    } break;
-    case GuiControlState::NORMAL: 
-    {
-        if (checked) render->DrawRectangle(bounds, 0, 255, 0, 255);
-        else render->DrawRectangle(bounds, 0, 255, 0, 255);
-    } break;
-    case GuiControlState::FOCUSED: render->DrawRectangle(bounds, 255, 255, 0, 255);
-        break;
-    case GuiControlState::PRESSED: render->DrawRectangle(bounds, 0, 255, 255, 255);
-        break;
-    case GuiControlState::SELECTED: render->DrawRectangle(bounds, 0, 255, 0, 255);
-        break;
-    default:
-        break;
+        if (checked) render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+        else render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect2);
     }
 
     return false;

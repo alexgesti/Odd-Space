@@ -42,6 +42,7 @@ private:
 
     SDL_Texture* bgTitle;
     SDL_Texture* titleName;
+    SDL_Texture* optionsTex;
 
     struct Buttons
     {
