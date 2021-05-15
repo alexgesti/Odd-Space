@@ -1,10 +1,10 @@
 #ifndef __DUNGEONF1_H__
 #define __DUNGEONF1_H__
 
-#define BOTTOM_CAMERA_LIMIT -1520
-#define TOP_CAMERA_LIMIT -257
-#define RIGHT_CAMERA_LIMIT -1728
-#define LEFT_CAMERA_LIMIT 0
+#define BOTTOM_CAMERA_LIMIT -1296
+#define TOP_CAMERA_LIMIT 0
+#define RIGHT_CAMERA_LIMIT -1696
+#define LEFT_CAMERA_LIMIT -32
 #define HORIZONTAL_DOOR 1536
 #define END_DOOR 960
 
@@ -42,6 +42,9 @@ public:
     bool OnGuiMouseClickEvent(GuiControl* control);
 
     int stairsFx;
+    int leverFx;
+
+    SDL_Texture* door1Tex;
 
 private:
 
