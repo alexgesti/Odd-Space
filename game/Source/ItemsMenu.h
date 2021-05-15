@@ -37,7 +37,7 @@ private:
 
     SceneManager* sceneManager;
 
-    int f;
+    int c;
     int buttonItems[MAX_ITEMS];
 
     GuiButton* itemsButtons[MAX_ITEMS];

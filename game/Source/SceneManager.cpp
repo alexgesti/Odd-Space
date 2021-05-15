@@ -150,7 +150,14 @@ bool SceneManager::Update(float dt)
 			(currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE))
 		{
 			isPause = !isPause;
-			entityManager->CreateEntity(EntityType::HERO)->transitioning = !entityManager->CreateEntity(EntityType::HERO)->transitioning;
+			if (!isPause)
+			{
+				items->Unload();
+				options->Unload();
+				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
+			}
+			else entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
+			
 		}
 
 		if (isPause) pause->Update(dt);
