@@ -18,9 +18,9 @@ bool DialogueSystem::Start()
 	//nameTex = optionsTex;
 
 	// Buttons Dialog
-	buttonOpt1 = new GuiButton(1, { 511, 384, 757, 50 }, "Option 1", audio);
-	buttonOpt2 = new GuiButton(2, { 511, 434, 757, 50 }, "Option 2", audio);
-	buttonOpt3 = new GuiButton(3, { 511, 484, 757, 50 }, "Option 3", audio);
+	buttonOpt1 = new GuiButton(1, { 511, 384, 757, 50 }, "Option 1", audio, false);
+	buttonOpt2 = new GuiButton(2, { 511, 434, 757, 50 }, "Option 2", audio, false);
+	buttonOpt3 = new GuiButton(3, { 511, 484, 757, 50 }, "Option 3", audio, false);
 
 	return true;
 }

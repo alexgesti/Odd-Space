@@ -13,7 +13,7 @@ public:
     GuiCheckBox(uint32 id, SDL_Rect bounds, const char *text, Audio* audio);
     virtual ~GuiCheckBox();
 
-    bool Update(Input* input, int buttonSelected, float dt);
+    bool Update(Input* input, bool* checked, int buttonSelected, float dt);
     bool Draw(Render* render, SDL_Texture* texture);
 
 private:
@@ -24,7 +24,7 @@ private:
     int press = 0;
     int unavaliable = 0;
     bool soundReproduced = true;
-    bool checked;
+    bool check;
 };
 
 #endif // __GUICHECKBOX_H__

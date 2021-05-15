@@ -26,13 +26,13 @@ bool Title::Load()
     sceneManager->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
 
     // Buttons
-    buttons.buttonPlay = new GuiButton(1, { 150, 180, 160, 75 }, "New Game", sceneManager->audio);
+    buttons.buttonPlay = new GuiButton(1, { 100, 183, 224, 64 }, "New Game", sceneManager->audio);
     buttons.buttonPlay->SetObserver(this);
-    buttons.buttonContinue = new GuiButton(2, { 155, 280, 160, 75 }, "Continue", sceneManager->audio);
+    buttons.buttonContinue = new GuiButton(2, { 100, 283, 224, 64 }, "Continue", sceneManager->audio);
     buttons.buttonContinue->SetObserver(this);
-    buttons.buttonSettings = new GuiButton(3, { 155, 380, 160, 75 }, "Settings", sceneManager->audio);
+    buttons.buttonSettings = new GuiButton(3, { 100, 383, 224, 64 }, "Settings", sceneManager->audio);
     buttons.buttonSettings->SetObserver(this);
-    buttons.buttonExit = new GuiButton(4, { 195, 480, 160, 75 }, "Exit", sceneManager->audio);
+    buttons.buttonExit = new GuiButton(4, { 100, 483, 224, 64 }, "Exit", sceneManager->audio);
     buttons.buttonExit->SetObserver(this);
 
     finalPosY = sceneManager->render->camera.y / 2 + 226;
@@ -63,13 +63,10 @@ bool Title::Update(float dt)
         oneTime = false;
     }
 
-    if(openOptions)
+    if(sceneManager->openOptions)
     {
         if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
-        {
-            openOptions = false;
             sceneManager->options->Unload();
-        }
         else sceneManager->options->Update(dt);
     }
     else
@@ -101,23 +98,23 @@ bool Title::Update(float dt)
 bool Title::Draw()
 {
     SDL_Rect rect = { pos1, 0, 1280, 720 };
-    sceneManager->render->DrawTexture(bgTitle, sceneManager->render->camera.x, sceneManager->render->camera.y, &rect);
-    sceneManager->render->DrawTexture(titleName, 500, titlePosY, NULL);
+    sceneManager->render->DrawTexture(bgTitle, -sceneManager->render->camera.x, -sceneManager->render->camera.y, &rect);
+    sceneManager->render->DrawTexture(titleName, 445, titlePosY, NULL);
      
-    SDL_Rect button = { 0, 720, 224, 64 };
-    sceneManager->render->DrawTexture(bgTitle, 127, 183, &button);
+    rect = { 0, 720, 224, 64 };
+    sceneManager->render->DrawTexture(bgTitle, 100, 183, &rect);
     buttons.buttonPlay->Draw(sceneManager->render, sceneManager->font);
-    sceneManager->render->DrawTexture(bgTitle, 127, 283, &button);
+    sceneManager->render->DrawTexture(bgTitle, 100, 283, &rect);
     buttons.buttonContinue->Draw(sceneManager->render, sceneManager->font);
-    sceneManager->render->DrawTexture(bgTitle, 127, 383, &button);
+    sceneManager->render->DrawTexture(bgTitle, 100, 383, &rect);
     buttons.buttonSettings->Draw(sceneManager->render, sceneManager->font);
-    sceneManager->render->DrawTexture(bgTitle, 127, 483, &button);
+    sceneManager->render->DrawTexture(bgTitle, 100, 483, &rect);
     buttons.buttonExit->Draw(sceneManager->render, sceneManager->font);
 
-    if (openOptions)
+    if (sceneManager->openOptions)
     {
-        SDL_Rect rect2 = { 0, 0, 830, 553 };
-        sceneManager->render->DrawTexture(optionsTex, 380, 150, &rect2);
+        rect = { 0, 0, 830, 553 };
+        sceneManager->render->DrawTexture(optionsTex, -sceneManager->render->camera.x + 344, -sceneManager->render->camera.y + 110, &rect);
         sceneManager->options->Draw();
     }
 
@@ -130,7 +127,7 @@ bool Title::Unload()
     sceneManager->tex->UnLoad(bgTitle);
     sceneManager->tex->UnLoad(titleName);
 
-    if (openOptions) sceneManager->options->Unload();
+    if (sceneManager->openOptions) sceneManager->options->Unload();
 
     delete buttons.buttonPlay;
     buttons.buttonPlay = nullptr;
@@ -162,7 +159,7 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 3:
         sceneManager->options->Load();
-        openOptions = true;
+        sceneManager->openOptions = true;
         break;
     case 4:
         sceneManager->gameIsWorking = false;

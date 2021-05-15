@@ -18,19 +18,19 @@ bool PauseMenu::Load()
 {
     pause = sceneManager->tex->Load("assets/sprites/UI/UI_MenuPause.png");
 
-    buttonItems = new GuiButton(1, { 150, 109, 240, 81 }, "Items", sceneManager->audio);
+    buttonItems = new GuiButton(1, { 90, 109, 240, 81 }, "Items", sceneManager->audio);
     buttonItems->SetObserver(this);
-    buttonSkills = new GuiButton(2, { 150, 203, 240, 81 }, "Skills", sceneManager->audio);
+    buttonSkills = new GuiButton(2, { 90, 203, 240, 81 }, "Skills", sceneManager->audio);
     buttonSkills->SetObserver(this);
     buttonSkills->state = GuiControlState::DISABLED;
-    buttonEquip = new GuiButton(3, { 110, 297, 240, 81 }, "Equipment", sceneManager->audio);
+    buttonEquip = new GuiButton(3, { 90, 297, 240, 81 }, "Equipment", sceneManager->audio);
     buttonEquip->SetObserver(this);
     buttonEquip->state = GuiControlState::DISABLED;
-    buttonSettings = new GuiButton(4, { 120, 391, 240, 81 }, "Settings", sceneManager->audio);
+    buttonSettings = new GuiButton(4, { 90, 391, 240, 81 }, "Settings", sceneManager->audio);
     buttonSettings->SetObserver(this);
-    buttonSave = new GuiButton(5, { 160, 485, 240, 81 }, "Save", sceneManager->audio);
+    buttonSave = new GuiButton(5, { 90, 485, 240, 81 }, "Save", sceneManager->audio);
     buttonSave->SetObserver(this);
-    buttonLoad = new GuiButton(6, { 160, 579, 240, 81 }, "Load", sceneManager->audio);
+    buttonLoad = new GuiButton(6, { 90, 579, 240, 81 }, "Load", sceneManager->audio);
     buttonLoad->SetObserver(this);
 
     f = 0;

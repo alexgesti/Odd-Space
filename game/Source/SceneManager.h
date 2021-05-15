@@ -97,6 +97,8 @@ public:
 	
 	int volumeMusic;
 	int volumeFx;
+	bool fullscreenCheck = false;
+	bool VSyncCheck = true;
 
 	// --- SCENE-SPECIFIC VARIABLES --- //
 	bool initialExtTextSaid = false;

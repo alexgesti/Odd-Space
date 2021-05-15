@@ -8,6 +8,7 @@
 
 #include "Point.h"
 #include "SString.h"
+#include "Log.h"
 
 #include "SDL/include/SDL.h"
 
@@ -47,7 +48,6 @@ public:
         text(text) 
     {
         color.r = 255; color.g = 255; color.b = 255;
-        texture = NULL;
     }
 
     virtual bool Update(Input* input, float dt)
@@ -60,10 +60,9 @@ public:
         return true;
     }
 
-    void SetTexture(SDL_Texture* tex)
+    virtual bool UnLoad() const
     {
-        texture = tex;
-        section = { 0, 0, 0, 0 };
+        return true;
     }
 
     void SetObserver(Scene* module)
@@ -85,9 +84,6 @@ public:
     SString text;           // Control text (if required)
     SDL_Rect bounds;        // Position and size
     SDL_Color color;        // Tint color
-
-    SDL_Texture* texture;   // Texture atlas reference
-    SDL_Rect section;       // Texture atlas base section
 
     //Font font;              // Text font
 

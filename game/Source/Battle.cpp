@@ -16,6 +16,27 @@ Battle::Battle(SceneManager* sceneManager)
     this->sceneManager = sceneManager;
 
     map = new Map(sceneManager->tex);
+
+    if (*sceneManager->entityManager->previousScene == SceneType::CANTINA || *sceneManager->entityManager->previousScene == SceneType::WC)
+    {
+        if (map->Load("combat_cantina_interior.tmx") == true)
+        {
+            /*int w, h;
+            uchar* data = NULL;
+
+            RELEASE_ARRAY(data);*/
+        }
+    }
+    else if (*sceneManager->entityManager->previousScene == SceneType::EXTERIOR)
+    {
+        if (map->Load("combat_cantina_exterior.tmx") == true)
+        {
+            /*int w, h;
+            uchar* data = NULL;
+
+            RELEASE_ARRAY(data);*/
+        }
+    }
     
     name.Create("battle");
 }
@@ -45,27 +66,6 @@ bool Battle::Load()
     sceneManager->render->camera = { 0, 0 };
 
     UI = sceneManager->tex->Load("assets/sprites/UI/UI_Text.png");
-
-    if (*sceneManager->entityManager->previousScene == SceneType::CANTINA || *sceneManager->entityManager->previousScene == SceneType::WC)
-    {
-        if (map->Load("combat_cantina_interior.tmx") == true)
-        {
-            /*int w, h;
-            uchar* data = NULL;
-
-            RELEASE_ARRAY(data);*/
-        }
-    }
-    else if (*sceneManager->entityManager->previousScene == SceneType::EXTERIOR)
-    {
-        if (map->Load("combat_cantina_exterior.tmx") == true)
-        {
-            /*int w, h;
-            uchar* data = NULL;
-
-            RELEASE_ARRAY(data);*/
-        }
-    }
 
     // Buttons Principal Menu
     buttons.buttonsMenu.buttonAttack = new GuiButton(1, { 10, 560, 160, 75 }, "Attack", sceneManager->audio);
@@ -640,6 +640,7 @@ void Battle::BattleEscaped()
 {
     if (rand() % 6 != 0)
     {
+        sceneManager->audio->PlayFx(fx.runFx);
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
         sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
         sceneManager->wasBattle = true;
@@ -788,105 +789,106 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
         case 5:
             //Run
-            sceneManager->audio->PlayFx(fx.runFx);
             BattleEscaped();
             break;
 
         case 6:
             //Back
             characterTurn = 0;
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = false;
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.defense = false;
             break;
 
         default: break;
         }
         f = 0;
         c = 0;
-        
-    break;
+        break;
 
     //Skills Buttons
-    switch (characterTurn) 
-    {
-    case 1:
-        switch (control->id)
-        {
-        case 7://debuff
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
-            chooseMenu = 3;
-            sceneManager->audio->PlayFx(fx.debuffFx);
-            break;
-
-        case 8:
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].picked = true;
-            chooseMenu = 3;
-            break;
-
-        case 9://hp recover
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
-            chooseMenu = 3;
-            sceneManager->audio->PlayFx(fx.hpRecoverFx);
-            break;
-
-        case 10:
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].picked = true;
-            chooseMenu = 3;
-            break;
-
-        case 11://revive
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
-            chooseMenu = 3;
-            sceneManager->audio->PlayFx(fx.reviveFx);
-            break;
-
-        case 12:
-            //Back
-            chooseMenu = 1;
-            break;
-
-        default: break;
-        }
-        break;
-
     case 2:
-        switch (control->id)
+        switch (characterTurn)
         {
-        case 7:
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
-            chooseMenu = 3;
+        case 0:
+            switch (control->id)
+            {
+            case 7://debuff
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
+                chooseMenu = 3;
+                sceneManager->audio->PlayFx(fx.debuffFx);
+                break;
+
+            case 8:
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].picked = true;
+                chooseMenu = 3;
+                break;
+
+            case 9://hp recover
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
+                chooseMenu = 3;
+                sceneManager->audio->PlayFx(fx.hpRecoverFx);
+                break;
+
+            case 10:
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].picked = true;
+                chooseMenu = 3;
+                break;
+
+            case 11://revive
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
+                chooseMenu = 3;
+                sceneManager->audio->PlayFx(fx.reviveFx);
+                break;
+
+            case 12:
+                //Back
+                chooseMenu = 1;
+                break;
+
+            default: break;
+            }
             break;
 
-        case 8:
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].picked = true;
-            chooseMenu = 3;
-            break;
+        case 1:
+            switch (control->id)
+            {
+            case 7:
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
+                chooseMenu = 3;
+                break;
 
-        case 9:
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
-            chooseMenu = 3;
-            break;
+            case 8:
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[1].picked = true;
+                chooseMenu = 3;
+                break;
 
-        case 10:
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].picked = true;
-            chooseMenu = 3;
-            break;
+            case 9:
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
+                chooseMenu = 3;
+                break;
 
-        case 11:
-            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
-            chooseMenu = 3;
-            break;
+            case 10:
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[3].picked = true;
+                chooseMenu = 3;
+                break;
 
-        case 12:
-            //Back
-            chooseMenu = 1;
-            break;
+            case 11:
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
+                chooseMenu = 3;
+                break;
 
-        default: break;
-        }
+            case 12:
+                //Back
+                chooseMenu = 1;
+                break;
+
+            default: break;
+            }
+            break;
+        f = 0;
+        c = 0;
         break;
-    }
-    f = 0;
-    c = 0;
-    break;
+        }
 
         //Enemies Buttons
     case 3:
@@ -943,7 +945,7 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
             buttons.buttonsEnemies.buttonEnemy[be]->Update(sceneManager->input, controllerEnemy[f], 0.016f);
         f = 0;
         c = 0;
-    break;
+        break;
     }
 
     return true;

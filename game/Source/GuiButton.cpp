@@ -1,11 +1,12 @@
 #include "GuiButton.h"
 
-GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, Audio* audio) : GuiControl(GuiControlType::BUTTON, id)
+GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, Audio* audio, bool sorted) : GuiControl(GuiControlType::BUTTON, id)
 {
     this->bounds = bounds;
     this->text = text;
     this->id = id;
     this->audio = audio;
+    this->sorted = sorted;
 
     hover = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
     unavaliable = audio->LoadFx("Assets/Audio/Fx/unavaliable_ui.wav");
@@ -20,7 +21,7 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 {
     GamePad& pad = input->pads[0];
 
-    /*int mouseX, mouseY;
+    int mouseX, mouseY;
     input->GetMousePosition(mouseX, mouseY);
 
     // Check collision between mouse and button bounds
@@ -41,7 +42,7 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
         {
             NotifyObserver();
         }
-    }*/
+    }
 
     if (id == buttonSelected)
     {
@@ -78,41 +79,43 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 bool GuiButton::Draw(Render* render, Font* font)
 {
     // Draw the right button depending on state
+
+    int centerPoint;
+
+    if (!sorted) centerPoint = 5;
+    else centerPoint = (bounds.w / 2) - ((text.Length() * (bounds.h / 4)) / 2);
+
     switch (state)
     {
     case GuiControlState::DISABLED: 
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 100, 100, 100, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 100, 100, 100, 255 });
         }
         break;
     case GuiControlState::NORMAL:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 255, 255, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 255, 255, 255 });
         }
-        //render->DrawRectangle(bounds, 0, 255, 0, 255, true, camera);
         break;
     case GuiControlState::FOCUSED:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 0, 0, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 0, 0, 255 });
         }
-        //render->DrawRectangle(bounds, 255, 255, 0, 255, true, camera);
         break;
     case GuiControlState::PRESSED:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 255, 0, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 255, 0, 255 });
         }
-        //render->DrawRectangle(bounds, 0, 255, 255, 255, true, camera);
         break;
     case GuiControlState::SELECTED:
         if (font != nullptr)
         {
-            render->DrawText(font, text.GetString(), bounds.x + 5, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 0, 255, 255 });
+            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 0, 255, 255 });
         }
-        //render->DrawRectangle(bounds, 0, 255, 0, 255, true, camera);
         break;
     default:
         break;

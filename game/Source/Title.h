@@ -56,7 +56,6 @@ private:
     int controllerMenu[4] = { 1, 2, 3, 4 };
 
     bool oneTime = true;
-    bool openOptions = false;
     int temporalAppearTitle = 0;
 
     int pos1 = 12;

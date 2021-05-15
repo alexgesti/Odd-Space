@@ -16,7 +16,7 @@ GuiCheckBox::~GuiCheckBox()
 {
 }
 
-bool GuiCheckBox::Update(Input* input, int buttonSelected, float dt)
+bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float dt)
 {
     GamePad& pad = input->pads[0];
 
@@ -61,7 +61,8 @@ bool GuiCheckBox::Update(Input* input, int buttonSelected, float dt)
         // If mouse button pressed -> Generate event!
         if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && state == GuiControlState::DISABLED)
         {
-            checked = !checked;
+            *checked = !*checked;
+            check = *checked;
             NotifyObserver();
             audio->PlayFx(press);
         }
@@ -78,20 +79,32 @@ bool GuiCheckBox::Update(Input* input, int buttonSelected, float dt)
 bool GuiCheckBox::Draw(Render* render, SDL_Texture* texture)
 {
     // Draw the right button depending on state
-    SDL_Rect rect = { 880, 0, 32, 32 }; //Check
-    SDL_Rect rect2 = { 848, 0, 32, 32 }; //Nocheck
-    SDL_Rect rect3 = { 912, 0, 32, 32 }; //NoCheckEncima
-    SDL_Rect rect4 = { 944, 0, 32, 32 }; //checkEncima
+    SDL_Rect rect = { 848, 0, 32, 32 };
 
     if (state == GuiControlState::FOCUSED)
     {
-        if (checked) render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect4);
-        else render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect3);
+        if (check)
+        {
+            rect = { 944, 0, 32, 32 };
+            render->DrawTexture(texture, -render->camera.x + bounds.x + (bounds.w / 2) - (rect.w / 2), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+        }
+        else
+        {
+            rect = { 912, 0, 32, 32 };
+            render->DrawTexture(texture, -render->camera.x + bounds.x + (bounds.w / 2) - (rect.w / 2), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+        }
     }
     else
     {
-        if (checked) render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
-        else render->DrawTexture(texture, bounds.x + (bounds.w / 2) - (rect.w / 2), bounds.y + (bounds.h / 2) - (rect.h / 2), &rect2);
+        if (check)
+        {
+            rect = { 880, 0, 32, 32 };
+            render->DrawTexture(texture, -render->camera.x + bounds.x + (bounds.w / 2) - (rect.w / 2), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+        }
+        else
+        {
+            render->DrawTexture(texture, -render->camera.x + bounds.x + (bounds.w / 2) - (rect.w / 2), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+        }
     }
 
     return false;

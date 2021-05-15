@@ -71,13 +71,22 @@ bool GuiSlider::Update(Input* input, int buttonSelected, float dt)
 bool GuiSlider::Draw(Render* render, int slide, SDL_Texture* texture)
 {
     // Draw the right button depending on state
-    SDL_Rect rec = { 848, 32, 32, 32 };
-    SDL_Rect rec2 = { 880, 32, 32, 32 };
-    SDL_Rect rec3 = { 912, 32, 32, 32 };
+    SDL_Rect rect = { 848, 32, 32, 32 };
 
-    render->DrawRectangle(bounds, 255, 255, 255, 255);
-    if (state == GuiControlState::FOCUSED) render->DrawTexture(texture, (bounds.x - rec.w / 2) + (bounds.w / 4) * (slide / 32), bounds.y + (bounds.h / 2) - (rec.h / 2), &rec2);
-    else if (state == GuiControlState::PRESSED) render->DrawTexture(texture, (bounds.x - rec.w / 2) + (bounds.w / 4) * (slide / 32), bounds.y + (bounds.h / 2) - (rec.h / 2), &rec3);
-    else render->DrawTexture(texture, (bounds.x - rec.w / 2) + (bounds.w / 4) * (slide / 32), bounds.y + (bounds.h / 2) - (rec.h / 2), &rec);
+    render->DrawRectangle({ -render->camera.x + bounds.x, -render->camera.y + bounds.y, bounds.w, bounds.h }, 255, 255, 255, 255);
+    if (state == GuiControlState::FOCUSED)
+    {
+        rect = { 880, 32, 32, 32 };
+        render->DrawTexture(texture, -render->camera.x + (bounds.x - rect.w / 2) + (bounds.w / 4) * (slide / 32), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+    }
+    else if (state == GuiControlState::PRESSED) 
+    {
+        rect = { 912, 32, 32, 32 };
+        render->DrawTexture(texture, -render->camera.x + (bounds.x - rect.w / 2) + (bounds.w / 4) * (slide / 32), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+    }
+    else
+    {
+        render->DrawTexture(texture, -render->camera.x + (bounds.x - rect.w / 2) + (bounds.w / 4) * (slide / 32), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
+    }
     return false;
 }

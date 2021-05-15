@@ -11,7 +11,7 @@ class GuiButton : public GuiControl
 {
 public:
 
-    GuiButton(uint32 id, SDL_Rect bounds, const char *text, Audio* audio);
+    GuiButton(uint32 id, SDL_Rect bounds, const char *text, Audio* audio, bool sorted = true);
     virtual ~GuiButton();
 
     bool Update(Input* input, int buttonSelected, float dt);
@@ -27,6 +27,7 @@ public:
 	
 private:
     bool soundReproduced = true;
+    bool sorted;
 };
 
 #endif // __GUIBUTTON_H__

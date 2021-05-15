@@ -261,19 +261,27 @@ void Map::DrawLayer(Render* render, int num)
 		// L04: DONE 5: Prepare the loop to draw all tilesets + DrawTexture()
 		for (int y = 0; y < data.height; ++y)
 		{
-			for (int x = 0; x < data.width; ++x)
+			iPoint pos = MapToWorld(0, y);
+			if (pos.y + data.tileWidth > -render->camera.y && pos.y < -render->camera.y + render->camera.h)
 			{
-				int tileId = layer->Get(x, y);
-
-				if (tileId > 0)
+				for (int x = 0; x < data.width; ++x)
 				{
-					// L04: DONE 9: Complete the draw function
-					TileSet* tileset = GetTilesetFromTileId(tileId);
+					pos = MapToWorld(x, y);
 
-					SDL_Rect rec = tileset->GetTileRect(tileId);
-					iPoint pos = MapToWorld(x, y);
+					if (pos.x + data.tileWidth > -render->camera.x && pos.x < -render->camera.x + render->camera.w)
+					{
+						int tileId = layer->Get(x, y);
 
-					render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
+						if (tileId > 0)
+						{
+							// L04: DONE 9: Complete the draw function
+							TileSet* tileset = GetTilesetFromTileId(tileId);
+
+							SDL_Rect rec = tileset->GetTileRect(tileId);
+
+							render->DrawTexture(tileset->texture, pos.x + tileset->offsetX, pos.y + tileset->offsetY, &rec);
+						}
+					}
 				}
 			}
 		}
