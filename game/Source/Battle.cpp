@@ -196,7 +196,7 @@ bool Battle::Update(float dt)
     GamePad& pad = sceneManager->input->pads[0];
 
     //Evitar el free movement del player
-    sceneManager->entityManager->entities[0].At(0)->data->transitioning = true;
+    //sceneManager->entityManager->entities[0].At(0)->data->transitioning = true;
 
     //Player Turn
     if (playerMenu)

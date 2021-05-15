@@ -50,19 +50,40 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     animHeroWalkLeft->loop = true;
     animHeroWalkLeft->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animHeroWalkLeft->PushBack({ 64 * i, 296, 64, 98 });
-    animHeroWalkLeft->PushBack({ 64, 296, 64, 98 });
+        animHeroWalkLeft->PushBack({ 64 * i, 196, 64, 98 });
+    animHeroWalkLeft->PushBack({ 64, 196, 64, 98 });
 
     animHeroWalkRight->loop = true;
     animHeroWalkRight->speed = 0.08f;
     for (int i = 0; i < 3; ++i)
-        animHeroWalkRight->PushBack({ 64 * i, 196, 64, 98 });
-    animHeroWalkRight->PushBack({ 64, 196, 64, 98 });
+        animHeroWalkRight->PushBack({ 64 * i, 294, 64, 98 });
+    animHeroWalkRight->PushBack({ 64, 294, 64, 98 });
+
+    animHeroIdleUp->loop = true;
+    animHeroIdleUp->speed = 0.08f;
+    for (int i = 0; i < 2; ++i)
+        animHeroIdleUp->PushBack({ 64 * i, 392, 64, 98 });
+
+    animHeroIdleDown->loop = true;
+    animHeroIdleDown->speed = 0.08f;
+    for (int i = 0; i < 2; ++i)
+        animHeroIdleDown->PushBack({ 64 * i, 490, 64, 98 });
+
+    animHeroIdleLeft->loop = true;
+    animHeroIdleLeft->speed = 0.08f;
+    for (int i = 0; i < 2; ++i)
+        animHeroIdleLeft->PushBack({ 64 * i, 588, 64, 98 });
+
+    animHeroIdleRight->loop = true;
+    animHeroIdleRight->speed = 0.08f;
+    for (int i = 0; i < 2; ++i)
+        animHeroIdleRight->PushBack({ 64 * i, 686, 64, 98 });
+
+
 
     //
     // Load textures
     //
-    //heroTexture = this->tex->Load("assets/sprites/player/cyborg_spritesheet_48x96px.png");
     heroTexture = this->tex->Load("assets/sprites/player/char_maincharacter_v01_w.png");
 
 
@@ -108,7 +129,7 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     infoEntities.skills[4].picked = false;
 
     // Define Player current animation
-    currentAnimation = animHeroWalkDown;
+    currentAnimation = animHeroIdleDown;
 
     //Define Hurt Texture
     hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
@@ -124,61 +145,488 @@ Player::~Player()
 {}
 
 
-
+// Update called each iteration
 bool Player::Update(float dt)
+{
+    UpdateState();
+    UpdateLogic(dt);
+ 
+    return true;
+}
+// Control the when a state changes
+void Player::UpdateState()
 {
     GamePad& pad = input->pads[0];
 
-    if (noClip == false) collision->player = this;
-    else collision->player = nullptr;
+    switch (state)
+    {
+    case IDLE:
+    {
+        if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
+            input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+        {
+            ChangeState(state, MOVE_UP);
+            break;
+        }
+        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
+            input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+        {
+            ChangeState(state, MOVE_DOWN);
+            break;
+        }
+        if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+            input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+        {
+            ChangeState(state, MOVE_LEFT);
+            break;
+        }
+        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||
+            input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+        {
+            ChangeState(state, MOVE_RIGHT);
+            break;
+        }
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_UP ||
+            pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
+        {
+            interacting = true;
+        }
+        else
+        {
+            interacting = false;
+        }
 
-    // Temporary position used for collisions
+
+        if (noClip)
+        {
+            ChangeState(state, GOD_MODE);
+            break;
+        }
+        if (transitioning || inConversation)
+        {
+            ChangeState(state, FROZEN);
+            break;
+        }
+        if (inBattle)
+        {
+            ChangeState(state, BATTLE);
+            break;
+        }
+
+        break;
+    }
+    case MOVE_UP:
+    {
+        if (!movingFlag)
+        {
+            if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+                ChangeState(state, MOVE_UP);
+            if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+                ChangeState(state, MOVE_DOWN);
+            if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+                ChangeState(state, MOVE_LEFT);
+            if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+                ChangeState(state, MOVE_RIGHT);
+
+            if (!movingFlag)
+                ChangeState(state, IDLE);
+        }
+
+        if (noClip)
+        {
+            ChangeState(state, GOD_MODE);
+            break;
+        }
+        if (transitioning || inConversation)
+        {
+            ChangeState(state, FROZEN);
+            break;
+        }
+        if (inBattle)
+        {
+            ChangeState(state, BATTLE);
+            break;
+        }
+
+        break;
+    }
+    case MOVE_DOWN:
+    {
+        if (!movingFlag)
+        {
+            if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+                ChangeState(state, MOVE_UP);
+            if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+                ChangeState(state, MOVE_DOWN);
+            if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+                ChangeState(state, MOVE_LEFT);
+            if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+                ChangeState(state, MOVE_RIGHT);
+
+            if (!movingFlag)
+                ChangeState(state, IDLE);
+        }
+
+        if (noClip)
+        {
+            ChangeState(state, GOD_MODE);
+            break;
+        }
+        if (transitioning || inConversation)
+        {
+            ChangeState(state, FROZEN);
+            break;
+        }
+        if (inBattle)
+        {
+            ChangeState(state, BATTLE);
+            break;
+        }
+
+        break;
+    }
+    case MOVE_LEFT:
+    {
+        if (!movingFlag)
+        {
+            if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+                ChangeState(state, MOVE_UP);
+            if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+                ChangeState(state, MOVE_DOWN);
+            if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+                ChangeState(state, MOVE_LEFT);
+            if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+                ChangeState(state, MOVE_RIGHT);
+
+            if (!movingFlag)
+                ChangeState(state, IDLE);
+        }
+
+        if (noClip)
+        {
+            ChangeState(state, GOD_MODE);
+            break;
+        }
+        if (transitioning || inConversation)
+        {
+            ChangeState(state, FROZEN);
+            break;
+        }
+        if (inBattle)
+        {
+            ChangeState(state, BATTLE);
+            break;
+        }
+
+        break;
+    }
+    case MOVE_RIGHT:
+    {
+        if (!movingFlag)
+        {
+            if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+                ChangeState(state, MOVE_UP);
+            if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+                ChangeState(state, MOVE_DOWN);
+            if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+                ChangeState(state, MOVE_LEFT);
+            if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||
+                input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+                ChangeState(state, MOVE_RIGHT);
+
+            if (!movingFlag)
+                ChangeState(state, IDLE);
+        }
+
+        if (noClip)
+        {
+            ChangeState(state, GOD_MODE);
+            break;
+        }
+        if (transitioning || inConversation)
+        {
+            ChangeState(state, FROZEN);
+            break;
+        }
+        if (inBattle)
+        {
+            ChangeState(state, BATTLE);
+            break;
+        }
+
+        break;
+    }
+    case GOD_MODE:
+    {
+        if (!noClip)
+        {
+            ChangeState(state, IDLE);
+            break;
+        }
+        if (inBattle)
+        {
+            ChangeState(state, BATTLE);
+            break;
+        }
+
+        break;
+    }
+    case FROZEN:
+    {
+        if (!transitioning && !inConversation)
+        {
+            ChangeState(state, IDLE);
+            break;
+        }
+
+        break;
+    }
+    case BATTLE:
+    {
+        if (!inBattle)
+        {
+            ChangeState(state, IDLE);
+            break;
+        }
+
+        break;
+    }
+    default:
+        break;
+    }
+}
+// Update the logic of the Hero
+void Player::UpdateLogic(float dt)
+{
+    GamePad& pad = input->pads[0];
+
     temPos = position;
 
-    if (!transitioning && !inConversation) // Don't move while transitioning between scenes
+    collision->player = this;
+
+
+    switch (state)
     {
-        // +1 makes velocities equal on both directions
-        if ((input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT) && input->joystickState() == false || (pad.l_x < -0.25f && pad.l_y > -0.75f && pad.l_y < 0.75f) && input->joystickState() == true)
+    case IDLE:
+    {
+        currentAnimation->Update();
+
+        break;
+    }
+    case MOVE_UP:
+    {
+        if (movingFlag)
         {
-            position.x -= (PLAYER_MOVE_SPEED * dt);
-            if (currentAnimation != animHeroWalkLeft) currentAnimation = animHeroWalkLeft;
-        }
-        if ((input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT) && input->joystickState() == false || (pad.l_x > 0.25f && pad.l_y > -0.75f && pad.l_y < 0.75f) && input->joystickState() == true)
-        {
-            position.x += (PLAYER_MOVE_SPEED * dt + 1);
-            if (currentAnimation != animHeroWalkRight) currentAnimation = animHeroWalkRight;
+            if (position.y >= (tilePos.y - TILE_SIZE))
+            {
+                position.y -= (PLAYER_MOVE_SPEED * dt);
+            }
+            else
+            {
+                position.y = (tilePos.y - TILE_SIZE);
+                movingFlag = false;
+            }
         }
 
-        if ((input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && input->joystickState() == false || (pad.l_y < 0.25f && pad.l_x > -0.75f && pad.l_x < 0.75f) && input->joystickState() == true)
+        currentAnimation->Update();
+
+        break;
+    }
+    case MOVE_DOWN:
+    {
+        if (movingFlag)
         {
+            if (position.y <= (tilePos.y + TILE_SIZE))
+            {
+                position.y += (PLAYER_MOVE_SPEED * dt + 1);
+            }
+            else
+            {
+                position.y = (tilePos.y + TILE_SIZE);
+                movingFlag = false;
+            }
+        }
+
+        currentAnimation->Update();
+
+        break;
+    }
+    case MOVE_LEFT:
+    {
+        if (movingFlag)
+        {
+            if (position.x >= (tilePos.x - TILE_SIZE))
+            {
+                position.x -= (PLAYER_MOVE_SPEED * dt);
+            }
+            else
+            {
+                position.x = (tilePos.x - TILE_SIZE);
+                movingFlag = false;
+            }
+        }
+
+        currentAnimation->Update();
+
+        break;
+    }
+    case MOVE_RIGHT:
+    {
+        if (movingFlag)
+        {
+            if (position.x <= (tilePos.x + TILE_SIZE))
+            {
+                position.x += (PLAYER_MOVE_SPEED * dt + 1);
+            }
+            else
+            {
+                position.x = (tilePos.x + TILE_SIZE);
+                movingFlag = false;
+            }
+        }
+
+        currentAnimation->Update();
+
+        break;
+    }
+    case GOD_MODE:
+    {
+        collision->player = nullptr;
+
+        if (input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
             position.y -= (PLAYER_MOVE_SPEED * dt);
-            //render->camera.y += (PLAYER_MOVE_SPEED * dt);
-            if (currentAnimation != animHeroWalkUp) currentAnimation = animHeroWalkUp;
-        }
-        if ((input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) && input->joystickState() == false || (pad.l_y > -0.25f && pad.l_x > -0.75f && pad.l_x < 0.75f) && input->joystickState() == true)
-        {
+        if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
             position.y += (PLAYER_MOVE_SPEED * dt + 1);
-            //render->camera.y -= (PLAYER_MOVE_SPEED * dt + 1);
-            if (currentAnimation != animHeroWalkDown) currentAnimation = animHeroWalkDown;
-        }
+        if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+            position.x -= (PLAYER_MOVE_SPEED * dt);
+        if (input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+            position.x += (PLAYER_MOVE_SPEED * dt + 1);
 
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) interacting = true;
-        else interacting = false;
-    }
+        currentAnimation->Update();
 
-    if (inBattle == true)
-    {      
-        currentAnimation = animHeroWalkRight;
-        currentAnimation->SetCurrentFrame(1);
-        if (infoEntities.info.HP <= 0) deathAnim->Update();
+        break;
     }
-    else
+    case FROZEN:
     {
-        if (position == temPos) currentAnimation->SetCurrentFrame(1);
-        else currentAnimation->Update();
+        // Do nothing
+        break;
+    }
+    case BATTLE:
+    {
+        currentAnimation->Update();
+        break;
+    }
+    default:
+        break;
+    }
+}
+// Controls what happens when you change to a state
+void Player::ChangeState(HeroState previousState, HeroState newState)
+{
+    switch (newState)
+    {
+    case IDLE:
+    {
+        switch (facingDirection)
+        {
+        case UP:
+        {
+            currentAnimation = animHeroIdleUp;
+            break;
+        }
+        case DOWN:
+        {
+            currentAnimation = animHeroIdleDown;
+            break;
+        }
+        case LEFT:
+        {
+            currentAnimation = animHeroIdleLeft;
+            break;
+        }
+        case RIGHT:
+        {
+            currentAnimation = animHeroIdleRight;
+            break;
+        }
+        default:
+            break;
+        }
+        break;
+    }
+    case MOVE_UP:
+    {
+        currentAnimation = animHeroWalkUp;
+        movingFlag = true;
+        tilePos = position;
+        facingDirection = UP;
+
+        break;
+    }
+    case MOVE_DOWN:
+    {
+        currentAnimation = animHeroWalkDown;
+        movingFlag = true;
+        tilePos = position;
+        facingDirection = DOWN;
+
+        break;
+    }
+    case MOVE_LEFT:
+    {
+        currentAnimation = animHeroWalkLeft;
+        movingFlag = true;
+        tilePos = position;
+        facingDirection = LEFT;
+
+        break;
+    }
+    case MOVE_RIGHT:
+    {
+        currentAnimation = animHeroWalkRight;
+        movingFlag = true;
+        tilePos = position;
+        facingDirection = RIGHT;
+
+        break;
+    }
+    case GOD_MODE:
+    {
+        currentAnimation = animHeroIdleDown;
+        break;
+    }
+    case FROZEN:
+    {
+
+        break;
+    }
+    case BATTLE:
+    {
+        currentAnimation = animHeroIdleRight;
+        if (infoEntities.info.HP <= 0) deathAnim->Update();
+
+        break;
+    }
+    default:
+        break;
     }
 
-    return true;
+    state = newState;
 }
 
 
@@ -189,7 +637,10 @@ bool Player::Draw()
     //SDL_Rect rec = { 0 };
     //render->DrawTexture(texture, position.x, position.y, rec);
 
-    //render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    if (noClip)
+    {
+        render->DrawRectangle(GetBounds(), 0, 255, 0, 255);
+    }
     if (infoEntities.info.HP > 0)
     {
         SDL_Rect rect = currentAnimation->GetCurrentFrame();

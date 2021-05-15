@@ -5,6 +5,8 @@
 
 #include "Entity.h"
 
+#define TILE_SIZE 32
+
 
 class Input;
 class Render;
@@ -12,6 +14,26 @@ class Textures;
 
 class Collision;
 
+// States of the Hero
+enum HeroState
+{
+    IDLE = 0,
+    MOVE_UP,
+    MOVE_DOWN,
+    MOVE_LEFT,
+    MOVE_RIGHT,
+    GOD_MODE,
+    FROZEN,
+    BATTLE
+};
+
+enum HeroFacingDirection
+{
+    UP = 0,
+    DOWN,
+    LEFT,
+    RIGHT
+};
 
 class Player: public Entity
 {
@@ -23,6 +45,10 @@ public:
     static void ResetInstance();
 
     bool Update(float dt);
+    void UpdateState();
+    void UpdateLogic(float dt);
+    void ChangeState(HeroState previousState, HeroState newState);
+
 
     bool Draw();
 
@@ -35,6 +61,8 @@ public:
     // ----- PLAYER VARIABLES ----- //
     // Player collision
     iPoint playerCollision[4];
+    //Flag to know if the Hero is moving a tile
+    bool movingFlag = false;
     // ---------------------------- //
 
 private:
@@ -42,10 +70,16 @@ private:
     // ----- PLAYER VARIABLES ----- //
     // Player size
     int width, height;
+    // Hero's state
+    HeroState state = IDLE;
+    // Hero's facing direction
+    HeroFacingDirection facingDirection = DOWN;
     // Player sprite sheets
     SDL_Texture* heroTexture;
     // Current Player animation
-    Animation* currentAnimation;   
+    Animation* currentAnimation;
+    // Temporal position for tile movement
+    iPoint tilePos = { 0,0 };
     // ---------------------------- //
 
     // ----- SINGLETON METHODS ----- //
@@ -67,6 +101,10 @@ private:
     Animation* animHeroWalkDown = new Animation();
     Animation* animHeroWalkLeft = new Animation();
     Animation* animHeroWalkRight = new Animation();
+    Animation* animHeroIdleUp = new Animation();
+    Animation* animHeroIdleDown = new Animation();
+    Animation* animHeroIdleLeft = new Animation();
+    Animation* animHeroIdleRight = new Animation();
     // -------------------------- //
 
 private:
