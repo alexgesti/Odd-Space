@@ -177,26 +177,26 @@
 <node text="Hey have you heard, the kid's saying he will do it!" id="51" hasOptions="false" name="Legendary Pirate">
          <dialogue option="X" returnCode="0" nextNode="52"/> 
     </node>
-<node text="Okay, come back after I finish my drinks so I can give you the map for the first item." id="52" hasOptions="false" lastSentence="true" name="Legendary Pirate">
+<node text="Okay, this is the map for the first item, my legendary sword buried in this dungeon, be carefull, you may encounter some monsters there." id="52" hasOptions="false" lastSentence="true" name="Legendary Pirate">
          <dialogue option="." returnCode="0" nextNode="1" notRepeat="1"/> 
     </node>
   </dialogue>
   
   <dialogue Id="5">
-    <node text="I better go find that old man, he may leave without me if I don't do so and I would be doomed by then."  id="0"  hasOptions="false" lastSentence="true" name="Ray">
+    <node text="I better go find that old man, he may leave without me and I don't want to stay here for eternity."  id="0"  hasOptions="false" lastSentence="true" name="Ray">
       <dialogue option="." returnCode="0" nextNode="1"/>
     </node>
   </dialogue>
   
   <dialogue Id="6">
-  <node text="So, ready for the job Ray?"  id="0"  hasOptions="true" name="Barman">
+  <node text="Those drunk bastards are tearing apart this place, ready for the job Ray?"  id="0"  hasOptions="true" name="Barman">
     <dialogue option="1: No, i still have to do something else." returnCode="0" nextNode="1"/>
     <dialogue option="2: Yes, that's why I'm here." returnCode="0" nextNode="2"/>
   </node>
-   <node text="Well okay, remember about our the deal."  id="1"  hasOptions="false" lastSentence="true" name="Barman">
-    <dialogue option="X" returnCode="0" nextNode="0"/>
+   <node text="Oh really? Then someone else will have to drink this beer I prepared for you."  id="1"  hasOptions="false" lastSentence="true" name="Barman">
+    <dialogue option="." returnCode="0" nextNode="0"/>
    </node>
-    <node text="Nicely said, take these super awesome weapons, it's your turn to fight."  id="2"  hasOptions="false" lastSentence="true" name="Barman">
+    <node text="Thank you, take these super awesome weapons, it's your turn to earn your wages!."  id="2"  hasOptions="false" lastSentence="true" name="Barman">
       <dialogue option="." returnCode="1" nextNode="0"/>
     </node>
   </dialogue>
@@ -205,6 +205,20 @@
     <node text="Should I even touch it?"  id="0"  hasOptions="true" name="Ray">
       <dialogue option="1: Flush." returnCode="1" nextNode="-1"/>
       <dialogue option="2: Walk away." returnCode="0" nextNode="-1"/>
+    </node>
+  </dialogue>
+
+
+ <dialogue Id="8">
+  <node text="Hey, before you go on to battle do you mind doing me a favor?"  id="0"  hasOptions="true" name="Barman">
+    <dialogue option="1: No, i still have to do something else." returnCode="0" nextNode="1"/>
+    <dialogue option="2: Yeah, what is it?." returnCode="0" nextNode="2"/>
+  </node>
+   <node text="Well okay, remember about our the deal."  id="1"  hasOptions="false" lastSentence="true" name="Barman">
+    <dialogue option="." returnCode="0" nextNode="0"/>
+   </node>
+    <node text="Perfect, I need you to gather the raw ingredients for my newest sauce, here is a list of what I need."  id="2"  hasOptions="false" lastSentence="true" name="Barman" questStart="true">
+      <dialogue option="." returnCode="1" nextNode="0"/>
     </node>
   </dialogue>
   
