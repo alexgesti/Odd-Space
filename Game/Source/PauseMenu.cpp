@@ -16,7 +16,7 @@ PauseMenu::~PauseMenu()
 
 bool PauseMenu::Load()
 {
-    pause = sceneManager->tex->Load("assets/sprites/UI/UI_MenuPause.png");
+    pause = sceneManager->tex->Load("assets/sprites/UI/ui_menupause.png");
 
     buttonItems = new GuiButton(1, { 90, 109, 240, 81 }, "Items", sceneManager->audio);
     buttonItems->SetObserver(this);

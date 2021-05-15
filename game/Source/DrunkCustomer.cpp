@@ -45,7 +45,7 @@ DrunkCustomer::DrunkCustomer(Render* render, Textures* tex) : Enemy(EnemyType::D
     infoEntities.stats.LCK = 5;
 
     // Define Player animations
-    drunkCustomerTexture = this->tex->Load("assets/sprites/enemies/char_enemydrunk_v01_w.png");
+    drunkCustomerTexture = this->tex->Load("assets/sprites/enemies/nme_aggressivedrunkman_w.png");
 
     drunkCustomerAnim->loop = true;
     drunkCustomerAnim->speed = 0.15f;
@@ -56,7 +56,7 @@ DrunkCustomer::DrunkCustomer(Render* render, Textures* tex) : Enemy(EnemyType::D
     drunkCustomerAnim->PushBack({ 112, 0, 112, 128 });
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
 }
 // Destructor
 DrunkCustomer::~DrunkCustomer()

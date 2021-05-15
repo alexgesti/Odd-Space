@@ -49,9 +49,9 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 	//
 	// Load textures
 	//
-	texBarman = sceneManager->tex->Load("assets/sprites/npcs/npc_barman_v01_w.png");
-	texLegendaryPirate = sceneManager->tex->Load("assets/sprites/npcs/npc_legendarypirate_v01_w.png");
-	texOldCaptain = sceneManager->tex->Load("assets/sprites/player/char_oldcaptain_v01_w.png");
+	texBarman = sceneManager->tex->Load("assets/sprites/npcs/npc_barman_w.png");
+	texLegendaryPirate = sceneManager->tex->Load("assets/sprites/npcs/npc_legendarypirate_w.png");
+	texOldCaptain = sceneManager->tex->Load("assets/sprites/player/char_oldcaptain_w.png");
 
 
 	name.Create("cantina");

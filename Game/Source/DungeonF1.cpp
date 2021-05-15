@@ -38,7 +38,7 @@ bool DungeonF1::Load()
 		sceneManager->render->camera.x = RIGHT_CAMERA_LIMIT;
 		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(2873, 1904);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(2873, 1712);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 	// When DUNGEON F1 Ready change CANTINA TO DUNGEON
@@ -47,7 +47,7 @@ bool DungeonF1::Load()
 		sceneManager->render->camera.x = LEFT_CAMERA_LIMIT;
 		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(80, 2032);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(80, 1776);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 	else if (sceneManager->wasBattle == true)
