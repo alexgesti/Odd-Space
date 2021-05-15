@@ -45,7 +45,7 @@ Exterior::Exterior(SceneManager* sceneManager) : Scene()
 	currentAnimation = animCrazyManIdle;
 
 
-	texCrazyManCantina = sceneManager->tex->Load("assets/sprites/npcs/npc_crazymancantina_v01_w.png");
+	texCrazyManCantina = sceneManager->tex->Load("assets/sprites/npcs/npc_crazymancantina_w.png");
 }
 // Destructor
 Exterior::~Exterior()

@@ -84,7 +84,7 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     //
     // Load textures
     //
-    heroTexture = this->tex->Load("assets/sprites/player/char_maincharacter_v01_w.png");
+    heroTexture = this->tex->Load("assets/sprites/player/char_maincharacter_w.png");
 
 
     position = iPoint(12 * 16, 27 * 16);
@@ -132,13 +132,13 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     currentAnimation = animHeroIdleDown;
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
 
     //Define Shield Texture
-    shieldTexture = this->tex->Load("assets/sprites/combat/cmb_shield_v01.png");
+    shieldTexture = this->tex->Load("assets/sprites/combat/cmb_shield.png");
 
     //Define Death Texture
-    deathTexture = this->tex->Load("assets/sprites/combat/cmb_death_v01.png");
+    deathTexture = this->tex->Load("assets/sprites/combat/cmb_death.png");
 }
 // Destructor
 Player::~Player()
@@ -424,6 +424,7 @@ void Player::UpdateLogic(float dt)
     {
     case IDLE:
     {
+        noClip = false;
         currentAnimation->Update();
 
         break;
@@ -618,6 +619,7 @@ void Player::ChangeState(HeroState previousState, HeroState newState)
     case BATTLE:
     {
         currentAnimation = animHeroIdleRight;
+        noClip = false;
         if (infoEntities.info.HP <= 0) deathAnim->Update();
 
         break;

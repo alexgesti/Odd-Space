@@ -44,7 +44,7 @@ GiantBat::GiantBat(Render* render, Textures* tex) : Enemy(EnemyType::GIANTBAT)
     infoEntities.stats.LCK = 5;
 
     // Define Player animations
-    giantBatTexture = this->tex->Load("assets/sprites/enemies/char_enemybat_v01_w.png");
+    giantBatTexture = this->tex->Load("assets/sprites/enemies/nme_normalbat_w.png");
 
     giantBatAnim->loop = true;
     giantBatAnim->speed = 0.25f;
@@ -55,7 +55,7 @@ GiantBat::GiantBat(Render* render, Textures* tex) : Enemy(EnemyType::GIANTBAT)
     giantBatAnim->PushBack({ 97, 0, 97, 79 });
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
 }
 // Destructor
 GiantBat::~GiantBat()

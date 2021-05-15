@@ -61,7 +61,7 @@ bool SceneManager::Start()
 	font = new Font("assets/typo/Adore64.xml", tex);
 	speak = new Speak(audio, render, font, input, tex);
 	dialogueSystem->speak = speak;
-	xMark = tex->Load("assets/sprites/UI/X_mark.png");
+	xMark = tex->Load("assets/sprites/UI/ui_xmark.png");
 
 	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
 	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
