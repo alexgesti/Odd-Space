@@ -36,6 +36,9 @@ public:
 						{
 							if (player->temPos.x != player->position.x) player->position.x = player->temPos.x;
 							if (player->temPos.y != player->position.y) player->position.y = player->temPos.y;
+
+							player->movingFlag = false;
+
 							break;
 						}
 
@@ -43,6 +46,7 @@ public:
 							Detect(map->GetTilemapRec(x, y), player->GetBounds()))
 						{
 							if (player->temPos != player->position) player->position = player->temPos;
+							player->movingFlag = false;
 							map->doorHit = true;
 							break;
 						}
@@ -64,7 +68,11 @@ public:
 									currentInteraction.Clear();
 									currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString());
 
-									if (player->temPos != player->position) player->position = player->temPos;
+									if (player->temPos != player->position)
+									{
+										player->position = player->temPos;
+										player->movingFlag = false;
+									}
 
 									//interactRect = tileRect;
 									interactRect = { tileRect.x - 10, tileRect.y - 10, tileRect.w + 20, tileRect.h + 20 };

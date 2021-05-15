@@ -87,7 +87,7 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 		sceneManager->render->camera.x = 80;
 		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(768, 750);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(768, 734);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 
