@@ -59,7 +59,7 @@ Captain::Captain(Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
     //
     // Load textures
     //
-    oldCaptainTexture = this->tex->Load("assets/sprites/player/char_oldcaptain_v01_w.png");
+    oldCaptainTexture = this->tex->Load("assets/sprites/player/char_oldcaptain_w.png");
     
     
     position = iPoint (12 * 16, 27 * 16);
@@ -102,13 +102,13 @@ Captain::Captain(Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
     currentAnimation = animOldCaptainWalkDown;
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt_v01.png");
+    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
 
     //Define Shield Texture
-    shieldTexture = this->tex->Load("assets/sprites/combat/cmb_shield_v01.png");
+    shieldTexture = this->tex->Load("assets/sprites/combat/cmb_shield.png");
 
     //Define Death Texture
-    deathTexture = this->tex->Load("assets/sprites/combat/cmb_death_v01.png");
+    deathTexture = this->tex->Load("assets/sprites/combat/cmb_death.png");
 }
 // Destructor
 Captain::~Captain()

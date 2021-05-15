@@ -22,7 +22,7 @@ bool Title::Load()
 {
     bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
     titleName = sceneManager->tex->Load("assets/sprites/MainScreen/odd_space_logo.png");
-    optionsTex = sceneManager->tex->Load("assets/sprites/UI/UI_menupause.png");
+    optionsTex = sceneManager->tex->Load("assets/sprites/UI/ui_menupause.png");
     sceneManager->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
 
     // Buttons
