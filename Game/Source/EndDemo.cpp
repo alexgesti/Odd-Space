@@ -20,6 +20,7 @@ bool EndDemo::Load()
     bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
     titleName = sceneManager->tex->Load("assets/sprites/MainScreen/odd_space_logo.png");
     sceneManager->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
+    sceneManager->render->camera = { 0, 0 };
 
     // Buttons
     buttons.buttonPlay = new GuiButton(1, { (1280 / 2) - 244 - 100, (720 / 2) + 64 + 150, 224, 64 }, "Retry", sceneManager->audio);

@@ -184,7 +184,7 @@ bool Battle::Load()
     f = 0;
     c = 0;
 
-    //sceneManager ->audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
+    sceneManager ->audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
 
     return false;
 }
@@ -352,6 +352,7 @@ bool Battle::Update(float dt)
         preparetochange += dt;
         if (preparetochange >= timerequired)
         {
+            sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg", 2);
             TransitionToScene(*sceneManager->entityManager->previousScene);
         }
     }
@@ -666,6 +667,7 @@ void Battle::BattleEscaped()
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
         sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
         sceneManager->wasBattle = true;
+        sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg", 2);
         TransitionToScene(*sceneManager->entityManager->previousScene);
     }
     else ChangeTurns();

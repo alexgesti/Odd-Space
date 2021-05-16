@@ -88,7 +88,7 @@ bool PauseMenu::Draw()
     SDL_Rect rect = { 1106, 0, 1105, 624 };
     sceneManager->render->DrawTexture(pause, -sceneManager->render->camera.x + 80, -sceneManager->render->camera.y + 50, &rect);
 
-    if (sceneManager->openOptions == false)
+    if (sceneManager->openOptions == false && sceneManager->openItems == false)
     {
         //Player
         SDL_Rect face = { 848, 64, 168, 224 };

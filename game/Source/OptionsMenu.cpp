@@ -26,7 +26,7 @@ bool OptionsMenu::Load()
     music->SetObserver(this);
     fx = new GuiSlider(4, { 400, 500, 500, 16 }, "Fx", sceneManager->audio);
     fx->SetObserver(this);
-    exit = new GuiButton(5, { 350, 550, 240, 81 }, "Exit", sceneManager->audio);
+    exit = new GuiButton(5, { 350, 550, 240, 81 }, "Exit game", sceneManager->audio);
     exit->SetObserver(this);
 
     f = 0;

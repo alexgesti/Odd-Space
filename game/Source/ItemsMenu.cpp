@@ -60,7 +60,7 @@ bool ItemsMenu::Update(float dt)
 bool ItemsMenu::Draw()
 {
     SDL_Rect options = { -sceneManager->render->camera.x + 344, -sceneManager->render->camera.y + 110, 830, 553 };
-    sceneManager->render->DrawRectangle(options, 100, 100, 100, 255);
+    //sceneManager->render->DrawRectangle(options, 100, 100, 100, 255);
 
     for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
         itemsButtons[i]->Draw(sceneManager->render, sceneManager->font);

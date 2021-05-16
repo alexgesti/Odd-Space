@@ -282,7 +282,7 @@ bool DungeonF1::Update(float dt)
 	{
 		// Swap WC -> End Scene
 		sceneManager->audio->PlayFx(stairsFx);
-		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < END_DOOR)) TransitionToScene(SceneType::WC);
+		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < END_DOOR)) TransitionToScene(SceneType::ENDDEMO);
 		else if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x > HORIZONTAL_DOOR)) TransitionToScene(SceneType::DUNGEON_EXT);
 		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x < HORIZONTAL_DOOR) TransitionToScene(SceneType::DUNGEON_F2);
 
