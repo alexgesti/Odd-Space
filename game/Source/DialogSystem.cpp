@@ -68,7 +68,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
+		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP && !actualOptions)
 		{
 			// Finish speaking sentence
 			if (speak->speaking) speak->Finish();
@@ -77,7 +77,7 @@ bool DialogueSystem::Update(float dt)
 			else if (currentNode->lastSentence && speak->textSaid == true)
 			{
 				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
-				// Añadimos la opción 0 porque es la única que hay
+				// Aï¿½adimos la opciï¿½n 0 porque es la ï¿½nica que hay
 				if (currentNode->dialogueOptions.at(0)->notRepeat == true)
 					completedDialoguesId.Add(id);
 				inConversation = false;
@@ -94,6 +94,7 @@ bool DialogueSystem::Update(float dt)
 
 			showOptions = true;
 		}
+		if (!actualOptions) actualOptions = true;
 	}
 
 	return true;
@@ -196,12 +197,14 @@ bool DialogueSystem::CleanUp()
 	}
 	dialogueTrees.clear();
 
-	delete buttonOpt1;
-	buttonOpt1 = nullptr;
-	delete buttonOpt2;
-	buttonOpt2 = nullptr;
-	delete buttonOpt3;
-	buttonOpt3 = nullptr;
+	tex->UnLoad(optionsTex);
+
+	buttonOpt1->UnLoad();
+	RELEASE(buttonOpt1);
+	buttonOpt2->UnLoad();
+	RELEASE(buttonOpt2);
+	buttonOpt3->UnLoad();
+	RELEASE(buttonOpt3);
 
 	return true;
 }
@@ -352,6 +355,12 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 			break;
 		default: break;
 		}
+		if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+		if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
+		PerformDialogue(id);
+
+		nextSentence = true;
+		actualOptions = true;
 	}
 
 	return true;

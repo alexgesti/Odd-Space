@@ -113,10 +113,12 @@ Entity* EntityManager::CreateEntity(EntityType type)
 			ret = DrunkCustomer::GetInstance(render, tex);
 			break;
 
+		case SceneType::WC:
 		case SceneType::EXTERIOR:
 			ret = MutantRat::GetInstance(render, tex);
 			break;
 
+		case SceneType::DUNGEON_EXT:
 		case SceneType::DUNGEON_F1:
 		case SceneType::DUNGEON_F2:
 			switch (rand() % 2)

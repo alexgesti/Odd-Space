@@ -24,6 +24,7 @@
 *.la
 *.a
 *.lib
+!Game/Source/External/PhysFS/lib/physfs.lib
 !Game/Source/External/SDL/libx86/SDL2.lib
 !Game/Source/External/SDL/libx86/SDL2main.lib
 !Game/Source/External/SDL_image/libx86/SDL2_image.lib

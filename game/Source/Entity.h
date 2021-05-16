@@ -113,6 +113,10 @@ public:
 
     bool loadedPos = false;
     bool deadAdded = false;
+
+    bool canCross1Door = false;
+    bool canCross2Door = false;
+    bool canCrossESPDoor = false;
 };
 
 #endif // __ENTITY_H__
