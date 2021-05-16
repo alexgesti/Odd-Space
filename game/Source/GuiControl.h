@@ -28,7 +28,6 @@ enum class GuiControlType
 
 enum class GuiControlState
 {
-    DISABLED,
     NORMAL,
     FOCUSED,
     PRESSED,
@@ -86,6 +85,8 @@ public:
     SDL_Color color;        // Tint color
 
     //Font font;              // Text font
+
+    bool disabled = false;
 
     Scene* observer;        // Observer module (it should probably be an array/list)
     Audio* audio;

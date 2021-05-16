@@ -44,12 +44,13 @@ private:
     int buttonOption[5] = { 1, 2, 3, 4, 5 };
 
     SDL_Texture* optionsText;
+    SDL_Texture* texture;
+
     GuiCheckBox* fullScreen;
     GuiCheckBox* VSync;
     GuiSlider* music;
     GuiSlider* fx;
     GuiButton* exit;
-    SDL_Texture* texture;
 };
 
 #endif // __OPTIONSMENU_H__

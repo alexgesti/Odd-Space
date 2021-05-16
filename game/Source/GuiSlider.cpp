@@ -36,7 +36,7 @@ bool GuiSlider::Update(Input* input, int buttonSelected, float dt)
 
     if (id == buttonSelected)
     {
-        if (state != GuiControlState::DISABLED) state = GuiControlState::FOCUSED;
+        state = GuiControlState::FOCUSED;
 
         if (soundReproduced == false)
         {
@@ -44,14 +44,15 @@ bool GuiSlider::Update(Input* input, int buttonSelected, float dt)
             soundReproduced = true;
         }
 
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
+         if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT ||
+            input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
         {
-            if (state == GuiControlState::DISABLED) audio->PlayFx(unavaliable);
+            if (disabled) audio->PlayFx(unavaliable);
             else
             {
                 state = GuiControlState::PRESSED;
                 if (input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN ||
-                    input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN)
+                    input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN && !disabled)
                 {
                     NotifyObserver();
                     audio->PlayFx(press);
@@ -61,7 +62,7 @@ bool GuiSlider::Update(Input* input, int buttonSelected, float dt)
     }
     else
     {
-        if (state != GuiControlState::DISABLED) state = GuiControlState::NORMAL;
+        state = GuiControlState::NORMAL;
         soundReproduced = false;
     }
 
@@ -88,5 +89,14 @@ bool GuiSlider::Draw(Render* render, int slide, SDL_Texture* texture)
     {
         render->DrawTexture(texture, -render->camera.x + (bounds.x - rect.w / 2) + (bounds.w / 4) * (slide / 32), -render->camera.y + bounds.y + (bounds.h / 2) - (rect.h / 2), &rect);
     }
+    return false;
+}
+
+bool GuiSlider::UnLoad()
+{
+    audio->UnloadFx(hover);
+    audio->UnloadFx(unavaliable);
+    audio->UnloadFx(press);
+
     return false;
 }

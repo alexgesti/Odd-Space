@@ -8,23 +8,20 @@
 #include <time.h> 
 #include "Log.h"
 
-
-
 // Constructor
 Battle::Battle(SceneManager* sceneManager)
 {
     this->sceneManager = sceneManager;
 
     map = new Map(sceneManager->tex);
-
+    
     name.Create("battle");
 }
 // Destructor
 Battle::~Battle()
 {
+
 }
-
-
 
 bool Battle::Load()
 {
@@ -199,7 +196,7 @@ bool Battle::Update(float dt)
     //sceneManager->entityManager->entities[0].At(0)->data->transitioning = true;
 
     //Player Turn
-    if (playerMenu && win == false && lose == false)
+    if (playerMenu && !sceneManager->wasBattle)
     {
         switch (characterTurn)
         {
@@ -453,7 +450,7 @@ bool Battle::Draw()
         rect = {0, 0, 480, 240};
         sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2), 0, &rect);
     }
-    else if (lose)
+    if (lose)
     {
         rect = {0, 240, 480, 192};
         sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2) + 70, 0, &rect);

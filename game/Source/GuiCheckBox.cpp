@@ -20,6 +20,8 @@ bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float 
 {
     GamePad& pad = input->pads[0];
 
+    check = *checked;
+
     /*int mouseX, mouseY;
     input->GetMousePosition(mouseX, mouseY);
 
@@ -44,7 +46,7 @@ bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float 
 
     if (id == buttonSelected)
     {
-        if (state != GuiControlState::DISABLED) state = GuiControlState::FOCUSED;
+        state = GuiControlState::FOCUSED;
 
         if (soundReproduced == false)
         {
@@ -52,14 +54,15 @@ bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float 
             soundReproduced = true;
         }
 
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT)
+         if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT ||
+            input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
         {
-            if (state == GuiControlState::DISABLED) audio->PlayFx(unavaliable);
+            if (disabled) audio->PlayFx(unavaliable);
             else state = GuiControlState::PRESSED;
         }
 
         // If mouse button pressed -> Generate event!
-        if ((input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && state == GuiControlState::DISABLED)
+        if ((input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && !disabled)
         {
             *checked = !*checked;
             check = *checked;
@@ -69,7 +72,7 @@ bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float 
     }
     else
     {
-        if (state != GuiControlState::DISABLED) state = GuiControlState::NORMAL;
+        state = GuiControlState::NORMAL;
         soundReproduced = false;
     }
 

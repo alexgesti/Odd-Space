@@ -46,7 +46,7 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 
     if (id == buttonSelected)
     {
-        if (state != GuiControlState::DISABLED) state = GuiControlState::FOCUSED;
+        state = GuiControlState::FOCUSED;
 
         if (soundReproduced == false)
         {
@@ -54,22 +54,23 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
             soundReproduced = true;
         }
 
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT ||
+            input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
         {
-            if (state == GuiControlState::DISABLED) audio->PlayFx(unavaliable);
+            if (disabled) audio->PlayFx(unavaliable);
             else state = GuiControlState::PRESSED;
         }
 
         // If mouse button pressed -> Generate event!
-        if ((input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) && state != GuiControlState::DISABLED)
+        if ((input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) && !disabled)
         {
             NotifyObserver();
-            if (state != GuiControlState::DISABLED) audio->PlayFx(press);
+            audio->PlayFx(press);
         }
     }
     else
     {
-        if (state != GuiControlState::DISABLED) state = GuiControlState::NORMAL;
+        state = GuiControlState::NORMAL;
         soundReproduced = false;
     }
 
@@ -85,59 +86,77 @@ bool GuiButton::Draw(Render* render, Font* font)
     if (!sorted) centerPoint = 5;
     else centerPoint = (bounds.w / 2) - ((text.Length() * (bounds.h / 4)) / 2);
 
-    switch (state)
+    if (disabled)
     {
-    case GuiControlState::DISABLED: 
-        if (font != nullptr)
+        switch (state)
         {
-            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 100, 100, 100, 255 });
+        case GuiControlState::NORMAL:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 100, 100, 100, 255 });
+            }
+            break;
+        case GuiControlState::FOCUSED:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 200, 200, 200, 255 });
+            }
+            break;
+        case GuiControlState::PRESSED:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 200, 200, 200, 255 });
+            }
+            break;
+        case GuiControlState::SELECTED:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 200, 200, 200, 255 });
+            }
+            break;
+        default: break;
         }
-        break;
-    case GuiControlState::NORMAL:
-        if (font != nullptr)
+    }
+    else
+    {
+        switch (state)
         {
-            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 255, 255, 255 });
+        case GuiControlState::NORMAL:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 255, 255, 255 });
+            }
+            break;
+        case GuiControlState::FOCUSED:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 0, 0, 255 });
+            }
+            break;
+        case GuiControlState::PRESSED:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 255, 0, 255 });
+            }
+            break;
+        case GuiControlState::SELECTED:
+            if (font != nullptr)
+            {
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 0, 255, 255 });
+            }
+            break;
+        default: break;
         }
-        break;
-    case GuiControlState::FOCUSED:
-        if (font != nullptr)
-        {
-            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 0, 0, 255 });
-        }
-        break;
-    case GuiControlState::PRESSED:
-        if (font != nullptr)
-        {
-            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 255, 0, 255 });
-        }
-        break;
-    case GuiControlState::SELECTED:
-        if (font != nullptr)
-        {
-            render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 0, 255, 255 });
-        }
-        break;
-    default:
-        break;
     }
 
-    if (font != nullptr)
-    {
-        /*const char* name = text.GetString();
-        float textWidth = 0.0f;
+    return false;
+}
 
-        float scale = (float)bounds.h / font->GetCharRec(32).h;
-
-        for (int i = 0; name[i] != 0; i++)
-        {
-            textWidth += font->GetCharRec(name[i]).w * scale;
-        }
-
-        int positionX = bounds.x + (bounds.w / 2) - ((int)textWidth / 2);
-
-        render->DrawText(font, text.GetString(), positionX, bounds.y, bounds.h/3, 1, { 255, 255, 255, 255 });*/
-        //render->DrawText(font, text.GetString(), bounds.x, bounds.y, bounds.h / 3, 1, { 255, 255, 255, 255 });
-    }
+bool GuiButton::UnLoad()
+{
+    audio->UnloadFx(hover);
+    audio->UnloadFx(unavaliable);
+    audio->UnloadFx(press);
 
     return false;
 }

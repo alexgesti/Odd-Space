@@ -38,15 +38,16 @@ private:
     SceneManager* sceneManager;
 
     int f;
+    int buttonMenuMax[6] = { 1, 2, 3, 4, 5, 6 };
 
     SDL_Texture* pause = nullptr;
+
     GuiButton* buttonItems;
     GuiButton* buttonSkills;
     GuiButton* buttonEquip;
     GuiButton* buttonSettings;
     GuiButton* buttonSave;
     GuiButton* buttonLoad;
-    int buttonMenuMax[6] = { 1, 2, 3, 4, 5, 6 };
 };
 
 #endif // __PAUSEMENU_H__

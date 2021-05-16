@@ -112,12 +112,24 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		case SceneType::CANTINA:
 			ret = DrunkCustomer::GetInstance(render, tex);
 			break;
-		case SceneType::WC:
+
+		case SceneType::EXTERIOR:
 			ret = MutantRat::GetInstance(render, tex);
 			break;
-		case SceneType::EXTERIOR:
-			ret = GiantBat::GetInstance(render, tex);
+
+		case SceneType::DUNGEON_F1:
+		case SceneType::DUNGEON_F2:
+			switch (rand() % 2)
+			{
+			case 0:
+				ret = MutantRat::GetInstance(render, tex);
+				break;
+			case 1:
+				ret = GiantBat::GetInstance(render, tex);
+				break;
+			}
 			break;
+
 		default:
 			ret = StandardPirates::GetInstance(render, tex);
 			break;
