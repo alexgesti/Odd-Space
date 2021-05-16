@@ -68,7 +68,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP && !actualOptions)
+		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
 		{
 			// Finish speaking sentence
 			if (speak->speaking) speak->Finish();
@@ -94,7 +94,6 @@ bool DialogueSystem::Update(float dt)
 
 			showOptions = true;
 		}
-		if (!actualOptions) actualOptions = true;
 	}
 
 	return true;
@@ -355,12 +354,6 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 			break;
 		default: break;
 		}
-		if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-		if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
-		PerformDialogue(id);
-
-		nextSentence = true;
-		actualOptions = true;
 	}
 
 	return true;

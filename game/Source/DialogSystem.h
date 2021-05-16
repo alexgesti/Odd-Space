@@ -125,8 +125,6 @@ private:
 	bool showOptions;
 	bool nextSentence = true;
 
-	bool actualOptions = false;
-
 	// Options quad texture
 	SDL_Texture* optionsTex;
 

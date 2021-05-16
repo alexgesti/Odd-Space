@@ -144,6 +144,9 @@
     <ClCompile Include="Source\Assets.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\QuestSystem.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -337,6 +340,9 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="Source\Assets.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\QuestSystem.h">
       <Filter>Utils</Filter>
     </ClInclude>
   </ItemGroup>
