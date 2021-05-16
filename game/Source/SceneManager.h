@@ -111,6 +111,9 @@ public:
 	int doorOpen;
 
 	int leverFx;
+
+	int battleEncounter;
+	bool oneTimeBattleMusic;
 	
 	int volumeMusic;
 	int volumeFx;
@@ -125,6 +128,12 @@ private:
 	bool onTransition;
 	bool fadeOutCompleted;
 	float transitionAlpha;
+
+	// Required variables to manage battle transitions (fade-in, fade-out)
+	//bool oneTime;
+	//int counterTimeDoit;
+	float transitionScreen;
+	int altura;
 
 	SDL_Texture* xMark;
 };

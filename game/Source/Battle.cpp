@@ -17,6 +17,17 @@ Battle::Battle(SceneManager* sceneManager)
 
     map = new Map(sceneManager->tex);
 
+    name.Create("battle");
+}
+// Destructor
+Battle::~Battle()
+{
+}
+
+
+
+bool Battle::Load()
+{
     if (*sceneManager->entityManager->previousScene == SceneType::CANTINA || *sceneManager->entityManager->previousScene == SceneType::WC)
     {
         if (map->Load("combat_cantina_interior.tmx") == true)
@@ -37,18 +48,7 @@ Battle::Battle(SceneManager* sceneManager)
             RELEASE_ARRAY(data);*/
         }
     }
-    
-    name.Create("battle");
-}
-// Destructor
-Battle::~Battle()
-{
-}
 
-
-
-bool Battle::Load()
-{
     fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
     fx.winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
     fx.strikeFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_strike.wav");
@@ -184,7 +184,7 @@ bool Battle::Load()
     f = 0;
     c = 0;
 
-    sceneManager ->audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
+    sceneManager->audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
 
     return false;
 }
@@ -318,6 +318,7 @@ bool Battle::Update(float dt)
                 if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
                 {
+                    sceneManager->audio->FadeOutMusic(0.1f);
                     sceneManager->audio->PlayFx(fx.loseFx);
                     sceneManager->wasBattle = true;
                     lose = true;
@@ -333,6 +334,7 @@ bool Battle::Update(float dt)
                 }
                 if (totalEnemiesHP <= 0)
                 {
+                    sceneManager->audio->FadeOutMusic(0.1f);
                     sceneManager->audio->PlayFx(fx.winFx);
                     sceneManager->wasBattle = true;
                     sceneManager->entityManager->CreateEntity(EntityType::ITEM);
@@ -663,6 +665,7 @@ void Battle::BattleEscaped()
 {
     if (rand() % 6 != 0)
     {
+        sceneManager->audio->FadeOutMusic(0.1f);
         sceneManager->audio->PlayFx(fx.runFx);
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
         sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;

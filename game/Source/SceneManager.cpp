@@ -67,6 +67,8 @@ bool SceneManager::Start()
 	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
 	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
 	leverFx = audio->LoadFx("assets/audio/fx/world_lever.wav");
+	
+	battleEncounter = audio->LoadFx("assets/audio/fx/battle_sp_recover.wav");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
@@ -168,7 +170,7 @@ bool SceneManager::Update(float dt)
 		{
 			if (pauseMusicFaded)
 			{
-				audio->FadeInMusic(0.5f);
+				audio->FadeOutMusic(0.5f);
 				pauseMusicFaded = false;
 			}
 
@@ -179,11 +181,29 @@ bool SceneManager::Update(float dt)
 	{
 		if (!fadeOutCompleted)
 		{
-			transitionAlpha += (FADEOUT_TRANSITION_SPEED * dt);
+			if (current->nextScene == SceneType::BATTLE)
+			{
+				if (!oneTimeBattleMusic)
+				{
+					altura = -720;
+					transitionAlpha = 1;
+					audio->PlayFx(battleEncounter);
+					audio->FadeOutMusic(0.1f);
+					oneTimeBattleMusic = !oneTimeBattleMusic;
+				}
+	
+				altura += 700 * dt;
+				
+				if (altura >= 0)
+				{
+					altura = 0;
+				}
+			}
+			else if (current->nextScene != SceneType::BATTLE) transitionAlpha += (FADEOUT_TRANSITION_SPEED * dt);
 
 			// NOTE: Due to float internal representation, condition jumps on 1.0f instead of 1.05f
 			// For that reason we compare against 1.01f, to avoid last frame loading stop
-			if (transitionAlpha > 1.01f)
+			if (transitionAlpha > 1.01f || altura >= 0)
 			{
 				transitionAlpha = 1.0f;
 
@@ -201,7 +221,7 @@ bool SceneManager::Update(float dt)
 				fadeOutCompleted = true;
 			}
 		}
-		else  // Transition fade out logic
+		else // Transition fade out logic
 		{
 			transitionAlpha -= (FADEIN_TRANSITION_SPEED * dt);
 
@@ -210,6 +230,10 @@ bool SceneManager::Update(float dt)
 				transitionAlpha = 0.0f;
 				fadeOutCompleted = false;
 				onTransition = false;
+				//oneTime = false;
+				oneTimeBattleMusic = false;
+				//counterTimeDoit = 0;
+				transitionScreen = 0;
 				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 			}
 		}
@@ -228,7 +252,7 @@ bool SceneManager::Update(float dt)
 	else if(entityManager->CreateEntity(EntityType::HERO)->inConversation) entityManager->CreateEntity(EntityType::HERO)->inConversation = false;
 
 	// Draw full screen rectangle in front of everything
-	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
+	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y + altura, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
 
 	if (isPause) pause->Draw();
 

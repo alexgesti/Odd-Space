@@ -51,6 +51,7 @@ bool Logo::Update(float dt)
         {
             logoAlpha = 1.0f;
             sceneManager->audio->PlayFx(temporalLogoSound);
+            angle = 0;
             state = 2;
         }
     }
