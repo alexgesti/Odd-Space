@@ -321,6 +321,7 @@ bool Battle::Update(float dt)
                     sceneManager->audio->PlayFx(fx.loseFx);
                     sceneManager->wasBattle = true;
                     lose = true;
+                    timerequired = 6;
                 }
 
                 //Win Condition
@@ -336,6 +337,7 @@ bool Battle::Update(float dt)
                     sceneManager->wasBattle = true;
                     sceneManager->entityManager->CreateEntity(EntityType::ITEM);
                     win = true;
+                    timerequired = 3;
                 }
 
                 animation = false;
@@ -348,7 +350,7 @@ bool Battle::Update(float dt)
     {
         LOG("%f", preparetochange);
         preparetochange += dt;
-        if (preparetochange >= 6)
+        if (preparetochange >= timerequired)
         {
             TransitionToScene(*sceneManager->entityManager->previousScene);
         }

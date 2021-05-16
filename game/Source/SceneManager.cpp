@@ -12,6 +12,7 @@
 #include "DungeonExt.h"
 #include "DungeonF1.h"
 #include "DungeonF2.h"
+#include "EndDemo.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -68,15 +69,16 @@ bool SceneManager::Start()
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
-	current = new Logo(this);
-	//current = new Title(this);
+	//current = new Logo(this);
+	current = new Title(this);
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
 	//current = new Exterior(this);
-	current = new DungeonF1(this);
+	//current = new DungeonF1(this);
 	//current = new DungeonF2(this);
-	currentscenetype = SceneType::DUNGEON_F1;
+	//current = new EndDemo(this);
+	currentscenetype = SceneType::TITLE;
 	current->Load();
 
 	options = new OptionsMenu(this);
@@ -264,6 +266,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::DUNGEON_EXT: next = new DungeonExt(this); break;
 		case SceneType::DUNGEON_F1: next = new DungeonF1(this); break;
 		case SceneType::DUNGEON_F2: next = new DungeonF2(this); break;
+		case SceneType::ENDDEMO: next = new EndDemo(this); break;
 		default: break;
 		}
 

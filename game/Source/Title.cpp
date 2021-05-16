@@ -9,7 +9,7 @@ Title::Title(SceneManager* sceneManager) : Scene()
 {
    this->sceneManager = sceneManager;
 
-   temporalAppearTitle = sceneManager->audio->LoadFx("Assets/Audio/Fx/battle_strike_fx.wav");
+   temporalAppearTitle = sceneManager->audio->LoadFx("Assets/Audio/Fx/battle_strike.wav");
 }
 // Destructor
 Title::~Title()

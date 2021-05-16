@@ -110,6 +110,7 @@ private:
     int characterTurn;
 
     float preparetochange = 0;
+    int timerequired;
     bool win = false;
     bool lose = false;
 

@@ -138,6 +138,9 @@
     <ClCompile Include="Source\ItemsMenu.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\EndDemo.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -325,6 +328,9 @@
       <Filter>Utils</Filter>
     </ClInclude>
     <ClInclude Include="Source\ItemsMenu.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\EndDemo.h">
       <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>

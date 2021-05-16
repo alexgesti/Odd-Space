@@ -103,6 +103,7 @@
     <ClCompile Include="Source\DungeonF1.cpp" />
     <ClCompile Include="Source\DungeonF2.cpp" />
     <ClCompile Include="Source\ElaboratedPlate.cpp" />
+    <ClCompile Include="Source\EndDemo.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Exterior.cpp" />
     <ClCompile Include="Source\Font.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="Source\easings.h" />
     <ClInclude Include="Source\ElaboratedPlate.h" />
     <ClInclude Include="Source\Encrypt.h" />
+    <ClInclude Include="Source\EndDemo.h" />
     <ClInclude Include="Source\Exterior.h" />
     <ClInclude Include="Source\Collision.h" />
     <ClInclude Include="Source\DrunkCustomer.h" />

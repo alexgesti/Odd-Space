@@ -16,6 +16,7 @@ enum class SceneType
     DUNGEON_EXT,
     DUNGEON_F1,
     DUNGEON_F2,
+    ENDDEMO
 };
 
 class Scene
