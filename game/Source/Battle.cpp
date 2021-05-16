@@ -61,6 +61,8 @@ bool Battle::Load()
     if (sceneManager->toDrawX) sceneManager->toDrawX = false;
 
     sceneManager->render->camera = { 0, 0 };
+    sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
+    sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
     UI = sceneManager->tex->Load("assets/sprites/UI/UI_Text.png");
     VorL = sceneManager->tex->Load("assets/sprites/UI/UI_StateBattle.png");

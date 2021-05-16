@@ -268,7 +268,7 @@ void Map::DrawLayer(Render* render, int num)
 				{
 					pos = MapToWorld(x, y);
 
-					if (pos.x + data.tileWidth > -render->camera.x && pos.x < -render->camera.x + render->camera.w)
+					//if (pos.x + data.tileWidth > -render->camera.x && pos.x < -render->camera.x + render->camera.w)
 					{
 						int tileId = layer->Get(x, y);
 
