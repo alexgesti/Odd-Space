@@ -183,10 +183,23 @@ bool Cantina::Update(float dt)
 				}
 
 				// Triggers second conversation with barman & battle event
-				else if (barmanConv1 && oldCapConv && !barmanConv2)
+				else if ((barmanConv1 && oldCapConv && !barmanConv2) || barmanConv2)
 				{
-					sceneManager->dialogueSystem->SetConversation(6);
-					sceneManager->dialogueSystem->inConversation = true;
+					//Add quest
+					int nextQuest = rand() % 2;
+					switch (nextQuest)
+					{
+					case 0:
+						sceneManager->dialogueSystem->SetConversation(6);
+						sceneManager->dialogueSystem->inConversation = true;
+						startFight = true;
+						break;
+					case 1:
+						sceneManager->dialogueSystem->SetConversation(8);
+						sceneManager->dialogueSystem->inConversation = true;
+						break;
+					}
+					
 					barmanConv2 = true;
 				}
 
@@ -213,6 +226,13 @@ bool Cantina::Update(float dt)
 
 				sceneManager->collision->currentInteraction = '/0';
 				oldCapConv = true;
+				if (sceneManager->questSystem->mainQuest.interactionName == "captain")
+				{
+					Quest quest;
+					quest.interactionName = "topDoorDungeonExt";
+					quest.text = "Enter the dungeon";
+					sceneManager->questSystem->ChangeMainQuest(quest);
+				}
 			}
 
 			if (sceneManager->collision->currentInteraction == "legendary" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect) && !oldCapConv)
@@ -240,9 +260,10 @@ bool Cantina::Update(float dt)
 	if(sceneManager->collision->currentInteraction == "legendary" && oldCapConv) sceneManager->toDrawX = false;
 
 	// Second barman conversation can trigger a battle event
-	if (barmanConv2 && !sceneManager->dialogueSystem->inConversation)
+	if (barmanConv2 && !sceneManager->dialogueSystem->inConversation && startFight)
 	{
 		barmanConv2 = false;
+		startFight = false;
 		if (sceneManager->dialogueSystem->triggerEvent)
 		{
 			sceneManager->dialogueSystem->triggerEvent = false;

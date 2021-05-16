@@ -29,6 +29,16 @@ bool DialogueSystem::Update(float dt)
 {	
 	GamePad& pad = input->pads[0];
 
+	/*if (playerInput >= 0 && playerInput <= 2)
+	{
+		if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+		if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
+		PerformDialogue(id);
+
+		nextSentence = true;
+		playerInput = -1;
+	}*/
+
 	if (inConversation)
 	{
 		if (!currentNode->lastSentence && currentNode->hasOptions)
@@ -64,7 +74,7 @@ bool DialogueSystem::Update(float dt)
 			if (speak->speaking) speak->Finish();
 
 			// If it's last sentence disable dialogueSystem
-			else if (currentNode->lastSentence)
+			else if (currentNode->lastSentence && speak->textSaid == true)
 			{
 				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
 				// Añadimos la opción 0 porque es la única que hay
@@ -74,7 +84,7 @@ bool DialogueSystem::Update(float dt)
 			}
 
 			// If the sentence has no options continue with the next line of dialogue
-			else if(!currentNode->hasOptions)
+			else if(!currentNode->hasOptions && speak->textSaid == true)
 			{
 				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
 				playerInput = 0;
@@ -103,7 +113,9 @@ bool DialogueSystem::Draw()
 	}
 
 	else if (speak->textSaid && !showOptions)
+	{
 		showOptions = true;
+	}
 
 	if (speak->speaking || showOptions)
 	{
@@ -213,6 +225,12 @@ void DialogueSystem::PerformDialogue(int treeId)
 			if (currentNode->dialogueOptions[playerInput]->nextNode == dialogueTrees[treeId]->dialogueNodes[i]->nodeId)
 			{
 				currentNode = dialogueTrees[treeId]->dialogueNodes[i];
+				// Create quests depending on options
+				if (currentNode->quest != "/0")
+				{
+					if (currentNode->quest == "kill") createKillQuest = true;
+					else if (currentNode->quest == "collect") createCollectQuest = true;
+				}
 				break;
 			}
 		}
@@ -256,6 +274,7 @@ bool DialogueSystem::LoadNodes(pugi::xml_node& trees, DialogueTree* example)
 		node->nodeId = n.attribute("id").as_int();
 		node->hasOptions = n.attribute("hasOptions").as_bool(true);
 		node->lastSentence = n.attribute("lastSentence").as_bool(false);
+		node->quest.assign(n.attribute("quest").as_string("/0"));
 		node->name = n.attribute("name").as_string();
 		LoadOptions(n, node);
 		example->dialogueNodes.push_back(node);
@@ -311,6 +330,7 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 			PerformDialogue(id);
 
 			nextSentence = true;
+			speak->textSaid = false;
 			break;
 		case 2:
 			playerInput = 1;
@@ -319,6 +339,7 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 			PerformDialogue(id);
 
 			nextSentence = true;
+			speak->textSaid = false;
 			break;
 		case 3:
 			playerInput = 2;
@@ -327,6 +348,7 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 			PerformDialogue(id);
 
 			nextSentence = true;
+			speak->textSaid = false;
 			break;
 		default: break;
 		}

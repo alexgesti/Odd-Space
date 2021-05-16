@@ -60,6 +60,7 @@ private:
     bool barmanConv1 = false;
     bool barmanConv2 = false;
     bool oldCapConv = false;
+    bool startFight = false;
 };
 
 #endif // __CANTINA_H__

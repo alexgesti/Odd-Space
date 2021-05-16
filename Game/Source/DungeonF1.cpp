@@ -26,7 +26,6 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 
 	this->doorTex = sceneManager->tex->Load("maps/prop_dungeon_v02_w.png");
 	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
-	this->stairsFx = sceneManager->audio->LoadFx("audio/fx/world_stairs.wav");
 }
 
 // Destructor
@@ -266,7 +265,17 @@ bool DungeonF1::Update(float dt)
 
 	if (map->doorHit)
 	{
-		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < END_DOOR)) TransitionToScene(SceneType::ENDDEMO);
+		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < END_DOOR))
+		{
+			if (sceneManager->questSystem->mainQuest.interactionName == "endDungeon")
+			{
+				Quest quest;
+				quest.interactionName = "none";
+				quest.text = "Ended of the demo";
+				sceneManager->questSystem->ChangeMainQuest(quest);
+			}
+			TransitionToScene(SceneType::ENDDEMO);
+		}
 		else if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x > HORIZONTAL_DOOR)) TransitionToScene(SceneType::DUNGEON_EXT);
 		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x < HORIZONTAL_DOOR)
 		{

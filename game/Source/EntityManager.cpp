@@ -218,6 +218,11 @@ bool EntityManager::UpdateAll(float dt, bool doLogic)
 			while (list != NULL)
 			{
 				list->data->Update(dt);
+				if (list->data->infoEntities.info.HP <= 0 && !list->data->deadAdded)
+				{
+					enemyKills++;
+					list->data->deadAdded = true;
+				}
 				list = list->next;
 			}
 		}

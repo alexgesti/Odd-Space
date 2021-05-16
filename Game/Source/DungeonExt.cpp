@@ -108,7 +108,17 @@ bool DungeonExt::Update(float dt)
 	{
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
 		// A�adir feedback text y X button
-		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR)) TransitionToScene(SceneType::DUNGEON_F1);
+		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR))
+		{
+			if (sceneManager->questSystem->mainQuest.interactionName == "topDoorDungeonExt")
+			{
+				Quest quest;
+				quest.interactionName = "endDungeon";
+				quest.text = "Finish the dungeon";
+				sceneManager->questSystem->ChangeMainQuest(quest);
+			}
+			TransitionToScene(SceneType::DUNGEON_F1);
+		}
 		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y > UPPER_DOOR) TransitionToScene(SceneType::EXTERIOR);
 
 		map->doorHit = false;

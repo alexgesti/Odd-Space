@@ -55,6 +55,7 @@ public:
 	Collision collision;
 
 	SceneType* previousScene;
+	int enemyKills = 0;
 
 private:
 

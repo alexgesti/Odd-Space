@@ -55,7 +55,7 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
         }
 
         if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT ||
-            input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
+            input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
         {
             if (disabled) audio->PlayFx(unavaliable);
             else state = GuiControlState::PRESSED;

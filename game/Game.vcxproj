@@ -130,6 +130,7 @@
     <ClCompile Include="Source\Cantina.cpp" />
     <ClCompile Include="Source\Pint.cpp" />
     <ClCompile Include="Source\Player.cpp" />
+    <ClCompile Include="Source\QuestSystem.cpp" />
     <ClCompile Include="Source\RawMeat.cpp" />
     <ClCompile Include="Source\Render.cpp" />
     <ClCompile Include="Source\SaveFileManager.cpp" />
@@ -180,6 +181,7 @@
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Pint.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\QuestSystem.h" />
     <ClInclude Include="Source\Queue.h" />
     <ClInclude Include="Source\RawMeat.h" />
     <ClInclude Include="Source\SaveFileManager.h" />

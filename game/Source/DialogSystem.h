@@ -49,6 +49,7 @@ public:
 	int nodeId;
 	bool hasOptions;
 	bool lastSentence;
+	string quest;
 	string name;
 };
 
@@ -105,10 +106,13 @@ public:
 
 	//DynArray<int> completedDialoguesId;
 	List<int> completedDialoguesId;
+
+	bool createKillQuest = false;
+	bool createCollectQuest = false;
 	
 private:
 
-	int playerInput = 7;
+	int playerInput = -1;
 	int id = 0;
 	std::vector <DialogueTree*> dialogueTrees;
 	pugi::xml_document	dialogues;

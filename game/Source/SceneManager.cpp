@@ -71,8 +71,8 @@ bool SceneManager::Start()
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
-	current = new Logo(this);
-	//current = new Title(this);
+	//current = new Logo(this);
+	current = new Title(this);
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
@@ -80,7 +80,8 @@ bool SceneManager::Start()
 	//current = new DungeonF1(this);
 	//current = new DungeonF2(this);
 	//current = new EndDemo(this);
-	currentscenetype = SceneType::LOGO;
+	currentscenetype = SceneType::TITLE;
+
 	current->Load();
 
 	options = new OptionsMenu(this);
@@ -91,6 +92,12 @@ bool SceneManager::Start()
 	dialogueSystem->speak = speak;
 	dialogueSystem->GetObserver(current);
 	next = nullptr;
+
+	questSystem = new QuestSystem(this);
+	Quest quest;
+	quest.interactionName = "captain";
+	quest.text = "Talk with the captain";
+	questSystem->ChangeMainQuest(quest);
 
 	return true;
 }
@@ -175,7 +182,31 @@ bool SceneManager::Update(float dt)
 
 			current->Update(dt);
 		}
+
+		//Create quests
+		if(dialogueSystem->createKillQuest)
+		{
+			Quest quest;
+			quest.type = QuestType::KILL;
+			quest.amount = entityManager->enemyKills + (rand() %3) + 1;
+			std::string amount = std::to_string(quest.amount);
+			quest.text.Create(("Kill " + amount + " enemies").c_str());
+			questSystem->AddSideQuest(quest);
+			dialogueSystem->createKillQuest = false;
+		}
+
+		if (dialogueSystem->createCollectQuest)
+		{
+			Quest quest;
+			quest.type = QuestType::COLLECT;
+			quest.amount = 3;
+			std::string amount = std::to_string(quest.amount);
+			quest.text.Create(("Collect " + amount + " items").c_str());
+			questSystem->AddSideQuest(quest);
+			dialogueSystem->createCollectQuest = false;
+		}
 	}
+
 	else
 	{
 		if (!fadeOutCompleted)
@@ -220,6 +251,7 @@ bool SceneManager::Update(float dt)
 				fadeOutCompleted = true;
 			}
 		}
+
 		else // Transition fade out logic
 		{
 			transitionAlpha -= (FADEIN_TRANSITION_SPEED * dt);
@@ -255,6 +287,8 @@ bool SceneManager::Update(float dt)
 
 	if (isPause) pause->Draw();
 
+	if(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE) questSystem->Draw(render, font);
+
 	// L12b: Debug pathfinding
 	/*
 	app->input->GetMousePosition(mouseX, mouseY);
@@ -279,6 +313,8 @@ bool SceneManager::Update(float dt)
 		fadeOutCompleted = false;
 		transitionAlpha = 0.0f;
 
+		ListItem<Quest>* temp = questSystem->sideQuests.start;
+
 		switch (current->nextScene)
 		{
 		case SceneType::LOGO: next = new Logo(this); break;
@@ -286,7 +322,17 @@ bool SceneManager::Update(float dt)
 		case SceneType::CANTINA: next = new Cantina(this); break;
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
-		case SceneType::BATTLE: next = new Battle(this); break;
+		case SceneType::BATTLE:
+			next = new Battle(this);
+			while (temp != NULL)
+			{
+				if(temp->data.type == QuestType::COLLECT)
+					questSystem->CheckSideQuests(temp->data, 3);
+				else if (temp->data.type == QuestType::COLLECT)
+					questSystem->CheckSideQuests(temp->data, entityManager->enemyKills);
+				temp = temp->next;
+			}
+			break;
 		case SceneType::DUNGEON_EXT: next = new DungeonExt(this); break;
 		case SceneType::DUNGEON_F1: next = new DungeonF1(this); break;
 		case SceneType::DUNGEON_F2: next = new DungeonF2(this); break;

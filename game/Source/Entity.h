@@ -112,6 +112,7 @@ public:
     bool noClip = false;
 
     bool loadedPos = false;
+    bool deadAdded = false;
 };
 
 #endif // __ENTITY_H__

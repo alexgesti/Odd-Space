@@ -13,6 +13,7 @@
 #include "Audio.h"
 #include "Collision.h"
 #include "Speak.h"
+#include "QuestSystem.h"
 
 #include <vector>
 
@@ -60,6 +61,7 @@ public:
 
 	Collision* collision;
 	Speak* speak;
+	QuestSystem* questSystem;
 
 	SceneType* previousScene;
 	SceneType currentscenetype;
