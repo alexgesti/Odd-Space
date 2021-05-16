@@ -24,11 +24,10 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 	}
 	name.Create("dungeon_f1");
 
-	this->door1Tex = sceneManager->tex->Load("assets/maps/prop_dungeon_v02_w.png");
+	this->doorTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v02_w.png");
+	this->leverTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v01_w.png");
 
 	this->stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
-	this->leverFx = sceneManager->audio->LoadFx("assets/audio/fx/world_lever.wav");
-
 }
 
 // Destructor
@@ -129,7 +128,6 @@ bool DungeonF1::Update(float dt)
 				if (sceneManager->collision->currentInteraction == "cross_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 				{
 
-					//Lever Feedback
 					if (sceneManager->leverCro == false)
 					{
 						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
@@ -137,6 +135,8 @@ bool DungeonF1::Update(float dt)
 							sceneManager->levers.push_back(1);
 						}
 						sceneManager->leverCro = true;
+
+						sceneManager->audio->PlayFx(sceneManager->leverFx);
 					}
 
 					sceneManager->toDrawX = false;
@@ -149,8 +149,6 @@ bool DungeonF1::Update(float dt)
 			{
 				if (sceneManager->collision->currentInteraction == "triangular_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 				{
-
-					//Lever Feedback
 					if (sceneManager->leverTri == false)
 					{
 						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
@@ -158,6 +156,8 @@ bool DungeonF1::Update(float dt)
 							sceneManager->levers.push_back(2);
 						}
 						sceneManager->leverTri = true;
+
+						sceneManager->audio->PlayFx(sceneManager->leverFx);
 					}
 
 					sceneManager->toDrawX = false;
@@ -170,8 +170,6 @@ bool DungeonF1::Update(float dt)
 			{
 				if (sceneManager->collision->currentInteraction == "circular_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 				{
-
-					//Lever Feedback
 					if (sceneManager->leverCir == false)
 					{
 						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
@@ -179,6 +177,8 @@ bool DungeonF1::Update(float dt)
 							sceneManager->levers.push_back(3);
 						}
 						sceneManager->leverCir = true;
+
+						sceneManager->audio->PlayFx(sceneManager->leverFx);
 					}
 
 					sceneManager->toDrawX = false;
@@ -186,6 +186,18 @@ bool DungeonF1::Update(float dt)
 					sceneManager->collision->currentInteraction = '/0';
 
 				}
+			}
+		}
+
+		if (sceneManager->door1Open == true)
+		{
+			if (sceneManager->collision->currentInteraction == "door_boss_1" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+				sceneManager->entityManager->CreateEntity(EntityType::HERO)->noClip = true;
+			}
+			else
+			{
+				sceneManager->entityManager->CreateEntity(EntityType::HERO)->noClip = false;
 			}
 		}
 
@@ -259,8 +271,11 @@ bool DungeonF1::Update(float dt)
 	if (sceneManager->levers == sceneManager->door1Sol)
 	{
 		sceneManager->door1Open = true;
-		// audio feedback
-
+		if (sceneManager->doorOpening == false)
+		{
+			sceneManager->audio->PlayFx(sceneManager->doorClose);
+			sceneManager->doorOpening = true;
+		}
 	}
 
 	if (map->doorHit)
@@ -294,12 +309,45 @@ bool DungeonF1::Update(float dt)
 
 bool DungeonF1::Draw()
 {
-	SDL_Rect rect = { 0, 0, 192,192 };
+	SDL_Rect door1Rect = { 0, 0, 192,192 };
+	SDL_Rect door2Rect = { 192, 0, 192,192 };
+	SDL_Rect leverUpRect = { 480,128,32, 64 };
+	SDL_Rect leverDownRect = { 544,128,32, 64 };
 
 	// Draw map
 	map->Draw(sceneManager->render);
 	
-	if (sceneManager->door1Open == false) sceneManager->render->DrawTexture(door1Tex, 384, 1152, &rect);
+	if (sceneManager->door1Open == false) sceneManager->render->DrawTexture(doorTex, 384, 1152, &door1Rect);
+	if (sceneManager->door2Open == false) sceneManager->render->DrawTexture(doorTex, 384, 704, &door2Rect);
+
+
+	// Draw levers
+	if (sceneManager->leverCro == false)
+	{
+		sceneManager->render->DrawTexture(leverTex, 912, 512, &leverUpRect);
+	}
+	else
+	{
+		sceneManager->render->DrawTexture(leverTex, 912, 512, &leverDownRect);
+	}
+
+	if (sceneManager->leverTri == false)
+	{
+		sceneManager->render->DrawTexture(leverTex, 2192, 512, &leverUpRect);
+	}
+	else
+	{
+		sceneManager->render->DrawTexture(leverTex, 2192, 512, &leverDownRect);
+	}
+
+	if (sceneManager->leverCir == false)
+	{
+		sceneManager->render->DrawTexture(leverTex, 1552, 64, &leverUpRect);
+	}
+	else
+	{
+		sceneManager->render->DrawTexture(leverTex, 1552, 64, &leverDownRect);
+	}
 
 	sceneManager->entityManager->Draw();
 
@@ -309,6 +357,9 @@ bool DungeonF1::Draw()
 bool DungeonF1::Unload()
 {
 	*sceneManager->previousScene = SceneType::DUNGEON_F1;
+
+	sceneManager->tex->UnLoad(doorTex);
+	sceneManager->tex->UnLoad(leverTex);
 
 	enemyEncounter = 0;
 

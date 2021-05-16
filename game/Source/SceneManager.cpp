@@ -65,6 +65,7 @@ bool SceneManager::Start()
 
 	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
 	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
+	leverFx = audio->LoadFx("assets/audio/fx/world_lever.wav");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
