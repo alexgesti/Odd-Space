@@ -98,6 +98,7 @@ public:
 	bool leverCro = false;
 
 	bool doorOpening = false;
+	bool door2Opening = false;
 
 	vector <int> levers;
 	vector <int> door1Sol{ 1,2,3 };

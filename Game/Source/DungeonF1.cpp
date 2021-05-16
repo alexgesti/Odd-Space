@@ -25,8 +25,9 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 	name.Create("dungeon_f1");
 
 	this->doorTex = sceneManager->tex->Load("maps/prop_dungeon_v02_w.png");
-	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
-	this->stairsFx = sceneManager->audio->LoadFx("audio/fx/world_stairs.wav");
+	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png"); 
+
+	this->leverFx = sceneManager->audio->LoadFx("audio/fx/world_lever.wav");
 }
 
 // Destructor
@@ -178,18 +179,6 @@ bool DungeonF1::Update(float dt)
 			}
 		}
 
-		if (sceneManager->door1Open == true)
-		{
-			if (sceneManager->collision->currentInteraction == "door_boss_1" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
-			{
-				sceneManager->entityManager->CreateEntity(EntityType::HERO)->noClip = true;
-			}
-			else
-			{
-				sceneManager->entityManager->CreateEntity(EntityType::HERO)->noClip = false;
-			}
-		}
-
 		// If conversation and WCfx ended draw X to interact again
 		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
 	}
@@ -257,6 +246,7 @@ bool DungeonF1::Update(float dt)
 	if (sceneManager->levers == sceneManager->door1Sol)
 	{
 		sceneManager->door1Open = true;
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->canCross1Door = true;
 		if (sceneManager->doorOpening == false)
 		{
 			sceneManager->audio->PlayFx(sceneManager->doorClose);
@@ -350,6 +340,7 @@ bool DungeonF1::Unload()
 
 	sceneManager->tex->UnLoad(doorTex);
 	sceneManager->tex->UnLoad(leverTex);
+
 	sceneManager->audio->UnloadFx(leverFx);
 
 	map->Unload();

@@ -25,6 +25,7 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 	name.Create("dungeon_f2");
 
 	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
+	this->fakeWall = sceneManager->tex->Load("maps/world_dungeon_false_wall.png");
 
 	this->leverFx = sceneManager->audio->LoadFx("audio/fx/world_lever.wav");
 	this->winFx = sceneManager->audio->LoadFx("audio/fx/battle_win.wav");
@@ -224,6 +225,8 @@ bool DungeonF2::Update(float dt)
 				{
 					sceneManager->chestopen = true;
 
+					sceneManager->entityManager->CreateEntity(EntityType::ITEM);
+
 					sceneManager->audio->PlayFx(itempick);
 				}
 
@@ -248,7 +251,7 @@ bool DungeonF2::Update(float dt)
 		{
 			sceneManager->seq1 = true;
 			sceneManager->audio->PlayFx(winFx);
-			
+
 			// Reset
 			sceneManager->p1 = false;
 			sceneManager->p2 = false;
@@ -303,14 +306,24 @@ bool DungeonF2::Update(float dt)
 		}
 	}
 
+	sceneManager->seq1 = true; sceneManager->seq2 = true; sceneManager->seq3 = true;
+
 	if (sceneManager->seq1 == true && sceneManager->seq2 == true && sceneManager->seq3 == true)
 	{
-		sceneManager->door2Open;
+		sceneManager->door2Open = true;
+		sceneManager->entityManager->CreateEntity(EntityType::HERO)->canCross2Door = true;
+		if (sceneManager->door2Opening == false)
+		{
+			sceneManager->audio->PlayFx(sceneManager->doorClose);
+			sceneManager->door2Opening = true;
+		}
 
-		// Star
-		if (sceneManager->p1 == false && sceneManager->p2 == true && sceneManager->p3 == false && sceneManager->p4 == true && sceneManager->p5 == true && sceneManager->p6 == false && sceneManager->p7 == true && sceneManager->p8 == true && sceneManager->seqESP == false)
+		if (sceneManager->p1 == false && sceneManager->p2 == true && sceneManager->p3 == false &&
+			sceneManager->p4 == true && sceneManager->p5 == true && sceneManager->p6 == false &&
+			sceneManager->p7 == true && sceneManager->p8 == true && sceneManager->seqESP == false)
 		{
 			sceneManager->seqESP = true;
+			sceneManager->entityManager->CreateEntity(EntityType::HERO)->canCrossESPDoor = true;
 			sceneManager->audio->PlayFx(bigdoor);
 
 			// Reset
@@ -324,7 +337,7 @@ bool DungeonF2::Update(float dt)
 			sceneManager->p8 = false;
 		}
 	}
-
+	
 	if (map->doorHit)
 	{
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
@@ -368,6 +381,8 @@ bool DungeonF2::Draw()
 	SDL_Rect chestClose = {480, 192, 128, 64};
 	SDL_Rect chestOpen = {608, 192, 128, 64 };
 
+	SDL_Rect wall = { 0, 0, 992, 1856 };
+
 	// Draw map
 	map->Draw(sceneManager->render);
 	
@@ -376,8 +391,13 @@ bool DungeonF2::Draw()
 	if(sceneManager->p1 == false) sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopUpRect);
 	else sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopDownRect);
 
-	if (sceneManager->p2 == false) sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopUpRect);
-	else sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopDownRect);
+	if (!sceneManager->seqESP)
+	{
+		sceneManager->render->DrawTexture(fakeWall, 0, 0, &wall);
+
+		if (sceneManager->p2 == false) sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopUpRect);
+		else sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopDownRect);
+	}
 
 	if (sceneManager->p3 == false) sceneManager->render->DrawTexture(leverTex, 656, 912, &leverTopUpRect);
 	else sceneManager->render->DrawTexture(leverTex, 656, 912, &leverTopDownRect);
@@ -410,6 +430,7 @@ bool DungeonF2::Unload()
 	*sceneManager->previousScene = SceneType::DUNGEON_F2;
 
 	sceneManager->tex->UnLoad(leverTex);
+	sceneManager->tex->UnLoad(fakeWall);
 
 	sceneManager->audio->UnloadFx(leverFx);
 	sceneManager->audio->UnloadFx(winFx);

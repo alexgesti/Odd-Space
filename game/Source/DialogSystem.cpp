@@ -58,7 +58,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
+		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP && !actualOptions)
 		{
 			// Finish speaking sentence
 			if (speak->speaking) speak->Finish();
@@ -84,6 +84,7 @@ bool DialogueSystem::Update(float dt)
 
 			showOptions = true;
 		}
+		if (!actualOptions) actualOptions = true;
 	}
 
 	return true;
@@ -184,12 +185,14 @@ bool DialogueSystem::CleanUp()
 	}
 	dialogueTrees.clear();
 
-	delete buttonOpt1;
-	buttonOpt1 = nullptr;
-	delete buttonOpt2;
-	buttonOpt2 = nullptr;
-	delete buttonOpt3;
-	buttonOpt3 = nullptr;
+	tex->UnLoad(optionsTex);
+
+	buttonOpt1->UnLoad();
+	RELEASE(buttonOpt1);
+	buttonOpt2->UnLoad();
+	RELEASE(buttonOpt2);
+	buttonOpt3->UnLoad();
+	RELEASE(buttonOpt3);
 
 	return true;
 }
@@ -306,30 +309,21 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 		{
 		case 1:
 			playerInput = 0;
-			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-			if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
-			PerformDialogue(id);
-
-			nextSentence = true;
 			break;
 		case 2:
 			playerInput = 1;
-			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-			if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
-			PerformDialogue(id);
-
-			nextSentence = true;
 			break;
 		case 3:
 			playerInput = 2;
-			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-			if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
-			PerformDialogue(id);
-
-			nextSentence = true;
 			break;
 		default: break;
 		}
+		if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+		if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
+		PerformDialogue(id);
+
+		nextSentence = true;
+		actualOptions = true;
 	}
 
 	return true;
