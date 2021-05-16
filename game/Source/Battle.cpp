@@ -28,8 +28,6 @@ bool Battle::Load()
     switch (*sceneManager->entityManager->previousScene)
     {
     case SceneType::CANTINA:
-        map->Load("combat_cantina_interior.tmx") == true;
-            break;
     case SceneType::WC:
         map->Load("combat_cantina_interior.tmx") == true;
         break;
@@ -37,11 +35,7 @@ bool Battle::Load()
         map->Load("combat_cantina_exterior.tmx") == true;
         break;
     case SceneType::DUNGEON_EXT:
-        map->Load("combat_dungeon.tmx") == true;
-        break;
     case SceneType::DUNGEON_F1:
-        map->Load("combat_dungeon.tmx") == true;
-        break;
     case SceneType::DUNGEON_F2:
         map->Load("combat_dungeon.tmx") == true;
         break;
@@ -49,7 +43,7 @@ bool Battle::Load()
         break;
     }
 
-    fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
+    fx.loseFx = sceneManager->audio->LoadFx("audio/fx/battle_lose.wav");
     fx.winFx = sceneManager->audio->LoadFx("audio/fx/battle_win.wav");
     fx.strikeFx = sceneManager->audio->LoadFx("audio/fx/battle_strike.wav");
     fx.hurtFx = sceneManager->audio->LoadFx("audio/fx/battle_hurt.wav");
@@ -434,7 +428,7 @@ bool Battle::Draw()
         else
         {
             std::string name = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.info.name.GetString();
-            sceneManager->render->DrawText(sceneManager->font, ("What will do " + name + " ?").c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
+            sceneManager->render->DrawText(sceneManager->font, ("What will " + name + " do?").c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
         }
     }
     else
@@ -482,15 +476,17 @@ bool Battle::Unload()
 	map->Unload();
     RELEASE(map);
 
-    sceneManager->audio->UnloadFx(fx.deathFx);
-    sceneManager->audio->UnloadFx(fx.runFx);
-    sceneManager->audio->UnloadFx(fx.strikeFx);
     sceneManager->audio->UnloadFx(fx.loseFx);
     sceneManager->audio->UnloadFx(fx.winFx);
-    sceneManager->audio->UnloadFx(fx.guardFx);
+    sceneManager->audio->UnloadFx(fx.strikeFx);
     sceneManager->audio->UnloadFx(fx.hurtFx);
-    sceneManager->audio->UnloadFx(fx.reviveFx);
+    sceneManager->audio->UnloadFx(fx.deathFx);
     sceneManager->audio->UnloadFx(fx.hpRecoverFx);
+    sceneManager->audio->UnloadFx(fx.guardFx);
+    sceneManager->audio->UnloadFx(fx.runFx);
+    sceneManager->audio->UnloadFx(fx.reviveFx);
+    sceneManager->audio->UnloadFx(fx.spRecoverFx);
+    sceneManager->audio->UnloadFx(fx.debuffFx);
 
     buttons.buttonsMenu.buttonAttack->UnLoad();
     RELEASE(buttons.buttonsMenu.buttonAttack);

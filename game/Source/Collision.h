@@ -68,7 +68,13 @@ public:
 									currentInteraction.Clear();
 									currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString());
 
-									if (player->temPos != player->position)
+									if ((currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString()) == "door_boss_1" &&
+										player->canCross1Door) || 
+										(currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString()) == "door_boss_2" &&
+										player->canCross2Door) || 
+										(currentInteraction.operator=((const char*)list->data->properties.list.start->data->valueString.GetString()) == "palanca_2" && 
+										player->canCrossESPDoor)); //Puedes atravesar la puerta
+									else if (player->temPos != player->position)
 									{
 										player->position = player->temPos;
 										player->movingFlag = false;

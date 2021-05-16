@@ -50,6 +50,7 @@ private:
     int itempick;
 
     SDL_Texture* leverTex;
+    SDL_Texture* fakeWall;
 };
 
 
