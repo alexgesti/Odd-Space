@@ -61,7 +61,7 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
         }
 
         // If mouse button pressed -> Generate event!
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP && state == GuiControlState::DISABLED)
+        if ((input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) && state != GuiControlState::DISABLED)
         {
             NotifyObserver();
             if (state != GuiControlState::DISABLED) audio->PlayFx(press);

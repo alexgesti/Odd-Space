@@ -59,7 +59,7 @@ bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float 
         }
 
         // If mouse button pressed -> Generate event!
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN && state == GuiControlState::DISABLED)
+        if ((input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && state == GuiControlState::DISABLED)
         {
             *checked = !*checked;
             check = *checked;
