@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: windows-latest
-    evn:
       RELEASE_NAME: ChaoticEvil-Odd_Space-v0.8
       GNUTARGET: default
 
