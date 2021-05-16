@@ -14,6 +14,10 @@
 #include "Collision.h"
 #include "Speak.h"
 
+#include <vector>
+
+using namespace std;
+
 class Font;
 class GuiButton;
 
@@ -85,8 +89,20 @@ public:
 
 	bool openOptions = false;
 	bool openItems = false;
-	// DUNGEON KEY
-	//bool dungeonKey = false;
+
+	// DUNGEON 
+	bool leverTri = false;
+	bool leverCir = false;
+	bool leverCro = false;
+
+	vector <int> levers;
+	vector <int> door1Sol{ 1,2,3 };
+
+	bool door1Open = false;
+	bool door2Open = false;
+
+
+	bool resetDungeon = true;
 
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;

@@ -24,7 +24,11 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 	}
 	name.Create("dungeon_f1");
 
-	stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
+	this->door1Tex = sceneManager->tex->Load("assets/maps/prop_dungeon_v02_w.png");
+
+	this->stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
+	this->leverFx = sceneManager->audio->LoadFx("assets/audio/fx/world_lever.wav");
+
 }
 
 // Destructor
@@ -65,7 +69,7 @@ bool DungeonF1::Load()
 		sceneManager->render->camera.x = RIGHT_CAMERA_LIMIT;
 		sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 
-		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(2873, 1904);
+		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(2873, 1712);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 
@@ -111,6 +115,153 @@ bool DungeonF1::Update(float dt)
 	if (sceneManager->render->camera.y < BOTTOM_CAMERA_LIMIT) sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 	else if (sceneManager->render->camera.y > TOP_CAMERA_LIMIT) sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
 
+	if (sceneManager->collision->currentInteraction != '/0')
+	{
+		SDL_Rect playerRect;
+		playerRect.x = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
+		playerRect.y = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
+		playerRect.w = playerRect.h = 32;
+
+		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting == true)
+		{
+			if (sceneManager->leverCro == false)
+			{
+				if (sceneManager->collision->currentInteraction == "cross_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+				{
+
+					//Lever Feedback
+					if (sceneManager->leverCro == false)
+					{
+						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
+						{
+							sceneManager->levers.push_back(1);
+						}
+						sceneManager->leverCro = true;
+					}
+
+					sceneManager->toDrawX = false;
+
+					sceneManager->collision->currentInteraction = '/0';
+
+				}
+			}
+			if (sceneManager->leverTri == false)
+			{
+				if (sceneManager->collision->currentInteraction == "triangular_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+				{
+
+					//Lever Feedback
+					if (sceneManager->leverTri == false)
+					{
+						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
+						{
+							sceneManager->levers.push_back(2);
+						}
+						sceneManager->leverTri = true;
+					}
+
+					sceneManager->toDrawX = false;
+
+					sceneManager->collision->currentInteraction = '/0';
+
+				}
+			}
+			if (sceneManager->leverCir == false)
+			{
+				if (sceneManager->collision->currentInteraction == "circular_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+				{
+
+					//Lever Feedback
+					if (sceneManager->leverCir == false)
+					{
+						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
+						{
+							sceneManager->levers.push_back(3);
+						}
+						sceneManager->leverCir = true;
+					}
+
+					sceneManager->toDrawX = false;
+
+					sceneManager->collision->currentInteraction = '/0';
+
+				}
+			}
+		}
+
+		// If conversation and WCfx ended draw X to interact again
+		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
+	}
+
+	// If there's no interaction and X is being drawn, stop drawing it
+	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
+
+	//Lever Checker
+
+	if (sceneManager->leverCro == true || sceneManager->leverTri == true || sceneManager->leverCir == true)
+	{
+		if (sceneManager->levers.size() == 1)
+		{
+			if (sceneManager->levers[0] != 1)
+			{
+				sceneManager->levers.clear();
+				//audio feedback
+
+				sceneManager->leverCro = false;
+				sceneManager->leverTri = false;
+				sceneManager->leverCir = false;
+
+				sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+				sceneManager->render->prevCam.x = sceneManager->render->camera.x;
+				sceneManager->render->prevCam.y = sceneManager->render->camera.y;
+				TransitionToScene(SceneType::BATTLE);
+
+			}
+		}
+		if (sceneManager->levers.size() == 2)
+		{
+			if (sceneManager->levers[1] != 2)
+			{
+				sceneManager->levers.clear();
+				//audio feedback
+
+				sceneManager->leverCro = false;
+				sceneManager->leverTri = false;
+				sceneManager->leverCir = false;
+
+				sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+				sceneManager->render->prevCam.x = sceneManager->render->camera.x;
+				sceneManager->render->prevCam.y = sceneManager->render->camera.y;
+				TransitionToScene(SceneType::BATTLE);
+			}
+		}
+		if (sceneManager->levers.size() == 3)
+		{
+			if (sceneManager->levers[2] != 3)
+			{
+				sceneManager->levers.clear();
+				//audio feedback
+
+				sceneManager->leverCro = false;
+				sceneManager->leverTri = false;
+				sceneManager->leverCir = false;
+
+				sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+				sceneManager->render->prevCam.x = sceneManager->render->camera.x;
+				sceneManager->render->prevCam.y = sceneManager->render->camera.y;
+				TransitionToScene(SceneType::BATTLE);
+			}
+		}
+	}
+
+	// Door 1 correct
+
+	if (sceneManager->levers == sceneManager->door1Sol)
+	{
+		sceneManager->door1Open = true;
+		// audio feedback
+
+	}
 
 	if (map->doorHit)
 	{
@@ -143,8 +294,12 @@ bool DungeonF1::Update(float dt)
 
 bool DungeonF1::Draw()
 {
+	SDL_Rect rect = { 0, 0, 192,192 };
+
 	// Draw map
 	map->Draw(sceneManager->render);
+	
+	if (sceneManager->door1Open == false) sceneManager->render->DrawTexture(door1Tex, 384, 1152, &rect);
 
 	sceneManager->entityManager->Draw();
 

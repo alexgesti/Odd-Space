@@ -74,9 +74,9 @@ bool SceneManager::Start()
 	//current = new Cantina(this);
 	//current = new Wc(this);
 	//current = new Exterior(this);
-	//current = new DungeonF1(this);
+	current = new DungeonF1(this);
 	//current = new DungeonF2(this);
-	currentscenetype = SceneType::LOGO;
+	currentscenetype = SceneType::DUNGEON_F1;
 	current->Load();
 
 	options = new OptionsMenu(this);
@@ -236,7 +236,8 @@ bool SceneManager::Update(float dt)
 	p = app->map->WorldToMap(p.x, p.y);
 	p = app->map->MapToWorld(p.x, p.y);
 
-	const DynArray<iPoint>* path = app->pathFinding->GetLastPath();
+	const 
+	<iPoint>* path = app->pathFinding->GetLastPath();
 
 	for(uint i = 0; i < path->Count(); ++i)
 	{
