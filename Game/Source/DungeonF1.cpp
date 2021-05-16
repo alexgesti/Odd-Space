@@ -26,7 +26,6 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 
 	this->doorTex = sceneManager->tex->Load("maps/prop_dungeon_v02_w.png");
 	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
-	this->stairsFx = sceneManager->audio->LoadFx("audio/fx/world_stairs.wav");
 }
 
 // Destructor
