@@ -42,9 +42,9 @@ public:
     bool OnGuiMouseClickEvent(GuiControl* control);
 
     int stairsFx;
-    int leverFx;
 
-    SDL_Texture* door1Tex;
+    SDL_Texture* doorTex;
+    SDL_Texture* leverTex;
 
 private:
 

@@ -95,14 +95,13 @@ public:
 	bool leverCir = false;
 	bool leverCro = false;
 
+	bool doorOpening = false;
+
 	vector <int> levers;
 	vector <int> door1Sol{ 1,2,3 };
 
 	bool door1Open = false;
 	bool door2Open = false;
-
-
-	bool resetDungeon = true;
 
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;
@@ -110,6 +109,8 @@ public:
 	//sounds
 	int doorClose;
 	int doorOpen;
+
+	int leverFx;
 	
 	int volumeMusic;
 	int volumeFx;
