@@ -287,7 +287,7 @@ bool SceneManager::Update(float dt)
 
 	if (isPause) pause->Draw();
 
-	if(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && !isPause) questSystem->Draw(render, font);
+	if(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && currentscenetype != SceneType::ENDDEMO && !isPause) questSystem->Draw(render, font);
 
 	// L12b: Debug pathfinding
 	/*
