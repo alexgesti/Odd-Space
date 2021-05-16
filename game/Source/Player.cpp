@@ -84,7 +84,7 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     //
     // Load textures
     //
-    heroTexture = this->tex->Load("assets/sprites/player/char_maincharacter_w.png");
+    heroTexture = this->tex->Load("sprites/player/char_maincharacter_w.png");
 
 
     position = iPoint(12 * 16, 27 * 16);
@@ -132,13 +132,13 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     currentAnimation = animHeroIdleDown;
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
+    hurtTexture = this->tex->Load("sprites/combat/cmb_hurt.png");
 
     //Define Shield Texture
-    shieldTexture = this->tex->Load("assets/sprites/combat/cmb_shield.png");
+    shieldTexture = this->tex->Load("sprites/combat/cmb_shield.png");
 
     //Define Death Texture
-    deathTexture = this->tex->Load("assets/sprites/combat/cmb_death.png");
+    deathTexture = this->tex->Load("sprites/combat/cmb_death.png");
 }
 // Destructor
 Player::~Player()

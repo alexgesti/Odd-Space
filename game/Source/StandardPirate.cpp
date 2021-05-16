@@ -44,7 +44,7 @@ StandardPirates::StandardPirates(Render* render, Textures* tex) : Enemy(EnemyTyp
     infoEntities.stats.LCK = 5;
 
     // Define Player animations
-    standardPirateTexture = this->tex->Load("assets/sprites/enemies/nme_aggressivedrunkman_w.png");
+    standardPirateTexture = this->tex->Load("sprites/enemies/nme_aggressivedrunkman_w.png");
 
     standardPirateAnim->loop = true;
     standardPirateAnim->speed = 0.15f;
@@ -55,7 +55,7 @@ StandardPirates::StandardPirates(Render* render, Textures* tex) : Enemy(EnemyTyp
     standardPirateAnim->PushBack({ 112, 0, 112, 128 });
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
+    hurtTexture = this->tex->Load("sprites/combat/cmb_hurt.png");
 }
 // Destructor
 StandardPirates::~StandardPirates()

@@ -16,7 +16,7 @@ OptionsMenu::~OptionsMenu()
 
 bool OptionsMenu::Load()
 {
-    texture = sceneManager->tex->Load("assets/sprites/UI/ui_menupause.png");
+    texture = sceneManager->tex->Load("sprites/ui/ui_menupause.png");
 
     fullScreen = new GuiCheckBox(1, { 400, 200, 32, 32 }, "Fullscreen", sceneManager->audio);
     fullScreen->SetObserver(this);

@@ -24,10 +24,10 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 	}
 	name.Create("dungeon_f1");
 
-	this->doorTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v02_w.png");
-	this->leverTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v01_w.png");
+	this->doorTex = sceneManager->tex->Load("maps/prop_dungeon_v02_w.png");
+	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
 
-	this->stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
+	this->stairsFx = sceneManager->audio->LoadFx("audio/fx/world_stairs.wav");
 }
 
 // Destructor

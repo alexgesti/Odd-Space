@@ -59,14 +59,14 @@ bool SceneManager::Awake()
 // Called before the first frame
 bool SceneManager::Start()
 {
-	font = new Font("assets/typo/Adore64.xml", tex);
+	font = new Font("typo/Adore64.xml", tex);
 	speak = new Speak(audio, render, font, input, tex);
 	dialogueSystem->speak = speak;
-	xMark = tex->Load("assets/sprites/UI/ui_xmark.png");
+	xMark = tex->Load("sprites/ui/ui_xmark.png");
 
-	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
-	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
-	leverFx = audio->LoadFx("assets/audio/fx/world_lever.wav");
+	doorClose = audio->LoadFx("audio/fx/world_door_close.wav");
+	doorOpen = audio->LoadFx("audio/fx/world_door_open.wav");
+	leverFx = audio->LoadFx("audio/fx/world_lever.wav");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;

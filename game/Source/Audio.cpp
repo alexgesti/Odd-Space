@@ -1,4 +1,5 @@
 #include "Audio.h"
+#include "Assets.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -14,10 +15,12 @@
 
 
 // Constructor
-Audio::Audio() : Module()
+Audio::Audio(Assets* assets) : Module()
 {
 	music = NULL;
 	name.Create("audio");
+
+	this->assets = assets;
 }
 // Destructor
 Audio::~Audio()
@@ -111,7 +114,7 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 		Mix_FreeMusic(music);
 	}
 
-	if(path != NULL) music = Mix_LoadMUS(path);
+	if (path != NULL) music = Mix_LoadMUS_RW(assets->Load(path), 1);
 
 	if(music == NULL)
 	{
@@ -150,7 +153,8 @@ unsigned int Audio::LoadFx(const char* path)
 	if(!active)
 		return 0;
 
-	Mix_Chunk* chunk = Mix_LoadWAV(path);
+	Mix_Chunk* chunk = Mix_LoadWAV_RW(assets->Load(path), 1);
+	assets->DeleteBuffer();
 
 	if(chunk == NULL)
 	{

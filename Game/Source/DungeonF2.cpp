@@ -24,7 +24,7 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 	}
 	name.Create("dungeon_f2");
 
-	stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
+	stairsFx = sceneManager->audio->LoadFx("audio/fx/world_stairs.wav");
 }
 
 // Destructor

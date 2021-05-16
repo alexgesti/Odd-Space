@@ -1,5 +1,9 @@
 #include "Map.h"
 
+#include "Render.h"
+#include "Textures.h"
+#include "Assets.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -8,10 +12,12 @@
 Map::Map(Textures* texture) : Entity(EntityType::MAP)
 {
 	mapLoaded = false;
-	folder.Create("Assets/Maps/");
+	folder.Create("maps/");
 
 	tex = texture;
 	scale = 1;
+
+	assets = Assets::GetInstance();
 }
 
 // Destructor
@@ -91,7 +97,7 @@ bool Map::LoadObjLayer(pugi::xml_node& node, ObjectLayer* layer)
 /*
 bool Map::Start()
 {
-	tileX = app->tex->Load("Assets/maps/x.png");
+	//tileX = app->tex->Load("maps/x.png");
 
 	return true;
 }
@@ -432,7 +438,9 @@ bool Map::Load(const char* filename)
 	bool ret = true;
 	SString tmp("%s%s", folder.GetString(), filename);
 
-	pugi::xml_parse_result result = mapFile.load_file(tmp.GetString());
+	int size = assets->MakeLoad(tmp.GetString());
+	pugi::xml_parse_result result = mapFile.load_buffer(assets->GetLastBuffer(), size);
+	assets->DeleteBuffer();
 
 	if (result == NULL)
 	{

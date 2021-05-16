@@ -44,7 +44,7 @@ MutantRat::MutantRat(Render* render, Textures* tex) : Enemy(EnemyType::MUTANTRAT
     infoEntities.stats.LCK = 4;
 
     // Define Player animations
-    mutantRatTexture = this->tex->Load("assets/sprites/enemies/nme_normalrat_w.png");
+    mutantRatTexture = this->tex->Load("sprites/enemies/nme_normalrat_w.png");
 
 
     mutantRatAnim->loop = true;
@@ -56,7 +56,7 @@ MutantRat::MutantRat(Render* render, Textures* tex) : Enemy(EnemyType::MUTANTRAT
     mutantRatAnim->PushBack({ 64, 0, 64, 64 });
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
+    hurtTexture = this->tex->Load("sprites/combat/cmb_hurt.png");
 }
 // Destructor
 MutantRat::~MutantRat()
