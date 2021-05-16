@@ -66,6 +66,7 @@ bool Battle::Load()
     sceneManager->render->camera = { 0, 0 };
 
     UI = sceneManager->tex->Load("assets/sprites/UI/UI_Text.png");
+    VorL = sceneManager->tex->Load("assets/sprites/UI/UI_StateBattle.png");
 
     // Buttons Principal Menu
     buttons.buttonsMenu.buttonAttack = new GuiButton(1, { 10, 560, 160, 75 }, "Attack", sceneManager->audio);
@@ -198,7 +199,7 @@ bool Battle::Update(float dt)
     //sceneManager->entityManager->entities[0].At(0)->data->transitioning = true;
 
     //Player Turn
-    if (playerMenu)
+    if (playerMenu && win == false && lose == false)
     {
         switch (characterTurn)
         {
@@ -318,10 +319,8 @@ bool Battle::Update(float dt)
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
                 {
                     sceneManager->audio->PlayFx(fx.loseFx);
-                    sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
-                    sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
                     sceneManager->wasBattle = true;
-                    TransitionToScene(*sceneManager->entityManager->previousScene);
+                    lose = true;
                 }
 
                 //Win Condition
@@ -336,12 +335,22 @@ bool Battle::Update(float dt)
                     sceneManager->audio->PlayFx(fx.winFx);
                     sceneManager->wasBattle = true;
                     sceneManager->entityManager->CreateEntity(EntityType::ITEM);
-                    TransitionToScene(*sceneManager->entityManager->previousScene);
+                    win = true;
                 }
 
                 animation = false;
                 playerMenu = true;
             }
+        }
+    }
+
+    if (sceneManager->wasBattle == true)
+    {
+        LOG("%f", preparetochange);
+        preparetochange += dt;
+        if (preparetochange >= 6)
+        {
+            TransitionToScene(*sceneManager->entityManager->previousScene);
         }
     }
 
@@ -433,6 +442,17 @@ bool Battle::Draw()
     }
 
     if (sceneManager->openItems) sceneManager->items->Draw();
+
+    if (win)
+    {
+        rect = {0, 0, 480, 240};
+        sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2), 0, &rect);
+    }
+    else if (lose)
+    {
+        rect = {0, 240, 480, 192};
+        sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2) + 70, 0, &rect);
+    }
 
     return false;
 }

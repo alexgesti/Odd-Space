@@ -61,6 +61,7 @@ private:
     SceneManager* sceneManager;
 
     SDL_Texture* UI;
+    SDL_Texture* VorL;
 
     struct Buttons
     {
@@ -107,6 +108,10 @@ private:
     int selectedEnemies[2];
     int selectedCharacters[5];
     int characterTurn;
+
+    float preparetochange = 0;
+    bool win = false;
+    bool lose = false;
 
     bool playerMenu = true;
     bool animation = false;
