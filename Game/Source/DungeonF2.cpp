@@ -28,6 +28,8 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 
 	this->leverFx = sceneManager->audio->LoadFx("assets/audio/fx/world_lever.wav");
 	this->winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
+	this->bigdoor = sceneManager->audio->LoadFx("assets/audio/fx/world_big_door_open.wav");
+	this->itempick = sceneManager->audio->LoadFx("assets/audio/fx/world_itempick_fx.wav");
 }
 
 // Destructor
@@ -216,6 +218,19 @@ bool DungeonF2::Update(float dt)
 				sceneManager->collision->currentInteraction = '/0';
 
 			}
+			if (sceneManager->collision->currentInteraction == "treasure_bonus" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+				if (sceneManager->chestopen == false)
+				{
+					sceneManager->chestopen = true;
+
+					sceneManager->audio->PlayFx(itempick);
+				}
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+			}
 		}
 		// If conversation and WCfx ended draw X to interact again
 		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
@@ -288,7 +303,27 @@ bool DungeonF2::Update(float dt)
 		}
 	}
 
-	if (sceneManager->seq1 == true && sceneManager->seq2 == true && sceneManager->seq3 == true) sceneManager->door2Open;
+	if (sceneManager->seq1 == true && sceneManager->seq2 == true && sceneManager->seq3 == true)
+	{
+		sceneManager->door2Open;
+
+		// Star
+		if (sceneManager->p1 == false && sceneManager->p2 == true && sceneManager->p3 == false && sceneManager->p4 == true && sceneManager->p5 == true && sceneManager->p6 == false && sceneManager->p7 == true && sceneManager->p8 == true && sceneManager->seqESP == false)
+		{
+			sceneManager->seqESP = true;
+			sceneManager->audio->PlayFx(bigdoor);
+
+			// Reset
+			sceneManager->p1 = false;
+			sceneManager->p2 = false;
+			sceneManager->p3 = false;
+			sceneManager->p4 = false;
+			sceneManager->p5 = false;
+			sceneManager->p6 = false;
+			sceneManager->p7 = false;
+			sceneManager->p8 = false;
+		}
+	}
 
 	if (map->doorHit)
 	{
@@ -330,6 +365,9 @@ bool DungeonF2::Draw()
 	SDL_Rect leverBotUpRect = { 64,160,32, 64 };
 	SDL_Rect leverBotDownRect = { 32,160,32, 64 };
 
+	SDL_Rect chestClose = {480, 192, 128, 64};
+	SDL_Rect chestOpen = {608, 192, 128, 64 };
+
 	// Draw map
 	map->Draw(sceneManager->render);
 	
@@ -359,6 +397,9 @@ bool DungeonF2::Draw()
 	if (sceneManager->p8 == false) sceneManager->render->DrawTexture(leverTex, 0, 1392, &leverLUpRect);
 	else sceneManager->render->DrawTexture(leverTex, 0, 1392, &leverLDownRect);
 
+	if (sceneManager->chestopen == false) sceneManager->render->DrawTexture(leverTex, 256 + chestClose.w, 224, &chestClose);
+	else sceneManager->render->DrawTexture(leverTex, 256 + chestOpen.w, 224, &chestOpen);
+
 	sceneManager->entityManager->Draw();
 
 	return false;
@@ -372,6 +413,7 @@ bool DungeonF2::Unload()
 
 	sceneManager->audio->UnloadFx(leverFx);
 	sceneManager->audio->UnloadFx(winFx);
+	sceneManager->audio->UnloadFx(bigdoor);
 
 	enemyEncounter = 0;
 

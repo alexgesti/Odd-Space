@@ -115,10 +115,12 @@ public:
 	bool p6 = false;
 	bool p7 = false;
 	bool p8 = false;
+	bool chestopen = false;
 
 	bool seq1 = false;
 	bool seq2 = false;
 	bool seq3 = false;
+	bool seqESP = false;
 
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;

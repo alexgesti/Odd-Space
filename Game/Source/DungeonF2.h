@@ -46,6 +46,8 @@ private:
 
     int leverFx;
     int winFx;
+    int bigdoor;
+    int itempick;
 
     SDL_Texture* leverTex;
 };
