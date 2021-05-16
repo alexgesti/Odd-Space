@@ -16,7 +16,18 @@ Battle::Battle(SceneManager* sceneManager)
     this->sceneManager = sceneManager;
 
     map = new Map(sceneManager->tex);
+    
+    name.Create("battle");
+}
+// Destructor
+Battle::~Battle()
+{
+}
 
+
+
+bool Battle::Load()
+{
     if (*sceneManager->entityManager->previousScene == SceneType::CANTINA || *sceneManager->entityManager->previousScene == SceneType::WC)
     {
         if (map->Load("combat_cantina_interior.tmx") == true)
@@ -37,18 +48,7 @@ Battle::Battle(SceneManager* sceneManager)
             RELEASE_ARRAY(data);*/
         }
     }
-    
-    name.Create("battle");
-}
-// Destructor
-Battle::~Battle()
-{
-}
 
-
-
-bool Battle::Load()
-{
     fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
     fx.winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
     fx.strikeFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_strike.wav");
@@ -199,7 +199,7 @@ bool Battle::Update(float dt)
     //sceneManager->entityManager->entities[0].At(0)->data->transitioning = true;
 
     //Player Turn
-    if (playerMenu && win == false && lose == false)
+    if (playerMenu && !sceneManager->wasBattle)
     {
         switch (characterTurn)
         {
@@ -451,7 +451,7 @@ bool Battle::Draw()
         rect = {0, 0, 480, 240};
         sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2), 0, &rect);
     }
-    else if (lose)
+    if (lose)
     {
         rect = {0, 240, 480, 192};
         sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2) + 70, 0, &rect);
