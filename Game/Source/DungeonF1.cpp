@@ -28,6 +28,7 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 	this->leverTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v01_w.png");
 
 	this->stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
+	this->leverFx = sceneManager->audio->LoadFx("assets/audio/fx/world_lever.wav");
 }
 
 // Destructor
@@ -71,9 +72,6 @@ bool DungeonF1::Load()
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(2873, 1712);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
-
-
-
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
@@ -136,7 +134,7 @@ bool DungeonF1::Update(float dt)
 						}
 						sceneManager->leverCro = true;
 
-						sceneManager->audio->PlayFx(sceneManager->leverFx);
+						sceneManager->audio->PlayFx(leverFx);
 					}
 
 					sceneManager->toDrawX = false;
@@ -157,7 +155,7 @@ bool DungeonF1::Update(float dt)
 						}
 						sceneManager->leverTri = true;
 
-						sceneManager->audio->PlayFx(sceneManager->leverFx);
+						sceneManager->audio->PlayFx(leverFx);
 					}
 
 					sceneManager->toDrawX = false;
@@ -178,7 +176,7 @@ bool DungeonF1::Update(float dt)
 						}
 						sceneManager->leverCir = true;
 
-						sceneManager->audio->PlayFx(sceneManager->leverFx);
+						sceneManager->audio->PlayFx(leverFx);
 					}
 
 					sceneManager->toDrawX = false;
@@ -358,14 +356,18 @@ bool DungeonF1::Unload()
 {
 	*sceneManager->previousScene = SceneType::DUNGEON_F1;
 
+	enemyEncounter = 0;
+
 	sceneManager->tex->UnLoad(doorTex);
 	sceneManager->tex->UnLoad(leverTex);
 
-	enemyEncounter = 0;
+	sceneManager->audio->UnloadFx(stairsFx);
+	sceneManager->audio->UnloadFx(leverFx);
 
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+
+	sceneManager = nullptr;
 
 	return true;
 }

@@ -112,3 +112,12 @@ bool GuiCheckBox::Draw(Render* render, SDL_Texture* texture)
 
     return false;
 }
+
+bool GuiCheckBox::UnLoad()
+{
+    audio->UnloadFx(hover);
+    audio->UnloadFx(unavaliable);
+    audio->UnloadFx(press);
+
+    return false;
+}

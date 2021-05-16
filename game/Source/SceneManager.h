@@ -110,8 +110,6 @@ public:
 	int doorClose;
 	int doorOpen;
 
-	int leverFx;
-
 	int battleEncounter;
 	bool oneTimeBattleMusic;
 	

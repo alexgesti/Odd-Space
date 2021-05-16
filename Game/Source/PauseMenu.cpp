@@ -154,18 +154,20 @@ bool PauseMenu::Unload()
     if (sceneManager->openOptions) sceneManager->options->Unload();
     if (sceneManager->openItems) sceneManager->items->Unload();
 
-    delete buttonItems;
-    buttonItems = nullptr;
-    delete buttonSkills;
-    buttonSkills = nullptr;
-    delete buttonEquip;
-    buttonEquip = nullptr;
-    delete buttonSettings;
-    buttonSettings = nullptr;
-    delete buttonSave;
-    buttonSave = nullptr;
-    delete buttonLoad;
-    buttonLoad = nullptr;
+    buttonItems->UnLoad();
+    RELEASE(buttonItems);
+    buttonSkills->UnLoad();
+    RELEASE(buttonSkills);
+    buttonEquip->UnLoad();
+    RELEASE(buttonEquip);
+    buttonSettings->UnLoad();
+    RELEASE(buttonSettings);
+    buttonSave->UnLoad();
+    RELEASE(buttonSave);
+    buttonLoad->UnLoad();
+    RELEASE(buttonLoad);
+
+    sceneManager = nullptr;
 
     return true;
 }

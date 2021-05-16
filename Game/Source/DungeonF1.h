@@ -41,18 +41,16 @@ public:
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
-    int stairsFx;
-
-    SDL_Texture* doorTex;
-    SDL_Texture* leverTex;
-
 private:
 
     Map* map;
 
     SceneManager* sceneManager;
 
+    int stairsFx;
+    int leverFx;
+
+    SDL_Texture* doorTex;
+    SDL_Texture* leverTex;
 };
-
-
 #endif // !__DUNGEONF1_H__

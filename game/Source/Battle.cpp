@@ -471,73 +471,45 @@ bool Battle::Unload()
 	
 	map->Unload();
     RELEASE(map);
-    //delete map;
-    //map = nullptr;
 
-    //delete buttons.buttonsMenu.buttonAttack;
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonAttack->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonAttack->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonAttack->unavaliable);
+    sceneManager->audio->UnloadFx(fx.deathFx);
+    sceneManager->audio->UnloadFx(fx.runFx);
+    sceneManager->audio->UnloadFx(fx.strikeFx);
+    sceneManager->audio->UnloadFx(fx.loseFx);
+    sceneManager->audio->UnloadFx(fx.winFx);
+    sceneManager->audio->UnloadFx(fx.guardFx);
+    sceneManager->audio->UnloadFx(fx.hurtFx);
+    sceneManager->audio->UnloadFx(fx.reviveFx);
+    sceneManager->audio->UnloadFx(fx.hpRecoverFx);
+
+    buttons.buttonsMenu.buttonAttack->UnLoad();
     RELEASE(buttons.buttonsMenu.buttonAttack);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonGuard->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonGuard->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonGuard->unavaliable);
+    buttons.buttonsMenu.buttonGuard->UnLoad();
     RELEASE(buttons.buttonsMenu.buttonGuard);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonSkills->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonSkills->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonSkills->unavaliable);
+    buttons.buttonsMenu.buttonSkills->UnLoad();
     RELEASE(buttons.buttonsMenu.buttonSkills);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonRun->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonRun->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonRun->unavaliable);
+    buttons.buttonsMenu.buttonRun->UnLoad();
     RELEASE(buttons.buttonsMenu.buttonRun);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonItem->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonItem->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonItem->unavaliable);
+    buttons.buttonsMenu.buttonItem->UnLoad();
     RELEASE(buttons.buttonsMenu.buttonItem);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonBack->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonBack->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonBack->unavaliable);
+    buttons.buttonsMenu.buttonBack->UnLoad();
     RELEASE(buttons.buttonsMenu.buttonBack);
-    //buttons.buttonsMenu.buttonAttack = nullptr;
-    //delete buttons.buttonsMenu.buttonGuard;
-    //buttons.buttonsMenu.buttonGuard = nullptr;
-    //delete buttons.buttonsMenu.buttonSkills;
-    //buttons.buttonsMenu.buttonSkills = nullptr;
-    //delete buttons.buttonsMenu.buttonRun;
-    //buttons.buttonsMenu.buttonRun = nullptr;
-    //delete buttons.buttonsMenu.buttonItem;
-    //buttons.buttonsMenu.buttonItem = nullptr;
-    //delete buttons.buttonsMenu.buttonBack;
-    //buttons.buttonsMenu.buttonBack = nullptr;
 
     for (int bs = 0; bs < 5; bs++)
     {
-        //delete buttons.buttonsSkills.buttonSkill[bs];
-        //buttons.buttonsSkills.buttonSkill[bs] = nullptr;
-        sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonSkill[bs]->hover);
-        sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonSkill[bs]->press);
-        sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonSkill[bs]->unavaliable);
+        buttons.buttonsSkills.buttonSkill[bs]->UnLoad();
         RELEASE(buttons.buttonsSkills.buttonSkill[bs]);
     }
-    sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonBack->hover);
+    buttons.buttonsSkills.buttonBack->UnLoad();
     RELEASE(buttons.buttonsSkills.buttonBack);
-    //delete buttons.buttonsSkills.buttonBack;
-    //buttons.buttonsSkills.buttonBack = nullptr;
 
     for (int be = 0; be <= totalEnemies; be++)
     {
-        //delete buttons.buttonsEnemies.buttonEnemy[be];
-        //buttons.buttonsEnemies.buttonEnemy[be] = nullptr;
-        sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonEnemy[be]->hover);
-        sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonEnemy[be]->press);
-        sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonEnemy[be]->unavaliable);
+        buttons.buttonsEnemies.buttonEnemy[be]->UnLoad();
         RELEASE(buttons.buttonsEnemies.buttonEnemy[be]);
     }
-    sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonBack->hover);
+    buttons.buttonsEnemies.buttonBack->UnLoad();
     RELEASE(buttons.buttonsEnemies.buttonBack);
-    //delete buttons.buttonsEnemies.buttonBack;
-    //buttons.buttonsEnemies.buttonBack = nullptr;
     
     if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
@@ -550,15 +522,7 @@ bool Battle::Unload()
 	
     //*entityManager->previousScene = SceneType::BATTLE;
 
-    sceneManager->audio->UnloadFx(fx.deathFx);
-    sceneManager->audio->UnloadFx(fx.runFx);
-    sceneManager->audio->UnloadFx(fx.strikeFx);
-    sceneManager->audio->UnloadFx(fx.loseFx);
-    sceneManager->audio->UnloadFx(fx.winFx);
-    sceneManager->audio->UnloadFx(fx.guardFx);
-    sceneManager->audio->UnloadFx(fx.hurtFx);
-    sceneManager->audio->UnloadFx(fx.reviveFx);
-    sceneManager->audio->UnloadFx(fx.hpRecoverFx);
+    sceneManager = nullptr;
 
     return false;
 }

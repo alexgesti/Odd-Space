@@ -326,17 +326,9 @@ bool Cantina::Unload()
 	RELEASE(animBarmanIdle);
 	RELEASE(animLegendaryPirateIdle);
 	RELEASE(animOldCaptainSitting);
-	//delete animBarmanIdle;
-	//animBarmanIdle = nullptr;
-	//delete animLegendaryPirateIdle;
-	//animLegendaryPirateIdle = nullptr;
-	//delete animOldCaptainSitting;
-	//animOldCaptainSitting = nullptr;
 
 	map->Unload();
 	RELEASE(map);
-	//delete map;
-	//map = nullptr;
 
 	sceneManager = nullptr;
 

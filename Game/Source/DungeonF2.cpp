@@ -33,8 +33,6 @@ DungeonF2::~DungeonF2()
 
 bool DungeonF2::Load()
 {
-
-
 	if (*sceneManager->previousScene == SceneType::DUNGEON_F1)
 	{
 		sceneManager->render->camera.x = 160;
@@ -62,9 +60,6 @@ bool DungeonF2::Load()
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(848, 1168);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
-
-
-
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
@@ -143,9 +138,12 @@ bool DungeonF2::Unload()
 
 	enemyEncounter = 0;
 
+	sceneManager->audio->UnloadFx(stairsFx);
+
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+
+	sceneManager = nullptr;
 
 	return true;
 }

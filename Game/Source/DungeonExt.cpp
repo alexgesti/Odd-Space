@@ -149,9 +149,12 @@ bool DungeonExt::Unload()
 
 	enemyEncounter = 0;
 
+	sceneManager->audio->UnloadFx(stairsFx);
+
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+	
+	sceneManager = nullptr;
 
 	return true;
 }

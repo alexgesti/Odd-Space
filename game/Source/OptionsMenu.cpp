@@ -91,14 +91,16 @@ bool OptionsMenu::Unload()
 
     sceneManager->openOptions = false;
 
-    delete fullScreen;
-    fullScreen = nullptr;
-    delete VSync;
-    VSync = nullptr;
-    delete music;
-    music = nullptr;
-    delete fx;
-    fx = nullptr;
+    fullScreen->UnLoad();
+    RELEASE(fullScreen);
+    VSync->UnLoad();
+    RELEASE(VSync);
+    music->UnLoad();
+    RELEASE(music);
+    fx->UnLoad();
+    RELEASE(fx);
+
+    sceneManager = nullptr;
 
     return true;
 }
