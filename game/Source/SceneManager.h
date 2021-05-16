@@ -91,6 +91,8 @@ public:
 	bool openItems = false;
 
 	// DUNGEON 
+
+	// F1
 	bool leverTri = false;
 	bool leverCir = false;
 	bool leverCro = false;
@@ -102,6 +104,21 @@ public:
 
 	bool door1Open = false;
 	bool door2Open = false;
+
+	// F2
+
+	bool p1 = false;
+	bool p2 = false;
+	bool p3 = false;
+	bool p4 = false;
+	bool p5 = false;
+	bool p6 = false;
+	bool p7 = false;
+	bool p8 = false;
+
+	bool seq1 = false;
+	bool seq2 = false;
+	bool seq3 = false;
 
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;

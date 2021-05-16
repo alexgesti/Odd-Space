@@ -66,7 +66,6 @@ bool SceneManager::Start()
 
 	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
 	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
-	
 	battleEncounter = audio->LoadFx("assets/audio/fx/battle_sp_recover.wav");
 
 	previousScene = new SceneType;
@@ -78,9 +77,9 @@ bool SceneManager::Start()
 	//current = new Wc(this);
 	//current = new Exterior(this);
 	//current = new DungeonF1(this);
-	//current = new DungeonF2(this);
+	current = new DungeonF2(this);
 	//current = new EndDemo(this);
-	currentscenetype = SceneType::LOGO;
+	currentscenetype = SceneType::DUNGEON_F2;
 	current->Load();
 
 	options = new OptionsMenu(this);

@@ -45,6 +45,10 @@ private:
     SceneManager* sceneManager;
 
     int stairsFx;
+    int leverFx;
+    int winFx;
+
+    SDL_Texture* leverTex;
 };
 
 
