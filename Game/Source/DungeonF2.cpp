@@ -26,7 +26,6 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 
 	this->leverTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v01_w.png");
 
-	this->stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
 	this->leverFx = sceneManager->audio->LoadFx("assets/audio/fx/world_lever.wav");
 	this->winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
 }
@@ -295,7 +294,7 @@ bool DungeonF2::Update(float dt)
 	{
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
 		// Añadir feedback text y X button
-		sceneManager->audio->PlayFx(stairsFx);
+		sceneManager->audio->PlayFx(sceneManager->stairsFx);
 		TransitionToScene(SceneType::DUNGEON_F1);
 
 		map->doorHit = false;
@@ -372,12 +371,9 @@ bool DungeonF2::Unload()
 	sceneManager->tex->UnLoad(leverTex);
 
 	sceneManager->audio->UnloadFx(leverFx);
-	sceneManager->audio->UnloadFx(stairsFx);
 	sceneManager->audio->UnloadFx(winFx);
 
 	enemyEncounter = 0;
-
-	sceneManager->audio->UnloadFx(stairsFx);
 
 	map->Unload();
 	RELEASE(map);

@@ -47,7 +47,6 @@ private:
 
     SceneManager* sceneManager;
 
-    int stairsFx;
     int leverFx;
 
     SDL_Texture* doorTex;

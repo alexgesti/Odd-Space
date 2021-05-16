@@ -36,6 +36,18 @@ bool Battle::Load()
     default:
         break;
     }
+    else if (*sceneManager->entityManager->previousScene == SceneType::DUNGEON_EXT ||
+        *sceneManager->entityManager->previousScene == SceneType::DUNGEON_F1 ||
+        *sceneManager->entityManager->previousScene == SceneType::DUNGEON_F2)
+    {
+        if (map->Load("combat_dungeon.tmx") == true)
+        {
+            /*int w, h;
+            uchar* data = NULL;
+
+            RELEASE_ARRAY(data);*/
+        }
+    }
 
     fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
     fx.winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
@@ -509,11 +521,11 @@ bool Battle::Unload()
     buttons.buttonsEnemies.buttonBack->UnLoad();
     RELEASE(buttons.buttonsEnemies.buttonBack);
     
-    if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
+    /*if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
 
     if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
-        sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;
+        sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;*/
 
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;

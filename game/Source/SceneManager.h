@@ -126,6 +126,7 @@ public:
 	//sounds
 	int doorClose;
 	int doorOpen;
+	int stairsFx;
 
 	int battleEncounter;
 	bool oneTimeBattleMusic;

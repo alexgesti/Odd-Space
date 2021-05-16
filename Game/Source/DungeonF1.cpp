@@ -26,8 +26,6 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 
 	this->doorTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v02_w.png");
 	this->leverTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v01_w.png");
-
-	this->stairsFx = sceneManager->audio->LoadFx("assets/audio/fx/world_stairs.wav");
 	this->leverFx = sceneManager->audio->LoadFx("assets/audio/fx/world_lever.wav");
 }
 
@@ -268,10 +266,13 @@ bool DungeonF1::Update(float dt)
 
 	if (map->doorHit)
 	{
-		sceneManager->audio->PlayFx(stairsFx);
 		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < END_DOOR)) TransitionToScene(SceneType::ENDDEMO);
 		else if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x > HORIZONTAL_DOOR)) TransitionToScene(SceneType::DUNGEON_EXT);
-		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x < HORIZONTAL_DOOR) TransitionToScene(SceneType::DUNGEON_F2);
+		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x < HORIZONTAL_DOOR)
+		{
+			sceneManager->audio->PlayFx(sceneManager->stairsFx);
+			TransitionToScene(SceneType::DUNGEON_F2);
+		}
 
 		
 		map->doorHit = false;
@@ -349,8 +350,6 @@ bool DungeonF1::Unload()
 
 	sceneManager->tex->UnLoad(doorTex);
 	sceneManager->tex->UnLoad(leverTex);
-
-	sceneManager->audio->UnloadFx(stairsFx);
 	sceneManager->audio->UnloadFx(leverFx);
 
 	map->Unload();

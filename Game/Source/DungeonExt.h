@@ -43,8 +43,6 @@ private:
     Map* map;
 
     SceneManager* sceneManager;
-
-    int stairsFx;
 };
 
 

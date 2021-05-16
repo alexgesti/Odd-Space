@@ -67,6 +67,7 @@ bool SceneManager::Start()
 	doorClose = audio->LoadFx("assets/audio/fx/world_door_close.wav");
 	doorOpen = audio->LoadFx("assets/audio/fx/world_door_open.wav");
 	battleEncounter = audio->LoadFx("assets/audio/fx/battle_sp_recover.wav");
+	stairsFx = audio->LoadFx("assets/audio/fx/world_stairs.wav");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
@@ -319,6 +320,7 @@ bool SceneManager::CleanUp()
 	audio->UnloadFx(doorClose);
 	audio->UnloadFx(doorOpen);
 	audio->UnloadFx(battleEncounter);
+	audio->UnloadFx(stairsFx);
 
 	tex->UnLoad(xMark);
 
