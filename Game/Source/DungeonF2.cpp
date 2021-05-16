@@ -306,7 +306,7 @@ bool DungeonF2::Update(float dt)
 		}
 	}
 
-	sceneManager->seq1 = true; sceneManager->seq2 = true; sceneManager->seq3 = true;
+	// Star
 
 	if (sceneManager->seq1 == true && sceneManager->seq2 == true && sceneManager->seq3 == true)
 	{
@@ -381,15 +381,12 @@ bool DungeonF2::Draw()
 	SDL_Rect chestClose = {480, 192, 128, 64};
 	SDL_Rect chestOpen = {608, 192, 128, 64 };
 
-	SDL_Rect wall = { 0, 0, 992, 1856 };
+	SDL_Rect wall = { 0, 0, 960, 1824 };
 
 	// Draw map
 	map->Draw(sceneManager->render);
 	
 	// Lever Draw
-
-	if(sceneManager->p1 == false) sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopUpRect);
-	else sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopDownRect);
 
 	if (!sceneManager->seqESP)
 	{
@@ -398,6 +395,9 @@ bool DungeonF2::Draw()
 		if (sceneManager->p2 == false) sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopUpRect);
 		else sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopDownRect);
 	}
+
+	if(sceneManager->p1 == false) sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopDownRect);
 
 	if (sceneManager->p3 == false) sceneManager->render->DrawTexture(leverTex, 656, 912, &leverTopUpRect);
 	else sceneManager->render->DrawTexture(leverTex, 656, 912, &leverTopDownRect);
