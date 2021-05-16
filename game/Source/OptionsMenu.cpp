@@ -99,7 +99,7 @@ bool OptionsMenu::Unload()
     RELEASE(music);
     fx->UnLoad();
     RELEASE(fx);
-
+    
     sceneManager = nullptr;
 
     return true;
