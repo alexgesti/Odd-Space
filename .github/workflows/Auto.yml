@@ -1,0 +1,70 @@
+name: Windows
+
+on:
+  push:
+  pull_request:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    evn:
+      RELEASE_NAME: ChaoticEvil-Odd_Space-v0.8
+      GNUTARGET: default
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    
+    - name: Setup Release Version
+      run: |
+        echo "RELEASE_NAME=ChaoticEvil-Odd_Space-v0.8_${{ github.event.release.tag_name }}" >> $GITHUB_ENV
+      shell: bash
+      if: github.event_name == 'release' && github.event.action == 'published'
+
+    - name: Setup Environment
+      run: | 
+        dir
+        mkdir Build
+        cd Build
+        mkdir ${{ env.RELEASE_NAME }}
+        cd ../../Odd_Space
+        dir
+        
+    # Setup MSBuild.exe path if required
+    - name: Setup MSBuild
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build Solution (MSVC16)
+      run: |
+        msbuild.exe Development.sln  /property:Configuration=Release
+        copy /Y Build\Release\odd_space.exe Build\${{ env.RELEASE_NAME }}\odd_space.exe
+      shell: cmd
+      
+    - name: Generate Artifacts
+      run: |
+        robocopy .\Output .\Build\${{ env.RELEASE_NAME }}\Output /S
+        robocopy .\Build\${{ env.RELEASE_NAME }} .\Build\${{ env.RELEASE_NAME }}\Output odd_space.exe /MOVE
+        copy /Y .\README.md .\Build\${{ env.RELEASE_NAME }}\README.md
+        copy /Y .\LICENSE .\Build\${{ env.RELEASE_NAME }}\LICENSE
+        cd Build
+        dir
+      shell: cmd
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: ${{ env.RELEASE_NAME }}
+        path: ./Build/${{ env.RELEASE_NAME }}
+        
+    - name: Upload Artifact to Release
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ./Build/${{ env.RELEASE_NAME }}.zip
+          asset_name: ${{ env.RELEASE_NAME }}.zip
+          asset_content_type: application/zip
+      if: github.event_name == 'release' && github.event.action == 'published'
