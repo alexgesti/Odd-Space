@@ -164,28 +164,28 @@ void Player::UpdateState()
     {
         if (((input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && input->joystickState() == false) ||
-            ((pad.l_y < -0.25f && pad.l_x > -0.25f && pad.l_x < 0.25f) && input->joystickState() == true))
+            (pad.l_y < -0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_UP);
             break;
         }
         if ((input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && input->joystickState() == false) ||
-            (pad.l_y > 0.25f && pad.l_x > -0.25f && pad.l_x < 0.25f && input->joystickState() == true))
+            (pad.l_y > 0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_DOWN);
             break;
         }
         if ((input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && input->joystickState() == false) ||
-            (pad.l_x < -0.25f && pad.l_y > -0.25f && pad.l_y < 0.25f && input->joystickState() == true))
+            (pad.l_x < -0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_LEFT);
             break;
         }
         if ((input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && input->joystickState() == false) ||
-            (pad.l_x > 0.25f && pad.l_y > -0.25f && pad.l_y < 0.25f && input->joystickState() == true))
+            (pad.l_x > 0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_RIGHT);
             break;
