@@ -90,10 +90,10 @@ SDL_Rect StandardPirates::GetBounds()
 
 bool StandardPirates::UnLoad()
 {
-    tex->UnLoad(standardPirateTexture);
+    tex->UnLoad(hurtTexture);
 
-    delete standardPirateAnim;
-    standardPirateAnim = nullptr;
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
 
     return false;
 }

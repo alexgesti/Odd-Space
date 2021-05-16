@@ -25,25 +25,16 @@ Battle::~Battle()
 
 bool Battle::Load()
 {
-    if (*sceneManager->entityManager->previousScene == SceneType::CANTINA || *sceneManager->entityManager->previousScene == SceneType::WC)
+    switch (*sceneManager->entityManager->previousScene)
     {
-        if (map->Load("combat_cantina_interior.tmx") == true)
-        {
-            /*int w, h;
-            uchar* data = NULL;
-
-            RELEASE_ARRAY(data);*/
-        }
-    }
-    else if (*sceneManager->entityManager->previousScene == SceneType::EXTERIOR)
-    {
-        if (map->Load("combat_cantina_exterior.tmx") == true)
-        {
-            /*int w, h;
-            uchar* data = NULL;
-
-            RELEASE_ARRAY(data);*/
-        }
+    case SceneType::CANTINA:
+        map->Load("combat_cantina_interior.tmx") == true;
+            break;
+    case SceneType::EXTERIOR:
+        map->Load("combat_cantina_exterior.tmx") == true;
+        break;
+    default:
+        break;
     }
 
     fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
@@ -101,51 +92,51 @@ bool Battle::Load()
     {
     case 4:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->position = iPoint(850, 580);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->position = iPoint(750, 335);
 
-        buttons.buttonsEnemies.buttonEnemy[4] = new GuiButton(17, { 950, 580, 325, 75 }, "Enemy 4", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[4] = new GuiButton(17, { 915, 340, 325, 75 }, "Enemy 4", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[4]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[4]->SetObserver(this);
         controllerEnemy[4] = 17;
 
     case 3:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->position = iPoint(850, 490);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->position = iPoint(750, 205);
 
-        buttons.buttonsEnemies.buttonEnemy[3] = new GuiButton(16, { 950, 490, 325, 75 }, "Enemy 3", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[3] = new GuiButton(16, { 915, 210, 325, 75 }, "Enemy 3", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[3]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[3]->SetObserver(this);
         controllerEnemy[3] = 16;
 
     case 2:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->position = iPoint(850, 400);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->position = iPoint(875, 400);
 
-        buttons.buttonsEnemies.buttonEnemy[2] = new GuiButton(15, { 950, 400, 325, 75 }, "Enemy 2", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[2] = new GuiButton(15, { 950, 405, 325, 75 }, "Enemy 2", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[2]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[2]->SetObserver(this);
         controllerEnemy[2] = 15;
 
     case 1:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->position = iPoint(850, 310);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->position = iPoint(875, 270);
 
-        buttons.buttonsEnemies.buttonEnemy[1] = new GuiButton(14, { 950, 310, 325, 75 }, "Enemy 1", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[1] = new GuiButton(14, { 950, 275, 325, 75 }, "Enemy 1", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[1]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[1]->SetObserver(this);
         controllerEnemy[1] = 14;
 
     case 0:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies)->data->position = iPoint(850, 220);
+        sceneManager->entityManager->entities[1].At(totalEnemies)->data->position = iPoint(875, 140);
 
-        buttons.buttonsEnemies.buttonEnemy[0] = new GuiButton(13, { 950, 220, 325, 75 }, "Enemy 0", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[0] = new GuiButton(13, { 950, 145, 325, 75 }, "Enemy 0", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[0]->text = sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[0]->SetObserver(this);
         controllerEnemy[0] = 13;
 
     default:
-        buttons.buttonsEnemies.buttonBack = new GuiButton(18, { 1150, 640, 100, 75 }, "Back", sceneManager->audio);
+        buttons.buttonsEnemies.buttonBack = new GuiButton(18, { 1150, 490, 100, 75 }, "Back", sceneManager->audio);
         buttons.buttonsEnemies.buttonBack->SetObserver(this);
         controllerEnemy[totalEnemies + 1] = 18;
         break;

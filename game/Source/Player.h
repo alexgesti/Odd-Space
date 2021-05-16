@@ -1,7 +1,7 @@
 #ifndef __PLAYER_H__
 #define __PLAYER_H__
 
-#define PLAYER_MOVE_SPEED 100
+#define PLAYER_MOVE_SPEED 150
 
 #include "Entity.h"
 
