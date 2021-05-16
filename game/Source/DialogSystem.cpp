@@ -13,8 +13,8 @@ bool DialogueSystem::Start()
 	LoadDialogue("dialogues.xml");
 	currentNode = dialogueTrees[id]->dialogueNodes[0];
 	//PerformDialogue(Id);
-	font = new Font("assets/typo/Adore64.xml", tex);
-	optionsTex = tex->Load("assets/sprites/UI/UI_Text.png");
+	font = new Font("typo/Adore64.xml", tex);
+	optionsTex = tex->Load("sprites/ui/ui_text.png");
 	//nameTex = optionsTex;
 
 	// Buttons Dialog

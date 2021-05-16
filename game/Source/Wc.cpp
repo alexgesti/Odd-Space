@@ -56,7 +56,7 @@ bool Wc::Load() /*EntityManager entityManager)*/
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
 
-	wcFx = sceneManager->audio->LoadFx("assets/audio/fx/world_toilet_fx.wav");
+	wcFx = sceneManager->audio->LoadFx("audio/fx/world_toilet_fx.wav");
 
 	//map = new Map(tex);
 
@@ -74,7 +74,7 @@ bool Wc::Load() /*EntityManager entityManager)*/
 
 	// Load game entities
 	//Player* player = (Player*)entityManager->CreateEntity(EntityType::PLAYER);
-	//player->SetTexture(tex->Load("Assets/Textures/player.png"));
+	//player->SetTexture(tex->Load("textures/player.png"));
 	//entityManager->CreateEntity(EntityType::ENEMY);
 	//entityManager->CreateEntity(EntityType::ENEMY);
 	//entityManager->CreateEntity(EntityType::ITEM);

@@ -9,6 +9,8 @@
 
 
 
+class Assets;
+
 struct _Mix_Music;
 struct Mix_Chunk;
 
@@ -24,7 +26,7 @@ class Audio : public Module
 public:
 
 	// Constructor
-	Audio();
+	Audio(Assets* assets);
 	// Destructor
 	virtual ~Audio();
 
@@ -61,6 +63,8 @@ private:
 	_Mix_Music* music;
 	List<Mix_Chunk*> fx;
 	List<Fx> fxPlaying;
+
+	Assets* assets;
 };
 
 #endif // __AUDIO_H__

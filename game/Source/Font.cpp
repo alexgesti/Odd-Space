@@ -1,5 +1,6 @@
 #include "Font.h"
 #include "Textures.h"
+#include "Assets.h"
 
 #include "Log.h"
 
@@ -7,13 +8,18 @@
 
 Font::Font(const char* rtpFontFile, Textures* tex)
 {
+	assets = Assets::GetInstance();
+
 	fontLoaded = false;
 
 	pugi::xml_document xmlDocFontAtlas;
 	pugi::xml_node xmlNodeAtlas;
 	pugi::xml_node xmlNodeGlyph;
 
-	pugi::xml_parse_result result = xmlDocFontAtlas.load_file(rtpFontFile);
+	int size = assets->MakeLoad(rtpFontFile);
+	pugi::xml_parse_result result = xmlDocFontAtlas.load_buffer(assets->GetLastBuffer(), size);
+	assets->DeleteBuffer();
+
 
 	if (result == NULL) LOG("Could not load xml file: %s. pugi error: %s", rtpFontFile, result.description());
 	else xmlNodeAtlas = xmlDocFontAtlas.child("AtlasTexture");
@@ -24,7 +30,7 @@ Font::Font(const char* rtpFontFile, Textures* tex)
 		//int atlasWidth = xmlNodeAtlas.attribute("width").as_int();
 		//int atlasHeight = xmlNodeAtlas.attribute("height").as_int();
 
-		texture = tex->Load(PATH("assets/typo/", path));
+		texture = tex->Load(PATH("typo/", path));
 
 		charsCount = xmlNodeAtlas.attribute("spriteCount").as_int();
 		baseSize = xmlNodeAtlas.attribute("fontSize").as_int();

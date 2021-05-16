@@ -2,8 +2,6 @@
 #define __MAP_H__
 
 #include "Entity.h"
-#include "Render.h"
-#include "Textures.h"
 
 #include "List.h"
 #include "Queue.h"
@@ -15,6 +13,12 @@
 
 #define COST_MAP_SIZE	100
 #define MAX_TILES_WITH_PROPERTIES 50
+
+
+
+class Assets;
+class Textures;
+class Render;
 
 // L03: DONE 1: We create an enum for map type, just for convenience,
 // NOTE: Platformer game will be of type ORTHOGONAL
@@ -233,6 +237,7 @@ public:
 private:
 
 	Textures* tex;
+	Assets* assets;
 
 	pugi::xml_document mapFile;
 	SString folder;

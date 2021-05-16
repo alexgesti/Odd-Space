@@ -1,6 +1,7 @@
 #include "Textures.h"
 
 #include "Render.h"
+#include "Assets.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -11,11 +12,12 @@
 
 
 // Constructor
-Textures::Textures(Render* render) : Module()
+Textures::Textures(Assets* assets, Render* render) : Module()
 {
 	name.Create("textures");
 
 	this->render = render;
+	this->assets = assets;
 }
 // Destructor
 Textures::~Textures()
@@ -70,7 +72,7 @@ bool Textures::CleanUp()
 SDL_Texture* const Textures::Load(const char* path)
 {
 	SDL_Texture* texture = NULL;
-	SDL_Surface* surface = IMG_Load(path);
+	SDL_Surface* surface = IMG_Load_RW(assets->Load(path), 1);
 
 	if(surface == NULL)
 	{

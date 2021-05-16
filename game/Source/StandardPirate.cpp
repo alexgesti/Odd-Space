@@ -46,7 +46,7 @@ StandardPirates::StandardPirates(Render* render, Textures* tex) : Enemy(EnemyTyp
     // Define Player animations
 
     //Define Hurt Texture
-    hurtTexture = this->tex->Load("assets/sprites/combat/cmb_hurt.png");
+    hurtTexture = this->tex->Load("sprites/combat/cmb_hurt.png");
 }
 // Destructor
 StandardPirates::~StandardPirates()
