@@ -771,8 +771,8 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
         case 4:
             //Items
-            //sceneManager->items->Load();
-            //sceneManager->openItems = true;
+            sceneManager->items->Load();
+            sceneManager->openItems = true;
             break;
 
         case 5:

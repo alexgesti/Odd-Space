@@ -319,9 +319,6 @@ bool Cantina::Unload()
 
 	enemyEncounter = 0;
 
-	map->Unload();
-	RELEASE(map);
-
 	sceneManager->tex->UnLoad(texBarman);
 	sceneManager->tex->UnLoad(texLegendaryPirate);
 	sceneManager->tex->UnLoad(texOldCaptain);
@@ -329,6 +326,9 @@ bool Cantina::Unload()
 	RELEASE(animBarmanIdle);
 	RELEASE(animLegendaryPirateIdle);
 	RELEASE(animOldCaptainSitting);
+
+	map->Unload();
+	RELEASE(map);
 
 	sceneManager = nullptr;
 

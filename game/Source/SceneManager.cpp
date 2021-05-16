@@ -156,8 +156,8 @@ bool SceneManager::Update(float dt)
 			isPause = !isPause;
 			if (!isPause)
 			{
-				if (openItems) items->Unload();
-				if (openItems) options->Unload();
+				items->Unload();
+				options->Unload();
 				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 			}
 			else entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
@@ -313,13 +313,9 @@ bool SceneManager::CleanUp()
 
 	if (current != nullptr) current->Unload();
 
-	if (openOptions) options->Unload();
-	if (openOptions) items->Unload();
 	pause->Unload();
-
-	audio->UnloadFx(doorClose);
-	audio->UnloadFx(doorOpen);
-	audio->UnloadFx(battleEncounter);
+	options->Unload();
+	items->Unload();
 
 	tex->UnLoad(xMark);
 
