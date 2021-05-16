@@ -167,8 +167,6 @@ bool PauseMenu::Unload()
     buttonLoad->UnLoad();
     RELEASE(buttonLoad);
 
-    sceneManager = nullptr;
-
     return true;
 }
 

@@ -77,9 +77,9 @@ bool SceneManager::Start()
 	//current = new Wc(this);
 	//current = new Exterior(this);
 	//current = new DungeonF1(this);
-	current = new DungeonF2(this);
+	//current = new DungeonF2(this);
 	//current = new EndDemo(this);
-	currentscenetype = SceneType::DUNGEON_F2;
+	currentscenetype = SceneType::LOGO;
 	current->Load();
 
 	options = new OptionsMenu(this);
@@ -168,7 +168,7 @@ bool SceneManager::Update(float dt)
 		{
 			if (pauseMusicFaded)
 			{
-				audio->FadeOutMusic(0.5f);
+				audio->FadeInMusic(0.5f);
 				pauseMusicFaded = false;
 			}
 

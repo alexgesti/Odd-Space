@@ -81,8 +81,6 @@ bool ItemsMenu::Unload()
         RELEASE(itemsButtons[i]);
     }
 
-    sceneManager = nullptr;
-
     return true;
 }
 

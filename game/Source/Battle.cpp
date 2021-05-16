@@ -354,7 +354,12 @@ bool Battle::Update(float dt)
         if (preparetochange >= timerequired)
         {
             sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg", 2);
-            TransitionToScene(*sceneManager->entityManager->previousScene);
+            if (lose)
+            {
+                sceneManager->wasBattle = false;
+                TransitionToScene(SceneType::ENDDEMO);
+            }
+            else TransitionToScene(*sceneManager->entityManager->previousScene);
         }
     }
 

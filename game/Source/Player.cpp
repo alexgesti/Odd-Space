@@ -99,9 +99,9 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
 
     //Hero stats
     infoEntities.info.name = "Hero";
-    infoEntities.info.HP = 15;
+    infoEntities.info.HP = 45;
     infoEntities.info.SP = 10;
-    infoEntities.info.maxHP = 15;
+    infoEntities.info.maxHP = 45;
     infoEntities.info.maxSP = 10;
     infoEntities.info.LVL = 1;
     infoEntities.stats.ATK = 8;
@@ -558,6 +558,7 @@ void Player::UpdateLogic(float dt)
     case BATTLE:
     {
         currentAnimation->Update();
+        if (infoEntities.info.HP <= 0) deathAnim->Update();
         break;
     }
     default:
@@ -648,8 +649,6 @@ void Player::ChangeState(HeroState previousState, HeroState newState)
     {
         currentAnimation = animHeroIdleRight;
         noClip = false;
-        if (infoEntities.info.HP <= 0) deathAnim->Update();
-
         break;
     }
     default:

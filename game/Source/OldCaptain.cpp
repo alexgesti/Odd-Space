@@ -69,9 +69,9 @@ Captain::Captain(Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
 
     //Hero stats
     infoEntities.info.name = "Captain";
-    infoEntities.info.HP = 20;
+    infoEntities.info.HP = 50;
     infoEntities.info.SP = 15;
-    infoEntities.info.maxHP = 20;
+    infoEntities.info.maxHP = 50;
     infoEntities.info.maxSP = 15;
     infoEntities.info.LVL = 1;
     infoEntities.stats.ATK = 6;
