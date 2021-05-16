@@ -24,10 +24,10 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 	}
 	name.Create("dungeon_f2");
 
-	this->leverTex = sceneManager->tex->Load("assets/maps/prop_dungeon_v01_w.png");
+	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
 
-	this->leverFx = sceneManager->audio->LoadFx("assets/audio/fx/world_lever.wav");
-	this->winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
+	this->leverFx = sceneManager->audio->LoadFx("audio/fx/world_lever.wav");
+	this->winFx = sceneManager->audio->LoadFx("audio/fx/battle_win.wav");
 }
 
 // Destructor

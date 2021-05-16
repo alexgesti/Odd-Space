@@ -9,7 +9,7 @@ Title::Title(SceneManager* sceneManager) : Scene()
 {
    this->sceneManager = sceneManager;
 
-   temporalAppearTitle = sceneManager->audio->LoadFx("Assets/Audio/Fx/battle_strike.wav");
+   temporalAppearTitle = sceneManager->audio->LoadFx("audio/fx/battle_strike.wav");
 }
 // Destructor
 Title::~Title()
@@ -20,10 +20,10 @@ Title::~Title()
 
 bool Title::Load()
 {
-    bgTitle = sceneManager->tex->Load("assets/sprites/MainScreen/title_screen.png");
-    titleName = sceneManager->tex->Load("assets/sprites/MainScreen/odd_space_logo.png");
-    optionsTex = sceneManager->tex->Load("assets/sprites/UI/ui_menupause.png");
-    sceneManager->audio->PlayMusic("Assets/Audio/Music/menu_music.ogg", 2);
+    bgTitle = sceneManager->tex->Load("sprites/mainscreen/title_screen.png");
+    titleName = sceneManager->tex->Load("sprites/mainscreen/odd_space_logo.png");
+    optionsTex = sceneManager->tex->Load("sprites/ui/ui_menupause.png");
+    sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
 
     // Buttons
     buttons.buttonPlay = new GuiButton(1, { 100, 183, 224, 64 }, "New Game", sceneManager->audio);
@@ -145,7 +145,7 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
-        sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
+        sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg");
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = true;
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
         TransitionToScene(SceneType::EXTERIOR);
@@ -154,7 +154,7 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
         sceneManager->loadrequested = true;
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = true;
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
-        sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg");
+        sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg");
         break;
     case 3:
         sceneManager->options->Load();

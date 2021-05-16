@@ -50,16 +50,16 @@ bool Battle::Load()
     }
 
     fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
-    fx.winFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_win.wav");
-    fx.strikeFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_strike.wav");
-    fx.hurtFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_hurt.wav");
-    fx.deathFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_death.wav");
-    fx.hpRecoverFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_hp_recover.wav");
-    fx.guardFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_guard.wav");
-    fx.runFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_run.wav");
-    fx.reviveFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_revive.wav");
-    fx.spRecoverFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_sp_recover.wav");
-    fx.debuffFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_debuff.wav");
+    fx.winFx = sceneManager->audio->LoadFx("audio/fx/battle_win.wav");
+    fx.strikeFx = sceneManager->audio->LoadFx("audio/fx/battle_strike.wav");
+    fx.hurtFx = sceneManager->audio->LoadFx("audio/fx/battle_hurt.wav");
+    fx.deathFx = sceneManager->audio->LoadFx("audio/fx/battle_death.wav");
+    fx.hpRecoverFx = sceneManager->audio->LoadFx("audio/fx/battle_hp_recover.wav");
+    fx.guardFx = sceneManager->audio->LoadFx("audio/fx/battle_guard.wav");
+    fx.runFx = sceneManager->audio->LoadFx("audio/fx/battle_run.wav");
+    fx.reviveFx = sceneManager->audio->LoadFx("audio/fx/battle_revive.wav");
+    fx.spRecoverFx = sceneManager->audio->LoadFx("audio/fx/battle_sp_recover.wav");
+    fx.debuffFx = sceneManager->audio->LoadFx("audio/fx/battle_debuff.wav");
 
     if (sceneManager->toDrawX) sceneManager->toDrawX = false;
 
@@ -67,8 +67,8 @@ bool Battle::Load()
     sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
     sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
-    UI = sceneManager->tex->Load("assets/sprites/UI/UI_Text.png");
-    VorL = sceneManager->tex->Load("assets/sprites/UI/UI_StateBattle.png");
+    UI = sceneManager->tex->Load("sprites/ui/ui_text.png");
+    VorL = sceneManager->tex->Load("sprites/ui/ui_statebattle.png");
 
     // Buttons Principal Menu
     buttons.buttonsMenu.buttonAttack = new GuiButton(1, { 10, 560, 160, 75 }, "Attack", sceneManager->audio);
@@ -186,7 +186,7 @@ bool Battle::Load()
     f = 0;
     c = 0;
 
-    sceneManager->audio->PlayMusic("Assets/Audio/Music/battle_music.ogg", 2);
+    sceneManager ->audio->PlayMusic("audio/music/battle_music.ogg", 2);
 
     return false;
 }
@@ -356,7 +356,7 @@ bool Battle::Update(float dt)
         preparetochange += dt;
         if (preparetochange >= timerequired)
         {
-            sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg", 2);
+            sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
             if (lose)
             {
                 sceneManager->wasBattle = false;
@@ -641,7 +641,7 @@ void Battle::BattleEscaped()
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
         sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
         sceneManager->wasBattle = true;
-        sceneManager->audio->PlayMusic("Assets/Audio/Music/exterior_music.ogg", 2);
+        sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
         TransitionToScene(*sceneManager->entityManager->previousScene);
     }
     else ChangeTurns();

@@ -8,9 +8,9 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, Audio* audio,
     this->audio = audio;
     this->sorted = sorted;
 
-    hover = audio->LoadFx("Assets/Audio/Fx/hover_ui.wav");
-    unavaliable = audio->LoadFx("Assets/Audio/Fx/unavaliable_ui.wav");
-    press = audio->LoadFx("Assets/Audio/Fx/press_ui.wav");
+    hover = audio->LoadFx("audio/fx/hover_ui.wav");
+    unavaliable = audio->LoadFx("audio/fx/unavaliable_ui.wav");
+    press = audio->LoadFx("audio/fx/press_ui.wav");
 }
 
 GuiButton::~GuiButton()

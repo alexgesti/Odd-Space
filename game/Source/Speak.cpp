@@ -12,12 +12,12 @@ Speak::Speak(Audio* audio, Render* render, Font* font, Input* input, Textures* t
 	this->input = input;
 	this->texture = texture;
 
-	letter_1 = this->audio->LoadFx("Assets/Audio/Fx/world_textsound1_fx.wav");
-	letter_2 = this->audio->LoadFx("Assets/Audio/Fx/world_textsound2_fx.wav");
-	letter_3 = this->audio->LoadFx("Assets/Audio/Fx/world_textsound3_fx.wav");
-	letter_4 = this->audio->LoadFx("Assets/Audio/Fx/world_textsound4_fx.wav");
+	letter_1 = this->audio->LoadFx("audio/fx/world_textsound1_fx.wav");
+	letter_2 = this->audio->LoadFx("audio/fx/world_textsound2_fx.wav");
+	letter_3 = this->audio->LoadFx("audio/fx/world_textsound3_fx.wav");
+	letter_4 = this->audio->LoadFx("audio/fx/world_textsound4_fx.wav");
 
-	dialogueTex = texture->Load("assets/sprites/UI/UI_Text.png");
+	dialogueTex = texture->Load("sprites/ui/ui_text.png");
 }
 
 void Speak::Update(float dt)

@@ -6,6 +6,7 @@
 #include "SDL/include/SDL.h"
 
 class Textures;
+class Assets;
 
 class Font
 {
@@ -27,6 +28,9 @@ private:
     int baseSize;
     int charsCount;
     SDL_Rect charsRecs[128];
+
+
+    Assets* assets;
 };
 
 #endif //__FONT_H__

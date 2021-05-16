@@ -23,9 +23,9 @@ Logo::~Logo()
 
 bool Logo::Load()
 {
-    logo = sceneManager->tex->Load("assets/sprites/Logo/logo_chaoticevil.png");
+    logo = sceneManager->tex->Load("sprites/logo/logo_chaoticevil.png");
 
-    temporalLogoSound = sceneManager->audio->LoadFx("Assets/Audio/Fx/logo_honk.wav");
+    temporalLogoSound = sceneManager->audio->LoadFx("audio/fx/logo_honk.wav");
     return true;
 }
 

@@ -45,7 +45,7 @@ Exterior::Exterior(SceneManager* sceneManager) : Scene()
 	currentAnimation = animCrazyManIdle;
 
 
-	texCrazyManCantina = sceneManager->tex->Load("assets/sprites/npcs/npc_crazymancantina_w.png");
+	texCrazyManCantina = sceneManager->tex->Load("sprites/npcs/npc_crazymancantina_w.png");
 }
 // Destructor
 Exterior::~Exterior()
@@ -132,7 +132,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 
 	// Load game entities
 	//Player* player = (Player*)entityManager->CreateEntity(EntityType::PLAYER);
-	//player->SetTexture(tex->Load("Assets/Textures/player.png"));
+	//player->SetTexture(tex->Load("textures/player.png"));
 	//entityManager->CreateEntity(EntityType::ENEMY);
 	//entityManager->CreateEntity(EntityType::ENEMY);
 	//entityManager->CreateEntity(EntityType::ITEM);

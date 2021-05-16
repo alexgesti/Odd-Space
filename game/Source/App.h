@@ -22,6 +22,8 @@ class SceneManager;
 class DialogueSystem;
 class SaveFileManager;
 
+class Assets;
+
 class App
 {
 public:
@@ -89,6 +91,7 @@ public:
 
 	// Not modules
 	SaveFileManager* saveFileManager;
+	Assets* assets;
 
 	uint32 cappedms;
 	uint64 framecount = 0;

@@ -7,6 +7,7 @@
 
 
 
+class Assets;
 class Render;
 
 struct SDL_Texture;
@@ -17,7 +18,7 @@ class Textures : public Module
 public:
 
 	// Constructor
-	Textures(Render* render);
+	Textures(Assets* assets, Render* render);
 	// Destructor
 	virtual ~Textures();
 
@@ -45,6 +46,7 @@ public:
 
 private:
 
+	Assets* assets;
 	Render* render;
 };
 

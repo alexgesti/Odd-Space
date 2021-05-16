@@ -8,7 +8,9 @@
 #include "EntityManager.h"
 #include "SceneManager.h"
 #include "DialogSystem.h"
+
 #include "SaveFileManager.h"
+#include "Assets.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -24,17 +26,22 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	PERF_START(ptimer);
 	frames = 0;
 
+	// Not modules
+	assets = Assets::GetInstance();
+
+	// Modules
 	win = new Window();
 	input = new Input(win);
 	render = new Render(win);
-	tex = new Textures(render);
-	audio = new Audio();
+	tex = new Textures(assets, render);
+	audio = new Audio(assets);
 	entityManager = new EntityManager(input, render, tex);
 	dialogueSystem = new DialogueSystem(input, render, tex, audio);
 	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem);
 
 	// Not modules
 	saveFileManager = new SaveFileManager(sceneManager);
+	
 
 	// Ordered for awake / Start / Update
 	// Reverse order of CleanUp
@@ -99,6 +106,8 @@ bool App::Awake()
 			ret = item->data->Awake(config.child(item->data->name.GetString()));
 			item = item->next;
 		}
+
+		assets->Init();
 	}
 
 	return ret;
@@ -283,6 +292,10 @@ bool App::CleanUp()
 		ret = item->data->CleanUp();
 		item = item->prev;
 	}
+
+	delete saveFileManager;
+	saveFileManager = nullptr;
+	assets->ResetInstance();
 
 	return ret;
 }
