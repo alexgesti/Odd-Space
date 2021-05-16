@@ -8,48 +8,48 @@
 #include <time.h> 
 #include "Log.h"
 
-
-
 // Constructor
 Battle::Battle(SceneManager* sceneManager)
 {
     this->sceneManager = sceneManager;
 
     map = new Map(sceneManager->tex);
-
-    if (*sceneManager->entityManager->previousScene == SceneType::CANTINA || *sceneManager->entityManager->previousScene == SceneType::WC)
-    {
-        if (map->Load("combat_cantina_interior.tmx") == true)
-        {
-            /*int w, h;
-            uchar* data = NULL;
-
-            RELEASE_ARRAY(data);*/
-        }
-    }
-    else if (*sceneManager->entityManager->previousScene == SceneType::EXTERIOR)
-    {
-        if (map->Load("combat_cantina_exterior.tmx") == true)
-        {
-            /*int w, h;
-            uchar* data = NULL;
-
-            RELEASE_ARRAY(data);*/
-        }
-    }
     
     name.Create("battle");
 }
 // Destructor
 Battle::~Battle()
 {
+
 }
-
-
 
 bool Battle::Load()
 {
-    fx.loseFx = sceneManager->audio->LoadFx("audio/fx/battle_lose.wav");
+    switch (*sceneManager->entityManager->previousScene)
+    {
+    case SceneType::CANTINA:
+        map->Load("combat_cantina_interior.tmx") == true;
+            break;
+    case SceneType::WC:
+        map->Load("combat_cantina_interior.tmx") == true;
+        break;
+    case SceneType::EXTERIOR:
+        map->Load("combat_cantina_exterior.tmx") == true;
+        break;
+    case SceneType::DUNGEON_EXT:
+        map->Load("combat_dungeon.tmx") == true;
+        break;
+    case SceneType::DUNGEON_F1:
+        map->Load("combat_dungeon.tmx") == true;
+        break;
+    case SceneType::DUNGEON_F2:
+        map->Load("combat_dungeon.tmx") == true;
+        break;
+    default:
+        break;
+    }
+
+    fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
     fx.winFx = sceneManager->audio->LoadFx("audio/fx/battle_win.wav");
     fx.strikeFx = sceneManager->audio->LoadFx("audio/fx/battle_strike.wav");
     fx.hurtFx = sceneManager->audio->LoadFx("audio/fx/battle_hurt.wav");
@@ -64,6 +64,8 @@ bool Battle::Load()
     if (sceneManager->toDrawX) sceneManager->toDrawX = false;
 
     sceneManager->render->camera = { 0, 0 };
+    sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
+    sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
     UI = sceneManager->tex->Load("sprites/ui/ui_text.png");
     VorL = sceneManager->tex->Load("sprites/ui/ui_statebattle.png");
@@ -102,51 +104,51 @@ bool Battle::Load()
     {
     case 4:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->position = iPoint(850, 580);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->position = iPoint(750, 335);
 
-        buttons.buttonsEnemies.buttonEnemy[4] = new GuiButton(17, { 950, 580, 325, 75 }, "Enemy 4", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[4] = new GuiButton(17, { 915, 340, 325, 75 }, "Enemy 4", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[4]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 4)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[4]->SetObserver(this);
         controllerEnemy[4] = 17;
 
     case 3:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->position = iPoint(850, 490);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->position = iPoint(750, 205);
 
-        buttons.buttonsEnemies.buttonEnemy[3] = new GuiButton(16, { 950, 490, 325, 75 }, "Enemy 3", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[3] = new GuiButton(16, { 915, 210, 325, 75 }, "Enemy 3", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[3]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 3)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[3]->SetObserver(this);
         controllerEnemy[3] = 16;
 
     case 2:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->position = iPoint(850, 400);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->position = iPoint(875, 400);
 
-        buttons.buttonsEnemies.buttonEnemy[2] = new GuiButton(15, { 950, 400, 325, 75 }, "Enemy 2", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[2] = new GuiButton(15, { 950, 405, 325, 75 }, "Enemy 2", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[2]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 2)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[2]->SetObserver(this);
         controllerEnemy[2] = 15;
 
     case 1:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->position = iPoint(850, 310);
+        sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->position = iPoint(875, 270);
 
-        buttons.buttonsEnemies.buttonEnemy[1] = new GuiButton(14, { 950, 310, 325, 75 }, "Enemy 1", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[1] = new GuiButton(14, { 950, 275, 325, 75 }, "Enemy 1", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[1]->text = sceneManager->entityManager->entities[1].At(totalEnemies - 1)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[1]->SetObserver(this);
         controllerEnemy[1] = 14;
 
     case 0:
         sceneManager->entityManager->CreateEntity(EntityType::ENEMY);
-        sceneManager->entityManager->entities[1].At(totalEnemies)->data->position = iPoint(850, 220);
+        sceneManager->entityManager->entities[1].At(totalEnemies)->data->position = iPoint(875, 140);
 
-        buttons.buttonsEnemies.buttonEnemy[0] = new GuiButton(13, { 950, 220, 325, 75 }, "Enemy 0", sceneManager->audio);
+        buttons.buttonsEnemies.buttonEnemy[0] = new GuiButton(13, { 950, 145, 325, 75 }, "Enemy 0", sceneManager->audio);
         buttons.buttonsEnemies.buttonEnemy[0]->text = sceneManager->entityManager->entities[1].At(totalEnemies)->data->infoEntities.info.name;
         buttons.buttonsEnemies.buttonEnemy[0]->SetObserver(this);
         controllerEnemy[0] = 13;
 
     default:
-        buttons.buttonsEnemies.buttonBack = new GuiButton(18, { 1150, 640, 100, 75 }, "Back", sceneManager->audio);
+        buttons.buttonsEnemies.buttonBack = new GuiButton(18, { 1150, 490, 100, 75 }, "Back", sceneManager->audio);
         buttons.buttonsEnemies.buttonBack->SetObserver(this);
         controllerEnemy[totalEnemies + 1] = 18;
         break;
@@ -199,7 +201,7 @@ bool Battle::Update(float dt)
     //sceneManager->entityManager->entities[0].At(0)->data->transitioning = true;
 
     //Player Turn
-    if (playerMenu && win == false && lose == false)
+    if (playerMenu && !sceneManager->wasBattle)
     {
         switch (characterTurn)
         {
@@ -318,6 +320,7 @@ bool Battle::Update(float dt)
                 if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
                 {
+                    sceneManager->audio->FadeOutMusic(0.1f);
                     sceneManager->audio->PlayFx(fx.loseFx);
                     sceneManager->wasBattle = true;
                     lose = true;
@@ -333,6 +336,7 @@ bool Battle::Update(float dt)
                 }
                 if (totalEnemiesHP <= 0)
                 {
+                    sceneManager->audio->FadeOutMusic(0.1f);
                     sceneManager->audio->PlayFx(fx.winFx);
                     sceneManager->wasBattle = true;
                     sceneManager->entityManager->CreateEntity(EntityType::ITEM);
@@ -353,7 +357,12 @@ bool Battle::Update(float dt)
         if (preparetochange >= timerequired)
         {
             sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
-            TransitionToScene(*sceneManager->entityManager->previousScene);
+            if (lose)
+            {
+                sceneManager->wasBattle = false;
+                TransitionToScene(SceneType::ENDDEMO);
+            }
+            else TransitionToScene(*sceneManager->entityManager->previousScene);
         }
     }
 
@@ -451,7 +460,7 @@ bool Battle::Draw()
         rect = {0, 0, 480, 240};
         sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2), 0, &rect);
     }
-    else if (lose)
+    if (lose)
     {
         rect = {0, 240, 480, 192};
         sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2) + 70, 0, &rect);
@@ -472,84 +481,6 @@ bool Battle::Unload()
 	
 	map->Unload();
     RELEASE(map);
-    //delete map;
-    //map = nullptr;
-
-    //delete buttons.buttonsMenu.buttonAttack;
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonAttack->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonAttack->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonAttack->unavaliable);
-    RELEASE(buttons.buttonsMenu.buttonAttack);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonGuard->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonGuard->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonGuard->unavaliable);
-    RELEASE(buttons.buttonsMenu.buttonGuard);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonSkills->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonSkills->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonSkills->unavaliable);
-    RELEASE(buttons.buttonsMenu.buttonSkills);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonRun->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonRun->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonRun->unavaliable);
-    RELEASE(buttons.buttonsMenu.buttonRun);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonItem->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonItem->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonItem->unavaliable);
-    RELEASE(buttons.buttonsMenu.buttonItem);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonBack->hover);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonBack->press);
-    sceneManager->audio->UnloadFx(buttons.buttonsMenu.buttonBack->unavaliable);
-    RELEASE(buttons.buttonsMenu.buttonBack);
-    //buttons.buttonsMenu.buttonAttack = nullptr;
-    //delete buttons.buttonsMenu.buttonGuard;
-    //buttons.buttonsMenu.buttonGuard = nullptr;
-    //delete buttons.buttonsMenu.buttonSkills;
-    //buttons.buttonsMenu.buttonSkills = nullptr;
-    //delete buttons.buttonsMenu.buttonRun;
-    //buttons.buttonsMenu.buttonRun = nullptr;
-    //delete buttons.buttonsMenu.buttonItem;
-    //buttons.buttonsMenu.buttonItem = nullptr;
-    //delete buttons.buttonsMenu.buttonBack;
-    //buttons.buttonsMenu.buttonBack = nullptr;
-
-    for (int bs = 0; bs < 5; bs++)
-    {
-        //delete buttons.buttonsSkills.buttonSkill[bs];
-        //buttons.buttonsSkills.buttonSkill[bs] = nullptr;
-        sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonSkill[bs]->hover);
-        sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonSkill[bs]->press);
-        sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonSkill[bs]->unavaliable);
-        RELEASE(buttons.buttonsSkills.buttonSkill[bs]);
-    }
-    sceneManager->audio->UnloadFx(buttons.buttonsSkills.buttonBack->hover);
-    RELEASE(buttons.buttonsSkills.buttonBack);
-    //delete buttons.buttonsSkills.buttonBack;
-    //buttons.buttonsSkills.buttonBack = nullptr;
-
-    for (int be = 0; be <= totalEnemies; be++)
-    {
-        //delete buttons.buttonsEnemies.buttonEnemy[be];
-        //buttons.buttonsEnemies.buttonEnemy[be] = nullptr;
-        sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonEnemy[be]->hover);
-        sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonEnemy[be]->press);
-        sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonEnemy[be]->unavaliable);
-        RELEASE(buttons.buttonsEnemies.buttonEnemy[be]);
-    }
-    sceneManager->audio->UnloadFx(buttons.buttonsEnemies.buttonBack->hover);
-    RELEASE(buttons.buttonsEnemies.buttonBack);
-    //delete buttons.buttonsEnemies.buttonBack;
-    //buttons.buttonsEnemies.buttonBack = nullptr;
-    
-    if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
-        sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
-
-    if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
-        sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;
-
-    sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
-    sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
-	
-    //*entityManager->previousScene = SceneType::BATTLE;
 
     sceneManager->audio->UnloadFx(fx.deathFx);
     sceneManager->audio->UnloadFx(fx.runFx);
@@ -560,6 +491,48 @@ bool Battle::Unload()
     sceneManager->audio->UnloadFx(fx.hurtFx);
     sceneManager->audio->UnloadFx(fx.reviveFx);
     sceneManager->audio->UnloadFx(fx.hpRecoverFx);
+
+    buttons.buttonsMenu.buttonAttack->UnLoad();
+    RELEASE(buttons.buttonsMenu.buttonAttack);
+    buttons.buttonsMenu.buttonGuard->UnLoad();
+    RELEASE(buttons.buttonsMenu.buttonGuard);
+    buttons.buttonsMenu.buttonSkills->UnLoad();
+    RELEASE(buttons.buttonsMenu.buttonSkills);
+    buttons.buttonsMenu.buttonRun->UnLoad();
+    RELEASE(buttons.buttonsMenu.buttonRun);
+    buttons.buttonsMenu.buttonItem->UnLoad();
+    RELEASE(buttons.buttonsMenu.buttonItem);
+    buttons.buttonsMenu.buttonBack->UnLoad();
+    RELEASE(buttons.buttonsMenu.buttonBack);
+
+    for (int bs = 0; bs < 5; bs++)
+    {
+        buttons.buttonsSkills.buttonSkill[bs]->UnLoad();
+        RELEASE(buttons.buttonsSkills.buttonSkill[bs]);
+    }
+    buttons.buttonsSkills.buttonBack->UnLoad();
+    RELEASE(buttons.buttonsSkills.buttonBack);
+
+    for (int be = 0; be <= totalEnemies; be++)
+    {
+        buttons.buttonsEnemies.buttonEnemy[be]->UnLoad();
+        RELEASE(buttons.buttonsEnemies.buttonEnemy[be]);
+    }
+    buttons.buttonsEnemies.buttonBack->UnLoad();
+    RELEASE(buttons.buttonsEnemies.buttonBack);
+    
+    /*if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
+        sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
+
+    if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
+        sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;*/
+
+    sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
+    sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
+	
+    //*entityManager->previousScene = SceneType::BATTLE;
+
+    sceneManager = nullptr;
 
     return false;
 }
@@ -663,6 +636,7 @@ void Battle::BattleEscaped()
 {
     if (rand() % 6 != 0)
     {
+        sceneManager->audio->FadeOutMusic(0.1f);
         sceneManager->audio->PlayFx(fx.runFx);
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
         sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
@@ -807,8 +781,8 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
         case 4:
             //Items
-            sceneManager->items->Load();
-            sceneManager->openItems = true;
+            //sceneManager->items->Load();
+            //sceneManager->openItems = true;
             break;
 
         case 5:

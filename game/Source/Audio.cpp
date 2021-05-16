@@ -196,10 +196,10 @@ bool Audio::UnloadFx(uint id)
 {
 	bool ret = false;
 
-	if (fx[id] != nullptr)
+	if (fx[id - 1] != nullptr)
 	{
-		Mix_FreeChunk(fx[id]);
-		fx[id] = nullptr;
+		Mix_FreeChunk(fx[id - 1]);
+		fx[id - 1] = nullptr;
 		ret = true;
 	}
 

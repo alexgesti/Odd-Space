@@ -51,6 +51,7 @@ bool Logo::Update(float dt)
         {
             logoAlpha = 1.0f;
             sceneManager->audio->PlayFx(temporalLogoSound);
+            angle = 0;
             state = 2;
         }
     }
@@ -90,5 +91,8 @@ bool Logo::Unload()
     sceneManager->tex->UnLoad(logo);
 
     sceneManager->audio->UnloadFx(temporalLogoSound);
+	
+	sceneManager = nullptr;
+
     return true;
 }

@@ -99,9 +99,9 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
 
     //Hero stats
     infoEntities.info.name = "Hero";
-    infoEntities.info.HP = 15;
+    infoEntities.info.HP = 45;
     infoEntities.info.SP = 10;
-    infoEntities.info.maxHP = 15;
+    infoEntities.info.maxHP = 45;
     infoEntities.info.maxSP = 10;
     infoEntities.info.LVL = 1;
     infoEntities.stats.ATK = 8;
@@ -164,28 +164,28 @@ void Player::UpdateState()
     {
         if (((input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT) && input->joystickState() == false) ||
-            ((pad.l_y < -0.25f && pad.l_x > -0.25f && pad.l_x < 0.25f) && input->joystickState() == true))
+            (pad.l_y < -0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_UP);
             break;
         }
         if ((input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT && input->joystickState() == false) ||
-            (pad.l_y > 0.25f && pad.l_x > -0.25f && pad.l_x < 0.25f && input->joystickState() == true))
+            (pad.l_y > 0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_DOWN);
             break;
         }
         if ((input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT && input->joystickState() == false) ||
-            (pad.l_x < -0.25f && pad.l_y > -0.25f && pad.l_y < 0.25f && input->joystickState() == true))
+            (pad.l_x < -0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_LEFT);
             break;
         }
         if ((input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN ||
             input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT && input->joystickState() == false) ||
-            (pad.l_x > 0.25f && pad.l_y > -0.25f && pad.l_y < 0.25f && input->joystickState() == true))
+            (pad.l_x > 0.5f && input->joystickState() == true))
         {
             ChangeState(state, MOVE_RIGHT);
             break;
@@ -558,6 +558,7 @@ void Player::UpdateLogic(float dt)
     case BATTLE:
     {
         currentAnimation->Update();
+        if (infoEntities.info.HP <= 0) deathAnim->Update();
         break;
     }
     default:
@@ -648,8 +649,6 @@ void Player::ChangeState(HeroState previousState, HeroState newState)
     {
         currentAnimation = animHeroIdleRight;
         noClip = false;
-        if (infoEntities.info.HP <= 0) deathAnim->Update();
-
         break;
     }
     default:

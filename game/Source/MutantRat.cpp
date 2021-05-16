@@ -102,9 +102,11 @@ SDL_Rect MutantRat::GetBounds()
 bool MutantRat::UnLoad()
 {
     tex->UnLoad(mutantRatTexture);
-    
-    delete mutantRatAnim;
-    mutantRatAnim = nullptr;
+    tex->UnLoad(hurtTexture);
+
+    RELEASE(mutantRatAnim);
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
 
     return false;
 }

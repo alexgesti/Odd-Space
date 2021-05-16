@@ -107,7 +107,7 @@ bool DungeonExt::Update(float dt)
 	if (map->doorHit)
 	{
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
-		// Añadir feedback text y X button
+		// A�adir feedback text y X button
 		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR)) TransitionToScene(SceneType::DUNGEON_F1);
 		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y > UPPER_DOOR) TransitionToScene(SceneType::EXTERIOR);
 
@@ -147,8 +147,9 @@ bool DungeonExt::Unload()
 	enemyEncounter = 0;
 
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+	
+	sceneManager = nullptr;
 
 	return true;
 }

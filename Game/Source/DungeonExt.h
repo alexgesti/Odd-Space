@@ -38,15 +38,11 @@ public:
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
-
-    int stairsFx;
-
 private:
 
     Map* map;
 
     SceneManager* sceneManager;
-   
 };
 
 

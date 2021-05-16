@@ -15,6 +15,7 @@ public:
 
     bool Update(Input* input, int buttonSelected, float dt);
     bool Draw(Render* render, int slider, SDL_Texture* texture);
+    bool UnLoad();
 
 private:
 

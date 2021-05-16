@@ -26,7 +26,6 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 
 	this->doorTex = sceneManager->tex->Load("maps/prop_dungeon_v02_w.png");
 	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
-
 	this->stairsFx = sceneManager->audio->LoadFx("audio/fx/world_stairs.wav");
 }
 
@@ -71,9 +70,6 @@ bool DungeonF1::Load()
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(2873, 1712);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
-
-
-
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
@@ -127,18 +123,13 @@ bool DungeonF1::Update(float dt)
 			{
 				if (sceneManager->collision->currentInteraction == "cross_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 				{
-
-					if (sceneManager->leverCro == false)
+					if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
 					{
-						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
-						{
-							sceneManager->levers.push_back(1);
-						}
-						sceneManager->leverCro = true;
-
-						sceneManager->audio->PlayFx(sceneManager->leverFx);
+						sceneManager->levers.push_back(1);
 					}
-
+					sceneManager->leverCro = true;
+					sceneManager->audio->PlayFx(leverFx);
+					
 					sceneManager->toDrawX = false;
 
 					sceneManager->collision->currentInteraction = '/0';
@@ -149,16 +140,16 @@ bool DungeonF1::Update(float dt)
 			{
 				if (sceneManager->collision->currentInteraction == "triangular_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 				{
-					if (sceneManager->leverTri == false)
+					
+					if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
 					{
-						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
-						{
-							sceneManager->levers.push_back(2);
-						}
-						sceneManager->leverTri = true;
 
-						sceneManager->audio->PlayFx(sceneManager->leverFx);
+						sceneManager->levers.push_back(2);
 					}
+					sceneManager->leverTri = true;
+
+					sceneManager->audio->PlayFx(leverFx);
+					
 
 					sceneManager->toDrawX = false;
 
@@ -170,16 +161,14 @@ bool DungeonF1::Update(float dt)
 			{
 				if (sceneManager->collision->currentInteraction == "circular_lever" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
 				{
-					if (sceneManager->leverCir == false)
-					{
-						if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
-						{
-							sceneManager->levers.push_back(3);
-						}
-						sceneManager->leverCir = true;
 
-						sceneManager->audio->PlayFx(sceneManager->leverFx);
+					if ((sceneManager->levers.size() >= 0) && (sceneManager->levers.size() <= 3))
+					{
+						sceneManager->levers.push_back(3);
 					}
+					sceneManager->leverCir = true;
+
+					sceneManager->audio->PlayFx(leverFx);
 
 					sceneManager->toDrawX = false;
 
@@ -217,7 +206,6 @@ bool DungeonF1::Update(float dt)
 			if (sceneManager->levers[0] != 1)
 			{
 				sceneManager->levers.clear();
-				//audio feedback
 
 				sceneManager->leverCro = false;
 				sceneManager->leverTri = false;
@@ -235,7 +223,6 @@ bool DungeonF1::Update(float dt)
 			if (sceneManager->levers[1] != 2)
 			{
 				sceneManager->levers.clear();
-				//audio feedback
 
 				sceneManager->leverCro = false;
 				sceneManager->leverTri = false;
@@ -252,7 +239,6 @@ bool DungeonF1::Update(float dt)
 			if (sceneManager->levers[2] != 3)
 			{
 				sceneManager->levers.clear();
-				//audio feedback
 
 				sceneManager->leverCro = false;
 				sceneManager->leverTri = false;
@@ -280,11 +266,13 @@ bool DungeonF1::Update(float dt)
 
 	if (map->doorHit)
 	{
-		// Swap WC -> End Scene
-		sceneManager->audio->PlayFx(stairsFx);
 		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < END_DOOR)) TransitionToScene(SceneType::ENDDEMO);
 		else if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x > HORIZONTAL_DOOR)) TransitionToScene(SceneType::DUNGEON_EXT);
-		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x < HORIZONTAL_DOOR) TransitionToScene(SceneType::DUNGEON_F2);
+		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x < HORIZONTAL_DOOR)
+		{
+			sceneManager->audio->PlayFx(sceneManager->stairsFx);
+			TransitionToScene(SceneType::DUNGEON_F2);
+		}
 
 		
 		map->doorHit = false;
@@ -358,14 +346,16 @@ bool DungeonF1::Unload()
 {
 	*sceneManager->previousScene = SceneType::DUNGEON_F1;
 
-	sceneManager->tex->UnLoad(doorTex);
-	sceneManager->tex->UnLoad(leverTex);
-
 	enemyEncounter = 0;
 
+	sceneManager->tex->UnLoad(doorTex);
+	sceneManager->tex->UnLoad(leverTex);
+	sceneManager->audio->UnloadFx(leverFx);
+
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+
+	sceneManager = nullptr;
 
 	return true;
 }

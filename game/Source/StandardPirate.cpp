@@ -35,24 +35,15 @@ StandardPirates::StandardPirates(Render* render, Textures* tex) : Enemy(EnemyTyp
     height = 32;
 
     //Drunk Customer stats
-    infoEntities.info.name = "Drunk Customer";
-    infoEntities.info.HP = 22;
-    infoEntities.info.LVL = 2;
-    infoEntities.stats.ATK = 8;
-    infoEntities.stats.DEF = 7;
-    infoEntities.stats.SPD = 4;
-    infoEntities.stats.LCK = 5;
+    infoEntities.info.name = "Standard Pirate";
+    infoEntities.info.HP = 1;
+    infoEntities.info.LVL = 1;
+    infoEntities.stats.ATK = 0;
+    infoEntities.stats.DEF = 0;
+    infoEntities.stats.SPD = 0;
+    infoEntities.stats.LCK = 0;
 
     // Define Player animations
-    standardPirateTexture = this->tex->Load("sprites/enemies/nme_aggressivedrunkman_w.png");
-
-    standardPirateAnim->loop = true;
-    standardPirateAnim->speed = 0.15f;
-
-    standardPirateAnim->PushBack({ 0, 0, 112, 128 });
-    standardPirateAnim->PushBack({ 112, 0, 112, 128 });
-    standardPirateAnim->PushBack({ 224, 0, 112, 128 });
-    standardPirateAnim->PushBack({ 112, 0, 112, 128 });
 
     //Define Hurt Texture
     hurtTexture = this->tex->Load("sprites/combat/cmb_hurt.png");
@@ -76,8 +67,9 @@ bool StandardPirates::Draw()
     {
         // TODO: Calculate the corresponding rectangle depending on the
         // animation state and animation frame
-        SDL_Rect rec = standardPirateAnim->GetCurrentFrame();
-        render->DrawTexture(standardPirateTexture, position.x, position.y, &rec);
+        SDL_Rect rec;
+
+        render->DrawRectangle(GetBounds(), 255, 0, 0, 255);
 
         rec = hurtAnim->GetCurrentFrame();
         render->DrawTexture(hurtTexture, position.x, position.y, &rec);
@@ -98,10 +90,10 @@ SDL_Rect StandardPirates::GetBounds()
 
 bool StandardPirates::UnLoad()
 {
-    tex->UnLoad(standardPirateTexture);
+    tex->UnLoad(hurtTexture);
 
-    delete standardPirateAnim;
-    standardPirateAnim = nullptr;
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
 
     return false;
 }

@@ -101,9 +101,11 @@ SDL_Rect GiantBat::GetBounds()
 bool GiantBat::UnLoad()
 {
     tex->UnLoad(giantBatTexture);
+    tex->UnLoad(hurtTexture);
 
-    delete giantBatAnim;
-    giantBatAnim = nullptr;
+    RELEASE(giantBatAnim);
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
 
     return false;
 }

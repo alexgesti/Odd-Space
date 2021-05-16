@@ -312,14 +312,13 @@ bool Exterior::Unload()
 
 	sceneManager->tex->UnLoad(texCrazyManCantina);
 
-	delete animCrazyManIdle;
-	animCrazyManIdle = nullptr;
-	delete animCrazyManWalkLeft;
-	animCrazyManWalkLeft = nullptr;
+	RELEASE(animCrazyManIdle);
+	RELEASE(animCrazyManWalkLeft);
 
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+	
+	sceneManager = nullptr;
 
 	return true;
 }

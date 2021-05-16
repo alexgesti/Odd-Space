@@ -16,6 +16,7 @@ public:
 
     bool Update(Input* input, int buttonSelected, float dt);
     bool Draw(Render* render, Font* font);
+    bool UnLoad();
 
 public:
 

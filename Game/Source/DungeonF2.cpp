@@ -24,7 +24,10 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 	}
 	name.Create("dungeon_f2");
 
-	stairsFx = sceneManager->audio->LoadFx("audio/fx/world_stairs.wav");
+	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png");
+
+	this->leverFx = sceneManager->audio->LoadFx("audio/fx/world_lever.wav");
+	this->winFx = sceneManager->audio->LoadFx("audio/fx/battle_win.wav");
 }
 
 // Destructor
@@ -33,8 +36,6 @@ DungeonF2::~DungeonF2()
 
 bool DungeonF2::Load()
 {
-
-
 	if (*sceneManager->previousScene == SceneType::DUNGEON_F1)
 	{
 		sceneManager->render->camera.x = 160;
@@ -62,9 +63,6 @@ bool DungeonF2::Load()
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(848, 1168);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
-
-
-
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
@@ -101,11 +99,202 @@ bool DungeonF2::Update(float dt)
 	if (sceneManager->render->camera.y < BOTTOM_CAMERA_LIMIT) sceneManager->render->camera.y = BOTTOM_CAMERA_LIMIT;
 	else if (sceneManager->render->camera.y > TOP_CAMERA_LIMIT) sceneManager->render->camera.y = TOP_CAMERA_LIMIT;
 
+	if (sceneManager->collision->currentInteraction != '/0')
+	{
+		SDL_Rect playerRect;
+		playerRect.x = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x;
+		playerRect.y = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y;
+		playerRect.w = playerRect.h = 32;
+
+		if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->interacting == true)
+		{
+			if (sceneManager->collision->currentInteraction == "palanca_1" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+				if (sceneManager->p1 == false) sceneManager->p1 = true;
+				else sceneManager->p1 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+			}
+			if (sceneManager->collision->currentInteraction == "palanca_2" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+
+				if (sceneManager->p2 == false) sceneManager->p2 = true;
+				else sceneManager->p2 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+
+			}
+			if (sceneManager->collision->currentInteraction == "palanca_3" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+
+				if (sceneManager->p3 == false) sceneManager->p3 = true;
+				else sceneManager->p3 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+
+			}
+			if (sceneManager->collision->currentInteraction == "palanca_4" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+
+				if (sceneManager->p4 == false) sceneManager->p4 = true;
+				else sceneManager->p4 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+
+			}
+			if (sceneManager->collision->currentInteraction == "palanca_5" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+
+				if (sceneManager->p5 == false) sceneManager->p5 = true;
+				else sceneManager->p5 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+
+			}
+			if (sceneManager->collision->currentInteraction == "palanca_6" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+
+				if (sceneManager->p6 == false) sceneManager->p6 = true;
+				else sceneManager->p6 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+
+			}
+			if (sceneManager->collision->currentInteraction == "palanca_7" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+
+				if (sceneManager->p7 == false) sceneManager->p7 = true;
+				else sceneManager->p7 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+
+			}
+			if (sceneManager->collision->currentInteraction == "palanca_8" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect))
+			{
+
+				if (sceneManager->p8 == false) sceneManager->p8 = true;
+				else sceneManager->p8 = false;
+
+				sceneManager->audio->PlayFx(leverFx);
+
+
+				sceneManager->toDrawX = false;
+
+				sceneManager->collision->currentInteraction = '/0';
+
+			}
+		}
+		// If conversation and WCfx ended draw X to interact again
+		if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
+	}
+
+	// If there's no interaction and X is being drawn, stop drawing it
+	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
+
+	// Lever Checker
+	// Plus 
+
+	if (sceneManager->seq1 == false && sceneManager->seq2 == false && sceneManager->seq3 == false)
+	{
+		if (sceneManager->p1 == false && sceneManager->p2 == true && sceneManager->p3 == false && sceneManager->p4 == true && sceneManager->p5 == false && sceneManager->p6 == true && sceneManager->p7 == false && sceneManager->p8 == true)
+		{
+			sceneManager->seq1 = true;
+			sceneManager->audio->PlayFx(winFx);
+			
+			// Reset
+			sceneManager->p1 = false;
+			sceneManager->p2 = false;
+			sceneManager->p3 = false;
+			sceneManager->p4 = false;
+			sceneManager->p5 = false;
+			sceneManager->p6 = false;
+			sceneManager->p7 = false;
+			sceneManager->p8 = false;
+		}
+	}
+
+	// Triangle
+
+	if (sceneManager->seq1 == true && sceneManager->seq2 == false && sceneManager->seq3 == false)
+	{
+		if (sceneManager->p1 == false && sceneManager->p2 == true && sceneManager->p3 == false && sceneManager->p4 == false && sceneManager->p5 == true && sceneManager->p6 == false && sceneManager->p7 == true && sceneManager->p8 == false)
+		{
+			sceneManager->seq2 = true;
+			sceneManager->audio->PlayFx(winFx);
+
+			// Reset
+			sceneManager->p1 = false;
+			sceneManager->p2 = false;
+			sceneManager->p3 = false;
+			sceneManager->p4 = false;
+			sceneManager->p5 = false;
+			sceneManager->p6 = false;
+			sceneManager->p7 = false;
+			sceneManager->p8 = false;
+		}
+	}
+
+	// Square
+
+	if (sceneManager->seq1 == true && sceneManager->seq2 == true && sceneManager->seq3 == false)
+	{
+		if (sceneManager->p1 == true && sceneManager->p2 == false && sceneManager->p3 == true && sceneManager->p4 == false && sceneManager->p5 == true && sceneManager->p6 == false && sceneManager->p7 == true && sceneManager->p8 == false)
+		{
+			sceneManager->seq3 = true;
+			sceneManager->audio->PlayFx(winFx);
+
+			// Reset
+			sceneManager->p1 = false;
+			sceneManager->p2 = false;
+			sceneManager->p3 = false;
+			sceneManager->p4 = false;
+			sceneManager->p5 = false;
+			sceneManager->p6 = false;
+			sceneManager->p7 = false;
+			sceneManager->p8 = false;
+		}
+	}
+
+	if (sceneManager->seq1 == true && sceneManager->seq2 == true && sceneManager->seq3 == true) sceneManager->door2Open;
+
 	if (map->doorHit)
 	{
 		// DUNGEON KEY -->  && (sceneManager->dungeonKey == true)
 		// Añadir feedback text y X button
-		sceneManager->audio->PlayFx(stairsFx);
+		sceneManager->audio->PlayFx(sceneManager->stairsFx);
 		TransitionToScene(SceneType::DUNGEON_F1);
 
 		map->doorHit = false;
@@ -129,8 +318,46 @@ bool DungeonF2::Update(float dt)
 
 bool DungeonF2::Draw()
 {
+	SDL_Rect leverTopUpRect = { 480,128,32, 64 };
+	SDL_Rect leverTopDownRect = { 544,128,32, 64 };
+
+	SDL_Rect leverRUpRect = { 304,160,48, 64 };
+	SDL_Rect leverRDownRect = { 432,160,48, 64 };
+
+	SDL_Rect leverLUpRect = { 96,160,48, 64 };
+	SDL_Rect leverLDownRect = { 224,160,48, 64 };
+
+	SDL_Rect leverBotUpRect = { 64,160,32, 64 };
+	SDL_Rect leverBotDownRect = { 32,160,32, 64 };
+
 	// Draw map
 	map->Draw(sceneManager->render);
+	
+	// Lever Draw
+
+	if(sceneManager->p1 == false) sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 208, 912, &leverTopDownRect);
+
+	if (sceneManager->p2 == false) sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 432, 912, &leverTopDownRect);
+
+	if (sceneManager->p3 == false) sceneManager->render->DrawTexture(leverTex, 656, 912, &leverTopUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 656, 912, &leverTopDownRect);
+
+	if (sceneManager->p4 == false) sceneManager->render->DrawTexture(leverTex, 912, 1392, &leverRUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 912, 1392, &leverRDownRect);
+
+	if (sceneManager->p5 == false) sceneManager->render->DrawTexture(leverTex, 656, 1760, &leverBotUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 656, 1760, &leverBotDownRect);
+
+	if (sceneManager->p6 == false) sceneManager->render->DrawTexture(leverTex, 432, 1760, &leverBotUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 432, 1760, &leverBotDownRect);
+
+	if (sceneManager->p7 == false) sceneManager->render->DrawTexture(leverTex, 208, 1760, &leverBotUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 208, 1760, &leverBotDownRect);
+
+	if (sceneManager->p8 == false) sceneManager->render->DrawTexture(leverTex, 0, 1392, &leverLUpRect);
+	else sceneManager->render->DrawTexture(leverTex, 0, 1392, &leverLDownRect);
 
 	sceneManager->entityManager->Draw();
 
@@ -141,11 +368,17 @@ bool DungeonF2::Unload()
 {
 	*sceneManager->previousScene = SceneType::DUNGEON_F2;
 
+	sceneManager->tex->UnLoad(leverTex);
+
+	sceneManager->audio->UnloadFx(leverFx);
+	sceneManager->audio->UnloadFx(winFx);
+
 	enemyEncounter = 0;
 
 	map->Unload();
-	delete map;
-	map = nullptr;
+	RELEASE(map);
+
+	sceneManager = nullptr;
 
 	return true;
 }

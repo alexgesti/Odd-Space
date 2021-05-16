@@ -76,7 +76,10 @@ bool ItemsMenu::Unload()
     sceneManager->openItems = false;
 
     for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
+    {
+        itemsButtons[i]->UnLoad();
         RELEASE(itemsButtons[i]);
+    }
 
     return true;
 }

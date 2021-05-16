@@ -22,10 +22,10 @@ bool PauseMenu::Load()
     buttonItems->SetObserver(this);
     buttonSkills = new GuiButton(2, { 90, 203, 240, 81 }, "Skills", sceneManager->audio);
     buttonSkills->SetObserver(this);
-    buttonSkills->state = GuiControlState::DISABLED;
+    buttonSkills->disabled = true;
     buttonEquip = new GuiButton(3, { 90, 297, 240, 81 }, "Equipment", sceneManager->audio);
     buttonEquip->SetObserver(this);
-    buttonEquip->state = GuiControlState::DISABLED;
+    buttonEquip->disabled = true;
     buttonSettings = new GuiButton(4, { 90, 391, 240, 81 }, "Settings", sceneManager->audio);
     buttonSettings->SetObserver(this);
     buttonSave = new GuiButton(5, { 90, 485, 240, 81 }, "Save", sceneManager->audio);
@@ -154,18 +154,18 @@ bool PauseMenu::Unload()
     if (sceneManager->openOptions) sceneManager->options->Unload();
     if (sceneManager->openItems) sceneManager->items->Unload();
 
-    delete buttonItems;
-    buttonItems = nullptr;
-    delete buttonSkills;
-    buttonSkills = nullptr;
-    delete buttonEquip;
-    buttonEquip = nullptr;
-    delete buttonSettings;
-    buttonSettings = nullptr;
-    delete buttonSave;
-    buttonSave = nullptr;
-    delete buttonLoad;
-    buttonLoad = nullptr;
+    buttonItems->UnLoad();
+    RELEASE(buttonItems);
+    buttonSkills->UnLoad();
+    RELEASE(buttonSkills);
+    buttonEquip->UnLoad();
+    RELEASE(buttonEquip);
+    buttonSettings->UnLoad();
+    RELEASE(buttonSettings);
+    buttonSave->UnLoad();
+    RELEASE(buttonSave);
+    buttonLoad->UnLoad();
+    RELEASE(buttonLoad);
 
     return true;
 }
