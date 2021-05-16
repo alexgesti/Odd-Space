@@ -25,7 +25,7 @@ bool Logo::Load()
 {
     logo = sceneManager->tex->Load("assets/sprites/Logo/logo_chaoticevil.png");
 
-    temporalLogoSound = sceneManager->audio->LoadFx("Assets/Audio/Fx/battle_win_music.wav");
+    temporalLogoSound = sceneManager->audio->LoadFx("Assets/Audio/Fx/logo_honk.wav");
     return true;
 }
 
@@ -45,6 +45,7 @@ bool Logo::Update(float dt)
     else if (state == 1)
     {
         logoAlpha += (LOGO_FADE_SPEED * dt);
+        angle += 12,5 * dt;
 
         if (logoAlpha > 1.0f)
         {
@@ -62,6 +63,7 @@ bool Logo::Update(float dt)
     else if (state == 3)
     {
         logoAlpha -= (LOGO_FADE_SPEED * dt);
+        angle -= 12,5 * dt;
 
         if (logoAlpha < 0.0f)
         {
@@ -78,7 +80,7 @@ bool Logo::Draw()
     sceneManager->render->DrawRectangle({ 0, 0, 1280, 720 }, 0, 0, 0, 255);
 
     SDL_SetTextureAlphaMod(logo, logoAlpha * 255);
-    sceneManager->render->DrawTexture(logo, sceneManager->render->camera.w / 2 - 600 / 2, sceneManager->render->camera.h / 2 - 561 / 2, NULL);
+    sceneManager->render->DrawTexture(logo, sceneManager->render->camera.w / 2 - 600 / 2, sceneManager->render->camera.h / 2 - 561 / 2, NULL, 1, angle);
 
     return true;
 }

@@ -57,12 +57,6 @@ bool Title::Update(float dt)
 
     GamePad& pad = sceneManager->input->pads[0];
 
-    if (oneTime)
-    {
-        sceneManager->audio->PlayFx(temporalAppearTitle);
-        oneTime = false;
-    }
-
     if(sceneManager->openOptions)
     {
         if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
@@ -89,6 +83,7 @@ bool Title::Update(float dt)
     if (pos1 <= 0)
     {
         pos1 = 2560;
+        sceneManager->audio->PlayFx(temporalAppearTitle);
     }
     else pos1 -= 1 * dt;
 

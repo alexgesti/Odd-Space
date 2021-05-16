@@ -38,6 +38,7 @@ private:
     int state;
     float timeCounter;
     float logoAlpha;  
+    float angle;
 
     int temporalLogoSound = 0;
 };
