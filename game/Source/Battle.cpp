@@ -30,23 +30,23 @@ bool Battle::Load()
     case SceneType::CANTINA:
         map->Load("combat_cantina_interior.tmx") == true;
             break;
+    case SceneType::WC:
+        map->Load("combat_cantina_interior.tmx") == true;
+        break;
     case SceneType::EXTERIOR:
         map->Load("combat_cantina_exterior.tmx") == true;
         break;
+    case SceneType::DUNGEON_EXT:
+        map->Load("combat_dungeon.tmx") == true;
+        break;
+    case SceneType::DUNGEON_F1:
+        map->Load("combat_dungeon.tmx") == true;
+        break;
+    case SceneType::DUNGEON_F2:
+        map->Load("combat_dungeon.tmx") == true;
+        break;
     default:
         break;
-    }
-    else if (*sceneManager->entityManager->previousScene == SceneType::DUNGEON_EXT ||
-        *sceneManager->entityManager->previousScene == SceneType::DUNGEON_F1 ||
-        *sceneManager->entityManager->previousScene == SceneType::DUNGEON_F2)
-    {
-        if (map->Load("combat_dungeon.tmx") == true)
-        {
-            /*int w, h;
-            uchar* data = NULL;
-
-            RELEASE_ARRAY(data);*/
-        }
     }
 
     fx.loseFx = sceneManager->audio->LoadFx("assets/audio/fx/battle_lose.wav");
