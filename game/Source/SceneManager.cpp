@@ -86,6 +86,7 @@ bool SceneManager::Start()
 	current->Load();
 
 	debug = new Debug(this);
+	debug->Load();
 	options = new OptionsMenu(this);
 	items = new ItemsMenu(this);
 	pause = new PauseMenu(this);

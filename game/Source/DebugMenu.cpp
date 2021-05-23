@@ -22,48 +22,48 @@ bool Debug::Load()
     debug.clipping = false;
 
     // Debug
-    debug.noClip = new GuiCheckBox(1, { 375, 15, 32, 80 }, "noClip", sceneManager->audio);
+    debug.noClip = new GuiCheckBox(1, { 815, 0, 32, 60 }, "noClip", sceneManager->audio);
     debug.noClip->SetObserver(this);
     controllerMenu[0][0] = 1;
 
-    debug.godMode = new GuiCheckBox(2, { 375, 95, 32, 80 }, "GodMode", sceneManager->audio);
+    debug.godMode = new GuiCheckBox(2, { 815, 60, 32, 60 }, "GodMode", sceneManager->audio);
     debug.godMode->SetObserver(this);
     controllerMenu[1][0] = 2;
 
-    debug.dialogue = new GuiCheckBox(3, { 375, 255, 32, 80 }, "Dialogue", sceneManager->audio);
+    debug.dialogue = new GuiCheckBox(3, { 815, 120, 32, 60 }, "Dialogue", sceneManager->audio);
     debug.dialogue->SetObserver(this);
     controllerMenu[2][0] = 3;
 
-    debug.colliders = new GuiCheckBox(4, { 375, 255, 32, 80 }, "Colliders", sceneManager->audio);
+    debug.colliders = new GuiCheckBox(4, { 815, 180, 32, 60 }, "Colliders", sceneManager->audio);
     debug.colliders->SetObserver(this);
     controllerMenu[3][0] = 4;
 
-    debug.battle = new GuiButton(5, { 375, 335, 32, 80 }, "Start Battle", sceneManager->audio);
+    debug.battle = new GuiButton(5, { 640, 240, 320, 60 }, "Start Battle", sceneManager->audio, false);
     debug.battle->SetObserver(this);
     controllerMenu[4][0] = 5;
 
     // Scene
-    scene.exterior = new GuiButton(6, { 195, 15, 180, 80 }, "Exterior", sceneManager->audio);
+    scene.exterior = new GuiButton(6, { 960, 0, 320, 60 }, "Exterior", sceneManager->audio, false);
     scene.exterior->SetObserver(this);
     controllerMenu[0][1] = 6;
 
-    scene.cantina = new GuiButton(7, { 195, 95, 180, 80 }, "Cantina", sceneManager->audio);
+    scene.cantina = new GuiButton(7, { 960, 60, 320, 60 }, "Cantina", sceneManager->audio, false);
     scene.cantina->SetObserver(this);
     controllerMenu[1][1] = 7;
 
-    scene.wc = new GuiButton(8, { 195, 175, 180, 80 }, "WC", sceneManager->audio);
+    scene.wc = new GuiButton(8, { 960, 120, 320, 60 }, "WC", sceneManager->audio, false);
     scene.wc->SetObserver(this);
     controllerMenu[2][1] = 8;
 
-    scene.dungeonExt = new GuiButton(9, { 195, 255, 180, 80 }, "External Dungeon", sceneManager->audio);
+    scene.dungeonExt = new GuiButton(9, { 960, 180, 320, 60 }, "External Dungeon", sceneManager->audio, false);
     scene.dungeonExt->SetObserver(this);
     controllerMenu[3][1] = 9;
 
-    scene.dungeonF1 = new GuiButton(10, { 195, 335, 180, 80 }, "F1 Dungeon", sceneManager->audio);
+    scene.dungeonF1 = new GuiButton(10, { 960, 240, 320, 60 }, "F1 Dungeon", sceneManager->audio, false);
     scene.dungeonF1->SetObserver(this);
     controllerMenu[4][1] = 10;
 
-    scene.dungeonF2 = new GuiButton(11, { 195, 415, 180, 80 }, "F2 Dungeon", sceneManager->audio);
+    scene.dungeonF2 = new GuiButton(11, { 960, 300, 320, 60 }, "F2 Dungeon", sceneManager->audio, false);
     scene.dungeonF2->SetObserver(this);
     controllerMenu[5][1] = 11;
 
@@ -92,11 +92,11 @@ bool Debug::Update(float dt)
     if (c < 0) c = 1;
     switch (c)
     {
-    case 1:
+    case 0:
         if (f > 4) f = 0;
         if (f < 0) f = 4;
         break;
-    case 2:
+    case 1:
         if (f > 5) f = 0;
         if (f < 0) f = 5;
         break;
@@ -120,18 +120,18 @@ bool Debug::Update(float dt)
 
 bool Debug::Draw()
 {
-    sceneManager->render->DrawRectangle({ 390, 0, 375, 655 }, 255, 255, 255, 150);
+    sceneManager->render->DrawRectangle({ sceneManager->render->camera.w / 2, -sceneManager->render->camera.y, 675, 360 }, 0, 0, 0, 175);
 
-    sceneManager->render->DrawText(sceneManager->font, "noClip", 375, 15, 80/3, 0, { 255, 255, 255, 255 });
+    sceneManager->render->DrawText(sceneManager->font, "noClip", 645, 22, 60 / 3, 0, { 255, 255, 255, 255 });
     debug.noClip->Draw(sceneManager->render, texture);
 
-    sceneManager->render->DrawText(sceneManager->font, "GodMode", 375, 95, 80 / 3, 0, { 255, 255, 255, 255 });
+    sceneManager->render->DrawText(sceneManager->font, "GodMode", 645, 82, 60 / 3, 0, { 255, 255, 255, 255 });
     debug.godMode->Draw(sceneManager->render, texture);
 
-    sceneManager->render->DrawText(sceneManager->font, "Dialogue", 375, 15, 80 / 3, 0, { 255, 255, 255, 255 });
+    sceneManager->render->DrawText(sceneManager->font, "Dialogue", 645, 142, 60 / 3, 0, { 255, 255, 255, 255 });
     debug.dialogue->Draw(sceneManager->render, texture);
 
-    sceneManager->render->DrawText(sceneManager->font, "Colliders", 375, 95, 80 / 3, 0, { 255, 255, 255, 255 });
+    sceneManager->render->DrawText(sceneManager->font, "Colliders", 645, 202, 60 / 3, 0, { 255, 255, 255, 255 });
     debug.colliders->Draw(sceneManager->render, texture);
 
     debug.battle->Draw(sceneManager->render, sceneManager->font);
