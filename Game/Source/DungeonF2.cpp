@@ -86,15 +86,6 @@ bool DungeonF2::Update(float dt)
 {
 	sceneManager->collision->CheckCollision(map);
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
-	{
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-		sceneManager->render->prevCam.y = sceneManager->render->camera.y;
-		TransitionToScene(SceneType::BATTLE);
-	}
-
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
-
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;
 
@@ -355,8 +346,6 @@ bool DungeonF2::Update(float dt)
 		if (enemyEncounter > rand() % (8500) + 1500)
 		{
 			enemyEncounter = 0;
-			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-			sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
@@ -384,7 +373,7 @@ bool DungeonF2::Draw()
 	SDL_Rect wall = { 0, 0, 960, 1824 };
 
 	// Draw map
-	map->Draw(sceneManager->render);
+	map->Draw(sceneManager->render, sceneManager->drawColliders);
 	
 	// Lever Draw
 

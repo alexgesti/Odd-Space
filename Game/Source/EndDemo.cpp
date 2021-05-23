@@ -22,6 +22,12 @@ bool EndDemo::Load()
     sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
     sceneManager->render->camera = { 0, 0 };
 
+    if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
+        sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
+
+    if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
+        sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;
+
     // Buttons
     buttons.buttonPlay = new GuiButton(1, { (1280 / 2) - 244 - 100, (720 / 2) + 64 + 150, 224, 64 }, "Retry", sceneManager->audio);
     buttons.buttonPlay->SetObserver(this);

@@ -15,15 +15,8 @@
 enum class GuiControlType
 {
     BUTTON,
-    TOGGLE,
     CHECKBOX,
     SLIDER,
-    SLIDERBAR,
-    COMBOBOX,
-    DROPDOWNBOX,
-    INPUTBOX,
-    VALUEBOX,
-    SPINNER
 };
 
 enum class GuiControlState

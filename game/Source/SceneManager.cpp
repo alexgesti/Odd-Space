@@ -9,6 +9,7 @@
 #include "PauseMenu.h"
 #include "OptionsMenu.h"
 #include "ItemsMenu.h"
+#include "DebugMenu.h"
 #include "DungeonExt.h"
 #include "DungeonF1.h"
 #include "DungeonF2.h"
@@ -84,6 +85,7 @@ bool SceneManager::Start()
 
 	current->Load();
 
+	debug = new Debug(this);
 	options = new OptionsMenu(this);
 	items = new ItemsMenu(this);
 	pause = new PauseMenu(this);
@@ -140,25 +142,17 @@ bool SceneManager::Update(float dt)
 
 	if (!onTransition)
 	{
-		//General Debug Keys
-		if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN) dialogueSystem->inConversation = !dialogueSystem->inConversation;
-
-		if (input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN)
-			win->ToggleFullscreen(win->window);
-
-		if (input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		if ((input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_GUIDE) == KEY_DOWN) &&
+			(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE))
 		{
-			entityManager->CreateEntity(EntityType::HERO)->noClip = !entityManager->CreateEntity(EntityType::HERO)->noClip;
-		}
-
-		if (entityManager->CreateEntity(EntityType::HERO)->noClip == true)
-		{
-			for (int p = 0; p < entityManager->entities[0].Count(); p++)
-				entityManager->entities[0].At(p)->data->infoEntities.info.HP = entityManager->entities[0].At(p)->data->infoEntities.info.maxHP;
+			isDebug = !isDebug;
+			if (isPause) isPause = false;
+			if(isDebug) entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
+			else entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 		}
 
 		if ((input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) &&
-			(currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE))
+			(currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && !isDebug))
 		{
 			isPause = !isPause;
 			if (!isPause)
@@ -171,7 +165,8 @@ bool SceneManager::Update(float dt)
 			
 		}
 
-		if (isPause) pause->Update(dt);
+		if (isDebug) debug->Update(dt);
+		else if (isPause) pause->Update(dt);
 		else
 		{
 			if (pauseMusicFaded)
@@ -285,6 +280,7 @@ bool SceneManager::Update(float dt)
 	// Draw full screen rectangle in front of everything
 	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y + altura, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
 
+	if (isDebug) debug->Draw();
 	if (isPause) pause->Draw();
 
 	if(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && currentscenetype != SceneType::ENDDEMO && !isPause) questSystem->Draw(render, font);
@@ -362,6 +358,9 @@ bool SceneManager::CleanUp()
 	if (openOptions) options->Unload();
 	if (openOptions) items->Unload();
 	pause->Unload();
+	RELEASE(pause);
+	debug->Unload();
+	RELEASE(debug);
 
 	audio->UnloadFx(doorClose);
 	audio->UnloadFx(doorOpen);

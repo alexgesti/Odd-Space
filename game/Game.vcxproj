@@ -98,6 +98,7 @@
     <ClCompile Include="Source\Assets.cpp" />
     <ClCompile Include="Source\Battle.cpp" />
     <ClCompile Include="Source\CookedPlate.cpp" />
+    <ClCompile Include="Source\DebugMenu.cpp" />
     <ClCompile Include="Source\DialogSystem.cpp" />
     <ClCompile Include="Source\DrunkCustomer.cpp" />
     <ClCompile Include="Source\DungeonExt.cpp" />
@@ -147,6 +148,7 @@
     <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Battle.h" />
     <ClInclude Include="Source\CookedPlate.h" />
+    <ClInclude Include="Source\DebugMenu.h" />
     <ClInclude Include="Source\DialogSystem.h" />
     <ClInclude Include="Source\DungeonExt.h" />
     <ClInclude Include="Source\DungeonF1.h" />

@@ -70,11 +70,13 @@ public:
 	Scene* pause;
 	Scene* options;
 	Scene* items;
+	Scene* debug;
 
 	Font* font;
 
 	bool toDrawX = false;
 	bool isPause = false;
+	bool isDebug = false;
 	bool pauseMusicFaded = false;
 
 	bool gameIsWorking = true;
@@ -109,7 +111,6 @@ public:
 	bool door2Open = false;
 
 	// F2
-
 	bool p1 = false;
 	bool p2 = false;
 	bool p3 = false;
@@ -128,7 +129,7 @@ public:
 	bool crazyManActive = true;
 	bool crazyManDrawable = true;
 
-	//sounds
+	//Sounds
 	int doorClose;
 	int doorOpen;
 	int stairsFx;
@@ -136,10 +137,13 @@ public:
 	int battleEncounter;
 	bool oneTimeBattleMusic;
 	
+	//Options
 	int volumeMusic;
 	int volumeFx;
 	bool fullscreenCheck = false;
 	bool VSyncCheck = true;
+
+	bool drawColliders = false;
 
 	// --- SCENE-SPECIFIC VARIABLES --- //
 	bool initialExtTextSaid = false;

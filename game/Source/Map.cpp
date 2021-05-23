@@ -242,7 +242,7 @@ void Map::PropagateAStar(int heuristic)
 */
 
 // Draw the map (all requried layers)
-void Map::Draw(Render* render)
+void Map::Draw(Render* render, bool drawColliders)
 {
 	if (mapLoaded == false) return;
 

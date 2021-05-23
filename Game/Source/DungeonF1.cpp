@@ -91,16 +91,6 @@ bool DungeonF1::Update(float dt)
 {
 	sceneManager->collision->CheckCollision(map);
 
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
-	{
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-		sceneManager->render->prevCam.x = sceneManager->render->camera.x;
-		sceneManager->render->prevCam.y = sceneManager->render->camera.y;
-		TransitionToScene(SceneType::BATTLE);
-	}
-
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
-
 	// Camera moves with player when it is at the middle of the screen
 	sceneManager->render->camera.x = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x + sceneManager->render->camera.w / 2;
 	sceneManager->render->camera.y = -sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y + sceneManager->render->camera.h / 2;
@@ -200,11 +190,7 @@ bool DungeonF1::Update(float dt)
 				sceneManager->leverTri = false;
 				sceneManager->leverCir = false;
 
-				sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-				sceneManager->render->prevCam.x = sceneManager->render->camera.x;
-				sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 				TransitionToScene(SceneType::BATTLE);
-
 			}
 		}
 		if (sceneManager->levers.size() == 2)
@@ -217,9 +203,6 @@ bool DungeonF1::Update(float dt)
 				sceneManager->leverTri = false;
 				sceneManager->leverCir = false;
 
-				sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-				sceneManager->render->prevCam.x = sceneManager->render->camera.x;
-				sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 				TransitionToScene(SceneType::BATTLE);
 			}
 		}
@@ -233,9 +216,6 @@ bool DungeonF1::Update(float dt)
 				sceneManager->leverTri = false;
 				sceneManager->leverCir = false;
 
-				sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-				sceneManager->render->prevCam.x = sceneManager->render->camera.x;
-				sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 				TransitionToScene(SceneType::BATTLE);
 			}
 		}
@@ -285,9 +265,6 @@ bool DungeonF1::Update(float dt)
 		if (enemyEncounter > rand() % (8500) + 1500)
 		{
 			enemyEncounter = 0;
-			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-			sceneManager->render->prevCam.x = sceneManager->render->camera.x;
-			sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
@@ -303,7 +280,7 @@ bool DungeonF1::Draw()
 	SDL_Rect leverDownRect = { 544,128,32, 64 };
 
 	// Draw map
-	map->Draw(sceneManager->render);
+	map->Draw(sceneManager->render, sceneManager->drawColliders);
 	
 	if (sceneManager->door1Open == false) sceneManager->render->DrawTexture(doorTex, 384, 1152, &door1Rect);
 	if (sceneManager->door2Open == false) sceneManager->render->DrawTexture(doorTex, 384, 704, &door2Rect);

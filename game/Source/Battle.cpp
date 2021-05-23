@@ -25,6 +25,10 @@ Battle::~Battle()
 
 bool Battle::Load()
 {
+    sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
+    sceneManager->render->prevCam.y = sceneManager->render->camera.y;
+    sceneManager->render->prevCam.y = sceneManager->render->camera.y;
+
     switch (*sceneManager->entityManager->previousScene)
     {
     case SceneType::CANTINA:
@@ -366,7 +370,7 @@ bool Battle::Update(float dt)
 bool Battle::Draw()
 {
     // BG
-    map->Draw(sceneManager->render);
+    map->Draw(sceneManager->render, sceneManager->drawColliders);
 
     sceneManager->entityManager->Draw();
 
@@ -516,12 +520,6 @@ bool Battle::Unload()
     }
     buttons.buttonsEnemies.buttonBack->UnLoad();
     RELEASE(buttons.buttonsEnemies.buttonBack);
-    
-    /*if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
-        sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP;
-
-    if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
-        sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP = sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP;*/
 
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;

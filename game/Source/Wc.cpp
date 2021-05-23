@@ -101,19 +101,6 @@ bool Wc::Update(float dt)
 {
 	sceneManager->collision->CheckCollision(map);
 
-	// L02: DONE 3: Request Load / Save when pressing L/S
-	//if (input->GetKey(SDL_SCANCODE_L) == KEY_DOWN) app->LoadGameRequest();
-	//if (input->GetKey(SDL_SCANCODE_S) == KEY_DOWN) app->SaveGameRequest();
-
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
-	{
-		sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-		sceneManager->render->prevCam.y = sceneManager->render->camera.y;
-		TransitionToScene(SceneType::BATTLE);
-	}
-
-	if (sceneManager->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) map->drawColliders = !map->drawColliders;
-
 	if (sceneManager->collision->currentInteraction != '/0')
 	{
 		SDL_Rect playerRect;
@@ -169,8 +156,6 @@ bool Wc::Update(float dt)
 		if (enemyEncounter > rand() % (8500) + 1500)
 		{
 			enemyEncounter = 0;
-			sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-			sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 			TransitionToScene(SceneType::BATTLE);
 		}
 	}
@@ -181,7 +166,7 @@ bool Wc::Update(float dt)
 bool Wc::Draw()
 {
 	// Draw map
-	map->Draw(sceneManager->render);
+	map->Draw(sceneManager->render, sceneManager->drawColliders);
 
 	//player->Draw(render);
 

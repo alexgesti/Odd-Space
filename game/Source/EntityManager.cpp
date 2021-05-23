@@ -254,7 +254,6 @@ bool EntityManager::Draw()
 // Destroy an existing Entity
 bool EntityManager::DestroyEntity(int i)
 {
-
 	ListItem<Entity*>* list = NULL;
 	list = entities[i].start;
 
