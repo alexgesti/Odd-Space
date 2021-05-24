@@ -19,8 +19,7 @@ GiantBat* GiantBat::GetInstance(Render* render,Textures* tex)
 // Instance reseter
 void GiantBat::ResetInstance()
 {
-    delete instance;
-    instance = nullptr;
+    RELEASE(instance);
 }
 // Constructor
 GiantBat::GiantBat(Render* render, Textures* tex) : Enemy(EnemyType::GIANTBAT)

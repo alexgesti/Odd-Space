@@ -19,8 +19,7 @@ MutantRat* MutantRat::GetInstance(Render* render, Textures* tex)
 // Instance reseter
 void MutantRat::ResetInstance()
 {
-    delete instance;
-    instance = nullptr;
+    RELEASE(instance);
 }
 // Constructor
 MutantRat::MutantRat(Render* render, Textures* tex) : Enemy(EnemyType::MUTANTRAT)

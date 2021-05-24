@@ -87,12 +87,10 @@ bool EndDemo::Unload()
     sceneManager->tex->UnLoad(bgTitle);
     sceneManager->tex->UnLoad(titleName);
 
-    if (sceneManager->openOptions) sceneManager->options->Unload();
-
-    delete buttons.buttonPlay;
-    buttons.buttonPlay = nullptr;
-    delete buttons.buttonExit;
-    buttons.buttonExit = nullptr;
+    buttons.buttonPlay->UnLoad();
+    RELEASE(buttons.buttonPlay);
+    buttons.buttonExit->UnLoad();
+    RELEASE(buttons.buttonExit);
     return false;
 }
 

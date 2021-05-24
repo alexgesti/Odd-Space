@@ -20,8 +20,6 @@ DrunkCustomer* DrunkCustomer::GetInstance(Render* render, Textures* tex)
 void DrunkCustomer::ResetInstance()
 {
     RELEASE(instance);
-    //delete instance;
-    //instance = nullptr;
 }
 // Constructor
 DrunkCustomer::DrunkCustomer(Render* render, Textures* tex) : Enemy(EnemyType::DRUNKCUSTOMER)

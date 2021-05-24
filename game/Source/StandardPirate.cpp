@@ -19,8 +19,7 @@ StandardPirates* StandardPirates::GetInstance(Render* render, Textures* tex)
 // Instance reseter
 void StandardPirates::ResetInstance()
 {
-    delete instance;
-    instance = nullptr;
+    RELEASE(instance);
 }
 // Constructor
 StandardPirates::StandardPirates(Render* render, Textures* tex) : Enemy(EnemyType::STANDARTPIRATE)

@@ -380,6 +380,8 @@ bool SceneManager::CleanUp()
 	audio->UnloadFx(battleEncounter);
 	audio->UnloadFx(stairsFx);
 
+	dialogueSystem->CleanUp();
+
 	tex->UnLoad(xMark);
 
 	return true;

@@ -260,7 +260,7 @@ bool EntityManager::DestroyEntity(int i)
 	while (list != NULL)
 	{
 		list->data->UnLoad();
-		if (list->next == NULL) list->data->ResetInstance();
+		RELEASE(list->data);
 		list = list->next;
 	}
 

@@ -192,7 +192,7 @@ bool DialogueSystem::CleanUp()
 		for (int j = 0; j < dialogueTrees[i]->dialogueNodes.size(); j++) delete dialogueTrees[i]->dialogueNodes[j];
 
 		dialogueTrees[i]->dialogueNodes.clear();
-		delete dialogueTrees[i];
+		RELEASE(dialogueTrees[i]);
 	}
 	dialogueTrees.clear();
 

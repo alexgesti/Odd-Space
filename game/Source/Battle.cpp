@@ -184,7 +184,7 @@ bool Battle::Load()
     f = 0;
     c = 0;
 
-    sceneManager ->audio->PlayMusic("audio/music/battle_music.ogg", 2);
+    sceneManager->audio->PlayMusic("audio/music/battle_music.ogg", 2);
 
     return false;
 }

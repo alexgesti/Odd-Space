@@ -14,8 +14,9 @@ public:
 
     // Get unique instance of the class
     static DrunkCustomer* GetInstance(Render* render, Textures* tex);
+    
     // Delete the instance
-    static void ResetInstance();
+    void ResetInstance();
 
 
     bool Update(float dt);
