@@ -206,14 +206,14 @@ void Player::UpdateState()
             ChangeState(state, GOD_MODE);
             break;
         }
-        if (transitioning || inConversation)
-        {
-            ChangeState(state, FROZEN);
-            break;
-        }
-        if (inBattle)
+        else if (inBattle)
         {
             ChangeState(state, BATTLE);
+            break;
+        }
+        else if (transitioning || inConversation)
+        {
+            ChangeState(state, FROZEN);
             break;
         }
 
@@ -398,11 +398,6 @@ void Player::UpdateState()
             ChangeState(state, IDLE);
             break;
         }
-        if (inBattle)
-        {
-            ChangeState(state, BATTLE);
-            break;
-        }
 
         break;
     }
@@ -444,7 +439,6 @@ void Player::UpdateLogic(float dt)
     {
     case IDLE:
     {
-        noClip = false;
         currentAnimation->Update();
 
         break;
@@ -648,7 +642,6 @@ void Player::ChangeState(HeroState previousState, HeroState newState)
     case BATTLE:
     {
         currentAnimation = animHeroIdleRight;
-        noClip = false;
         break;
     }
     default:

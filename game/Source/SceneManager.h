@@ -141,9 +141,9 @@ public:
 	int volumeMusic;
 	int volumeFx;
 	bool fullscreenCheck = false;
-	bool VSyncCheck = true;
 
 	bool drawColliders = false;
+	bool beGod = false;
 
 	// --- SCENE-SPECIFIC VARIABLES --- //
 	bool initialExtTextSaid = false;

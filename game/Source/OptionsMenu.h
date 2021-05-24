@@ -39,7 +39,7 @@ private:
 
     SceneManager* sceneManager;
 
-    int f;
+    int c;
     int fmax;
     int buttonOption[5] = { 1, 2, 3, 4, 5 };
 

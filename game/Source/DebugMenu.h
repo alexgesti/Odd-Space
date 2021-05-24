@@ -46,9 +46,6 @@ private:
         GuiCheckBox* dialogue;
         GuiCheckBox* colliders;
         GuiButton* battle;
-
-        bool beGod;
-        bool clipping;
     }debug;
 
     struct SceneButtons

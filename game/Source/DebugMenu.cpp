@@ -18,9 +18,6 @@ bool Debug::Load()
 {
     texture = sceneManager->tex->Load("sprites/ui/ui_menupause.png");
 
-    debug.beGod = false;
-    debug.clipping = false;
-
     // Debug
     debug.noClip = new GuiCheckBox(1, { 815, 0, 32, 60 }, "noClip", sceneManager->audio);
     debug.noClip->SetObserver(this);
@@ -103,8 +100,8 @@ bool Debug::Update(float dt)
     default:break;
     }
 
-    debug.noClip->Update(sceneManager->input, &debug.clipping, controllerMenu[f][c], dt);
-    debug.godMode->Update(sceneManager->input, &debug.beGod, controllerMenu[f][c], dt);
+    debug.noClip->Update(sceneManager->input, &sceneManager->entityManager->CreateEntity(EntityType::HERO)->noClip, controllerMenu[f][c], dt);
+    debug.godMode->Update(sceneManager->input, &sceneManager->beGod, controllerMenu[f][c], dt);
     debug.dialogue->Update(sceneManager->input, &sceneManager->dialogueSystem->inConversation, controllerMenu[f][c], dt);
     debug.colliders->Update(sceneManager->input, &sceneManager->drawColliders, controllerMenu[f][c], dt);
     debug.battle->Update(sceneManager->input, controllerMenu[f][c], dt);
@@ -120,7 +117,7 @@ bool Debug::Update(float dt)
 
 bool Debug::Draw()
 {
-    sceneManager->render->DrawRectangle({ sceneManager->render->camera.w / 2, -sceneManager->render->camera.y, 675, 360 }, 0, 0, 0, 175);
+    sceneManager->render->DrawRectangle({ -sceneManager->render->camera.x + 615, -sceneManager->render->camera.y, 675, 360 }, 0, 0, 0, 175);
 
     sceneManager->render->DrawText(sceneManager->font, "noClip", 645, 22, 60 / 3, 0, { 255, 255, 255, 255 });
     debug.noClip->Draw(sceneManager->render, texture);
@@ -199,27 +196,26 @@ bool Debug::OnGuiMouseClickEvent(GuiControl* control)
 {
     switch (control->id)
     {
-    case 1:
-        break;
-    case 2:
-        break;
-    case 3:
-        break;
-    case 4:
-        break;
     case 5:
+        TransitionToScene(SceneType::BATTLE);
         break;
     case 6:
+        TransitionToScene(SceneType::EXTERIOR);
         break;
     case 7:
+        TransitionToScene(SceneType::CANTINA);
         break;
     case 8:
+        TransitionToScene(SceneType::WC);
         break;
     case 9:
+        TransitionToScene(SceneType::DUNGEON_EXT);
         break;
     case 10:
+        TransitionToScene(SceneType::DUNGEON_F1);
         break;
     case 11:
+        TransitionToScene(SceneType::DUNGEON_F2);
         break;
     default: break;
     }

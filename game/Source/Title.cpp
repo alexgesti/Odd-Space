@@ -83,7 +83,11 @@ bool Title::Update(float dt)
     if (pos1 <= 0)
     {
         pos1 = 2560;
-        sceneManager->audio->PlayFx(temporalAppearTitle);
+        if (!once)
+        {
+            sceneManager->audio->PlayFx(temporalAppearTitle);
+            once = true;
+        }
     }
     else pos1 -= 1 * dt;
 

@@ -29,7 +29,7 @@ bool OptionsMenu::Load()
     exit = new GuiButton(5, { 350, 550, 240, 81 }, "Exit game", sceneManager->audio);
     exit->SetObserver(this);
 
-    f = 0;
+    c = 0;
 
     return true;
 }
@@ -39,28 +39,28 @@ bool OptionsMenu::Update(float dt)
     GamePad& pad = sceneManager->input->pads[0];
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-        f++;
+        c++;
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-        f--;
+        c--;
 
     //Establecer limites fila/columna botones
     if (sceneManager->currentscenetype != SceneType::TITLE)
     {
-        if (f > 4) f = 0;
-        if (f < 0) f = 4;
+        if (c > 4) c = 0;
+        if (c < 0) c = 4;
     }
     else
     {
-        if (f > 3) f = 0;
-        if (f < 0) f = 3;
+        if (c > 3) c = 0;
+        if (c < 0) c = 3;
     }
 
-    fullScreen->Update(sceneManager->input, &sceneManager->fullscreenCheck, buttonOption[f], dt);
-    VSync->Update(sceneManager->input, &sceneManager->VSyncCheck, buttonOption[f], dt);
-    music->Update(sceneManager->input, buttonOption[f], dt);
-    fx->Update(sceneManager->input, buttonOption[f], dt);
-    exit->Update(sceneManager->input, buttonOption[f], dt);
+    fullScreen->Update(sceneManager->input, &sceneManager->fullscreenCheck, buttonOption[c], dt);
+    VSync->Update(sceneManager->input, &sceneManager->capped, buttonOption[c], dt);
+    music->Update(sceneManager->input, buttonOption[c], dt);
+    fx->Update(sceneManager->input, buttonOption[c], dt);
+    exit->Update(sceneManager->input, buttonOption[c], dt);
 
     return true;
 }
@@ -114,9 +114,6 @@ bool OptionsMenu::OnGuiMouseClickEvent(GuiControl* control)
     {
     case 1:
         sceneManager->win->ToggleFullscreen(sceneManager->win->window);
-        break;
-    case 2:
-        sceneManager->capped = !sceneManager->capped;
         break;
     case 3:
         if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)

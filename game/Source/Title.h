@@ -52,6 +52,8 @@ private:
         GuiButton* buttonExit;
     }buttons;
 
+    bool once = false;
+
     int c;
     int controllerMenu[4] = { 1, 2, 3, 4 };
 

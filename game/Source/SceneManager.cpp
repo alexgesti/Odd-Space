@@ -143,11 +143,16 @@ bool SceneManager::Update(float dt)
 
 	if (!onTransition)
 	{
+		if (beGod)
+		{
+			entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP = entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.maxHP;
+			entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP = entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.maxHP;
+		}
+
 		if ((input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_GUIDE) == KEY_DOWN) &&
 			(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE))
 		{
 			isDebug = !isDebug;
-			if (isPause) isPause = false;
 			if(isDebug) entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
 			else entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 		}
@@ -261,7 +266,7 @@ bool SceneManager::Update(float dt)
 				oneTimeBattleMusic = false;
 				//counterTimeDoit = 0;
 				transitionScreen = 0;
-				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
+				if(!isDebug) entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 			}
 		}
 	}
@@ -281,10 +286,11 @@ bool SceneManager::Update(float dt)
 	// Draw full screen rectangle in front of everything
 	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y + altura, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
 
-	if (isDebug) debug->Draw();
 	if (isPause) pause->Draw();
 
 	if(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && currentscenetype != SceneType::ENDDEMO && !isPause) questSystem->Draw(render, font);
+
+	if (isDebug) debug->Draw();
 
 	// L12b: Debug pathfinding
 	/*
@@ -303,6 +309,13 @@ bool SceneManager::Update(float dt)
 	}
 	*/
 
+	if (isDebug && debug->transitionRequired)
+	{
+		current->transitionRequired = true;
+		current->nextScene = debug->nextScene;
+
+		debug->transitionRequired = false;
+	}
 	if (current->transitionRequired)
 	{
 		entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
@@ -336,7 +349,6 @@ bool SceneManager::Update(float dt)
 		case SceneType::ENDDEMO: next = new EndDemo(this); break;
 		default: break;
 		}
-
 		current->transitionRequired = false;
 	}
 
