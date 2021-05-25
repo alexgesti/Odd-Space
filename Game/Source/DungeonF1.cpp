@@ -28,6 +28,8 @@ DungeonF1::DungeonF1(SceneManager* sceneManager) : Scene()
 	this->leverTex = sceneManager->tex->Load("maps/prop_dungeon_v01_w.png"); 
 
 	this->leverFx = sceneManager->audio->LoadFx("audio/fx/world_lever.wav");
+
+	sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
 }
 
 // Destructor

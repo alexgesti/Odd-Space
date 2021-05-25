@@ -42,7 +42,7 @@ bool PauseMenu::Update(float dt)
 {
     if (!sceneManager->pauseMusicFaded)
     {
-        sceneManager->audio->FadeOutMusic(0.5f);
+        sceneManager->audio->FadeOutMusic(0.5f, "audio/music/exterior_music.ogg");
         sceneManager->pauseMusicFaded = true;
     }
 

@@ -44,6 +44,7 @@ Exterior::Exterior(SceneManager* sceneManager) : Scene()
 
 	currentAnimation = animCrazyManIdle;
 
+	sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
 
 	texCrazyManCantina = sceneManager->tex->Load("sprites/npcs/npc_crazymancantina_w.png");
 }

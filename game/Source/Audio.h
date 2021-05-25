@@ -6,6 +6,7 @@
 #include "List.h"
 
 #define DEFAULT_MUSIC_FADE_TIME 2.0f
+#define MAX_STORED_MUSIC 5
 
 
 
@@ -54,13 +55,15 @@ public:
 	// FadeOut all audio
 	void FadeOutFx(int ms);
 
-	void FadeOutMusic(float time);
+	void FadeOutMusic(float time, const char* path);
 
-	void FadeInMusic(float time);
+	void FadeInMusic(float time, const char* path);
 
 private:
 
-	_Mix_Music* music;
+	const char* prevpath[MAX_STORED_MUSIC];
+
+	_Mix_Music* music[MAX_STORED_MUSIC];
 	List<Mix_Chunk*> fx;
 	List<Fx> fxPlaying;
 

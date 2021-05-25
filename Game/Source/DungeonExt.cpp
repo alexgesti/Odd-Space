@@ -31,8 +31,6 @@ DungeonExt::~DungeonExt()
 
 bool DungeonExt::Load()
 {
-
-
 	if (*sceneManager->previousScene == SceneType::EXTERIOR)
 	{
 		sceneManager->render->camera.x = -32;
@@ -65,15 +63,13 @@ bool DungeonExt::Load()
 		if (!sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos) sceneManager->entityManager->CreateEntity(EntityType::HERO)->position = iPoint(656, 390);
 		else sceneManager->entityManager->CreateEntity(EntityType::HERO)->loadedPos = false;
 	}
-
 	
-	
+	sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
 
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
 	return false;
-
 }
 
 // Called each loop iteration

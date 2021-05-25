@@ -53,6 +53,7 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 	texLegendaryPirate = sceneManager->tex->Load("sprites/npcs/npc_legendarypirate_w.png");
 	texOldCaptain = sceneManager->tex->Load("sprites/player/char_oldcaptain_w.png");
 
+	sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
 
 	name.Create("cantina");
 }

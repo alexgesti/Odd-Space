@@ -177,7 +177,7 @@ bool SceneManager::Update(float dt)
 		{
 			if (pauseMusicFaded)
 			{
-				audio->FadeInMusic(0.5f);
+				audio->FadeInMusic(0.5f, "audio/music/exterior_music.ogg");
 				pauseMusicFaded = false;
 			}
 
@@ -219,7 +219,7 @@ bool SceneManager::Update(float dt)
 					altura = -720;
 					transitionAlpha = 1;
 					audio->PlayFx(battleEncounter);
-					audio->FadeOutMusic(0.1f);
+					audio->FadeOutMusic(0.1f, "audio/music/exterior_music.ogg");
 					oneTimeBattleMusic = !oneTimeBattleMusic;
 				}
 	

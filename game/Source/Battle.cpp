@@ -43,8 +43,7 @@ bool Battle::Load()
     case SceneType::DUNGEON_F2:
         map->Load("combat_dungeon.tmx") == true;
         break;
-    default:
-        break;
+    default: break;
     }
 
     fx.loseFx = sceneManager->audio->LoadFx("audio/fx/battle_lose.wav");
@@ -58,6 +57,8 @@ bool Battle::Load()
     fx.reviveFx = sceneManager->audio->LoadFx("audio/fx/battle_revive.wav");
     fx.spRecoverFx = sceneManager->audio->LoadFx("audio/fx/battle_sp_recover.wav");
     fx.debuffFx = sceneManager->audio->LoadFx("audio/fx/battle_debuff.wav");
+
+    sceneManager->audio->PlayMusic("audio/music/battle_music.ogg", 2);
 
     if (sceneManager->toDrawX) sceneManager->toDrawX = false;
 
@@ -183,8 +184,6 @@ bool Battle::Load()
     chooseMenu = 1;
     f = 0;
     c = 0;
-
-    sceneManager->audio->PlayMusic("audio/music/battle_music.ogg", 2);
 
     return false;
 }
@@ -315,7 +314,7 @@ bool Battle::Update(float dt)
                 if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
                     sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
                 {
-                    sceneManager->audio->FadeOutMusic(0.1f);
+                    sceneManager->audio->FadeOutMusic(0.1f, "audio/music/battle_music.ogg");
                     sceneManager->audio->PlayFx(fx.loseFx);
                     sceneManager->wasBattle = true;
                     lose = true;
@@ -331,7 +330,7 @@ bool Battle::Update(float dt)
                 }
                 if (totalEnemiesHP <= 0)
                 {
-                    sceneManager->audio->FadeOutMusic(0.1f);
+                    sceneManager->audio->FadeOutMusic(0.1f, "audio/music/battle_music.ogg");
                     sceneManager->audio->PlayFx(fx.winFx);
                     sceneManager->wasBattle = true;
                     sceneManager->entityManager->CreateEntity(EntityType::ITEM);
@@ -351,7 +350,6 @@ bool Battle::Update(float dt)
         preparetochange += dt;
         if (preparetochange >= timerequired)
         {
-            sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
             if (lose)
             {
                 sceneManager->wasBattle = false;
@@ -627,12 +625,11 @@ void Battle::BattleEscaped()
 {
     if (rand() % 6 != 0)
     {
-        sceneManager->audio->FadeOutMusic(0.1f);
+        sceneManager->audio->FadeOutMusic(0.1f, "audio/music/battle_music.ogg");
         sceneManager->audio->PlayFx(fx.runFx);
         sceneManager->entityManager->entities[0].At(0)->data->infoEntities.defense = false;
         sceneManager->entityManager->entities[0].At(1)->data->infoEntities.defense = false;
         sceneManager->wasBattle = true;
-        sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
         TransitionToScene(*sceneManager->entityManager->previousScene);
     }
     else ChangeTurns();

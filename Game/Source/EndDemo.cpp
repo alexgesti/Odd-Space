@@ -19,8 +19,9 @@ bool EndDemo::Load()
 {
     bgTitle = sceneManager->tex->Load("sprites/mainscreen/title_screen.png");
     titleName = sceneManager->tex->Load("sprites/mainscreen/odd_space_logo.png");
-    sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
     sceneManager->render->camera = { 0, 0 };
+
+    sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
 
     if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP <= 0)
         sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP = sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.maxHP;
@@ -102,7 +103,6 @@ bool EndDemo::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
-        sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg");
         TransitionToScene(SceneType::EXTERIOR);
         break;
     case 2:

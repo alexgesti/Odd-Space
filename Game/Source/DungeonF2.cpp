@@ -31,6 +31,8 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 	this->winFx = sceneManager->audio->LoadFx("audio/fx/battle_win.wav");
 	this->bigdoor = sceneManager->audio->LoadFx("audio/fx/world_big_door_open.wav");
 	this->itempick = sceneManager->audio->LoadFx("audio/fx/world_itempick_fx.wav");
+
+	sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2);
 }
 
 // Destructor

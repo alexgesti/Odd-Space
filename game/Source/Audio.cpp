@@ -17,7 +17,8 @@
 // Constructor
 Audio::Audio(Assets* assets) : Module()
 {
-	music = NULL;
+	for (int m = 0; m < MAX_STORED_MUSIC; m++) music[m] = NULL;
+
 	name.Create("audio");
 
 	this->assets = assets;
@@ -72,9 +73,12 @@ bool Audio::CleanUp()
 
 	LOG("Freeing sound FX, closing Mixer and Audio subsystem");
 
-	if(music != NULL)
+	for (int m = 0; m < MAX_STORED_MUSIC; m++)
 	{
-		Mix_FreeMusic(music);
+		if (music[m] != NULL)
+		{
+			Mix_FreeMusic(music[m]);
+		}
 	}
 
 	ListItem<Mix_Chunk*>* item;
@@ -99,49 +103,81 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 	if(!active)
 		return false;
 
-	if(music != NULL)
-	{
-		if(fadeTime > 0.0f)
-		{
-			Mix_FadeOutMusic(int(fadeTime * 1000.0f));
-		}
-		else
-		{
-			Mix_HaltMusic();
-		}
+	bool found = false;
 
-		// this call blocks until fade out is done
-		Mix_FreeMusic(music);
-	}
-
-	if (path != NULL) music = Mix_LoadMUS_RW(assets->Load(path), 1);
-
-	if(music == NULL)
+	for (int m = 0; m < MAX_STORED_MUSIC; m++)
 	{
-		LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
-		ret = false;
-	}
-	else
-	{
-		if(fadeTime > 0.0f)
+		if (prevpath[m] == path)
 		{
-			if(Mix_FadeInMusic(music, -1, (int) (fadeTime * 1000.0f)) < 0)
+			found = true;
+			if (music[m] == NULL)
 			{
-				LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
+				LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
 				ret = false;
 			}
-		}
-		else
-		{
-			if(Mix_PlayMusic(music, -1) < 0)
+			else
 			{
-				LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-				ret = false;
+				if (fadeTime > 0.0f)
+				{
+					if (Mix_FadeInMusic(music[m], -1, (int)(fadeTime * 1000.0f)) < 0)
+					{
+						LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
+						ret = false;
+					}
+				}
+				else
+				{
+					if (Mix_PlayMusic(music[m], -1) < 0)
+					{
+						LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
+						ret = false;
+					}
+				}
 			}
+			LOG("Successfully playing %s", path);
+			break;
+		}
+	}
+	if (!found)
+	{
+		for (int m = 0; m < MAX_STORED_MUSIC; m++)
+		{
+			if (music[m] == NULL && path != NULL)
+			{
+				music[m] = Mix_LoadMUS_RW(assets->Load(path), 1);
+
+				if (music[m] == NULL)
+				{
+					LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
+					ret = false;
+				}
+				else
+				{
+					if (fadeTime > 0.0f)
+					{
+						if (Mix_FadeInMusic(music[m], -1, (int)(fadeTime * 1000.0f)) < 0)
+						{
+							LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
+							ret = false;
+						}
+					}
+					else
+					{
+						if (Mix_PlayMusic(music[m], -1) < 0)
+						{
+							LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
+							ret = false;
+						}
+					}
+				}
+				prevpath[m] = path;
+				LOG("Successfully playing %s", path);
+				break;
+			}
+			else LOG("Could not stored it");
 		}
 	}
 
-	LOG("Successfully playing %s", path);
 	return ret;
 }
 
@@ -235,24 +271,38 @@ void Audio::FadeOutFx(int ms)
 	}
 }
 
-void Audio::FadeOutMusic(float time)
+void Audio::FadeOutMusic(float time, const char* path)
 {
-	if (music != NULL)
+	bool fade = false;
+	for (int m = 0; m < MAX_STORED_MUSIC; m++)
 	{
-		if (time > 0.0f)
+		if (prevpath[m] == path && music[m] != NULL)
 		{
-			Mix_FadeOutMusic(int(time * 1000.0f));
+			fade = true;
+			if (time > 0.0f)
+			{
+				Mix_FadeOutMusic(int(time * 1000.0f));
+			}
+			break;
 		}
 	}
+	if (fade) LOG("Could not load it");
 }
 
-void Audio::FadeInMusic(float time)
+void Audio::FadeInMusic(float time, const char* path)
 {
-	if (music != NULL)
+	bool fade = false;
+	for (int m = 0; m < MAX_STORED_MUSIC; m++)
 	{
-		if (time > 0.0f)
+		if (prevpath[m] == path && music[m] != NULL)
 		{
-			Mix_FadeInMusic(music, -1, int(time * 1000.0f));
+			fade = true;
+			if (time > 0.0f)
+			{
+				Mix_FadeInMusic(music[m], -1, int(time * 1000.0f));
+			}
+			break;
 		}
 	}
+	if(fade) LOG("Could not load it");
 }
