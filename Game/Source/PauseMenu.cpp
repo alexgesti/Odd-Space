@@ -17,6 +17,8 @@ PauseMenu::~PauseMenu()
 bool PauseMenu::Load()
 {
     pause = sceneManager->tex->Load("sprites/ui/ui_menupause.png");
+    pauseFx = sceneManager->audio->LoadFx("audio/fx/pause_ui.wav");
+    unPauseFx = sceneManager->audio->LoadFx("audio/fx/unpause_ui.wav");
 
     buttonItems = new GuiButton(1, { 90, 109, 240, 81 }, "Items", sceneManager->audio);
     buttonItems->SetObserver(this);
@@ -42,6 +44,7 @@ bool PauseMenu::Update(float dt)
 {
     if (!sceneManager->pauseMusicFaded)
     {
+        sceneManager->audio->PlayFx(pauseFx);
         sceneManager->audio->FadeOutMusic(0.5f, "audio/music/exterior_music.ogg");
         sceneManager->pauseMusicFaded = true;
     }
@@ -51,7 +54,7 @@ bool PauseMenu::Update(float dt)
     if (sceneManager->openOptions)
     {
         if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
-        	sceneManager->options->Unload();
+            sceneManager->options->Unload();
         else sceneManager->options->Update(dt);
     }
     else if (sceneManager->openItems)
@@ -166,7 +169,8 @@ bool PauseMenu::Unload()
     RELEASE(buttonSave);
     buttonLoad->UnLoad();
     RELEASE(buttonLoad);
-
+    sceneManager->audio->UnloadFx(pauseFx);
+    sceneManager->audio->UnloadFx(unPauseFx);
     return true;
 }
 

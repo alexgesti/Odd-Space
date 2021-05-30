@@ -74,6 +74,54 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
         soundReproduced = false;
     }
 
+    if (GuiButton::state == GuiControlState::FOCUSED)
+    {
+        if (green >= 255) { decrease = true; increase = false; }
+        else if (green <= 0) { increase = true; decrease = false; }
+
+        if (decrease == true)
+        {
+            green -= 5;
+            blue -= 5;
+        }
+
+        else if (increase == true)
+        {
+            green += 5;
+            blue += 5;
+        }
+    }
+
+    if (GuiButton::state == GuiControlState::PRESSED)
+    {
+        timer += dt;
+
+        if (flips <= 10 && timer >= 0.25f)
+        {
+            if (blue == 255)
+            {
+                blue = 0;
+                red = 0;
+                flips++;
+            }
+
+            else
+            {
+                blue = 255;
+                red = 255;
+                flips++;
+            }
+
+            timer = 0.0f;
+            if (timer == 0.0f)
+            {
+                red = 0;
+                blue = 0;
+            }
+        }
+    }
+
+
     return false;
 }
 
@@ -130,13 +178,13 @@ bool GuiButton::Draw(Render* render, Font* font)
         case GuiControlState::FOCUSED:
             if (font != nullptr)
             {
-                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 0, 0, 255 });
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, green, blue, 255 });
             }
             break;
         case GuiControlState::PRESSED:
             if (font != nullptr)
             {
-                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 255, 0, 255 });
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { red, 255, blue, 255 });
             }
             break;
         case GuiControlState::SELECTED:

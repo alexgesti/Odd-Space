@@ -33,6 +33,9 @@ public:
     // Manage GUI events for this screen
     bool OnGuiMouseClickEvent(GuiControl* control);
 
+    int pauseFx = 0;
+    int unPauseFx = 0;
+
 private:
 
     SceneManager* sceneManager;

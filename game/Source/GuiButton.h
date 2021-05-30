@@ -25,7 +25,13 @@ public:
     int hover = 0;
     int press = 0;
     int unavaliable = 0;
-	
+    float timer = 0.0f;
+    Uint8 red = 255;
+    Uint8 green = 255;
+    Uint8 blue = 255;
+    bool increase = false;
+    bool decrease = false;
+    Uint8 flips = 0;
 private:
     bool soundReproduced = true;
     bool sorted;
