@@ -52,6 +52,7 @@ void RawMeat::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
         quantity--;
         if (*HP > 0) *HP += maxHP * 0.25;
         if (*HP >= maxHP) *HP = maxHP;
+        LOG("Rawworking");
     }
 }
 

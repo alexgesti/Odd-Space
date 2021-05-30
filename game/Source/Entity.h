@@ -88,6 +88,8 @@ public:
         return true;
     }
 
+    virtual void ItemFunction(int* HP, int* SP, int maxHP, int maxSP) {}
+
 public:
 
     EntityType type;

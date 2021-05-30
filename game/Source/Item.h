@@ -21,8 +21,6 @@ public:
 
     Item(ItemType type) : Entity(EntityType::ITEM), itemType(type) {}
 
-    virtual void ItemFunction(int* HP, int* SP, int maxHP, int maxSP) {}
-
 public:
 
     ItemType itemType;

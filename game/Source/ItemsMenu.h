@@ -39,8 +39,15 @@ private:
 
     int c;
     int buttonItems[MAX_ITEMS];
+    int choosedItem;
+
+    int f;
+    int buttonChars[3];
+
+    bool chooseMenu = 0;
 
     GuiButton* itemsButtons[MAX_ITEMS];
+    GuiButton* charButtons[3];
 
     SDL_Texture* itemsText;
 };
