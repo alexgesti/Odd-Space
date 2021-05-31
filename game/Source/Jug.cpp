@@ -52,7 +52,6 @@ void Jug::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
         quantity--;
         if (*HP > 0) *SP += maxSP * 0.5;
         if (*SP >= maxSP) *SP = maxSP;
-        LOG("Jugworking");
     }
 }
 

@@ -28,22 +28,33 @@ bool ItemsMenu::Load()
     charButtons[2]->SetObserver(this);
     
     // Items select
-    for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
-    {
-        if (i == sceneManager->entityManager->entities[2].Count())
-        {
-            itemsButtons[i] = new GuiButton(i, { 344, (i * 79) + 110, 830, 79 }, "NULL", sceneManager->audio, false);
-            buttonItems[i] = i;
-            itemsButtons[i]->SetObserver(this);
-        }
-        else
-        {
-            itemsButtons[i] = new GuiButton(i, { 344, (i * 79) + 110, 830, 79 }, "Item", sceneManager->audio, false);
-            buttonItems[i] = i;
-            itemsButtons[i]->SetObserver(this);
-            itemsButtons[i]->text = sceneManager->entityManager->entities[2].At(i)->data->infoEntities.info.name;
-        }
-    }
+    itemsButtons[0] = new GuiButton(0, { 344, (0 * 79) + 110, 830, 79 }, "Raw meat", sceneManager->audio, false);
+    buttonItems[0] = 0;
+    itemsButtons[0]->SetObserver(this);
+
+    itemsButtons[1] = new GuiButton(1, { 344, (1 * 79) + 110, 830, 79 }, "Large raw meat", sceneManager->audio, false);
+    buttonItems[1] = 1;
+    itemsButtons[1]->SetObserver(this);
+
+    itemsButtons[2] = new GuiButton(2, { 344, (2 * 79) + 110, 830, 79 }, "Cooked plate", sceneManager->audio, false);
+    buttonItems[2] = 2;
+    itemsButtons[2]->SetObserver(this);
+
+    itemsButtons[3] = new GuiButton(3, { 344, (3 * 79) + 110, 830, 79 }, "Elaborated plate", sceneManager->audio, false);
+    buttonItems[3] = 3;
+    itemsButtons[3]->SetObserver(this);
+
+    itemsButtons[4] = new GuiButton(4, { 344, (4 * 79) + 110, 830, 79 }, "Pint", sceneManager->audio, false);
+    buttonItems[4] = 4;
+    itemsButtons[4]->SetObserver(this);
+
+    itemsButtons[5] = new GuiButton(5, { 344, (5 * 79) + 110, 830, 79 }, "Jug", sceneManager->audio, false);
+    buttonItems[5] = 5;
+    itemsButtons[5]->SetObserver(this);
+
+    itemsButtons[6] = new GuiButton(6, { 344, (6 * 79) + 110, 830, 79 }, "Strong ron", sceneManager->audio, false);
+    buttonItems[6] = 6;
+    itemsButtons[6]->SetObserver(this);
 
     c = 0;
     f = 0;
@@ -79,11 +90,15 @@ bool ItemsMenu::Update(float dt)
         if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
             buttonItems[c--];
 
-        if (c > sceneManager->entityManager->entities[2].Count() - 1) c = 0;
-        if (c < 0) c = sceneManager->entityManager->entities[2].Count();
+        if (c > 5) c = 0;
+        if (c < 0) c = 5;
 
-        for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
-            if (i != sceneManager->entityManager->entities[2].Count()) itemsButtons[i]->Update(sceneManager->input, buttonItems[c], dt);
+        for (int i = 0; i < 6; i++)
+        {
+            itemsButtons[i]->Update(sceneManager->input, buttonItems[c], dt);
+            /*It will put "transparent" if a item has 0 quantity. NOT WORKING if(sceneManager->entityManager->entities[2].At(i)->data->quantity == 0) itemsButtons[i]->disabled = true;
+            else itemsButtons[i]->disabled = false;*/
+        }
     }
 
     return true;
@@ -100,8 +115,12 @@ bool ItemsMenu::Draw()
     // Items select
     else if (chooseMenu == 0)
     {
-        for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
-            if (i != sceneManager->entityManager->entities[2].Count()) itemsButtons[i]->Draw(sceneManager->render, sceneManager->font);
+        for (int i = 0; i < 6; i++)
+        {
+            itemsButtons[i]->Draw(sceneManager->render, sceneManager->font);
+            sceneManager->render->DrawText(sceneManager->font, "x 0", 700, (i * 79) + 137, 25, 0, { 255, 255, 255, 255 });
+            //NOT WORKING sceneManager->render->DrawText(sceneManager->font, "x " + sceneManager->entityManager->entities[2].At(i)->data->quantity, 700, (i * 79) + 137, 25, 0, { 255, 255, 255, 255 });
+        }
     }
 
     return true;
@@ -121,7 +140,7 @@ bool ItemsMenu::Unload()
         RELEASE(charButtons[i]);
     }
 
-    for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
+    for (int i = 0; i < 6; i++)
     {
         itemsButtons[i]->UnLoad();
         RELEASE(itemsButtons[i]);
@@ -140,13 +159,13 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
     switch (chooseMenu)
     {
     case 0:
-        for (int i = 0; i < sceneManager->entityManager->entities[2].Count() + 1; i++)
+        for (int i = 0; i < 6; i++)
         {
-            if (control->id == i && i != sceneManager->entityManager->entities[2].Count())
+            if (control->id == i)
             {
                 chooseMenu = 1;
                 choosedItem = i;
-            } //sceneManager->entityManager->entities[2].At(i)->data->ItemFunction(); //Acceder a item para que haga la funcion.
+            }
         }
         break;
     case 1:
@@ -157,12 +176,14 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
                 &sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.SP,
                 sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP,
                 sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxSP);
+            chooseMenu = 0;
             break;
         case 1:
             sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction(&sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP,
                 &sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.SP,
                 sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP,
                 sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxSP);
+            chooseMenu = 0;
             break;
         case 2:
             chooseMenu = 0;

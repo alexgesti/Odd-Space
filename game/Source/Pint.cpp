@@ -52,7 +52,6 @@ void Pint::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
         quantity--;
         if (*HP > 0) *SP += maxSP * 0.25;
         if (*SP >= maxSP) *SP = maxSP;
-        LOG("Pintworking");
     }
 }
 

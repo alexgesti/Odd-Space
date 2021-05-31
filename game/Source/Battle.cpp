@@ -720,7 +720,6 @@ void Battle::DamageEnemy(int enemy)
         {
             sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= (damageDealt * 2);
             sceneManager->audio->PlayFx(fx.spRecoverFx);
-
         }
 
         else
