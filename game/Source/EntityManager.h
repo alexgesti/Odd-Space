@@ -57,6 +57,8 @@ public:
 	SceneType* previousScene;
 	int enemyKills = 0;
 
+	int quantity[7] = {0, 0, 0, 0, 0, 0};
+
 private:
 
 	Input* input;

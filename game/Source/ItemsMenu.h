@@ -40,14 +40,15 @@ private:
     int choosedItem;
 
     int f;
-    int buttonChars[3];
+    int buttonChars[2];
 
     bool chooseMenu = 0;
 
     GuiButton* itemsButtons[7];
-    GuiButton* charButtons[3];
+    GuiButton* charButtons[2];
 
     SDL_Texture* itemsText;
+    SDL_Texture* UI;
 };
 
 #endif // __ITEMSMENU_H__

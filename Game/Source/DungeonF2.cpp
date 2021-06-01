@@ -218,7 +218,7 @@ bool DungeonF2::Update(float dt)
 				{
 					sceneManager->chestopen = true;
 
-					sceneManager->entityManager->CreateEntity(EntityType::ITEM);
+					sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
 
 					sceneManager->audio->PlayFx(itempick);
 				}

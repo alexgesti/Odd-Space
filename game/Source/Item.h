@@ -19,11 +19,12 @@ class Item : public Entity
 {
 public:
 
-    Item(ItemType type) : Entity(EntityType::ITEM), itemType(type) {}
+    Item(ItemType type) : Entity(EntityType::RANDITEM), itemType(type) {}
 
 public:
 
     ItemType itemType;
+    int quantity;
 };
 
 #endif // __ITEM_H__

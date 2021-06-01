@@ -48,7 +48,7 @@ enum class EntityType
     HERO,
     CAPTAIN,
     ENEMY,
-    ITEM,
+    RANDITEM,
     MAP,
     UNKNOWN
 };
@@ -119,10 +119,6 @@ public:
     bool canCross1Door = false;
     bool canCross2Door = false;
     bool canCrossESPDoor = false;
-
-    // Items
-    int quantity = 0;
-
 };
 
 #endif // __ENTITY_H__

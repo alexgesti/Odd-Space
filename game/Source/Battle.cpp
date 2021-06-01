@@ -333,7 +333,7 @@ bool Battle::Update(float dt)
                     sceneManager->audio->FadeOutMusic(0.1f, "audio/music/battle_music.ogg");
                     sceneManager->audio->PlayFx(fx.winFx);
                     sceneManager->wasBattle = true;
-                    sceneManager->entityManager->CreateEntity(EntityType::ITEM);
+                    sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
                     win = true;
                     timerequired = 3;
                 }

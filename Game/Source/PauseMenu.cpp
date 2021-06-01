@@ -62,6 +62,7 @@ bool PauseMenu::Update(float dt)
         if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             sceneManager->items->Unload();
         else sceneManager->items->Update(dt);
+        //sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
     }
     else
     {
