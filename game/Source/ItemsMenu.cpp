@@ -22,12 +22,6 @@ bool ItemsMenu::Load()
     charButtons[1] = new GuiButton(1, { 927, 385, 900, 90 }, "Captain", sceneManager->audio, false);
     buttonChars[1] = 1;
     charButtons[1]->SetObserver(this);
-
-    charButtons[2] = new GuiButton(2, { 927, 107, 900, 90 }, "Hero", sceneManager->audio, false);
-    charButtons[2]->SetObserver(this);
-    charButtons[3] = new GuiButton(2, { 927, 385, 900, 90 }, "Captain", sceneManager->audio, false);
-    charButtons[3]->SetObserver(this);
-    buttonChars[2] = 2;
     
     // Items select
 
@@ -76,25 +70,17 @@ bool ItemsMenu::Update(float dt)
     // Character select
     if (chooseMenu == 1)
     {
-        if ((choosedItem == 2 || choosedItem == 3) && chooseMenu == 1)
-        {
-                charButtons[2]->Update(sceneManager->input, buttonChars[2], dt);
-                charButtons[3]->Update(sceneManager->input, buttonChars[2], dt);
-        }
-        else
-        {
-            if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-                buttonChars[f++];
+        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+            buttonChars[f++];
 
-            if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-                buttonChars[f--];
+        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+            buttonChars[f--];
 
-            if (f > 1) f = 0;
-            if (f < 0) f = 1;
+        if (f > 1) f = 0;
+        if (f < 0) f = 1;
 
-            for (int i = 0; i < 2; i++)
-                charButtons[i]->Update(sceneManager->input, buttonChars[f], dt);
-        }
+        for (int i = 0; i < 2; i++)
+            charButtons[i]->Update(sceneManager->input, buttonChars[f], dt);
     }
     // Items select
     else if (chooseMenu == 0)
@@ -127,16 +113,8 @@ bool ItemsMenu::Draw()
     sceneManager->render->DrawTexture(UI, -sceneManager->render->camera.x + 870, -sceneManager->render->camera.y + 102, &rect2);
 
     // Character select
-    if ((choosedItem == 2 || choosedItem == 3) && chooseMenu == 1)
-    {
-        charButtons[2]->Draw(sceneManager->render, sceneManager->font);
-        charButtons[3]->Draw(sceneManager->render, sceneManager->font);
-    }
-    else
-    {
-        for (int i = 0; i < 2; i++)
-            charButtons[i]->Draw(sceneManager->render, sceneManager->font);
-    }
+    for (int i = 0; i < 2; i++)
+        charButtons[i]->Draw(sceneManager->render, sceneManager->font);
 
     //Player
     std::string HP = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP);
@@ -232,30 +210,35 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
         {
             if (control->id == i)
             {
-                chooseMenu = 1;
-                choosedItem = i;
+                if (i == 2 || i == 3)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        sceneManager->entityManager->entities[2].At(i)->data->ItemFunction(
+                            &sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.HP,
+                            &sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.SP,
+                            sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.maxHP,
+                            sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.maxSP);
+                    }
+
+                    if (sceneManager->entityManager->quantity[i] != 0) sceneManager->entityManager->quantity[i] -= 1;
+                    itemsButtons[i]->Update(sceneManager->input, buttonItems[c], 0.016f);
+                }
+                else
+                {
+                    chooseMenu = 1;
+                    choosedItem = i;
+                }
             }
         }
         break;
     case 1:
-        
-        if (choosedItem == 2 || choosedItem == 3)
-        {
-            for (int i = 0; i < 2; i++)
-                sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction(
-                    &sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.HP,
-                    &sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.SP,
-                    sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.maxHP,
-                    sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.maxSP);
-        }
-        else
-        {
-            sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction(
-                &sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.HP,
-                &sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.SP,
-                sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.maxHP,
-                sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.maxSP);
-        }
+
+        sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction(
+            &sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.HP,
+            &sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.SP,
+            sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.maxHP,
+            sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.maxSP);
 
         if (sceneManager->entityManager->quantity[choosedItem] != 0) sceneManager->entityManager->quantity[choosedItem] -= 1;
 
@@ -263,7 +246,7 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
 
         f = -1;
 
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 2; i++)
             charButtons[i]->Update(sceneManager->input, buttonChars[f], 0.016f);
 
         f = 0;

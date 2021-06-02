@@ -229,6 +229,9 @@ bool Debug::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 12: 
         sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
+
+        debug.item->Update(sceneManager->input, controllerMenu[5][0], 0.016f);
+
         break;
     default: break;
     }

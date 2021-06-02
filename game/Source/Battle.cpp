@@ -217,6 +217,13 @@ bool Battle::Update(float dt)
 
             break;
         }
+
+        if (sceneManager->openItems)
+        {
+            if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+                sceneManager->items->Unload();
+            else sceneManager->items->Update(dt);
+        }
     }
     //Enemy Turn
     if (!playerMenu)
@@ -768,8 +775,8 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
 
         case 4:
             //Items
-            //sceneManager->items->Load();
-            //sceneManager->openItems = true;
+            sceneManager->items->Load();
+            sceneManager->openItems = true;
             break;
 
         case 5:
