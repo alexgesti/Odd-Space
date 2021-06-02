@@ -132,7 +132,7 @@
  <node text="But that ends today, I need you to recover my treasures, we will be feared again!" id="44" hasOptions="false" name="Legendary Pirate">
          <dialogue option="X" returnCode="0" nextNode="45"/> 
     </node>
- <node text="I knew I shouldn't have gotten out of my bed today…" id="45" hasOptions="false" name="Ray">
+ <node text="I knew I shouldn't have gotten out of my bed today..." id="45" hasOptions="false" name="Ray">
          <dialogue option="X" returnCode="0" nextNode="46"/> 
     </node>
  <node text="You can't be serious, you know how much power you'd get on yourself if we recovered his treasures? Imagine all the ladies you'll have on your feet." id="46" hasOptions="false" name="Old Captain">

@@ -56,6 +56,7 @@ public:
 		ifstream fin;
 		ofstream fout;
 		fin.open(inputFileName.c_str(), ios::binary);
+		if (fin.fail()) return "";
 		inputFileName = outputFileName;
 		fout.open(inputFileName.c_str(), ios::binary);
 

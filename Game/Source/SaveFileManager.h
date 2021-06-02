@@ -27,6 +27,7 @@ public:
 	// Load / Save
 	bool LoadGame();
 	bool SaveGame() const;
+	void LoadSaveState();
 
 	bool SaveDialogueFile() const;
 	bool LoadDialogueFile();
@@ -41,7 +42,6 @@ public:
 
 	SString loadedgame;
 	mutable SString savedgame;
-	bool savedataexist;
 	SString fileName = "save_game.xml";
 
 };

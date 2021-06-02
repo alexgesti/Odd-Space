@@ -35,6 +35,8 @@ bool PauseMenu::Load()
     buttonLoad = new GuiButton(6, { 90, 579, 240, 81 }, "Load", sceneManager->audio);
     buttonLoad->SetObserver(this);
 
+    if (!sceneManager->savedataexist) buttonLoad->disabled = true;
+
     f = 0;
 
     return true;

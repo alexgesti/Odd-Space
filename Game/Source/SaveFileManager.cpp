@@ -62,6 +62,18 @@ bool SaveFileManager::SaveState(pugi::xml_node& data) const
 // ---------------------------------------
 // Create a method to actually load an xml file
 // then call all the modules to load themselves
+void SaveFileManager::LoadSaveState()
+{
+	savedgame.Clear();
+	savedgame.Create(encrypt->Decrypt("save_game_encrypted.xml", "save_game.xml").c_str());
+
+	if (savedgame.Length() != 0)
+	{
+		sceneManager->savedataexist = true;
+		savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
+	}
+}
+
 bool SaveFileManager::LoadGame()
 {
 	savedgame.Clear();
@@ -74,6 +86,7 @@ bool SaveFileManager::LoadGame()
 
 	if (result != NULL)
 	{
+		sceneManager->savedataexist = true;
 		LOG("Loading new Game State from save_game.xml...");
 		ret = true;
 
@@ -81,6 +94,8 @@ bool SaveFileManager::LoadGame()
 
 		// Load sceneManager things
 		sceneManager->render->camera.y = node.child("scenemanager").child("Camera").attribute("y").as_int();
+
+		sceneManager->savedataexist = node.child("scenemanager").child("SaveFile").attribute("saved").as_bool();
 
 		int aux;
 		aux = node.child("scenemanager").child("Scene").attribute("scene").as_int();
@@ -104,7 +119,11 @@ bool SaveFileManager::LoadGame()
 
 		LoadDialogueFile();
 	}
-	else LOG("Could not load game state xml file savegame.xml. pugi error: %s", result.description());
+	else
+	{
+		LOG("Could not load game state xml file savegame.xml. pugi error: %s", result.description());
+		sceneManager->savedataexist = false;
+	}
 
 	savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
 
@@ -159,8 +178,11 @@ bool SaveFileManager::SaveGame() const
 	pugi::xml_node node = base.append_child(sceneManager->name.GetString());
 	
 	// Things to save
+	pugi::xml_node saveFile = node.append_child("SaveFile");
 	pugi::xml_node camerasave = node.append_child("Camera");
 	pugi::xml_node scenesave = node.append_child("Scene");
+
+	saveFile.append_attribute("saved") = sceneManager->savedataexist;
 
 	camerasave.append_attribute("y") = sceneManager->render->camera.y;
 

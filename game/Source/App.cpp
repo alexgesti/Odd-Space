@@ -110,6 +110,8 @@ bool App::Awake()
 		assets->Init();
 	}
 
+	saveFileManager->LoadSaveState();
+
 	return ret;
 }
 
