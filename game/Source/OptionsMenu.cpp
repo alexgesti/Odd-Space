@@ -81,6 +81,14 @@ bool OptionsMenu::Draw()
 
     if(sceneManager->currentscenetype != SceneType::TITLE) exit->Draw(sceneManager->render, sceneManager->font);
 
+    /*if (music->state == GuiControlState::PRESSED)
+    {
+        SDL_Rect rect = { 375, 160, 200, 300 };
+        SDL_Color color1 = { 255, 0, 0, 255 };
+        SDL_Color color2 = { 0, 255, 0, 255 };
+        sceneManager->render->DrawDegradedRectVertical(rect, color1, color2);
+    }*/
+
     return true;
 }
 

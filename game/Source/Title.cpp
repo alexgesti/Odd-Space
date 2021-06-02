@@ -31,6 +31,7 @@ bool Title::Load()
     buttons.buttonPlay->SetObserver(this);
     buttons.buttonContinue = new GuiButton(2, { 100, 283, 224, 64 }, "Continue", sceneManager->audio);
     buttons.buttonContinue->SetObserver(this);
+    if(!sceneManager->savedataexist) buttons.buttonContinue->disabled = true;
     buttons.buttonSettings = new GuiButton(3, { 100, 383, 224, 64 }, "Settings", sceneManager->audio);
     buttons.buttonSettings->SetObserver(this);
     buttons.buttonExit = new GuiButton(4, { 100, 483, 224, 64 }, "Exit", sceneManager->audio);

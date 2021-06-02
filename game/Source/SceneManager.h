@@ -110,6 +110,8 @@ public:
 	bool door1Open = false;
 	bool door2Open = false;
 
+	bool savedataexist = false;
+
 	// F2
 	bool p1 = false;
 	bool p2 = false;

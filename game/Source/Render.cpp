@@ -157,7 +157,7 @@ bool Render::DrawRectangle(const SDL_Rect& rect, Uint8 r, Uint8 g, Uint8 b, Uint
 
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	SDL_SetRenderDrawColor(renderer, r, g, b, a);
-
+	
 	SDL_Rect rec(rect);
 	if(use_camera)
 	{
@@ -251,6 +251,84 @@ bool Render::DrawText(Font* font, const char* text, int x, int y, int size, int 
 		SDL_RenderCopyEx(renderer, font->GetTextureAtlas(), &recGlyph, &recDest, 0.0, { 0 }, SDL_RendererFlip::SDL_FLIP_NONE);
 
 		posX += ((float)recGlyph.w * scale + spacing);
+	}
+
+	return ret;
+}
+
+bool Render::DrawDegradedRectHorizontal(const SDL_Rect& rect, SDL_Color color1, SDL_Color color2, bool useCamera)
+{
+	bool ret = true;
+	uint scale = win->GetScale();
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
+	int y = rect.y;
+	int x2 = (rect.x + rect.w);
+	float rModifier = (float)(color1.r - color2.r) / (float)rect.h;
+	float gModifier = (float)(color1.g - color2.g) / (float)rect.h;
+	float bModifier = (float)(color1.b - color2.b) / (float)rect.h;
+
+	int result = -1;
+
+	for (int i = 0; i < rect.h; i++)
+	{
+		SDL_SetRenderDrawColor(renderer, color1.r + rModifier * i, color1.g + gModifier * i, color1.b + bModifier * i, 255);
+
+		if (useCamera)
+			result = SDL_RenderDrawLine(renderer, camera.x + rect.x * scale, camera.y + y * scale, camera.x + x2 * scale, camera.y + y * scale);
+		else
+			result = SDL_RenderDrawLine(renderer, rect.x * scale, y * scale, x2 * scale, y * scale);
+
+		if (result != 0)
+		{
+			LOG("Cannot draw line to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+			ret = false;
+		}
+
+		y++;
+	}
+
+	return ret;
+}
+
+bool Render::DrawDegradedRectVertical(const SDL_Rect& rect, SDL_Color color1, SDL_Color color2, bool useCamera)
+{
+	bool ret = true;
+	uint scale = win->GetScale();
+
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
+	int x = rect.x;
+	int y2 = (rect.h + rect.y);
+	float rModifier = (float)(color1.r - color2.r) / (float)rect.w;
+	if (color2.r > color1.r && rModifier < 0) rModifier *= -1;
+	else if (color2.r < color1.r && rModifier > 0) rModifier *= -1;
+	float gModifier = (float)(color1.g - color2.g) / (float)rect.w;
+	if (color2.g > color1.g && gModifier < 0) gModifier *= -1;
+	else if (color2.g < color1.g && gModifier > 0) gModifier *= -1;
+	float bModifier = (float)(color1.b - color2.b) / (float)rect.w;
+	if (color2.b > color1.b && bModifier < 0) bModifier *= -1;
+	else if (color2.b < color1.b && bModifier > 0) bModifier *= -1;
+
+	int result = -1;
+
+	for (int i = 0; i < rect.w; i++)
+	{
+		SDL_SetRenderDrawColor(renderer, color1.r + rModifier * i, color1.g + gModifier * i, color1.b + bModifier * i, 255);
+
+		if (useCamera)
+			result = SDL_RenderDrawLine(renderer, camera.x + x * scale, camera.y + rect.y * scale, camera.x + x * scale, camera.y + y2 * scale);
+		else
+			result = SDL_RenderDrawLine(renderer, x * scale, rect.y * scale, x * scale, y2 * scale);
+
+		if (result != 0)
+		{
+			LOG("Cannot draw line to screen. SDL_RenderFillRect error: %s", SDL_GetError());
+			ret = false;
+		}
+
+		x++;
 	}
 
 	return ret;

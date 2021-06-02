@@ -62,6 +62,18 @@ bool SaveFileManager::SaveState(pugi::xml_node& data) const
 // ---------------------------------------
 // Create a method to actually load an xml file
 // then call all the modules to load themselves
+void SaveFileManager::LoadSaveState()
+{
+	savedgame.Clear();
+	savedgame.Create(encrypt->Decrypt("save_game_encrypted.xml", "save_game.xml").c_str());
+
+	if (savedgame.Length() != 0)
+	{
+		sceneManager->savedataexist = true;
+		savedgame.Create(encrypt->EncryptFile("save_game.xml", "save_game_encrypted.xml").c_str());
+	}
+}
+
 bool SaveFileManager::LoadGame()
 {
 	savedgame.Clear();
@@ -159,6 +171,7 @@ bool SaveFileManager::SaveGame() const
 	pugi::xml_node node = base.append_child(sceneManager->name.GetString());
 	
 	// Things to save
+	pugi::xml_node saveFile = node.append_child("SaveFile");
 	pugi::xml_node camerasave = node.append_child("Camera");
 	pugi::xml_node scenesave = node.append_child("Scene");
 
