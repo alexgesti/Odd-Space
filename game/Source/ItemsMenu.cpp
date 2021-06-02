@@ -88,10 +88,10 @@ bool ItemsMenu::Update(float dt)
         if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
             buttonItems[c--];
 
-        if (c > 5) c = 0;
-        if (c < 0) c = 5;
+        if (c > 6) c = 0;
+        if (c < 0) c = 6;
 
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             itemsButtons[i]->Update(sceneManager->input, buttonItems[c], dt);
             if(sceneManager->entityManager->quantity[i] == 0) itemsButtons[i]->disabled = true;
@@ -132,7 +132,7 @@ bool ItemsMenu::Draw()
     sceneManager->render->DrawText(sceneManager->font, ("SP " + SP + " / " + maxSP).c_str(), 47 + (rect.w / 1.25f), 48 + rect.h / 1.2f, 25, 0, { 255, 255, 255, 255 });
 
     // Items select
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 7; i++)
     {
         itemsButtons[i]->Draw(sceneManager->render, sceneManager->font);
         //sceneManager->render->DrawText(sceneManager->font, "x 0", 700, (i * 79) + 137, 25, 0, { 255, 255, 255, 255 });
@@ -158,7 +158,7 @@ bool ItemsMenu::Unload()
         RELEASE(charButtons[i]);
     }
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 7; i++)
     {
         itemsButtons[i]->UnLoad();
         RELEASE(itemsButtons[i]);
@@ -177,7 +177,7 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
     switch (chooseMenu)
     {
     case 0:
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 7; i++)
         {
             if (control->id == i)
             {

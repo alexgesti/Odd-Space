@@ -39,6 +39,10 @@ bool Debug::Load()
     debug.battle->SetObserver(this);
     controllerMenu[4][0] = 5;
 
+    debug.item = new GuiButton(12, { 640, 300, 320, 60 }, "Obtain Item", sceneManager->audio, false);
+    debug.item->SetObserver(this);
+    controllerMenu[5][0] = 12;
+
     // Scene
     scene.exterior = new GuiButton(6, { 960, 0, 320, 60 }, "Exterior", sceneManager->audio, false);
     scene.exterior->SetObserver(this);
@@ -90,8 +94,8 @@ bool Debug::Update(float dt)
     switch (c)
     {
     case 0:
-        if (f > 4) f = 0;
-        if (f < 0) f = 4;
+        if (f > 5) f = 0;
+        if (f < 0) f = 5;
         break;
     case 1:
         if (f > 5) f = 0;
@@ -105,6 +109,7 @@ bool Debug::Update(float dt)
     debug.dialogue->Update(sceneManager->input, &sceneManager->dialogueSystem->inConversation, controllerMenu[f][c], dt);
     debug.colliders->Update(sceneManager->input, &sceneManager->drawColliders, controllerMenu[f][c], dt);
     debug.battle->Update(sceneManager->input, controllerMenu[f][c], dt);
+    debug.item->Update(sceneManager->input, controllerMenu[f][c], dt);
     scene.exterior->Update(sceneManager->input, controllerMenu[f][c], dt);
     scene.cantina->Update(sceneManager->input, controllerMenu[f][c], dt);
     scene.wc->Update(sceneManager->input, controllerMenu[f][c], dt);
@@ -132,6 +137,8 @@ bool Debug::Draw()
     debug.colliders->Draw(sceneManager->render, texture);
 
     debug.battle->Draw(sceneManager->render, sceneManager->font);
+
+    debug.item->Draw(sceneManager->render, sceneManager->font);
 
     scene.exterior->Draw(sceneManager->render, sceneManager->font);
 
@@ -167,6 +174,9 @@ bool Debug::Unload()
 
     debug.battle->UnLoad();
     RELEASE(debug.battle);
+
+    debug.item->UnLoad();
+    RELEASE(debug.item);
 
     scene.exterior->UnLoad();
     RELEASE(scene.exterior);
@@ -216,6 +226,9 @@ bool Debug::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 11:
         TransitionToScene(SceneType::DUNGEON_F2);
+        break;
+    case 12: 
+        sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
         break;
     default: break;
     }

@@ -46,6 +46,7 @@ private:
         GuiCheckBox* dialogue;
         GuiCheckBox* colliders;
         GuiButton* battle;
+        GuiButton* item;
     }debug;
 
     struct SceneButtons
