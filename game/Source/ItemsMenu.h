@@ -40,12 +40,12 @@ private:
     int choosedItem;
 
     int f;
-    int buttonChars[2];
+    int buttonChars[3];
 
     bool chooseMenu = 0;
 
     GuiButton* itemsButtons[7];
-    GuiButton* charButtons[2];
+    GuiButton* charButtons[4];
 
     SDL_Texture* itemsText;
     SDL_Texture* UI;
