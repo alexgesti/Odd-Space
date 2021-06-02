@@ -52,6 +52,8 @@ private:
     int c;
     int controllerMenu[2] = { 1, 2 };
 
+    bool dead = false;
+
     int pos1 = 12;
 };
 

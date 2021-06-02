@@ -247,6 +247,7 @@ bool DungeonF1::Update(float dt)
 				quest.text = "Ended of the demo";
 				sceneManager->questSystem->ChangeMainQuest(quest);
 			}
+			sceneManager->saverequested = true;
 			TransitionToScene(SceneType::ENDDEMO);
 		}
 		else if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.x > HORIZONTAL_DOOR)) TransitionToScene(SceneType::DUNGEON_EXT);

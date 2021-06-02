@@ -24,15 +24,21 @@ bool EndDemo::Load()
     sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
 
     if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP <= 0)
+    {
         sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.HP = sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.maxHP;
+        dead = true;
+    }
 
     if (sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP <= 0)
+    {
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.HP = sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->infoEntities.info.maxHP;
+        dead = true;
+    }
 
     // Buttons
-    buttons.buttonPlay = new GuiButton(1, { (1280 / 2) - 244 - 100, (720 / 2) + 64 + 150, 224, 64 }, "Retry", sceneManager->audio);
+    buttons.buttonPlay = new GuiButton(1, { (1280 / 2) - 244 - 100, (720 / 2) + 64 + 150, 224, 64 }, "Continue", sceneManager->audio);
     buttons.buttonPlay->SetObserver(this);
-    buttons.buttonExit = new GuiButton(2, { (1280 / 2) + 100, (720 / 2) + 64 + 150, 224, 64 }, "Exit", sceneManager->audio);
+    buttons.buttonExit = new GuiButton(2, { (1280 / 2) + 100, (720 / 2) + 64 + 150, 224, 64 }, "Title Screen", sceneManager->audio);
     buttons.buttonExit->SetObserver(this);
 
     return false;
@@ -103,10 +109,10 @@ bool EndDemo::OnGuiMouseClickEvent(GuiControl* control)
     switch (control->id)
     {
     case 1:
-        TransitionToScene(SceneType::EXTERIOR);
+        sceneManager->loadrequested = true;
         break;
     case 2:
-        sceneManager->gameIsWorking = false;
+        TransitionToScene(SceneType::TITLE);
         break;
     default: break;
     }
