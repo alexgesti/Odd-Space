@@ -15,9 +15,7 @@ Jug* Jug::GetInstance(Render* render, Textures* tex)
     {
         instance = new Jug(render, tex);
         LOG("Returning Jug instance");
-        instance->quantity = 1;
     }
-    else instance->quantity++;
 
     return instance;
 }
@@ -47,12 +45,8 @@ bool Jug::Update(float dt)
 
 void Jug::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
 {
-    if (quantity > 0)
-    {
-        quantity--;
-        if (*HP > 0) *SP += maxSP * 0.5;
-        if (*SP >= maxSP) *SP = maxSP;
-    }
+    if (*HP > 0) *SP += maxSP * 0.5;
+    if (*SP >= maxSP) *SP = maxSP;
 }
 
 

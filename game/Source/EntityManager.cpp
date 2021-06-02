@@ -200,13 +200,39 @@ Entity* EntityManager::CreateEntity(EntityType type)
 
 			default: break;
 			}
-
-			if (ret != nullptr) entities[2].Add(ret);
 		}
 		break;
 	}
 	default: break;
 	}
+
+	return ret;
+}
+
+Entity* EntityManager::GenerateListItems()
+{
+	Entity* ret = nullptr;
+
+	ret = RawMeat::GetInstance(render, tex);
+	if (ret != nullptr) entities[2].Add(ret);
+
+	ret = LargeRawMeat::GetInstance(render, tex);
+	if (ret != nullptr) entities[2].Add(ret);
+
+	ret = CookedPlate::GetInstance(render, tex);
+	if (ret != nullptr) entities[2].Add(ret);
+
+	ret = ElaboratedPlate::GetInstance(render, tex);
+	if (ret != nullptr) entities[2].Add(ret);
+
+	ret = Pint::GetInstance(render, tex);
+	if (ret != nullptr) entities[2].Add(ret);
+
+	ret = Jug::GetInstance(render, tex);
+	if (ret != nullptr) entities[2].Add(ret);
+
+	ret = StrongRon::GetInstance(render, tex);
+	if (ret != nullptr) entities[2].Add(ret);
 
 	return ret;
 }

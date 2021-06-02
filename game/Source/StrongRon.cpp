@@ -13,10 +13,8 @@ StrongRon* StrongRon::GetInstance(Render* render, Textures* tex)
     if (instance == nullptr)
     {
         instance = new StrongRon(render, tex);
-        instance->quantity = 1;
         LOG("Returning Strong Ron instance");
     }
-    else instance->quantity++;
 
     return instance;
 }
@@ -46,11 +44,7 @@ bool StrongRon::Update(float dt)
 
 void StrongRon::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
 {
-    if (quantity > 0)
-    {
-        quantity--;
-        if (*HP <= 0) *HP = maxHP * 0.5;
-    }
+    if (*HP <= 0) *HP = maxHP * 0.5;
 }
 
 

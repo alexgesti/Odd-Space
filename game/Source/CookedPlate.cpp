@@ -15,9 +15,7 @@ CookedPlate* CookedPlate::GetInstance(Render* render, Textures* tex)
     {
         instance = new CookedPlate(render, tex);
         LOG("Returning Cooked Plate instance");
-        instance->quantity = 1;
     }
-    else instance->quantity++;
 
     return instance;
 }
@@ -47,12 +45,8 @@ bool CookedPlate::Update(float dt)
 
 void CookedPlate::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
 {
-    if (quantity > 0)
-    {
-        quantity--;
-        if (*HP > 0) *HP += maxHP * 0.25;
-        if (*HP >= maxHP) *HP = maxHP;
-    }
+    if (*HP > 0) *HP += maxHP * 0.25;
+    if (*HP >= maxHP) *HP = maxHP;
 }
 
 

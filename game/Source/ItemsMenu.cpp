@@ -24,6 +24,9 @@ bool ItemsMenu::Load()
     charButtons[1]->SetObserver(this);
     
     // Items select
+
+    sceneManager->entityManager->GenerateListItems();
+
     itemsButtons[0] = new GuiButton(0, { 344, (0 * 79) + 110, 830, 79 }, "Raw meat", sceneManager->audio, false);
     buttonItems[0] = 0;
     itemsButtons[0]->SetObserver(this);
@@ -48,7 +51,7 @@ bool ItemsMenu::Load()
     buttonItems[5] = 5;
     itemsButtons[5]->SetObserver(this);
 
-    itemsButtons[6] = new GuiButton(6, { 344, (6 * 79) + 110, 830, 79 }, "Strong ron", sceneManager->audio, false);
+    itemsButtons[6] = new GuiButton(6, { 344, (6 * 79) + 110, 830, 79 }, "Strong Ron", sceneManager->audio, false);
     buttonItems[6] = 6;
     itemsButtons[6]->SetObserver(this);
 
@@ -135,7 +138,6 @@ bool ItemsMenu::Draw()
     for (int i = 0; i < 7; i++)
     {
         itemsButtons[i]->Draw(sceneManager->render, sceneManager->font);
-        //sceneManager->render->DrawText(sceneManager->font, "x 0", 700, (i * 79) + 137, 25, 0, { 255, 255, 255, 255 });
         std::string object = std::to_string(sceneManager->entityManager->quantity[i]);
         sceneManager->render->DrawText(sceneManager->font, ("x " + object).c_str(), 700, (i * 79) + 137, 25, 0, { 255, 255, 255, 255 });
     }
@@ -187,27 +189,23 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
         }
         break;
     case 1:
-        switch (control->id)
-        {
-        case 0:
-            sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction(&sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP, 
-                &sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.SP,
-                sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP,
-                sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxSP);
-            if(sceneManager->entityManager->quantity[choosedItem] != 0) sceneManager->entityManager->quantity[choosedItem] -= 1;
-            chooseMenu = 0;
-            break;
-        case 1:
-            sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction(&sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP,
-                &sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.SP,
-                sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP,
-                sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxSP);
-            if (sceneManager->entityManager->quantity[choosedItem] != 0) sceneManager->entityManager->quantity[choosedItem] -= 1;
-            chooseMenu = 0;
-            break;
-        default:
-            break;
-        }
+        sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction( 
+            &sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.HP,
+            &sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.SP,
+            sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.maxHP,
+            sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.maxSP);
+
+        if (sceneManager->entityManager->quantity[choosedItem] != 0) sceneManager->entityManager->quantity[choosedItem] -= 1;
+
+        chooseMenu = 0;
+
+        f = -1;
+
+        for (int i = 0; i < 2; i++)
+            charButtons[i]->Update(sceneManager->input, buttonChars[f], 0.016f);
+
+        f = 0;
+
         break;
     default:
         break;

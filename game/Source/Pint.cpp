@@ -15,9 +15,7 @@ Pint* Pint::GetInstance(Render* render, Textures* tex)
     {
         instance = new Pint(render, tex);
         LOG("Returning Pint instance");
-        instance->quantity = 1;
     }
-    else instance->quantity++;
 
     return instance;
 }
@@ -47,12 +45,8 @@ bool Pint::Update(float dt)
 
 void Pint::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
 {
-    if (quantity > 0)
-    {
-        quantity--;
-        if (*HP > 0) *SP += maxSP * 0.25;
-        if (*SP >= maxSP) *SP = maxSP;
-    }
+    if (*HP > 0) *SP += maxSP * 0.25;
+    if (*SP >= maxSP) *SP = maxSP;
 }
 
 

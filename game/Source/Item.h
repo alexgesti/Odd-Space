@@ -24,7 +24,6 @@ public:
 public:
 
     ItemType itemType;
-    int quantity;
 };
 
 #endif // __ITEM_H__

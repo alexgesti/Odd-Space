@@ -15,9 +15,7 @@ ElaboratedPlate* ElaboratedPlate::GetInstance(Render* render, Textures* tex)
     {
         instance = new ElaboratedPlate(render, tex);
         LOG("Returning Elaborated Plate instance");
-        instance->quantity = 1;
     }
-    else instance->quantity++;
 
     return instance;
 }
@@ -47,12 +45,8 @@ bool ElaboratedPlate::Update(float dt)
 
 void ElaboratedPlate::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
 {
-    if (quantity > 0)
-    {
-        quantity--;
-        if (*HP > 0) *HP += maxHP * 0.5;
-        if (*HP >= maxHP) *HP = maxHP;
-    }
+    if (*HP > 0) *HP += maxHP * 0.5;
+    if (*HP >= maxHP) *HP = maxHP;
 }
 
 

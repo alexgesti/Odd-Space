@@ -36,6 +36,8 @@ public:
 	// Additional methods
 	Entity* CreateEntity(EntityType type);
 
+	Entity* GenerateListItems();
+
 	void AddEntity(Entity* entity);
 
 	bool UpdateAll(float dt, bool doLogic);

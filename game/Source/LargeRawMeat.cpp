@@ -15,9 +15,7 @@ LargeRawMeat* LargeRawMeat::GetInstance(Render* render, Textures* tex)
     {
         instance = new LargeRawMeat(render, tex);
         LOG("Returning Large Raw Meat instance");
-        instance->quantity = 1;
     }
-    else instance->quantity++;
 
     return instance;
 }
@@ -47,12 +45,8 @@ bool LargeRawMeat::Update(float dt)
 
 void LargeRawMeat::ItemFunction(int* HP, int* SP, int maxHP, int maxSP)
 {
-    if (quantity > 0)
-    {
-        quantity--;
-        if (*HP > 0) *HP += maxHP * 0.5;
-        if (*HP >= maxHP) *HP = maxHP;
-    }
+    if (*HP > 0) *HP += maxHP * 0.5;
+    if (*HP >= maxHP) *HP = maxHP;
 }
 
 
