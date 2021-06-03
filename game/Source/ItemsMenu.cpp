@@ -96,7 +96,8 @@ bool ItemsMenu::Update(float dt)
 
         for (int i = 0; i < 7; i++)
         {
-            itemsButtons[i]->Update(sceneManager->input, buttonItems[c], dt);
+            if(itemsButtons[i]->state != GuiControlState::PRESSED) itemsButtons[i]->Update(sceneManager->input, buttonItems[c], dt);
+            else itemsButtons[i]->Update(sceneManager->input, buttonItems[c], 0.016f);
             if(sceneManager->entityManager->quantity[i] == 0) itemsButtons[i]->disabled = true;
             else itemsButtons[i]->disabled = false;
         }
@@ -222,17 +223,16 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
             {
                 if (i == 2 || i == 3)
                 {
-                    for (int i = 0; i < 2; i++)
+                    for (int g = 0; g < 2; g++)
                     {
-                        sceneManager->entityManager->entities[2].At(i)->data->ItemFunction(
-                            &sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.HP,
-                            &sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.SP,
-                            sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.maxHP,
-                            sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.maxSP);
+                        sceneManager->entityManager->entities[2].At(g)->data->ItemFunction(
+                            &sceneManager->entityManager->entities[0].At(g)->data->infoEntities.info.HP,
+                            &sceneManager->entityManager->entities[0].At(g)->data->infoEntities.info.SP,
+                            sceneManager->entityManager->entities[0].At(g)->data->infoEntities.info.maxHP,
+                            sceneManager->entityManager->entities[0].At(g)->data->infoEntities.info.maxSP);
                     }
 
                     if (sceneManager->entityManager->quantity[i] != 0) sceneManager->entityManager->quantity[i] -= 1;
-                    itemsButtons[i]->Update(sceneManager->input, buttonItems[c], 0.016f);
                 }
                 else
                 {

@@ -109,7 +109,8 @@ bool Debug::Update(float dt)
     debug.dialogue->Update(sceneManager->input, &sceneManager->dialogueSystem->inConversation, controllerMenu[f][c], dt);
     debug.colliders->Update(sceneManager->input, &sceneManager->drawColliders, controllerMenu[f][c], dt);
     debug.battle->Update(sceneManager->input, controllerMenu[f][c], dt);
-    debug.item->Update(sceneManager->input, controllerMenu[f][c], dt);
+    if(debug.item->state != GuiControlState::PRESSED) debug.item->Update(sceneManager->input, controllerMenu[f][c], dt);
+    else debug.item->Update(sceneManager->input, controllerMenu[5][0], 0.016f);
     scene.exterior->Update(sceneManager->input, controllerMenu[f][c], dt);
     scene.cantina->Update(sceneManager->input, controllerMenu[f][c], dt);
     scene.wc->Update(sceneManager->input, controllerMenu[f][c], dt);
@@ -229,9 +230,6 @@ bool Debug::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 12: 
         sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
-
-        debug.item->Update(sceneManager->input, controllerMenu[5][0], 0.016f);
-
         break;
     default: break;
     }
