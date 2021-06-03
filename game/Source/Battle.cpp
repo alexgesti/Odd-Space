@@ -202,9 +202,13 @@ bool Battle::Update(float dt)
         //Hero Turn
         case 0:
             if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0) characterTurn = 1;
-            if(!sceneManager->openItems) PlayerMenu(dt);
-
-            if (sceneManager->openItems) sceneManager->items->Update(dt);
+            if (!sceneManager->openItems) PlayerMenu(dt);
+            else
+            {
+                if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+                    sceneManager->items->Unload();
+                else sceneManager->items->Update(dt);
+            }
 
             break;
 
@@ -212,17 +216,14 @@ bool Battle::Update(float dt)
         case 1:
             if (sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0) characterTurn = 0;
             if (!sceneManager->openItems) PlayerMenu(dt);
-
-            if (sceneManager->openItems) sceneManager->items->Update(dt);
+            else
+            {
+                if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+                    sceneManager->items->Unload();
+                else sceneManager->items->Update(dt);
+            }
 
             break;
-        }
-
-        if (sceneManager->openItems)
-        {
-            if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
-                sceneManager->items->Unload();
-            else sceneManager->items->Update(dt);
         }
     }
     //Enemy Turn

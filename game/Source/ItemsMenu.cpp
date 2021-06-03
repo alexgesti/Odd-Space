@@ -109,7 +109,17 @@ bool ItemsMenu::Draw()
 {
     SDL_Rect rect = { 1106, 0, 1105, 624 };
 
-    SDL_Rect rect2 = { 1048, 0, 36, 569 };
+    SDL_Rect rect2;
+
+    if (sceneManager->isPause) rect2 = { 1068, 0, 36, 569 }; // Pause Menu
+    else // Battle
+    {
+        rect2 = { 2224, 0, 852, 624 };
+        sceneManager->render->DrawTexture(UI, -sceneManager->render->camera.x + 335, -sceneManager->render->camera.y + 50, &rect2);
+
+        rect2 = { 1024, 0, 36, 569 };
+    }
+
     sceneManager->render->DrawTexture(UI, -sceneManager->render->camera.x + 870, -sceneManager->render->camera.y + 102, &rect2);
 
     // Character select
