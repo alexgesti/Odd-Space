@@ -1,6 +1,7 @@
 #include "EndDemo.h"
 
 #include "SceneManager.h"
+#include "easings.h"
 
 
 // Constructor
@@ -41,6 +42,8 @@ bool EndDemo::Load()
     buttons.buttonExit = new GuiButton(2, { (1280 / 2) + 100, (720 / 2) + 64 + 150, 224, 64 }, "Title Screen", sceneManager->audio);
     buttons.buttonExit->SetObserver(this);
 
+    finalPosY = sceneManager->render->camera.y / 2+ 64;
+
     return false;
 }
 
@@ -49,6 +52,12 @@ bool EndDemo::Update(float dt)
     bool ret = false;
 
     GamePad& pad = sceneManager->input->pads[0];
+
+    if (titlePosY < finalPosY)
+   {
+       titlePosY = EaseBounceOut(currentTime, initPosY, finalPosY - initPosY, 2.3f);
+       currentTime += dt;
+   }
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)
         controllerMenu[c++];
@@ -75,7 +84,7 @@ bool EndDemo::Draw()
 {
     SDL_Rect rect = { pos1, 0, 1280, 720 };
     sceneManager->render->DrawTexture(bgTitle, -sceneManager->render->camera.x, -sceneManager->render->camera.y, &rect);
-    sceneManager->render->DrawTexture(titleName, (1280 / 2) - (718 / 2) + 20, (720 / 2) - 286, NULL);
+    sceneManager->render->DrawTexture(titleName, (1280 / 2) - (718 / 2) + 20, titlePosY, NULL);
     sceneManager->render->DrawText(sceneManager->font, "End Demo", (1280 / 2) - 150, (720 / 2) + 30, 40, 0, { 255, 255, 255, 255 });
     sceneManager->render->DrawText(sceneManager->font, "Thanks for playing!", (1280 / 2) - 225, (720 / 2) + 90, 30, 0, { 255, 255, 255, 255 });
 

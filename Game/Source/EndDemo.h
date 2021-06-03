@@ -55,6 +55,11 @@ private:
     bool dead = false;
 
     int pos1 = 12;
+
+    float initPosY = -350;
+    float finalPosY;
+    float titlePosY = initPosY;
+    float currentTime = 0.0f;
 };
 
 #endif // __SCENETITLE_H__
