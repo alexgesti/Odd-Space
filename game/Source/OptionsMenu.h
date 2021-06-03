@@ -5,6 +5,7 @@
 #include "GuiCheckBox.h"
 #include "GuiSlider.h"
 #include "GuiButton.h"
+#include "Animation.h"
 
 #include "SDL_mixer/include/SDL_mixer.h"
 
@@ -43,8 +44,12 @@ private:
     int fmax;
     int buttonOption[5] = { 1, 2, 3, 4, 5 };
 
-    SDL_Texture* optionsText;
     SDL_Texture* texture;
+    /*SDL_Texture* explosion;
+    Animation* explosionAnim = new Animation();
+    bool playingExplosionVsync = false;
+    bool playingExplosionfullScreen = false;*/
+    StepedAnimation* stepedAnimation;
 
     GuiCheckBox* fullScreen;
     GuiCheckBox* VSync;

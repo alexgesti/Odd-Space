@@ -6,6 +6,8 @@
 #include "Point.h"
 #include "SString.h"
 
+#include "Textures.h"
+
 class GuiCheckBox : public GuiControl
 {
 public:
@@ -16,6 +18,8 @@ public:
     bool Update(Input* input, bool* checked, int buttonSelected, float dt);
     bool Draw(Render* render, SDL_Texture* texture);
     bool UnLoad();
+
+    //bool explode;
 
 private:
 

@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "GuiButton.h"
+#include "Animation.h"
 
 class SceneManager;
 
@@ -49,6 +50,8 @@ private:
 
     SDL_Texture* itemsText;
     SDL_Texture* UI;
+
+    StepedAnimation* stepedAnimation;
 };
 
 #endif // __ITEMSMENU_H__

@@ -68,6 +68,7 @@ bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float 
             check = *checked;
             NotifyObserver();
             audio->PlayFx(press);
+            //explode = true;
         }
     }
     else

@@ -39,6 +39,13 @@ bool PauseMenu::Load()
 
     f = 0;
 
+    stepedAnimation = new StepedAnimation();
+    stepedAnimation->speed = 40.0f;
+    stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
+    stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
+    stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
+    stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
+
     return true;
 }
 
@@ -150,6 +157,52 @@ bool PauseMenu::Draw()
     if (sceneManager->openOptions) sceneManager->options->Draw();
     if (sceneManager->openItems) sceneManager->items->Draw();
 
+    if (saveAnimation)
+    {
+        for (int i = 0; i < stepedAnimation->currentStep; i++)
+        {
+            SDL_Rect temp = stepedAnimation->GetStep(i);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+        }
+
+        if (!stepedAnimation->animationCompleted)
+        {
+            SDL_Rect temp = stepedAnimation->Update();
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+        }
+
+        else alpha -= 3;
+
+        if (stepedAnimation->animationCompleted && alpha < 0)
+        {
+            saveAnimation = false;
+            alpha = 255;
+        }
+    }
+
+    if (loadAnimation)
+    {
+        for (int i = 0; i < stepedAnimation->currentStep; i++)
+        {
+            SDL_Rect temp = stepedAnimation->GetStep(i);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+        }
+
+        if (!stepedAnimation->animationCompleted)
+        {
+            SDL_Rect temp = stepedAnimation->Update();
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+        }
+
+        else alpha -= 3;
+
+        if (stepedAnimation->animationCompleted && alpha < 0)
+        {
+            loadAnimation = false;
+            alpha = 255;
+        }
+    }
+
     return true;
 }
 
@@ -174,6 +227,9 @@ bool PauseMenu::Unload()
     RELEASE(buttonLoad);
     sceneManager->audio->UnloadFx(pauseFx);
     sceneManager->audio->UnloadFx(unPauseFx);
+
+    RELEASE(stepedAnimation);
+
     return true;
 }
 
@@ -198,9 +254,25 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 5: 
         sceneManager->saverequested = true;
+        saveAnimation = true;
+        loadAnimation = false;
+        stepedAnimation->Reset();
+        stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
+        stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
+        stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
+        stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
+        alpha = 255;
         break;
     case 6: 
         sceneManager->loadrequested = true;
+        loadAnimation = true;
+        saveAnimation = false;
+        stepedAnimation->Reset();
+        stepedAnimation->Pushback(83, 334, 571, 571, 334 - 83, 5);
+        stepedAnimation->Pushback(334, 334, 571, 665, 5, 94);
+        stepedAnimation->Pushback(339, 83, 665, 665, 334 - 83, 5);
+        stepedAnimation->Pushback(83, 83, 665, 571, 5, 94);
+        alpha = 255;
         break;
     default: break;
     }

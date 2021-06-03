@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "GuiButton.h"
+#include "Animation.h"
 
 #include "SDL/include/SDL.h"
 
@@ -51,6 +52,14 @@ private:
     GuiButton* buttonSettings;
     GuiButton* buttonSave;
     GuiButton* buttonLoad;
+
+    StepedAnimation* stepedAnimation;
+
+    bool saveAnimation = false;
+    bool loadAnimation = false;
+
+    int alpha = 255;
+    int offsetY = 89;
 };
 
 #endif // __PAUSEMENU_H__

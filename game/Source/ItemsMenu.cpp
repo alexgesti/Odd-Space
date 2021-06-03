@@ -55,6 +55,15 @@ bool ItemsMenu::Load()
     buttonItems[6] = 6;
     itemsButtons[6]->SetObserver(this);
 
+    stepedAnimation = new StepedAnimation();
+    stepedAnimation->speed = 80.0f;
+    stepedAnimation->Pushback(83, 1177, 100, 100, 1083, 5);
+    stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+    stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+    stepedAnimation->Pushback(334, 334, 668, 194, 5, 622 - 144);
+    stepedAnimation->Pushback(334, 83, 194, 194, 233, 5);
+    stepedAnimation->Pushback(83, 83, 194, 100, 5, 94);
+
     c = 0;
     f = 0;
 
@@ -180,6 +189,39 @@ bool ItemsMenu::Draw()
         }
     }
 
+    int amountDisapeared = 0;
+
+    for (int i = 0; i < stepedAnimation->currentStep; i++)
+    {
+        SDL_Rect temp = stepedAnimation->GetStep(i);
+        sceneManager->render->DrawRectangle(temp, 255, 255, 255, stepedAnimation->steps[i].alpha, true, false);
+        if (stepedAnimation->steps[i].disapear) stepedAnimation->steps[i].alpha -= 3;
+        if (stepedAnimation->steps[i].alpha <= 0)
+        {
+            stepedAnimation->steps[i].alpha = 0;
+            stepedAnimation->steps[i].disapear = false;
+        }
+
+        if (!stepedAnimation->steps[i].disapear) amountDisapeared++;
+    }
+
+    if (!stepedAnimation->animationCompleted)
+    {
+        SDL_Rect temp = stepedAnimation->Update();
+        sceneManager->render->DrawRectangle(temp, 255, 255, 255, 255, true, false);
+    }
+
+    else if (amountDisapeared >= stepedAnimation->stepAmount)
+    {
+        stepedAnimation->Reset();
+        stepedAnimation->Pushback(83, 1177, 100, 100, 1083, 5);
+        stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+        stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+        stepedAnimation->Pushback(334, 334, 668, 194, 5, 622 - 144);
+        stepedAnimation->Pushback(334, 83, 194, 194, 233, 5);
+        stepedAnimation->Pushback(83, 83, 194, 100, 5, 94);
+    }
+
     return true;
 }
 
@@ -203,6 +245,8 @@ bool ItemsMenu::Unload()
         itemsButtons[i]->UnLoad();
         RELEASE(itemsButtons[i]);
     }
+
+    RELEASE(stepedAnimation);
 
     return true;
 }

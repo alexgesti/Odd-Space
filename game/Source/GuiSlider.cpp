@@ -76,9 +76,9 @@ bool GuiSlider::Draw(Render* render, int slide, SDL_Texture* texture)
 
     render->DrawRectangle({ -render->camera.x + bounds.x, -render->camera.y + bounds.y, bounds.w, bounds.h }, 255, 255, 255, 255);
 
-    SDL_Rect colorRect = { -render->camera.x + bounds.x, -render->camera.y + bounds.y, (-render->camera.x + (bounds.x - rect.w / 2) + (bounds.w / 4) * (slide / 32)) - bounds.x + 16, bounds.h };
-    SDL_Color color2 = { 0, 0, 255, 255 };
-    SDL_Color color1 = { 25, 217, 253, 255 };
+    SDL_Rect colorRect = { -render->camera.x + bounds.x, -render->camera.y + bounds.y, (-render->camera.x + (bounds.x - rect.w / 2) + (bounds.w / 4) * (slide / 32)) - (-render->camera.x + bounds.x) + 16, bounds.h };
+    SDL_Color color1 = { 255, 255, 200, 255 };
+    SDL_Color color2 = { 255, 255, 0, 255 };
     render->DrawDegradedRectVertical(colorRect, color1, color2);
 
     if (state == GuiControlState::FOCUSED)
