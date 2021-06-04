@@ -94,12 +94,9 @@ private:
         int winFx = 0;
         int strikeFx = 0;
         int hurtFx = 0;
-        int hpRecoverFx = 0;
         int deathFx = 0;
         int runFx = 0;
         int guardFx = 0;
-        int reviveFx = 0;
-        int spRecoverFx = 0;
         int debuffFx = 0;
         bool playOnce = false;
     }fx;

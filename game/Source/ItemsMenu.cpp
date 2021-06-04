@@ -69,6 +69,10 @@ bool ItemsMenu::Load()
 
     UI = sceneManager->tex->Load("sprites/ui/ui_menupause.png");
 
+    hpRecoverFx = sceneManager->audio->LoadFx("audio/fx/battle_hp_recover.wav");
+    reviveFx = sceneManager->audio->LoadFx("audio/fx/battle_revive.wav");
+    spRecoverFx = sceneManager->audio->LoadFx("audio/fx/battle_sp_recover.wav");
+
     return true;
 }
 
@@ -230,6 +234,10 @@ bool ItemsMenu::Unload()
     sceneManager->tex->UnLoad(itemsText);
     sceneManager->tex->UnLoad(UI);
 
+    sceneManager->audio->UnloadFx(hpRecoverFx);
+    sceneManager->audio->UnloadFx(spRecoverFx);
+    sceneManager->audio->UnloadFx(reviveFx);
+
     sceneManager->openItems = false;
 
     chooseMenu = 0;
@@ -277,6 +285,8 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
                     }
 
                     if (sceneManager->entityManager->quantity[i] != 0) sceneManager->entityManager->quantity[i] -= 1;
+
+                    sceneManager->audio->PlayFx(hpRecoverFx);
                 }
                 else
                 {
@@ -287,6 +297,23 @@ bool ItemsMenu::OnGuiMouseClickEvent(GuiControl* control)
         }
         break;
     case 1:
+
+        switch (choosedItem) 
+        {
+        case 0:
+        case 1:
+            sceneManager->audio->PlayFx(hpRecoverFx);
+            break;
+
+        case 4:
+        case 5:
+            sceneManager->audio->PlayFx(spRecoverFx);
+            break;
+
+        case 6:
+            sceneManager->audio->PlayFx(reviveFx);
+            break;
+        }
 
         sceneManager->entityManager->entities[2].At(choosedItem)->data->ItemFunction(
             &sceneManager->entityManager->entities[0].At(control->id)->data->infoEntities.info.HP,

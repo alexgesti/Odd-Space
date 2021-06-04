@@ -51,11 +51,8 @@ bool Battle::Load()
     fx.strikeFx = sceneManager->audio->LoadFx("audio/fx/battle_strike.wav");
     fx.hurtFx = sceneManager->audio->LoadFx("audio/fx/battle_hurt.wav");
     fx.deathFx = sceneManager->audio->LoadFx("audio/fx/battle_death.wav");
-    fx.hpRecoverFx = sceneManager->audio->LoadFx("audio/fx/battle_hp_recover.wav");
     fx.guardFx = sceneManager->audio->LoadFx("audio/fx/battle_guard.wav");
     fx.runFx = sceneManager->audio->LoadFx("audio/fx/battle_run.wav");
-    fx.reviveFx = sceneManager->audio->LoadFx("audio/fx/battle_revive.wav");
-    fx.spRecoverFx = sceneManager->audio->LoadFx("audio/fx/battle_sp_recover.wav");
     fx.debuffFx = sceneManager->audio->LoadFx("audio/fx/battle_debuff.wav");
 
     sceneManager->audio->PlayMusic("audio/music/battle_music.ogg", 2);
@@ -488,11 +485,8 @@ bool Battle::Unload()
     sceneManager->audio->UnloadFx(fx.strikeFx);
     sceneManager->audio->UnloadFx(fx.hurtFx);
     sceneManager->audio->UnloadFx(fx.deathFx);
-    sceneManager->audio->UnloadFx(fx.hpRecoverFx);
     sceneManager->audio->UnloadFx(fx.guardFx);
     sceneManager->audio->UnloadFx(fx.runFx);
-    sceneManager->audio->UnloadFx(fx.reviveFx);
-    sceneManager->audio->UnloadFx(fx.spRecoverFx);
     sceneManager->audio->UnloadFx(fx.debuffFx);
 
     buttons.buttonsMenu.buttonAttack->UnLoad();
@@ -665,7 +659,7 @@ void Battle::DamagePlayer(int player)
             (rand() % (200 - sceneManager->entityManager->entities[0].At(player)->data->infoEntities.stats.LCK) + 1)) >= 1)
         {
             sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= (damageDealt * 2);
-            sceneManager->audio->PlayFx(fx.spRecoverFx);
+            sceneManager->audio->PlayFx(fx.debuffFx);
         }
 
         else
@@ -727,7 +721,7 @@ void Battle::DamageEnemy(int enemy)
             (rand() % (200 - sceneManager->entityManager->entities[1].At(enemy)->data->infoEntities.stats.LCK) + 1)) >= 1)
         {
             sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= (damageDealt * 2);
-            sceneManager->audio->PlayFx(fx.spRecoverFx);
+            sceneManager->audio->PlayFx(fx.debuffFx);
         }
 
         else
@@ -805,10 +799,9 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
         case 0:
             switch (control->id)
             {
-            case 7://debuff
+            case 7:
                 sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[0].picked = true;
                 chooseMenu = 3;
-                sceneManager->audio->PlayFx(fx.debuffFx);
                 break;
 
             case 8:
@@ -816,10 +809,9 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
                 chooseMenu = 3;
                 break;
 
-            case 9://hp recover
+            case 9:
                 sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[2].picked = true;
                 chooseMenu = 3;
-                sceneManager->audio->PlayFx(fx.hpRecoverFx);
                 break;
 
             case 10:
@@ -827,10 +819,9 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
                 chooseMenu = 3;
                 break;
 
-            case 11://revive
+            case 11:
                 sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[4].picked = true;
                 chooseMenu = 3;
-                sceneManager->audio->PlayFx(fx.reviveFx);
                 break;
 
             case 12:

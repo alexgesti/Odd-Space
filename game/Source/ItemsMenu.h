@@ -36,6 +36,10 @@ private:
 
     SceneManager* sceneManager;
 
+    int hpRecoverFx = 0;
+    int spRecoverFx = 0;
+    int reviveFx = 0;
+
     int c;
     int buttonItems[7];
     int choosedItem;
