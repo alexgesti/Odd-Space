@@ -182,6 +182,8 @@ bool Battle::Load()
     f = 0;
     c = 0;
 
+    // Animaciones extras
+
     return false;
 }
 
@@ -411,6 +413,12 @@ bool Battle::Draw()
     buttons.buttonsMenu.buttonRun->Draw(sceneManager->render, sceneManager->font);
     buttons.buttonsMenu.buttonItem->Draw(sceneManager->render, sceneManager->font);
     buttons.buttonsMenu.buttonBack->Draw(sceneManager->render, sceneManager->font);
+
+    /*for (int i = 0; i < stepedAnimation->currentStep; i++)
+    {
+        SDL_Rect temp = stepedAnimation->GetStep(i);
+        sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+    }*/
 
     //Enemy Draw
     for (int be = 0; be <= totalEnemies; be++)

@@ -144,6 +144,7 @@
     <ClCompile Include="Source\Title.cpp" />
     <ClCompile Include="Source\Wc.cpp" />
     <ClCompile Include="Source\Window.cpp" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Assets.h" />
     <ClInclude Include="Source\Battle.h" />
@@ -213,6 +214,13 @@
     <ClInclude Include="Source\External\PugiXml\src\pugiconfig.hpp" />
     <ClInclude Include="Source\External\PugiXml\src\pugixml.hpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\alexg\Desktop\artage-io-thumb-b5e0f88190aa4e2dd3fc803c6d289b7f.bmp" />
+    <Image Include="C:\Users\alexg\Desktop\Instalador_Tester\odd_space_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

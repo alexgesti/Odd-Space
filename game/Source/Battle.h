@@ -3,6 +3,7 @@
 
 #include "Scene.h"
 #include "Font.h"
+#include "Animation.h"
 
 //#define MAX_ZOOM 3.0f
 //#define MIN_ZOOM 0.3f
@@ -34,7 +35,6 @@ public:
 
     // Unload this scene
     bool Unload();
-
 
     //Menu
     void PlayerMenu(float dt);

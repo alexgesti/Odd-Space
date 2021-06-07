@@ -351,6 +351,7 @@
     <ClInclude Include="Source\DebugMenu.h">
       <Filter>Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -380,5 +381,12 @@
     <Filter Include="Entities\Items">
       <UniqueIdentifier>{047dcbff-3347-4cc7-a7d5-2b2d5e0df3d0}</UniqueIdentifier>
     </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="C:\Users\alexg\Desktop\artage-io-thumb-b5e0f88190aa4e2dd3fc803c6d289b7f.bmp" />
+    <Image Include="C:\Users\alexg\Desktop\Instalador_Tester\odd_space_logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
 </Project>
