@@ -216,8 +216,7 @@
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\alexg\Desktop\artage-io-thumb-b5e0f88190aa4e2dd3fc803c6d289b7f.bmp" />
-    <Image Include="C:\Users\alexg\Desktop\Instalador_Tester\odd_space_logo.ico" />
+    <Image Include="odd_space_logo.ico" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
