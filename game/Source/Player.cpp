@@ -115,10 +115,10 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     infoEntities.skills[0].name = "Lucky Slash";
     infoEntities.skills[0].cost = 2;
     infoEntities.skills[0].picked = false;
-    infoEntities.skills[1].name = "Spatula-Boomerang";
+    infoEntities.skills[1].name = "S. Boomerang";
     infoEntities.skills[1].cost = 4;
     infoEntities.skills[1].picked = false;
-    infoEntities.skills[2].name = "Light Recovery";
+    infoEntities.skills[2].name = "L. Recovery";
     infoEntities.skills[2].cost = 3;
     infoEntities.skills[2].picked = false;
     infoEntities.skills[3].name = "Steal";

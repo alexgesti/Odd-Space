@@ -50,6 +50,9 @@ private:
     GuiButton* buttonSkills;
     GuiButton* buttonEquip;
     GuiButton* buttonSettings;
+    GuiButton* buttonQuest;
+    GuiButton* buttonSaveLoad;
+
     GuiButton* buttonSave;
     GuiButton* buttonLoad;
 
@@ -57,6 +60,9 @@ private:
 
     bool saveAnimation = false;
     bool loadAnimation = false;
+
+    bool saveloadmenu = false;
+    bool questmenu = false;
 
     int alpha = 255;
     int offsetY = 89;

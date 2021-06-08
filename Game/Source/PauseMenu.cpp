@@ -28,14 +28,19 @@ bool PauseMenu::Load()
     buttonEquip = new GuiButton(3, { 90, 297, 240, 81 }, "Equipment", sceneManager->audio);
     buttonEquip->SetObserver(this);
     buttonEquip->disabled = true;
-    buttonSettings = new GuiButton(4, { 90, 391, 240, 81 }, "Settings", sceneManager->audio);
+    buttonQuest = new GuiButton(4, { 86, 391, 240, 81 }, "Quest", sceneManager->audio);
+    buttonQuest->SetObserver(this);
+    buttonSettings = new GuiButton(5, { 90, 485, 240, 81 }, "Settings", sceneManager->audio);
     buttonSettings->SetObserver(this);
-    buttonSave = new GuiButton(5, { 90, 485, 240, 81 }, "Save", sceneManager->audio);
+    buttonSaveLoad = new GuiButton(6, { 80, 579, 240, 81 }, "Save/Load", sceneManager->audio);
+    buttonSaveLoad->SetObserver(this);
+
+    buttonSave = new GuiButton(1, { 275, 109, 240, 81 }, "Save", sceneManager->audio);
     buttonSave->SetObserver(this);
-    buttonLoad = new GuiButton(6, { 90, 579, 240, 81 }, "Load", sceneManager->audio);
+    buttonLoad = new GuiButton(2, { 275, 203, 240, 81 }, "Load", sceneManager->audio);
     buttonLoad->SetObserver(this);
 
-    if (!sceneManager->savedataexist) buttonLoad->disabled = true;
+    //if (!sceneManager->savedataexist) buttonSaveLoad->disabled = true;
 
     f = 0;
 
@@ -62,16 +67,37 @@ bool PauseMenu::Update(float dt)
 
     if (sceneManager->openOptions)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             sceneManager->options->Unload();
         else sceneManager->options->Update(dt);
     }
     else if (sceneManager->openItems)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             sceneManager->items->Unload();
         else sceneManager->items->Update(dt);
-        //sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
+    }
+    else if (saveloadmenu)
+    {
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) saveloadmenu = !saveloadmenu;
+
+        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+            f++;
+
+        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+            f--;
+
+        //Establecer limites fila/columna botones
+        if (f > 1) f = 0;
+        if (f < 0) f = 1;
+
+        buttonSave->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
+    }
+    else if (questmenu)
+    {
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+            questmenu = !questmenu;
     }
     else
     {
@@ -88,9 +114,9 @@ bool PauseMenu::Update(float dt)
         buttonItems->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonSkills->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonEquip->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonQuest->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonSettings->Update(sceneManager->input, buttonMenuMax[f], dt);
-        buttonSave->Update(sceneManager->input, buttonMenuMax[f], dt);
-        buttonLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonSaveLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
     }
 
     return true;
@@ -101,7 +127,10 @@ bool PauseMenu::Draw()
     SDL_Rect rect = { 1106, 0, 1105, 624 };
     sceneManager->render->DrawTexture(pause, -sceneManager->render->camera.x + 80, -sceneManager->render->camera.y + 50, &rect);
 
-    if (sceneManager->openOptions == false && sceneManager->openItems == false)
+    if (sceneManager->openOptions == false 
+        && sceneManager->openItems == false 
+        && saveloadmenu == false
+        && questmenu == false)
     {
         //Player
         SDL_Rect face = { 848, 64, 168, 224 };
@@ -150,12 +179,18 @@ bool PauseMenu::Draw()
     buttonItems->Draw(sceneManager->render, sceneManager->font);
     buttonSkills->Draw(sceneManager->render, sceneManager->font);
     buttonEquip->Draw(sceneManager->render, sceneManager->font);
+    buttonQuest->Draw(sceneManager->render, sceneManager->font);
     buttonSettings->Draw(sceneManager->render, sceneManager->font);
-    buttonSave->Draw(sceneManager->render, sceneManager->font);
-    buttonLoad->Draw(sceneManager->render, sceneManager->font);
+    buttonSaveLoad->Draw(sceneManager->render, sceneManager->font);
 
     if (sceneManager->openOptions) sceneManager->options->Draw();
     if (sceneManager->openItems) sceneManager->items->Draw();
+    if (saveloadmenu)
+    {
+        buttonSave->Draw(sceneManager->render, sceneManager->font);
+        buttonLoad->Draw(sceneManager->render, sceneManager->font);
+    }
+    if (questmenu) sceneManager->questSystem->Draw(sceneManager->render, sceneManager->font);
 
     if (saveAnimation)
     {
@@ -221,6 +256,10 @@ bool PauseMenu::Unload()
     RELEASE(buttonEquip);
     buttonSettings->UnLoad();
     RELEASE(buttonSettings);
+    buttonQuest->UnLoad();
+    RELEASE(buttonQuest);
+    buttonSaveLoad->UnLoad();
+    RELEASE(buttonSaveLoad);
     buttonSave->UnLoad();
     RELEASE(buttonSave);
     buttonLoad->UnLoad();
@@ -238,43 +277,60 @@ bool PauseMenu::Unload()
 //----------------------------------------------------------
 bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 {
-    switch (control->id)
+    if (saveloadmenu == false)
     {
-    case 1:
-        sceneManager->items->Load();
-        sceneManager->openItems = true;
-        break;
-    case 2: 
-        break;
-    case 3: 
-        break;
-    case 4: 
-        sceneManager->options->Load();
-        sceneManager->openOptions = true;
-        break;
-    case 5: 
-        sceneManager->saverequested = true;
-        saveAnimation = true;
-        loadAnimation = false;
-        stepedAnimation->Reset();
-        stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
-        stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
-        stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
-        stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
-        alpha = 255;
-        break;
-    case 6: 
-        sceneManager->loadrequested = true;
-        loadAnimation = true;
-        saveAnimation = false;
-        stepedAnimation->Reset();
-        stepedAnimation->Pushback(83, 334, 571, 571, 334 - 83, 5);
-        stepedAnimation->Pushback(334, 334, 571, 665, 5, 94);
-        stepedAnimation->Pushback(339, 83, 665, 665, 334 - 83, 5);
-        stepedAnimation->Pushback(83, 83, 665, 571, 5, 94);
-        alpha = 255;
-        break;
-    default: break;
+        switch (control->id)
+        {
+        case 1:
+            sceneManager->items->Load();
+            sceneManager->openItems = true;
+            break;
+        case 2:
+            break;
+        case 3:
+            break;
+        case 4:
+            questmenu = true;
+            break;
+        case 5:
+            sceneManager->options->Load();
+            sceneManager->openOptions = true;
+            break;
+        case 6:
+            saveloadmenu = true;
+            break;
+        default: break;
+        }
+    }
+    else
+    {
+        switch (control->id)
+        {
+        case 1:
+           sceneManager->saverequested = true;
+           saveAnimation = true;
+           loadAnimation = false;
+           stepedAnimation->Reset();
+           stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
+           stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
+           stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
+           stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
+           alpha = 255;
+            break;
+        case 2:
+            sceneManager->loadrequested = true;
+            loadAnimation = true;
+            saveAnimation = false;
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(83, 334, 571, 571, 334 - 83, 5);
+            stepedAnimation->Pushback(334, 334, 571, 665, 5, 94);
+            stepedAnimation->Pushback(339, 83, 665, 665, 334 - 83, 5);
+            stepedAnimation->Pushback(83, 83, 665, 571, 5, 94);
+            alpha = 255;
+            break;
+        default:
+            break;
+        }
     }
 
     return true;

@@ -88,7 +88,7 @@ Captain::Captain(Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
     infoEntities.skills[1].name = "Old Scars";
     infoEntities.skills[1].cost = 6;
     infoEntities.skills[1].picked = false;
-    infoEntities.skills[2].name = "Share a drink";
+    infoEntities.skills[2].name = "Share drink";
     infoEntities.skills[2].cost = 5;
     infoEntities.skills[2].picked = false;
     infoEntities.skills[3].name = "War cry";

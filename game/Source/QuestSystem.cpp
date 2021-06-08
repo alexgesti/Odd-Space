@@ -101,11 +101,11 @@ void QuestSystem::ClearQuests()
 
 void QuestSystem::Draw(Render* renderer, Font* font)
 {
-	renderer->DrawText(font, "Main quest:", 0, 14, 25, 5, {255, 255, 255, 255});
-	renderer->DrawText(font, mainQuest.text.GetString(), 10, 44, 20, 5, { 255, 255, 255, 255 });
-	renderer->DrawText(font, "Side quests:", 0, 74, 25, 5, { 255, 255, 255, 255 });
+	renderer->DrawText(font, "Main quest:", 354, 0 * 39 + 120, 25, 5, {255, 255, 255, 255});
+	renderer->DrawText(font, mainQuest.text.GetString(), 374, 1 * 39 + 120, 20, 5, { 255, 255, 255, 255 });
+	renderer->DrawText(font, "Side quests:", 354, 2 * 39 + 120, 25, 5, { 255, 255, 255, 255 });
 	for (int i = 0; i < sideQuests.Count(); i++)
 	{
-		renderer->DrawText(font, sideQuests.At(i)->data.text.GetString(), 10, 104 + (30 * i), 20, 5, { 255, 255, 255, 255 });
+		renderer->DrawText(font, sideQuests.At(i)->data.text.GetString(), 374, (i + 3) * 39 + 120, 20, 5, { 255, 255, 255, 255 });
 	}
 }

@@ -182,6 +182,8 @@ bool Battle::Load()
     f = 0;
     c = 0;
 
+    buttons.buttonsMenu.buttonSkills->disabled = true;
+
     // Animaciones extras
 
     return false;
@@ -204,7 +206,7 @@ bool Battle::Update(float dt)
             if (!sceneManager->openItems) PlayerMenu(dt);
             else
             {
-                if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+                if (sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
                     sceneManager->items->Unload();
                 else sceneManager->items->Update(dt);
             }
@@ -217,7 +219,7 @@ bool Battle::Update(float dt)
             if (!sceneManager->openItems) PlayerMenu(dt);
             else
             {
-                if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+                if (sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
                     sceneManager->items->Unload();
                 else sceneManager->items->Update(dt);
             }
