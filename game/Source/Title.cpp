@@ -130,14 +130,15 @@ bool Title::Unload()
 
     if (sceneManager->openOptions) sceneManager->options->Unload();
 
-    delete buttons.buttonPlay;
-    buttons.buttonPlay = nullptr;
-    delete buttons.buttonContinue;
-    buttons.buttonContinue = nullptr;
-    delete buttons.buttonSettings;
-    buttons.buttonSettings = nullptr;
-    delete buttons.buttonExit;
-    buttons.buttonExit = nullptr;
+    buttons.buttonPlay->UnLoad();
+    RELEASE(buttons.buttonPlay);
+    buttons.buttonContinue->UnLoad();
+    RELEASE(buttons.buttonContinue);
+    buttons.buttonSettings->UnLoad();
+    RELEASE(buttons.buttonSettings);
+    buttons.buttonExit->UnLoad();
+    RELEASE(buttons.buttonExit);
+
     return false;
 }
 

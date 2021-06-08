@@ -224,7 +224,19 @@ bool OptionsMenu::OnGuiMouseClickEvent(GuiControl* control)
     {
     case 1:
         sceneManager->win->ToggleFullscreen(sceneManager->win->window);
+
+        if (showCursor)
+        {
+            showCursor = false;
+            SDL_ShowCursor(1);
+        }
+        else if (!showCursor)
+        {
+            showCursor = true;
+            SDL_ShowCursor(0);
+        }
         break;
+
     case 3:
         if (sceneManager->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_LEFT) == KEY_DOWN)
             if (sceneManager->volumeMusic > 0) sceneManager->volumeMusic -= 32;

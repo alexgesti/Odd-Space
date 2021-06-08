@@ -45,6 +45,7 @@ public:
 	void CheckSideQuests(Quest quest, int amount);
 	bool CheckMainQuestCollect(int amount);
 	bool CheckMainQuestKill(int amount);
+	void ClearQuests();
 	void Draw(Render* renderer, Font* font);
 
 	//bool CheckMainQuest(); // Checkea si se ha completado la main quest

@@ -43,6 +43,7 @@ private:
     int c;
     int fmax;
     int buttonOption[5] = { 1, 2, 3, 4, 5 };
+    bool showCursor = true;
 
     SDL_Texture* texture;
     /*SDL_Texture* explosion;

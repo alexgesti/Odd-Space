@@ -36,6 +36,30 @@ bool EndDemo::Load()
         dead = true;
     }
 
+    Quest quest;
+    quest.interactionName = "captain";
+    quest.text = "Talk with the captain";
+    sceneManager->questSystem->ChangeMainQuest(quest);
+    sceneManager->questSystem->ClearQuests();
+
+    sceneManager->leverCro = false;
+    sceneManager->leverTri = false;
+    sceneManager->leverCir = false;
+    sceneManager->door1Open = true;
+    sceneManager->p1 = false;
+    sceneManager->p2 = false;
+    sceneManager->p3 = false;
+    sceneManager->p4 = false;
+    sceneManager->p5 = false;
+    sceneManager->p6 = false;
+    sceneManager->p7 = false;
+    sceneManager->p8 = false;
+    sceneManager->seq1 = true;
+    sceneManager->seq2 = true;
+    sceneManager->seq3 = true;
+    sceneManager->door2Open == false;
+    sceneManager->seqESP = true;
+
     // Buttons
     buttons.buttonPlay = new GuiButton(1, { (1280 / 2) - 244 - 100, (720 / 2) + 64 + 150, 224, 64 }, "Continue", sceneManager->audio);
     buttons.buttonPlay->SetObserver(this);

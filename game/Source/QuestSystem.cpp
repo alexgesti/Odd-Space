@@ -88,10 +88,15 @@ bool QuestSystem::CheckMainQuestCollect(int amount)
 	else return false;
 }
 
-bool QuestSystem::CheckMainQuestKill(int amount)
+void QuestSystem::ClearQuests()
 {
-	if (amount >= mainQuest.amount) return true;
-	else return false;
+	ListItem<Quest>* temp = sideQuests.start;
+	while (temp != NULL)
+	{
+		sideQuests.Del(temp);
+
+		temp = temp->next;
+	}
 }
 
 void QuestSystem::Draw(Render* renderer, Font* font)
