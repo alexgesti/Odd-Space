@@ -227,13 +227,13 @@ bool OptionsMenu::OnGuiMouseClickEvent(GuiControl* control)
 
         if (showCursor)
         {
+            SDL_ShowCursor(0);
             showCursor = false;
-            SDL_ShowCursor(1);
         }
         else if (!showCursor)
         {
+            SDL_ShowCursor(1);
             showCursor = true;
-            SDL_ShowCursor(0);
         }
         break;
 
