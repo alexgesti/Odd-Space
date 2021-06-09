@@ -54,16 +54,19 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
             soundReproduced = true;
         }
 
-        if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT ||
-            input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
-        {
-            if (disabled) audio->PlayFx(unavaliable);
-            else state = GuiControlState::PRESSED;
-        }
+        if ((input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && disabled)
+           audio->PlayFx(unavaliable);
+
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && !disabled)
+            state = GuiControlState::PRESSED;
 
         // If mouse button pressed -> Generate event!
         if ((input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) && !disabled)
         {
+            state = GuiControlState::SELECTED;
+            red = 0;
+            green = 0;
+            blue = 0;
             NotifyObserver();
             audio->PlayFx(press);
         }
@@ -71,21 +74,23 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
     else
     {
         state = GuiControlState::NORMAL;
+        red = 0;
+        green = 0;
+        blue = 0;
         soundReproduced = false;
     }
 
     if (GuiButton::state == GuiControlState::FOCUSED)
     {
-        if (green >= 255) { decrease = true; increase = false; }
-        else if (green <= 0) { increase = true; decrease = false; }
+        if (green >= 255) colorSpectrum = true;
+        else if (green <= 0) colorSpectrum = false;
 
-        if (decrease == true)
+        if (colorSpectrum)
         {
             green -= 5;
             blue -= 5;
         }
-
-        else if (increase == true)
+        else
         {
             green += 5;
             blue += 5;
@@ -94,33 +99,12 @@ bool GuiButton::Update(Input* input, int buttonSelected, float dt)
 
     if (GuiButton::state == GuiControlState::PRESSED)
     {
-        timer += dt;
+        if (blue >= 255) colorSpectrum = true;
+        else if (blue <= 0) colorSpectrum = false;
 
-        if (flips <= 10 && timer >= 0.25f)
-        {
-            if (blue == 255)
-            {
-                blue = 0;
-                red = 0;
-                flips++;
-            }
-
-            else
-            {
-                blue = 255;
-                red = 255;
-                flips++;
-            }
-
-            timer = 0.0f;
-            if (timer == 0.0f)
-            {
-                red = 0;
-                blue = 0;
-            }
-        }
+        if (colorSpectrum) blue -= 5;
+        else blue += 5;
     }
-
 
     return false;
 }
@@ -184,13 +168,13 @@ bool GuiButton::Draw(Render* render, Font* font)
         case GuiControlState::PRESSED:
             if (font != nullptr)
             {
-                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { red, 255, blue, 255 });
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 255, 255, blue, 255 });
             }
             break;
         case GuiControlState::SELECTED:
             if (font != nullptr)
             {
-                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 0, 255, 255 });
+                render->DrawText(font, text.GetString(), bounds.x + centerPoint, bounds.y + (bounds.h / 2) - ((bounds.h / 3) / 2), bounds.h / 3, 1, { 0, 255, 0, 255 });
             }
             break;
         default: break;

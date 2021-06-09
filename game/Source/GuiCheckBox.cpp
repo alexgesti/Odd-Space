@@ -54,12 +54,11 @@ bool GuiCheckBox::Update(Input* input, bool* checked, int buttonSelected, float 
             soundReproduced = true;
         }
 
-         if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT ||
-            input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN)
-        {
-            if (disabled) audio->PlayFx(unavaliable);
-            else state = GuiControlState::PRESSED;
-        }
+        if ((input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && disabled)
+            audio->PlayFx(unavaliable);
+
+        if (input->GetKey(SDL_SCANCODE_X) == KEY_REPEAT || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_REPEAT && !disabled)
+            state = GuiControlState::PRESSED;
 
         // If mouse button pressed -> Generate event!
         if ((input->GetKey(SDL_SCANCODE_X) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_DOWN) && !disabled)

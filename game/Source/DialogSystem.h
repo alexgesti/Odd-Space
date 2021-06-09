@@ -68,14 +68,8 @@ public:
 class DialogueSystem : public Module
 {
 public:
-	DialogueSystem();
-	DialogueSystem(Input* input, Render* render, Textures* tex, Audio* audio)
-	{
-		this->input = input;
-		this->render = render;
-		this->tex = tex;
-		this->audio = audio;
-	}
+
+	DialogueSystem(Input* input, Render* render, Textures* tex, Audio* audio);
 	~DialogueSystem();
 
 	bool Start();

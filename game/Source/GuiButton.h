@@ -29,8 +29,7 @@ public:
     Uint8 red = 255;
     Uint8 green = 255;
     Uint8 blue = 255;
-    bool increase = false;
-    bool decrease = false;
+    bool colorSpectrum = false;
     Uint8 flips = 0;
 private:
     bool soundReproduced = true;

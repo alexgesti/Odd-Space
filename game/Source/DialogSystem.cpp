@@ -4,7 +4,13 @@
 #include "Speak.h"
 
 
-DialogueSystem::DialogueSystem() {}
+DialogueSystem::DialogueSystem(Input* input, Render* render, Textures* tex, Audio* audio) 
+{
+	this->input = input;
+	this->render = render;
+	this->tex = tex;
+	this->audio = audio;
+}
 
 DialogueSystem::~DialogueSystem() {}
 

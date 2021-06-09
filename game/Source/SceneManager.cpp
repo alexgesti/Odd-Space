@@ -170,7 +170,7 @@ bool SceneManager::Update(float dt)
 			if (!isPause)
 			{
 				if (openItems) items->Unload();
-				if (openItems) options->Unload();
+				if (openOptions) options->Unload();
 				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 			}
 			else entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
@@ -399,8 +399,6 @@ bool SceneManager::CleanUp()
 	audio->UnloadFx(battleEncounter);
 	audio->UnloadFx(stairsFx);
 	audio->UnloadFx(xMarkFX);
-
-	dialogueSystem->CleanUp();
 
 	tex->UnLoad(xMark);
 
