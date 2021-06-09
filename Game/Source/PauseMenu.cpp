@@ -67,19 +67,26 @@ bool PauseMenu::Update(float dt)
 
     if (sceneManager->openOptions)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
+            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             sceneManager->options->Unload();
         else sceneManager->options->Update(dt);
     }
     else if (sceneManager->openItems)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
+            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             sceneManager->items->Unload();
         else sceneManager->items->Update(dt);
     }
     else if (saveloadmenu)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) saveloadmenu = !saveloadmenu;
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
+            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) 
+            saveloadmenu = !saveloadmenu;
 
         if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
             f++;
@@ -96,7 +103,9 @@ bool PauseMenu::Update(float dt)
     }
     else if (questmenu)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
+            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             questmenu = !questmenu;
     }
     else

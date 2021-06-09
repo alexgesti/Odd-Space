@@ -61,7 +61,9 @@ bool Title::Update(float dt)
 
     if(sceneManager->openOptions)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN
+            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             sceneManager->options->Unload();
         else sceneManager->options->Update(dt);
     }
