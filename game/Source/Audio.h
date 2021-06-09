@@ -61,7 +61,8 @@ public:
 
 private:
 
-	const char* prevpath[MAX_STORED_MUSIC];
+	const char* storedPath[MAX_STORED_MUSIC];
+	const char* prevPath;
 
 	_Mix_Music* music[MAX_STORED_MUSIC];
 	List<Mix_Chunk*> fx;

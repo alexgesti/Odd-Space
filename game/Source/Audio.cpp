@@ -107,34 +107,38 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 
 	for (int m = 0; m < MAX_STORED_MUSIC; m++)
 	{
-		if (prevpath[m] == path)
+		if (storedPath[m] == path)
 		{
 			found = true;
-			if (music[m] == NULL)
+			if (prevPath != path)
 			{
-				LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
-				ret = false;
-			}
-			else
-			{
-				if (fadeTime > 0.0f)
+				if (music[m] == NULL)
 				{
-					if (Mix_FadeInMusic(music[m], -1, (int)(fadeTime * 1000.0f)) < 0)
-					{
-						LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
-						ret = false;
-					}
+					LOG("Cannot load music %s. Mix_GetError(): %s\n", path, Mix_GetError());
+					ret = false;
 				}
 				else
 				{
-					if (Mix_PlayMusic(music[m], -1) < 0)
+					if (fadeTime > 0.0f)
 					{
-						LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
-						ret = false;
+						if (Mix_FadeInMusic(music[m], -1, (int)(fadeTime * 1000.0f)) < 0)
+						{
+							LOG("Cannot fade in music %s. Mix_GetError(): %s", path, Mix_GetError());
+							ret = false;
+						}
+					}
+					else
+					{
+						if (Mix_PlayMusic(music[m], -1) < 0)
+						{
+							LOG("Cannot play in music %s. Mix_GetError(): %s", path, Mix_GetError());
+							ret = false;
+						}
 					}
 				}
+				prevPath = path;
+				LOG("Successfully playing %s", path);
 			}
-			LOG("Successfully playing %s", path);
 			break;
 		}
 	}
@@ -170,7 +174,8 @@ bool Audio::PlayMusic(const char* path, float fadeTime)
 						}
 					}
 				}
-				prevpath[m] = path;
+				storedPath[m] = path;
+				prevPath = path;
 				LOG("Successfully playing %s", path);
 				break;
 			}
@@ -276,7 +281,7 @@ void Audio::FadeOutMusic(float time, const char* path)
 	bool fade = false;
 	for (int m = 0; m < MAX_STORED_MUSIC; m++)
 	{
-		if (prevpath[m] == path && music[m] != NULL)
+		if (storedPath[m] == path && music[m] != NULL)
 		{
 			fade = true;
 			if (time > 0.0f)
@@ -294,7 +299,7 @@ void Audio::FadeInMusic(float time, const char* path)
 	bool fade = false;
 	for (int m = 0; m < MAX_STORED_MUSIC; m++)
 	{
-		if (prevpath[m] == path && music[m] != NULL)
+		if (storedPath[m] == path && music[m] != NULL)
 		{
 			fade = true;
 			if (time > 0.0f)
