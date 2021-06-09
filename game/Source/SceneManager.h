@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Scene.h"
+#include "Animation.h"
 
 #include "Input.h"
 #include "Render.h"
@@ -75,10 +76,10 @@ public:
 	Font* font;
 
 	bool toDrawX = false;
+	bool xMarkFXFlag = true;
 	bool isPause = false;
 	bool isDebug = false;
 	bool pauseMusicFaded = false;
-
 	bool gameIsWorking = true;
 
 	bool newgamerequested = false;
@@ -135,6 +136,7 @@ public:
 	int doorClose;
 	int doorOpen;
 	int stairsFx;
+	int xMarkFX;
 
 	int battleEncounter;
 	bool oneTimeBattleMusic;
@@ -163,6 +165,7 @@ private:
 	int altura;
 
 	SDL_Texture* xMark;
+	Animation* animXMark = new Animation();
 };
 
 #endif // __SCENEMANAGER_H__

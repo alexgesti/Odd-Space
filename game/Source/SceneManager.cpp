@@ -63,12 +63,18 @@ bool SceneManager::Start()
 	font = new Font("typo/Adore64.xml", tex);
 	speak = new Speak(audio, render, font, input, tex);
 	dialogueSystem->speak = speak;
-	xMark = tex->Load("sprites/ui/ui_xmark.png");
+	xMark = tex->Load("sprites/ui/ui_xmarkanim.png");
+
+	animXMark->loop = false;
+	animXMark->speed = 0.45f;
+	for (int i = 0; i < 5; ++i)
+		animXMark->PushBack({ 20 * i, 0, 20, 20 });
 
 	doorClose = audio->LoadFx("audio/fx/world_door_close.wav");
 	doorOpen = audio->LoadFx("audio/fx/world_door_open.wav");
 	battleEncounter = audio->LoadFx("audio/fx/battle_sp_recover.wav");
 	stairsFx = audio->LoadFx("audio/fx/world_stairs.wav");
+	xMarkFX = audio->LoadFx("audio/fx/xmark_fx.wav");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
@@ -273,7 +279,22 @@ bool SceneManager::Update(float dt)
 
 	// Draw current scene
 	current->Draw();
-	if (toDrawX) render->DrawTexture(xMark, entityManager->CreateEntity(EntityType::HERO)->position.x + 6, entityManager->CreateEntity(EntityType::HERO)->position.y - 85);
+	if (toDrawX)
+	{
+		if (xMarkFXFlag)
+		{
+			audio->PlayFx(xMarkFX);
+			xMarkFXFlag = false;
+			animXMark->Reset();
+		}
+		animXMark->Update();
+		SDL_Rect rect = animXMark->GetCurrentFrame();
+		render->DrawTexture(xMark, entityManager->CreateEntity(EntityType::HERO)->position.x + 6, entityManager->CreateEntity(EntityType::HERO)->position.y - 85, &rect);
+	}
+	else
+	{
+		xMarkFXFlag = true;
+	}
 
 	if (dialogueSystem->inConversation)
 	{
@@ -377,6 +398,7 @@ bool SceneManager::CleanUp()
 	audio->UnloadFx(doorOpen);
 	audio->UnloadFx(battleEncounter);
 	audio->UnloadFx(stairsFx);
+	audio->UnloadFx(xMarkFX);
 
 	dialogueSystem->CleanUp();
 

@@ -153,7 +153,7 @@ bool Player::Update(float dt)
  
     return true;
 }
-// Control the when a state changes
+// Control when a state changes
 void Player::UpdateState()
 {
     GamePad& pad = input->pads[0];
