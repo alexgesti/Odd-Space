@@ -572,6 +572,15 @@ void Battle::PlayerMenu(float dt)
         buttons.buttonsMenu.buttonRun->Update(sceneManager->input, controllerMenu[f][c], dt);
         buttons.buttonsMenu.buttonItem->Update(sceneManager->input, controllerMenu[f][c], dt);
         buttons.buttonsMenu.buttonBack->Update(sceneManager->input, controllerMenu[f][c], dt);
+
+        //Back
+        if (sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
+            characterTurn = 0;
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.attack = false;
+            sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.defense = false;
+        }
+
         break;
 
         //Choose Skill Menu
@@ -602,6 +611,10 @@ void Battle::PlayerMenu(float dt)
         for (int bs = 0; bs < 5; bs++)
             buttons.buttonsSkills.buttonSkill[bs]->Update(sceneManager->input, controllerSkill[f][c], dt);
         buttons.buttonsSkills.buttonBack->Update(sceneManager->input, controllerSkill[f][c], dt);
+
+        //Back
+        if (sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) chooseMenu = 1;
+
         break;
 
         //Choose Enemy Menu
@@ -629,6 +642,19 @@ void Battle::PlayerMenu(float dt)
         for (int be = 0; be <= totalEnemies; be++)
             buttons.buttonsEnemies.buttonEnemy[be]->Update(sceneManager->input, controllerEnemy[f], dt);
         buttons.buttonsEnemies.buttonBack->Update(sceneManager->input, controllerEnemy[f], dt);
+
+        if (sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
+            chooseMenu = 1;
+            for (int s = 0; s < 5; s++)
+            {
+                if (sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[s].picked == true)
+                    chooseMenu = 2;
+
+                sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.skills[s].picked = false;
+            }
+        }
+
         break;
     }
 }
