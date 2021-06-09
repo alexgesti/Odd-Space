@@ -2,6 +2,7 @@
 
 #include "Defs.h"
 #include "Log.h"
+#include <Windows.h>
 
 #include "SDL/include/SDL.h"
 
@@ -25,6 +26,9 @@ bool Window::Awake(pugi::xml_node& config)
 {
 	LOG("Init SDL window & surface");
 	bool ret = true;
+
+	HWND windowHandle = GetConsoleWindow();
+	ShowWindow(windowHandle, SW_HIDE);
 
 	if(SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
