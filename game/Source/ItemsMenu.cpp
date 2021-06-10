@@ -10,6 +10,7 @@ ItemsMenu::ItemsMenu(SceneManager* sceneManager)
 // Destructor
 ItemsMenu::~ItemsMenu()
 {
+    Unload();
 }
 
 bool ItemsMenu::Load()

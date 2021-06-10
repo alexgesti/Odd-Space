@@ -10,7 +10,9 @@ Debug::Debug(SceneManager * sceneManager) : Scene()
 }
 // Destructor
 Debug::~Debug()
-{}
+{
+    Unload();
+}
 
 
 

@@ -34,7 +34,9 @@ ElaboratedPlate::ElaboratedPlate(Render* render, Textures* tex) : Item(ItemType:
 }
 // Destructor
 ElaboratedPlate::~ElaboratedPlate()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -64,6 +66,7 @@ void ElaboratedPlate::SetTexture(SDL_Texture *tex)
 
 bool ElaboratedPlate::UnLoad()
 {   
+    render = nullptr;
 
     return false;
 }

@@ -34,7 +34,9 @@ Jug::Jug(Render* render, Textures* tex) : Item(ItemType::JUG)
 }
 // Destructor
 Jug::~Jug()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -64,6 +66,7 @@ void Jug::SetTexture(SDL_Texture *tex)
 
 bool Jug::UnLoad()
 {   
+    render = nullptr;
 
     return false;
 }

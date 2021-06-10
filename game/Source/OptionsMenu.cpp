@@ -10,6 +10,7 @@ OptionsMenu::OptionsMenu(SceneManager* sceneManager)
 // Destructor
 OptionsMenu::~OptionsMenu()
 {
+    Unload();
 }
 
 

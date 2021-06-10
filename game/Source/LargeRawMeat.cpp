@@ -34,7 +34,9 @@ LargeRawMeat::LargeRawMeat(Render* render, Textures* tex) : Item(ItemType::LARGE
 }
 // Destructor
 LargeRawMeat::~LargeRawMeat()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -64,6 +66,7 @@ void LargeRawMeat::SetTexture(SDL_Texture *tex)
 
 bool LargeRawMeat::UnLoad()
 {   
+    render = nullptr;
 
     return false;
 }

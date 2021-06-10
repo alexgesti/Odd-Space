@@ -10,6 +10,7 @@ PauseMenu::PauseMenu(SceneManager* sceneManager)
 // Destructor
 PauseMenu::~PauseMenu()
 {
+    Unload();
 }
 
 

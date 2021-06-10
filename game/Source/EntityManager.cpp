@@ -305,7 +305,8 @@ bool EntityManager::DestroyEntity(int i)
 		else
 		{
 			list->data->UnLoad();
-			RELEASE(list->data);
+			delete list->data;
+			list->data = nullptr;
 		}
 	
 		list = list->next;

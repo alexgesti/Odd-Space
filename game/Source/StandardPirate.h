@@ -31,7 +31,7 @@ public:
 public:
 
     Animation* standardPirateAnim = new Animation();
-    SDL_Texture* standardPirateTexture;
+    SDL_Texture* standardPirateTexture = nullptr;
     int width, height;
 
 private:

@@ -20,7 +20,13 @@ Battle::Battle(SceneManager* sceneManager)
 // Destructor
 Battle::~Battle()
 {
+    Unload();
 
+    map = nullptr;
+    sceneManager = nullptr;
+    UI = nullptr;
+    VorL = nullptr;
+    stepedAnimation = nullptr;
 }
 
 bool Battle::Load()

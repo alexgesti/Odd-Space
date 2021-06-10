@@ -12,6 +12,7 @@ EndDemo::EndDemo(SceneManager * sceneManager) : Scene()
 // Destructor
 EndDemo::~EndDemo()
 {
+    Unload();
 }
 
 

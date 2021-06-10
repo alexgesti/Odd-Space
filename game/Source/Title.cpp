@@ -14,6 +14,7 @@ Title::Title(SceneManager* sceneManager) : Scene()
 // Destructor
 Title::~Title()
 {
+    Unload();
 }
 
 

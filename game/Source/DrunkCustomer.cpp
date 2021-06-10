@@ -58,7 +58,18 @@ DrunkCustomer::DrunkCustomer(Render* render, Textures* tex) : Enemy(EnemyType::D
 }
 // Destructor
 DrunkCustomer::~DrunkCustomer()
-{}
+{
+    tex->UnLoad(drunkCustomerTexture);
+    tex->UnLoad(hurtTexture);
+
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
+    
+    RELEASE(drunkCustomerAnim);
+
+    render = nullptr;
+    tex = nullptr;
+}
 
 
 

@@ -58,7 +58,9 @@ GiantBat::GiantBat(Render* render, Textures* tex) : Enemy(EnemyType::GIANTBAT)
 }
 // Destructor
 GiantBat::~GiantBat()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -102,9 +104,13 @@ bool GiantBat::UnLoad()
     tex->UnLoad(giantBatTexture);
     tex->UnLoad(hurtTexture);
 
-    RELEASE(giantBatAnim);
     RELEASE(hurtAnim);
     RELEASE(deathAnim);
+
+    RELEASE(giantBatAnim);
+    
+    render = nullptr;
+    tex = nullptr;
 
     return false;
 }
