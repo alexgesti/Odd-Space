@@ -150,6 +150,15 @@
     <ClCompile Include="Source\DebugMenu.cpp">
       <Filter>Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Emitter.cpp">
+      <Filter>Modules\ParticleEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Particle.cpp">
+      <Filter>Modules\ParticleEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ParticleSystem.cpp">
+      <Filter>Modules\ParticleEngine</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -352,6 +361,15 @@
       <Filter>Scenes</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Source\Emitter.h">
+      <Filter>Modules\ParticleEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Particle.h">
+      <Filter>Modules\ParticleEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ParticleSystem.h">
+      <Filter>Modules\ParticleEngine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="External">
@@ -380,6 +398,9 @@
     </Filter>
     <Filter Include="Entities\Items">
       <UniqueIdentifier>{047dcbff-3347-4cc7-a7d5-2b2d5e0df3d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\ParticleEngine">
+      <UniqueIdentifier>{3b956cd4-7465-467f-8461-950502887893}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

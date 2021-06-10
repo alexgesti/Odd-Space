@@ -51,6 +51,7 @@ public:
 	bool DrawCircle(int x1, int y1, int redius, Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255, bool useCamera = true) const;
 	bool DrawDegradedRectHorizontal(const SDL_Rect& rect, SDL_Color color1, SDL_Color color2, bool useCamera = true);
 	bool DrawDegradedRectVertical(const SDL_Rect& rect, SDL_Color color1, SDL_Color color2, bool useCamera = true);
+	bool DrawParticle(SDL_Texture* texture, int x, int y, const SDL_Rect* section, const SDL_Rect* rectSize, SDL_Color color, SDL_BlendMode blendMode = SDL_BLENDMODE_ADD, float speed = 1.0f, double angle = 0, int pivotX = INT_MAX, int pivotY = INT_MAX) const;
 
 	bool DrawText(Font* font, const char* text, int x, int y, int size, int spacing, SDL_Color tint);
 
@@ -59,6 +60,7 @@ public:
 
 public:
 
+	bool debug;
 	SDL_Renderer* renderer;
 	SDL_Rect camera;
 	SDL_Rect viewport;

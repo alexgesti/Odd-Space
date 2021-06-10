@@ -23,7 +23,7 @@
 #define FADEOUT_TRANSITION_SPEED	2.0f
 #define FADEIN_TRANSITION_SPEED		2.0f
 
-SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio, DialogueSystem* dialogueSystem) : Module()
+SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio, DialogueSystem* dialogueSystem, ParticleSystem* pSystem) : Module()
 {
 	name.Create("scenemanager");
 
@@ -40,6 +40,7 @@ SceneManager::SceneManager(Input* input, Render* render, Textures* tex, Window* 
 	this->entityManager = entityManager;
 	this->dialogueSystem = dialogueSystem;
 	this->audio = audio;
+	this->particleSystem = pSystem;
 
 	this->collision = &entityManager->collision;
 }
@@ -355,7 +356,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
 		case SceneType::BATTLE:
-			next = new Battle(this);
+			next = new Battle(this,particleSystem, render);
 			while (temp != NULL)
 			{
 				if(temp->data.type == QuestType::COLLECT)

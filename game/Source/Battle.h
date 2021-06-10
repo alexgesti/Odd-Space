@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Font.h"
 #include "Animation.h"
+#include "ParticleSystem.h"
 
 //#define MAX_ZOOM 3.0f
 //#define MIN_ZOOM 0.3f
@@ -14,12 +15,14 @@ class SceneManager;
 
 class GuiButton;
 
+class Emitter;
+
 class Battle : public Scene
 {
 public:
 
     // Constructor
-    Battle(SceneManager* sceneManager);
+    Battle(SceneManager* sceneManager, ParticleSystem* pSystem, Render* render);
     // Destructor
     virtual ~Battle();
 
@@ -59,6 +62,13 @@ private:
     Map* map;
 
     SceneManager* sceneManager;
+
+    ParticleSystem* particleSystem;
+    Render* render;
+
+    List<Emitter*> smokes;
+    List<Emitter*> heals;
+    List<Emitter*> blesses;
 
     SDL_Texture* UI;
     SDL_Texture* VorL;

@@ -21,6 +21,7 @@ class EntityManager;
 class SceneManager;
 class DialogueSystem;
 class SaveFileManager;
+class ParticleSystem;
 
 class Assets;
 
@@ -88,6 +89,7 @@ public:
 	EntityManager* entityManager;
 	SceneManager* sceneManager;
 	DialogueSystem* dialogueSystem;
+	ParticleSystem* particleSystem;
 
 	// Not modules
 	SaveFileManager* saveFileManager;
