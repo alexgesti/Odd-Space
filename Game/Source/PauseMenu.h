@@ -35,8 +35,6 @@ public:
     bool OnGuiMouseClickEvent(GuiControl* control);
 
     int pauseFx = 0;
-   
-
 private:
 
     SceneManager* sceneManager;

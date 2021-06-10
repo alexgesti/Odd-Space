@@ -174,6 +174,7 @@ bool SceneManager::Update(float dt)
 				if (openOptions) options->Unload();
 				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 				audio->PlayFx(unPauseFx);
+				alphaP = 1.0f;
 			}
 			else entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
 			
