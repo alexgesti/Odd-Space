@@ -154,7 +154,7 @@ public:
 	bool beGod = false;
 
 	// --- SCENE-SPECIFIC VARIABLES --- //
-	bool initialExtTextSaid = false;
+	bool initialTextTextSaid = false;
 
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)

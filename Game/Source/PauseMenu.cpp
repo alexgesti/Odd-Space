@@ -49,11 +49,11 @@ bool PauseMenu::Load()
     f2 = 0;
 
     stepedAnimation = new StepedAnimation();
-    stepedAnimation->speed = 40.0f;
-    stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
-    stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
-    stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
-    stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
+    stepedAnimation->speed = 80.0f;
+    stepedAnimation->Pushback(334, 1177, 100, 100, 1083, 5);
+    stepedAnimation->Pushback(1177, 1177, 100, 666, 5, 572);
+    stepedAnimation->Pushback(1182, 334, 666, 666, 1103 - 253, 5);
+    stepedAnimation->Pushback(334, 334, 666, 100, 5, 94);
 
     return true;
 }
@@ -213,6 +213,37 @@ bool PauseMenu::Draw()
         SP = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.SP);
         maxSP = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxSP);
         sceneManager->render->DrawText(sceneManager->font, ("SP " + SP + " / " + maxSP).c_str(), 32 + rect.w / 1.25f, 48 + (rect.h / 1.2f), 25, 0, { 255, 255, 255, 255 });
+
+        int amountDisapeared = 0;
+
+        for (int i = 0; i < stepedAnimation->currentStep; i++)
+        {
+            SDL_Rect temp = stepedAnimation->GetStep(i);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, stepedAnimation->steps[i].alpha, true, false);
+            if (stepedAnimation->steps[i].disapear) stepedAnimation->steps[i].alpha -= 3;
+            if (stepedAnimation->steps[i].alpha <= 0)
+            {
+                stepedAnimation->steps[i].alpha = 0;
+                stepedAnimation->steps[i].disapear = false;
+            }
+
+            if (!stepedAnimation->steps[i].disapear) amountDisapeared++;
+        }
+
+        if (!stepedAnimation->animationCompleted)
+        {
+            SDL_Rect temp = stepedAnimation->Update();
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, 255, true, false);
+        }
+
+        else if (amountDisapeared >= stepedAnimation->stepAmount)
+        {
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1083, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 666, 5, 572);
+            stepedAnimation->Pushback(1182, 334, 666, 666, 1103 - 253, 5);
+            stepedAnimation->Pushback(334, 334, 666, 100, 5, 94);
+        }
     }
     sceneManager->render->DrawText(sceneManager->font, "Current", 145, 67, 25, 0, { 255, 255, 255, 255 });
    
@@ -225,61 +256,124 @@ bool PauseMenu::Draw()
 
     if (sceneManager->openOptions) sceneManager->options->Draw();
     if (sceneManager->openItems) sceneManager->items->Draw();
+
     if (saveloadmenu)
     {
         buttonSave->Draw(sceneManager->render, sceneManager->font);
         buttonLoad->Draw(sceneManager->render, sceneManager->font);
+
+        int amountDisapeared = 0;
+
+        for (int i = 0; i < stepedAnimation->currentStep; i++)
+        {
+            SDL_Rect temp = stepedAnimation->GetStep(i);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, stepedAnimation->steps[i].alpha, true, false);
+            if (stepedAnimation->steps[i].disapear) stepedAnimation->steps[i].alpha -= 3;
+            if (stepedAnimation->steps[i].alpha <= 0)
+            {
+                stepedAnimation->steps[i].alpha = 0;
+                stepedAnimation->steps[i].disapear = false;
+            }
+
+            if (!stepedAnimation->steps[i].disapear) amountDisapeared++;
+        }
+
+        if (!stepedAnimation->animationCompleted)
+        {
+            SDL_Rect temp = stepedAnimation->Update();
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, 255, true, false);
+        }
+
+        else if (amountDisapeared >= stepedAnimation->stepAmount)
+        {
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(83, 339, 476, 476, 1083, 5);
+            stepedAnimation->Pushback(334, 334, 476, 100, 5, 282);
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+            stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+            stepedAnimation->Pushback(334, 334, 668, 570, 5, 622 - 476);
+            stepedAnimation->Pushback(334, 83, 570, 570, 233, 5);
+            stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
+        }
     }
+
     if (exitmenu)
     {
         buttonTitle->Draw(sceneManager->render, sceneManager->font);
         buttonExit->Draw(sceneManager->render, sceneManager->font);
-    }
-    if (questmenu) sceneManager->questSystem->Draw(sceneManager->render, sceneManager->font);
 
-    if (saveAnimation)
-    {
+        int amountDisapeared = 0;
+
         for (int i = 0; i < stepedAnimation->currentStep; i++)
         {
             SDL_Rect temp = stepedAnimation->GetStep(i);
-            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, stepedAnimation->steps[i].alpha, true, false);
+            if (stepedAnimation->steps[i].disapear) stepedAnimation->steps[i].alpha -= 3;
+            if (stepedAnimation->steps[i].alpha <= 0)
+            {
+                stepedAnimation->steps[i].alpha = 0;
+                stepedAnimation->steps[i].disapear = false;
+            }
+
+            if (!stepedAnimation->steps[i].disapear) amountDisapeared++;
         }
 
         if (!stepedAnimation->animationCompleted)
         {
             SDL_Rect temp = stepedAnimation->Update();
-            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, 255, true, false);
         }
 
-        else alpha -= 3;
-
-        if (stepedAnimation->animationCompleted && alpha < 0)
+        else if (amountDisapeared >= stepedAnimation->stepAmount)
         {
-            saveAnimation = false;
-            alpha = 255;
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(83, 339, 570, 570, 1083, 5);
+            stepedAnimation->Pushback(334, 334, 570, 100, 5, 282);
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 664, 5, 572);
+            stepedAnimation->Pushback(1182, 83, 664, 664, 1103 - 253, 5);
+            stepedAnimation->Pushback(83, 83, 664, 570, 5, 94);
         }
     }
 
-    if (loadAnimation)
+    if (questmenu)
     {
+        sceneManager->questSystem->Draw(sceneManager->render, sceneManager->font);
+
+        int amountDisapeared = 0;
+
         for (int i = 0; i < stepedAnimation->currentStep; i++)
         {
             SDL_Rect temp = stepedAnimation->GetStep(i);
-            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, stepedAnimation->steps[i].alpha, true, false);
+            if (stepedAnimation->steps[i].disapear) stepedAnimation->steps[i].alpha -= 3;
+            if (stepedAnimation->steps[i].alpha <= 0)
+            {
+                stepedAnimation->steps[i].alpha = 0;
+                stepedAnimation->steps[i].disapear = false;
+            }
+
+            if (!stepedAnimation->steps[i].disapear) amountDisapeared++;
         }
 
         if (!stepedAnimation->animationCompleted)
         {
             SDL_Rect temp = stepedAnimation->Update();
-            sceneManager->render->DrawRectangle(temp, 255, 255, 255, alpha, true, false);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, 255, true, false);
         }
 
-        else alpha -= 3;
-
-        if (stepedAnimation->animationCompleted && alpha < 0)
+        else if (amountDisapeared >= stepedAnimation->stepAmount)
         {
-            loadAnimation = false;
-            alpha = 255;
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(83, 339, 288, 288, 1083, 5);
+            stepedAnimation->Pushback(334, 334, 288, 100, 5, 282);
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+            stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+            stepedAnimation->Pushback(334, 334, 668, 382, 5, 622 - 476);
+            stepedAnimation->Pushback(334, 83, 382, 382, 233, 5);
+            stepedAnimation->Pushback(83, 83, 382, 288, 5, 94);
         }
     }
 
@@ -338,6 +432,15 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             break;
         case 3:
             questmenu = true;
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(83, 339, 288, 288, 1083, 5);
+            stepedAnimation->Pushback(334, 334, 288, 100, 5, 282);
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+            stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+            stepedAnimation->Pushback(334, 334, 668, 382, 5, 622 - 476);
+            stepedAnimation->Pushback(334, 83, 382, 382, 233, 5);
+            stepedAnimation->Pushback(83, 83, 382, 288, 5, 94);
             break;
         case 4:
             sceneManager->options->Load();
@@ -345,11 +448,27 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             break;
         case 5:
             saveloadmenu = true;
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(83, 339, 476, 476, 1083, 5);
+            stepedAnimation->Pushback(334, 334, 476, 100, 5, 282);
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+            stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+            stepedAnimation->Pushback(334, 334, 668, 570, 5, 622 - 476);
+            stepedAnimation->Pushback(334, 83, 570, 570, 233, 5);
+            stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
             f2 = f;
             break;
         case 6:
             exitmenu = true;
             f2 = f;
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(83, 339, 570, 570, 1083, 5);
+            stepedAnimation->Pushback(334, 334, 570, 100, 5, 282);
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 664, 5, 572);
+            stepedAnimation->Pushback(1182, 83, 664, 664, 1103 - 253, 5);
+            stepedAnimation->Pushback(83, 83, 664, 570, 5, 94);
             break;
         default: break;
         }
@@ -360,24 +479,10 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         {
         case 1:
            sceneManager->saverequested = true;
-           saveAnimation = true;
-           loadAnimation = false;
-           stepedAnimation->Reset();
-           stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
-           stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
-           stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
-           stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
            alpha = 255;
             break;
         case 2:
             sceneManager->loadrequested = true;
-            saveAnimation = false;
-            loadAnimation = true;
-            stepedAnimation->Reset();
-            stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
-            stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
-            stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
-            stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
             alpha = 255;
             break;
         default:

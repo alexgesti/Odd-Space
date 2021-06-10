@@ -53,14 +53,26 @@ bool OptionsMenu::Load()
 
     stepedAnimation = new StepedAnimation();
     stepedAnimation->speed = 80.0f;
-    stepedAnimation->Pushback(83, 339, 382, 382, 1083, 5);
-    stepedAnimation->Pushback(334, 334, 382, 100, 5, 282);
-    stepedAnimation->Pushback(334, 1177, 100, 100, 1177-334, 5);
-    stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
-    stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
-    stepedAnimation->Pushback(334, 334, 668, 476, 5, 622 - 476);
-    stepedAnimation->Pushback(334, 83, 476, 476, 233, 5);
-    stepedAnimation->Pushback(83, 83, 476, 382, 5, 94);
+
+    if(sceneManager->currentscenetype == SceneType::TITLE)
+    {
+        stepedAnimation->Pushback(354, 1166, 120, 120, 1200 - 334, 5);
+        stepedAnimation->Pushback(1161, 1161, 120, 650, 5, 572);
+        stepedAnimation->Pushback(1166, 354, 650, 650, 1103 - 253, 5);
+        stepedAnimation->Pushback(354, 354, 650, 120, 5, 622 - 476);
+    }
+
+    else
+    {
+        stepedAnimation->Pushback(83, 339, 382, 382, 1083, 5);
+        stepedAnimation->Pushback(334, 334, 382, 100, 5, 282);
+        stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+        stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+        stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+        stepedAnimation->Pushback(334, 334, 668, 476, 5, 622 - 476);
+        stepedAnimation->Pushback(334, 83, 476, 476, 233, 5);
+        stepedAnimation->Pushback(83, 83, 476, 382, 5, 94);
+    }
 
     c = 0;
 
@@ -151,14 +163,26 @@ bool OptionsMenu::Draw()
     else if(amountDisapeared >= stepedAnimation->stepAmount)
     {
         stepedAnimation->Reset();
-        stepedAnimation->Pushback(83, 339, 382, 382, 1083, 5);
-        stepedAnimation->Pushback(334, 334, 382, 100, 5, 282);
-        stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
-        stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
-        stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
-        stepedAnimation->Pushback(334, 334, 668, 476, 5, 622 - 476);
-        stepedAnimation->Pushback(334, 83, 476, 476, 233, 5);
-        stepedAnimation->Pushback(83, 83, 476, 382, 5, 94);
+        
+        if (sceneManager->currentscenetype == SceneType::TITLE)
+        {
+            stepedAnimation->Pushback(354, 1166, 120, 120, 1200 - 334, 5);
+            stepedAnimation->Pushback(1161, 1161, 120, 650, 5, 572);
+            stepedAnimation->Pushback(1166, 354, 650, 650, 1103 - 253, 5);
+            stepedAnimation->Pushback(354, 354, 650, 120, 5, 622 - 476);
+        }
+
+        else
+        {
+            stepedAnimation->Pushback(83, 339, 382, 382, 1083, 5);
+            stepedAnimation->Pushback(334, 334, 382, 100, 5, 282);
+            stepedAnimation->Pushback(334, 1177, 100, 100, 1177 - 334, 5);
+            stepedAnimation->Pushback(1177, 1177, 100, 665, 5, 572);
+            stepedAnimation->Pushback(1182, 334, 665, 665, 1103 - 253, 5);
+            stepedAnimation->Pushback(334, 334, 668, 476, 5, 622 - 476);
+            stepedAnimation->Pushback(334, 83, 476, 476, 233, 5);
+            stepedAnimation->Pushback(83, 83, 476, 382, 5, 94);
+        }
     }
 
     /*if (music->state == GuiControlState::PRESSED)

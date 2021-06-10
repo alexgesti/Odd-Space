@@ -95,7 +95,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
-	if (!sceneManager->initialExtTextSaid)
+	if (!sceneManager->initialTextTextSaid)
 	{
 		bool alreadySaid = false;
 		for (int i = 0; i < sceneManager->dialogueSystem->completedDialoguesId.Count(); i++)
@@ -114,7 +114,7 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 			sceneManager->dialogueSystem->completedDialoguesId.Add(0);
 		}
 
-		sceneManager->initialExtTextSaid = true;
+		sceneManager->initialTextTextSaid = true;
 	}
 
 	//map = new Map(tex);

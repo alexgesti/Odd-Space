@@ -61,9 +61,6 @@ private:
 
     StepedAnimation* stepedAnimation;
 
-    bool saveAnimation = false;
-    bool loadAnimation = false;
-
     bool saveloadmenu = false;
     bool exitmenu = false;
     bool questmenu = false;
