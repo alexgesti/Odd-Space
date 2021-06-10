@@ -2,6 +2,7 @@
 *{
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    scroll-behavior: smooth;
 }
 
 /*HTML TAGS CHANGES*/
@@ -69,6 +70,12 @@ video {
 
 li img{
     cursor: url("web_resources/cursor.png"), auto;
+}
+
+iframe{
+    padding-top: 20px;
+    padding-bottom: 40px;
+    border-color: transparent;
 }
 
 /*MENU CONFIGURATION*/
@@ -288,6 +295,15 @@ img.portrait
     align-content: center;
 }
 
+.centerX{
+    display: flex;
+    justify-content: center;
+}
+
+.underlined{
+    text-decoration: underline;
+}
+
 .hi-slide{
     position: relative;
     width: 993px;
@@ -374,6 +390,114 @@ img.portrait
     width: 100%;
     height: 100%;
     background-position: center;
+}
+
+.aligned{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 40%;
+    padding: 10px;
+}
+
+button {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    position: relative;
+    height: 60px;
+    width: 250px;
+    margin-bottom: 20px;
+    /*margin: 0 35px;
+    margin-left: 140px;*/
+    border-radius: 50px;
+    border: none;
+    outline: none;
+    background: #5cd6f7;
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration-color: white;
+}
+
+button:first-child:hover {
+    background: linear-gradient(90deg, #03a9f4, #f441a5, #ffeb3b, #03a9f4);
+    background-size: 200%;
+    cursor: url("web_resources/cursor_hover.png"), auto;
+}
+
+button:last-child:hover {
+    background: linear-gradient(90deg, #b6f4ff, #268fe9, #9ca5ef, #c7d3f5);
+    background-size: 200%;
+    cursor: url("web_resources/cursor_hover.png"), auto;
+}
+
+button:first-child:before,
+button:last-child::before{
+    content: '';
+    position:absolute;
+    background:inherit;
+    top: -5px;
+    right: -5px;
+    left: -5px;
+    bottom: -5px;
+    border-radius: 50px;
+    filter: blur(20px);
+    opacity: 0;
+    transition: opacity .5s;
+    cursor: url("web_resources/cursor.png"), auto;
+}
+
+button:hover:first-child:before,
+button:hover:last-child:before{
+    opacity: 1;
+    z-index: -1;
+    cursor: url("web_resources/cursor.png"), auto;
+}
+
+button:hover{
+    z-index: 1;
+    animation: glow 2s linear infinite;
+    cursor: url("web_resources/cursor_hover.png"), auto;
+}
+
+a.button{
+    cursor: url("web_resources/cursor_hover.png"), auto;
+}
+
+@keyframes glow{
+    0%{
+        background-position: 0%;
+    }
+    100%{
+        background-position: 200%;
+    }
+}
+
+.descarga {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.texto {
+    margin-top: 40px;
+}
+
+.logo {
+
+    text-align: right;
+    display: block;
+}
+
+.margen
+{
+    margin-bottom: 10px;
 }
 
 /*RESPONSIVE CONFIGURATION*/
