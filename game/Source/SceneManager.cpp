@@ -183,7 +183,7 @@ bool SceneManager::Update(float dt)
 		else if (isPause) pause->Update(dt);
 		else
 		{
-			if (pauseMusicFaded)
+			if (pauseMusicFaded && exitToMainMenu == false)
 			{
 				audio->FadeInMusic(0.5f, "audio/music/exterior_music.ogg");
 				pauseMusicFaded = false;

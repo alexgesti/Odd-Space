@@ -90,6 +90,7 @@ public:
 	bool saverequested = false;
 	bool loadrequested = false;
 
+	bool exitToMainMenu = false;
 	bool exitGame = false;
 	bool capped = true;
 

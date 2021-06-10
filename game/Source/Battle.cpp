@@ -332,8 +332,7 @@ bool Battle::Update(float dt)
                 LOG("\n");
 
                 //Lose Condition
-                if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0 &&
-                    sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP <= 0)
+                if (sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP <= 0)
                 {
                     sceneManager->audio->FadeOutMusic(0.1f, "audio/music/battle_music.ogg");
                     sceneManager->audio->PlayFx(fx.loseFx);

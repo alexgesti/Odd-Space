@@ -496,9 +496,10 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         switch (control->id)
         {
         case 1:
+            sceneManager->current->TransitionToScene(SceneType::TITLE);
             sceneManager->saverequested = true;
             sceneManager->isPause = false;
-            sceneManager->current->TransitionToScene(SceneType::TITLE);
+            sceneManager->exitToMainMenu = true;
             sceneManager->render->camera.x = 0;
             sceneManager->render->camera.y = 0;
             break;
