@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "Font.h"
 #include "Animation.h"
+#include "ParticleSystem.h"
 
 //#define MAX_ZOOM 3.0f
 //#define MIN_ZOOM 0.3f
@@ -13,6 +14,8 @@ class Map;
 class SceneManager;
 
 class GuiButton;
+
+class Emitter;
 
 class Battle : public Scene
 {
@@ -59,6 +62,12 @@ private:
     Map* map;
 
     SceneManager* sceneManager;
+
+    ParticleSystem* particleSystem;
+
+    List<Emitter*> smokes;
+    List<Emitter*> heals;
+    List<Emitter*> blesses;
 
     SDL_Texture* UI;
     SDL_Texture* VorL;

@@ -105,6 +105,7 @@
     <ClCompile Include="Source\DungeonF1.cpp" />
     <ClCompile Include="Source\DungeonF2.cpp" />
     <ClCompile Include="Source\ElaboratedPlate.cpp" />
+    <ClCompile Include="Source\Emitter.cpp" />
     <ClCompile Include="Source\EndDemo.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\Exterior.cpp" />
@@ -126,6 +127,8 @@
     <ClCompile Include="Source\MutantRat.cpp" />
     <ClCompile Include="Source\OldCaptain.cpp" />
     <ClCompile Include="Source\OptionsMenu.cpp" />
+    <ClCompile Include="Source\Particle.cpp" />
+    <ClCompile Include="Source\ParticleSystem.cpp" />
     <ClCompile Include="Source\PauseMenu.cpp" />
     <ClCompile Include="Source\PerfTimer.cpp" />
     <ClCompile Include="Source\Cantina.cpp" />
@@ -156,6 +159,7 @@
     <ClInclude Include="Source\DungeonF2.h" />
     <ClInclude Include="Source\easings.h" />
     <ClInclude Include="Source\ElaboratedPlate.h" />
+    <ClInclude Include="Source\Emitter.h" />
     <ClInclude Include="Source\Encrypt.h" />
     <ClInclude Include="Source\EndDemo.h" />
     <ClInclude Include="Source\Exterior.h" />
@@ -180,6 +184,8 @@
     <ClInclude Include="Source\MutantRat.h" />
     <ClInclude Include="Source\OldCaptain.h" />
     <ClInclude Include="Source\OptionsMenu.h" />
+    <ClInclude Include="Source\Particle.h" />
+    <ClInclude Include="Source\ParticleSystem.h" />
     <ClInclude Include="Source\PauseMenu.h" />
     <ClInclude Include="Source\PerfTimer.h" />
     <ClInclude Include="Source\Pint.h" />

@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "SceneManager.h"
 #include "DialogSystem.h"
+#include "ParticleSystem.h"
 
 #include "SaveFileManager.h"
 #include "Assets.h"
@@ -38,6 +39,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager(input, render, tex);
 	dialogueSystem = new DialogueSystem(input, render, tex, audio);
 	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem);
+	particleSystem = new ParticleSystem(tex);
 
 	// Not modules
 	saveFileManager = new SaveFileManager(sceneManager);

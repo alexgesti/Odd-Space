@@ -5,6 +5,9 @@
 
 #include "GuiButton.h"
 
+#include "ParticleSystem.h"
+#include "Particle.h"
+
 #include <time.h> 
 #include "Log.h"
 
@@ -186,6 +189,34 @@ bool Battle::Load()
 
     // Animaciones extras
 
+    // Particles
+    ListItem<Emitter*>* smoke = smokes.start;
+    while (smoke != nullptr)
+    {
+        ListItem<Emitter*>* smokeNext = smoke->next;
+        RELEASE(smoke);
+        smoke = smokeNext;
+    }
+    smokes.Clear();
+
+    ListItem<Emitter*>* heal = heals.start;
+    while (heal != nullptr)
+    {
+        ListItem<Emitter*>* healNext = heal->next;
+        RELEASE(heal);
+        heal = healNext;
+    }
+    heals.Clear();
+
+    ListItem<Emitter*>* bless = blesses.start;
+    while (bless != nullptr)
+    {
+        ListItem<Emitter*>* blessNext = bless->next;
+        RELEASE(bless);
+        bless = blessNext;
+    }
+    blesses.Clear();
+
     return false;
 }
 
@@ -194,6 +225,12 @@ bool Battle::Update(float dt)
     bool ret = false;
 
     GamePad& pad = sceneManager->input->pads[0];
+
+    if (sceneManager->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+    {
+        LOG("Smoke emitter init");
+        smokes.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE));
+    }
 
     //Player Turn
     if (playerMenu && !sceneManager->wasBattle)
@@ -531,7 +568,32 @@ bool Battle::Unload()
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
 	
-    //*entityManager->previousScene = SceneType::BATTLE;
+    ListItem<Emitter*>* smoke = smokes.start;
+    while (smoke != nullptr)
+    {
+        ListItem<Emitter*>* smokeNext = smoke->next;
+        RELEASE(smoke);
+        smoke = smokeNext;
+    }
+    smokes.Clear();
+
+    ListItem<Emitter*>* heal = heals.start;
+    while (heal != nullptr)
+    {
+        ListItem<Emitter*>* healNext = heal->next;
+        RELEASE(heal);
+        heal = healNext;
+    }
+    heals.Clear();
+
+    ListItem<Emitter*>* bless = blesses.start;
+    while (bless != nullptr)
+    {
+        ListItem<Emitter*>* blessNext = bless->next;
+        RELEASE(bless);
+        bless = blessNext;
+    }
+    blesses.Clear();
 
     sceneManager = nullptr;
 
@@ -702,6 +764,7 @@ void Battle::DamagePlayer(int player)
         {
             sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= damageDealt;
             sceneManager->audio->PlayFx(fx.hurtFx);
+            
 
         }
     }
