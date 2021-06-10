@@ -229,7 +229,7 @@ bool Battle::Update(float dt)
     if (sceneManager->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
     {
         LOG("Smoke emitter init");
-        smokes.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE));
+        smokes.Add(sceneManager->particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE));
     }
 
     //Player Turn

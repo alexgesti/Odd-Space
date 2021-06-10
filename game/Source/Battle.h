@@ -63,8 +63,6 @@ private:
 
     SceneManager* sceneManager;
 
-    ParticleSystem* particleSystem;
-
     List<Emitter*> smokes;
     List<Emitter*> heals;
     List<Emitter*> blesses;

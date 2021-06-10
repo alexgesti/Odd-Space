@@ -15,6 +15,7 @@
 #include "Collision.h"
 #include "Speak.h"
 #include "QuestSystem.h"
+#include "ParticleSystem.h"
 
 #include <vector>
 
@@ -28,7 +29,7 @@ class SceneManager : public Module
 public:
 
 	// Constructor
-	SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio, DialogueSystem* dialogueSystem);
+	SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio, DialogueSystem* dialogueSystem, ParticleSystem* particleSystem);
 	// Destructor
 	virtual ~SceneManager();
 
@@ -62,6 +63,7 @@ public:
 	EntityManager* entityManager;
 	DialogueSystem* dialogueSystem;
 	Audio* audio;
+	ParticleSystem* particleSystem;
 
 	Collision* collision;
 	Speak* speak;

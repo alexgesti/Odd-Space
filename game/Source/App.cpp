@@ -38,8 +38,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio(assets);
 	entityManager = new EntityManager(input, render, tex);
 	dialogueSystem = new DialogueSystem(input, render, tex, audio);
-	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem);
 	particleSystem = new ParticleSystem(tex);
+	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem, particleSystem);
 
 	// Not modules
 	saveFileManager = new SaveFileManager(sceneManager);
@@ -53,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(entityManager);
 	AddModule(dialogueSystem);
+	AddModule(particleSystem);
 	AddModule(sceneManager);
 
 	// Render last to swap buffer
