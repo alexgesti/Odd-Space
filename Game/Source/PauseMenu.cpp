@@ -18,7 +18,7 @@ bool PauseMenu::Load()
 {
     pause = sceneManager->tex->Load("sprites/ui/ui_menupause.png");
     pauseFx = sceneManager->audio->LoadFx("audio/fx/pause_ui.wav");
-    unPauseFx = sceneManager->audio->LoadFx("audio/fx/unpause_ui.wav");
+   
 
     buttonItems = new GuiButton(1, { 90, 109, 240, 81 }, "Items", sceneManager->audio);
     buttonItems->SetObserver(this);
@@ -274,7 +274,7 @@ bool PauseMenu::Unload()
     buttonLoad->UnLoad();
     RELEASE(buttonLoad);
     sceneManager->audio->UnloadFx(pauseFx);
-    sceneManager->audio->UnloadFx(unPauseFx);
+  
 
     RELEASE(stepedAnimation);
 

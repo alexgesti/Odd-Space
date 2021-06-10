@@ -75,6 +75,7 @@ bool SceneManager::Start()
 	battleEncounter = audio->LoadFx("audio/fx/battle_sp_recover.wav");
 	stairsFx = audio->LoadFx("audio/fx/world_stairs.wav");
 	xMarkFX = audio->LoadFx("audio/fx/xmark_fx.wav");
+	unPauseFx = audio->LoadFx("audio/fx/unpause_ui.wav");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
@@ -172,6 +173,7 @@ bool SceneManager::Update(float dt)
 				if (openItems) items->Unload();
 				if (openOptions) options->Unload();
 				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
+				audio->PlayFx(unPauseFx);
 			}
 			else entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
 			
@@ -399,6 +401,7 @@ bool SceneManager::CleanUp()
 	audio->UnloadFx(battleEncounter);
 	audio->UnloadFx(stairsFx);
 	audio->UnloadFx(xMarkFX);
+	audio->UnloadFx(unPauseFx);
 
 	tex->UnLoad(xMark);
 

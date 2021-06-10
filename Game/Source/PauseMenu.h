@@ -35,7 +35,7 @@ public:
     bool OnGuiMouseClickEvent(GuiControl* control);
 
     int pauseFx = 0;
-    int unPauseFx = 0;
+   
 
 private:
 

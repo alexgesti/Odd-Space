@@ -137,6 +137,7 @@ public:
 	int doorOpen;
 	int stairsFx;
 	int xMarkFX;
+	int unPauseFx;
 
 	int battleEncounter;
 	bool oneTimeBattleMusic;
