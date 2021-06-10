@@ -34,7 +34,9 @@ Pint::Pint(Render* render, Textures* tex) : Item(ItemType::PINT)
 }
 // Destructor
 Pint::~Pint()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -64,6 +66,7 @@ void Pint::SetTexture(SDL_Texture *tex)
 
 bool Pint::UnLoad()
 {   
+    render = nullptr;
 
     return false;
 }

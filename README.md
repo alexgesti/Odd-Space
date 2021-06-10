@@ -51,6 +51,9 @@ Odd space is a RPG turn based game for PC, where the protagonist gets lost from 
 + Name: Òscar Canales 
 + Github: https://github.com/Osvak
 
+### Website
++ https://alexgesti.github.io/Odd-Space/
+
 ## [Wiki](https://github.com/alexgesti/PROYECTO-2/wiki)
 
 1. [Home](https://github.com/alexgesti/PROYECTO-2/wiki)

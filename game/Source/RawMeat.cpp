@@ -32,7 +32,9 @@ RawMeat::RawMeat(Render* render, Textures* tex) : Item(ItemType::RAWMEAT)
 }
 // Destructor
 RawMeat::~RawMeat()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -62,6 +64,7 @@ void RawMeat::SetTexture(SDL_Texture *tex)
 
 bool RawMeat::UnLoad()
 {   
+    render = nullptr;
 
     return false;
 }

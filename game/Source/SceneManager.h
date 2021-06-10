@@ -92,6 +92,7 @@ public:
 	bool saverequested = false;
 	bool loadrequested = false;
 
+	bool exitToMainMenu = false;
 	bool exitGame = false;
 	bool capped = true;
 
@@ -157,6 +158,7 @@ public:
 
 	// --- SCENE-SPECIFIC VARIABLES --- //
 	bool initialTextTextSaid = false;
+	float alphaP;
 
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)

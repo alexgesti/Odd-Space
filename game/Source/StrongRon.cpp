@@ -33,7 +33,9 @@ StrongRon::StrongRon(Render* render, Textures* tex) : Item(ItemType::STRONGRON)
 }
 // Destructor
 StrongRon::~StrongRon()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -63,6 +65,7 @@ void StrongRon::SetTexture(SDL_Texture *tex)
 
 bool StrongRon::UnLoad()
 {   
+    render = nullptr;
 
     return false;
 }

@@ -10,6 +10,7 @@
 class Input;
 class Render;
 class Textures;
+class Player;
 
 enum class SceneType;
 
@@ -45,8 +46,11 @@ public:
 	bool Draw();
 
 	bool DestroyEntity(int i);
+	bool DestroyPlayer();
 
 public:
+
+	Player* player;
 
 	List<Entity*> entities[3];
 

@@ -133,6 +133,9 @@ private:
     int controllerMenu[2][3] = { {1, 2, 3}, {4, 5, 6} };
     int controllerSkill[2][3] = { {7, 8, 9}, {10, 11, 12} };
     int controllerEnemy[6];
+
+    StepedAnimation* stepedAnimation;
+    int alpha = 255;
 };
 
 #endif // __SCENEBATTLE_H__

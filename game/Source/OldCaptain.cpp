@@ -112,7 +112,25 @@ Captain::Captain(Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
 }
 // Destructor
 Captain::~Captain()
-{}
+{
+    tex->UnLoad(oldCaptainTexture);
+    tex->UnLoad(hurtTexture);
+    tex->UnLoad(shieldTexture);
+    tex->UnLoad(deathTexture);
+
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
+
+    RELEASE(animOldCaptainWalkUp);
+    RELEASE(animOldCaptainWalkDown);
+    RELEASE(animOldCaptainWalkLeft);
+    RELEASE(animOldCaptainWalkRight);
+
+    currentAnimation = nullptr;
+
+    render = nullptr;
+    tex = nullptr;
+}
 
 
 

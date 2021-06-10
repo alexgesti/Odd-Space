@@ -27,7 +27,9 @@ DungeonExt::DungeonExt(SceneManager* sceneManager) : Scene()
 
 // Destructor
 DungeonExt::~DungeonExt()
-{}
+{
+	Unload();
+}
 
 bool DungeonExt::Load()
 {

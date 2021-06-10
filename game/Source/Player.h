@@ -44,6 +44,7 @@ public:
     // Delete the instance
     static void ResetInstance();
 
+
     bool Update(float dt);
     void UpdateState();
     void UpdateLogic(float dt);

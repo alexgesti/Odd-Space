@@ -59,7 +59,9 @@ Cantina::Cantina(SceneManager* sceneManager) : Scene()
 }
 // Destructor
 Cantina::~Cantina()
-{}
+{
+	Unload();
+}
 
 bool Cantina::Load() /*EntityManager entityManager)*/
 {

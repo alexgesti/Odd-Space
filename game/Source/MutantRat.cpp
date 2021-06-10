@@ -59,7 +59,9 @@ MutantRat::MutantRat(Render* render, Textures* tex) : Enemy(EnemyType::MUTANTRAT
 }
 // Destructor
 MutantRat::~MutantRat()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -104,8 +106,12 @@ bool MutantRat::UnLoad()
     tex->UnLoad(hurtTexture);
 
     RELEASE(mutantRatAnim);
+
     RELEASE(hurtAnim);
     RELEASE(deathAnim);
+
+    render = nullptr;
+    tex = nullptr;
 
     return false;
 }

@@ -49,7 +49,9 @@ StandardPirates::StandardPirates(Render* render, Textures* tex) : Enemy(EnemyTyp
 }
 // Destructor
 StandardPirates::~StandardPirates()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -91,8 +93,13 @@ bool StandardPirates::UnLoad()
 {
     tex->UnLoad(hurtTexture);
 
+    RELEASE(standardPirateAnim);
+
     RELEASE(hurtAnim);
     RELEASE(deathAnim);
+
+    render = nullptr;
+    tex = nullptr;
 
     return false;
 }

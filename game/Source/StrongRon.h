@@ -34,7 +34,7 @@ public:
 
 public:
 
-    SDL_Texture* texture;
+    SDL_Texture* texture = nullptr;
 
 private:
 

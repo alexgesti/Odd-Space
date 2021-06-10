@@ -89,7 +89,8 @@ Entity* EntityManager::CreateEntity(EntityType type)
 	{
 		// L13: Create the corresponding type entity
 	case EntityType::HERO:
-		ret = Player::GetInstance(input, render, tex);
+		player = Player::GetInstance(input, render, tex);
+		ret = player;
 
 		// Created entities are added to the list
 		if (ret != nullptr && (Player*)entities[0].start == nullptr)
@@ -97,6 +98,7 @@ Entity* EntityManager::CreateEntity(EntityType type)
 			Player::SetCollision(&collision, (Player*)ret);
 			entities[0].Add(ret);
 		}
+
 		break;
 
 	case EntityType::CAPTAIN:
@@ -291,10 +293,36 @@ bool EntityManager::DestroyEntity(int i)
 
 	while (list != NULL)
 	{
-		list->data->UnLoad();
-		RELEASE(list->data);
+		if (list->data != NULL && list->data->type == EntityType::HERO)
+		{
+			Player::ResetInstance();
+			player = nullptr;
+			entities[0].Del(entities[0].At(0));
+			//delete entities[0].At(0);
+			//RELEASE(list->data);
+			
+		}
+		else
+		{
+			list->data->UnLoad();
+			delete list->data;
+			list->data = nullptr;
+		}
+	
 		list = list->next;
 	}
+
+	return true;
+}
+
+
+bool EntityManager::DestroyPlayer()
+{
+	entities[0].Del(entities[0].At(0));
+	entities[0].Del(entities[0].At(0));
+	Player::ResetInstance();
+	Captain::ResetInstance();
+	player = nullptr;
 
 	return true;
 }

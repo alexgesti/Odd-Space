@@ -34,7 +34,9 @@ CookedPlate::CookedPlate(Render* render, Textures* tex) : Item(ItemType::COOKEDP
 }
 // Destructor
 CookedPlate::~CookedPlate()
-{}
+{
+    UnLoad();
+}
 
 
 
@@ -64,6 +66,7 @@ void CookedPlate::SetTexture(SDL_Texture *tex)
 
 bool CookedPlate::UnLoad()
 {   
+    render = nullptr;
 
     return false;
 }

@@ -175,6 +175,7 @@ bool SceneManager::Update(float dt)
 				if (openOptions) options->Unload();
 				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
 				audio->PlayFx(unPauseFx);
+				alphaP = 1.0f;
 			}
 			else entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
 			
@@ -184,7 +185,7 @@ bool SceneManager::Update(float dt)
 		else if (isPause) pause->Update(dt);
 		else
 		{
-			if (pauseMusicFaded)
+			if (pauseMusicFaded && exitToMainMenu == false)
 			{
 				audio->FadeInMusic(0.5f, "audio/music/exterior_music.ogg");
 				pauseMusicFaded = false;
@@ -412,7 +413,10 @@ bool SceneManager::CleanUp()
 
 void SceneManager::ResetGame()
 {
-	entityManager->CreateEntity(EntityType::HERO)->ResetInstance();
+	int id = entityManager->entities->Find(entityManager->player);
+	entityManager->DestroyPlayer();
+	entityManager->CreateEntity(EntityType::HERO);
+	entityManager->CreateEntity(EntityType::CAPTAIN);
 	string dialogFile = "save_completed_dialogues.xml";
 	remove(dialogFile.c_str());
 	initialTextTextSaid = false;

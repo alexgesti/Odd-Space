@@ -17,6 +17,7 @@ Logo::Logo(SceneManager* sceneManager)
 // Destructor
 Logo::~Logo()
 {
+    Unload();
 }
 
 

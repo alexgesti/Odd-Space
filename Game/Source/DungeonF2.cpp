@@ -37,7 +37,9 @@ DungeonF2::DungeonF2(SceneManager* sceneManager) : Scene()
 
 // Destructor
 DungeonF2::~DungeonF2()
-{}
+{
+	Unload();
+}
 
 bool DungeonF2::Load()
 {

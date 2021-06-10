@@ -31,7 +31,9 @@ Wc::Wc(SceneManager* sceneManager) : Scene()
 }
 // Destructor
 Wc::~Wc()
-{}
+{
+	Unload();
+}
 
 bool Wc::Load() /*EntityManager entityManager)*/
 {

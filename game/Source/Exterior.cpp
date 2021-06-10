@@ -50,7 +50,9 @@ Exterior::Exterior(SceneManager* sceneManager) : Scene()
 }
 // Destructor
 Exterior::~Exterior()
-{}
+{
+	Unload();
+}
 
 bool Exterior::Load() /*EntityManager entityManager)*/
 {
