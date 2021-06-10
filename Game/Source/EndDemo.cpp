@@ -42,6 +42,7 @@ bool EndDemo::Load()
     quest.text = "Talk with the captain";
     sceneManager->questSystem->ChangeMainQuest(quest);
     sceneManager->questSystem->ClearQuests();
+    sceneManager->dialogueSystem->completedDialoguesId.Clear();
 
     sceneManager->leverCro = false;
     sceneManager->leverTri = false;
