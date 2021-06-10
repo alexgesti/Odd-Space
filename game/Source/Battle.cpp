@@ -246,6 +246,19 @@ bool Battle::Update(float dt)
         smokes.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE,render));
     }
 
+    if (sceneManager->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+    {
+        LOG("Heal emitter init");
+        heals.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::HEAL, render));
+    }
+
+    if (sceneManager->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+    {
+        LOG("Smoke emitter init");
+        blesses.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::BLESS, render));
+    }
+
+
     //Player Turn
     if (playerMenu && !sceneManager->wasBattle)
     {
