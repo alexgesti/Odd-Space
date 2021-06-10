@@ -397,7 +397,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             sceneManager->render->camera.y = 0;
             break;
         case 2:
-
+            sceneManager->gameIsWorking = false;
             break;
         default:
             break;
