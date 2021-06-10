@@ -411,7 +411,10 @@ bool SceneManager::CleanUp()
 
 void SceneManager::ResetGame()
 {
-	entityManager->CreateEntity(EntityType::HERO)->ResetInstance();
+	int id = entityManager->entities->Find(entityManager->player);
+	entityManager->DestroyPlayer();
+	entityManager->CreateEntity(EntityType::HERO);
+	entityManager->CreateEntity(EntityType::CAPTAIN);
 	string dialogFile = "save_completed_dialogues.xml";
 	remove(dialogFile.c_str());
 	initialTextTextSaid = false;

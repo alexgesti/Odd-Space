@@ -71,8 +71,6 @@ public:
         deathAnim->PushBack({ 128, 0, 128, 96 });
     }
 
-    virtual void ResetInstance() {}
-
     virtual bool Update(float dt)
     {
         return true;

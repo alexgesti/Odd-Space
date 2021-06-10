@@ -130,6 +130,7 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
 
     // Define Player current animation
     currentAnimation = animHeroIdleDown;
+    facingDirection = HeroFacingDirection::DOWN;
 
     //Define Hurt Texture
     hurtTexture = this->tex->Load("sprites/combat/cmb_hurt.png");
@@ -142,8 +143,18 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
 }
 // Destructor
 Player::~Player()
-{}
+{
+    tex->UnLoad(hurtTexture);
 
+    RELEASE(hurtAnim);
+    RELEASE(deathAnim);
+}
+bool Player::UnLoad()
+{
+    
+
+    return false;
+}
 
 // Update called each iteration
 bool Player::Update(float dt)

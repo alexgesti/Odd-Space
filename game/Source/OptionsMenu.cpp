@@ -271,8 +271,6 @@ bool OptionsMenu::OnGuiMouseClickEvent(GuiControl* control)
             if (sceneManager->volumeFx < 128) sceneManager->volumeFx += 32;
         Mix_Volume(-1, sceneManager->volumeFx);
         break;
-    case 5: 
-        sceneManager->gameIsWorking = false;
     default: break;
     }
 

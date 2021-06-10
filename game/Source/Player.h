@@ -43,6 +43,8 @@ public:
     static Player* GetInstance(Input* input, Render* render, Textures* tex);
     // Delete the instance
     static void ResetInstance();
+    bool UnLoad();
+
 
     bool Update(float dt);
     void UpdateState();
