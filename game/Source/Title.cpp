@@ -27,14 +27,14 @@ bool Title::Load()
     sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
 
     // Buttons
-    buttons.buttonPlay = new GuiButton(1, { 100, 183, 224, 64 }, "New Game", sceneManager->audio);
+    buttons.buttonPlay = new GuiButton(1, { 92, 183, 224, 64 }, "New Game", sceneManager->audio);
     buttons.buttonPlay->SetObserver(this);
     buttons.buttonContinue = new GuiButton(2, { 100, 283, 224, 64 }, "Continue", sceneManager->audio);
     buttons.buttonContinue->SetObserver(this);
     if(!sceneManager->savedataexist) buttons.buttonContinue->disabled = true;
     buttons.buttonSettings = new GuiButton(3, { 100, 383, 224, 64 }, "Settings", sceneManager->audio);
     buttons.buttonSettings->SetObserver(this);
-    buttons.buttonExit = new GuiButton(4, { 100, 483, 224, 64 }, "Exit", sceneManager->audio);
+    buttons.buttonExit = new GuiButton(4, { 98, 483, 224, 64 }, "Exit", sceneManager->audio);
     buttons.buttonExit->SetObserver(this);
 
     finalPosY = sceneManager->render->camera.y / 2 + 226;
@@ -156,6 +156,7 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
     case 1:
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = true;
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
+        sceneManager->ResetGame();
         TransitionToScene(SceneType::EXTERIOR);
         break;
     case 2:

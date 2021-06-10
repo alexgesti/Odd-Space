@@ -50,8 +50,6 @@ bool OptionsMenu::Load()
     music->SetObserver(this);
     fx = new GuiSlider(4, { 400, 500, 500, 16 }, "Fx", sceneManager->audio);
     fx->SetObserver(this);
-    exit = new GuiButton(5, { 350, 550, 240, 81 }, "Exit game", sceneManager->audio);
-    exit->SetObserver(this);
 
     stepedAnimation = new StepedAnimation();
     stepedAnimation->speed = 80.0f;
@@ -95,7 +93,6 @@ bool OptionsMenu::Update(float dt)
     VSync->Update(sceneManager->input, &sceneManager->capped, buttonOption[c], dt);
     music->Update(sceneManager->input, buttonOption[c], dt);
     fx->Update(sceneManager->input, buttonOption[c], dt);
-    exit->Update(sceneManager->input, buttonOption[c], dt);
 
     /*if (VSync->explode)
     {
@@ -128,7 +125,6 @@ bool OptionsMenu::Draw()
     sceneManager->render->DrawText(sceneManager->font, "Fx", 375, 460, 25, 0, { 255, 255, 255, 255 });
     fx->Draw(sceneManager->render, sceneManager->volumeFx, texture);
 
-    if(sceneManager->currentscenetype != SceneType::TITLE) exit->Draw(sceneManager->render, sceneManager->font);
 
     int amountDisapeared = 0;
 

@@ -50,6 +50,9 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+
+	void ResetGame();
+
 public:
 
 	Window* win;

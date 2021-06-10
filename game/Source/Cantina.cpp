@@ -125,7 +125,9 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 	//player->position = iPoint(200, 400);
 
 	if (sceneManager->dialogueSystem->completedDialoguesId.Find(2) != -1) barmanConv1 = true;
+	else barmanConv1 = false;
 	if (sceneManager->dialogueSystem->completedDialoguesId.Find(4) != -1) oldCapConv = true;
+	else oldCapConv = false;
 
 	return false;
 }

@@ -42,19 +42,22 @@ private:
     SceneManager* sceneManager;
 
     int f;
+    int f2;
     int buttonMenuMax[6] = { 1, 2, 3, 4, 5, 6 };
 
     SDL_Texture* pause = nullptr;
 
     GuiButton* buttonItems;
     GuiButton* buttonSkills;
-    GuiButton* buttonEquip;
     GuiButton* buttonSettings;
     GuiButton* buttonQuest;
     GuiButton* buttonSaveLoad;
+    GuiButton* buttonExitMenu;
 
     GuiButton* buttonSave;
     GuiButton* buttonLoad;
+    GuiButton* buttonTitle;
+    GuiButton* buttonExit;
 
     StepedAnimation* stepedAnimation;
 
@@ -62,6 +65,7 @@ private:
     bool loadAnimation = false;
 
     bool saveloadmenu = false;
+    bool exitmenu = false;
     bool questmenu = false;
 
     int alpha = 255;

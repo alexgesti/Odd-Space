@@ -56,7 +56,6 @@ private:
     GuiCheckBox* VSync;
     GuiSlider* music;
     GuiSlider* fx;
-    GuiButton* exit;
 };
 
 #endif // __OPTIONSMENU_H__

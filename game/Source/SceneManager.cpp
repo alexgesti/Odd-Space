@@ -407,3 +407,13 @@ bool SceneManager::CleanUp()
 
 	return true;
 }
+
+
+void SceneManager::ResetGame()
+{
+	entityManager->CreateEntity(EntityType::HERO)->ResetInstance();
+	string dialogFile = "save_completed_dialogues.xml";
+	remove(dialogFile.c_str());
+	initialExtTextSaid = false;
+	dialogueSystem->completedDialoguesId.Clear();
+}

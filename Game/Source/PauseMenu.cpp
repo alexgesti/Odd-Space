@@ -22,27 +22,31 @@ bool PauseMenu::Load()
 
     buttonItems = new GuiButton(1, { 90, 109, 240, 81 }, "Items", sceneManager->audio);
     buttonItems->SetObserver(this);
-    buttonSkills = new GuiButton(2, { 90, 203, 240, 81 }, "Skills", sceneManager->audio);
+    buttonSkills = new GuiButton(2, { 94, 203, 240, 81 }, "Skills", sceneManager->audio);
     buttonSkills->SetObserver(this);
     buttonSkills->disabled = true;
-    buttonEquip = new GuiButton(3, { 90, 297, 240, 81 }, "Equipment", sceneManager->audio);
-    buttonEquip->SetObserver(this);
-    buttonEquip->disabled = true;
-    buttonQuest = new GuiButton(4, { 86, 391, 240, 81 }, "Quest", sceneManager->audio);
+    buttonQuest = new GuiButton(3, { 86, 297, 240, 81 }, "Quest", sceneManager->audio);
     buttonQuest->SetObserver(this);
-    buttonSettings = new GuiButton(5, { 90, 485, 240, 81 }, "Settings", sceneManager->audio);
+    buttonSettings = new GuiButton(4, { 88, 391, 240, 81 }, "Settings", sceneManager->audio);
     buttonSettings->SetObserver(this);
-    buttonSaveLoad = new GuiButton(6, { 80, 579, 240, 81 }, "Save/Load", sceneManager->audio);
+    buttonSaveLoad = new GuiButton(5, { 82, 485, 240, 81 }, "Save/Load", sceneManager->audio);
     buttonSaveLoad->SetObserver(this);
+    buttonExitMenu = new GuiButton(6, { 90, 579, 240, 81 }, "Exit", sceneManager->audio);
+    buttonExitMenu->SetObserver(this);
 
-    buttonSave = new GuiButton(1, { 275, 109, 240, 81 }, "Save", sceneManager->audio);
+    buttonSave = new GuiButton(1, { 280, 109, 240, 81 }, "Save", sceneManager->audio);
     buttonSave->SetObserver(this);
-    buttonLoad = new GuiButton(2, { 275, 203, 240, 81 }, "Load", sceneManager->audio);
+    buttonLoad = new GuiButton(2, { 280, 203, 240, 81 }, "Load", sceneManager->audio);
     buttonLoad->SetObserver(this);
+    buttonTitle = new GuiButton(1, { 460, 109, 240, 81 }, "Return to Title Screen", sceneManager->audio);
+    buttonTitle->SetObserver(this);
+    buttonExit = new GuiButton(2, { 330, 203, 240, 81 }, "Exit Game", sceneManager->audio);
+    buttonExit->SetObserver(this);
 
     //if (!sceneManager->savedataexist) buttonSaveLoad->disabled = true;
 
     f = 0;
+    f2 = 0;
 
     stepedAnimation = new StepedAnimation();
     stepedAnimation->speed = 40.0f;
@@ -83,11 +87,6 @@ bool PauseMenu::Update(float dt)
     }
     else if (saveloadmenu)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
-            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
-            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN) 
-            saveloadmenu = !saveloadmenu;
-
         if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
             f++;
 
@@ -100,6 +99,14 @@ bool PauseMenu::Update(float dt)
 
         buttonSave->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
+
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN
+            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
+            saveloadmenu = !saveloadmenu;
+            f = f2;
+        }
     }
     else if (questmenu)
     {
@@ -107,6 +114,29 @@ bool PauseMenu::Update(float dt)
             || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
             || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
             questmenu = !questmenu;
+    }
+    else if (exitmenu)
+    {
+        if (sceneManager->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+            f++;
+
+        if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+            f--;
+
+        //Establecer limites fila/columna botones
+        if (f > 1) f = 0;
+        if (f < 0) f = 1;
+
+        buttonTitle->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonExit->Update(sceneManager->input, buttonMenuMax[f], dt);
+
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN
+            || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
+            exitmenu = !exitmenu;
+            f = f2;
+        }
     }
     else
     {
@@ -122,10 +152,10 @@ bool PauseMenu::Update(float dt)
 
         buttonItems->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonSkills->Update(sceneManager->input, buttonMenuMax[f], dt);
-        buttonEquip->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonQuest->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonSettings->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonSaveLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
+        buttonExitMenu->Update(sceneManager->input, buttonMenuMax[f], dt);
     }
 
     return true;
@@ -139,7 +169,8 @@ bool PauseMenu::Draw()
     if (sceneManager->openOptions == false 
         && sceneManager->openItems == false 
         && saveloadmenu == false
-        && questmenu == false)
+        && questmenu == false
+        && exitmenu == false)
     {
         //Player
         SDL_Rect face = { 848, 64, 168, 224 };
@@ -187,10 +218,10 @@ bool PauseMenu::Draw()
    
     buttonItems->Draw(sceneManager->render, sceneManager->font);
     buttonSkills->Draw(sceneManager->render, sceneManager->font);
-    buttonEquip->Draw(sceneManager->render, sceneManager->font);
     buttonQuest->Draw(sceneManager->render, sceneManager->font);
     buttonSettings->Draw(sceneManager->render, sceneManager->font);
     buttonSaveLoad->Draw(sceneManager->render, sceneManager->font);
+    buttonExitMenu->Draw(sceneManager->render, sceneManager->font);
 
     if (sceneManager->openOptions) sceneManager->options->Draw();
     if (sceneManager->openItems) sceneManager->items->Draw();
@@ -198,6 +229,11 @@ bool PauseMenu::Draw()
     {
         buttonSave->Draw(sceneManager->render, sceneManager->font);
         buttonLoad->Draw(sceneManager->render, sceneManager->font);
+    }
+    if (exitmenu)
+    {
+        buttonTitle->Draw(sceneManager->render, sceneManager->font);
+        buttonExit->Draw(sceneManager->render, sceneManager->font);
     }
     if (questmenu) sceneManager->questSystem->Draw(sceneManager->render, sceneManager->font);
 
@@ -261,18 +297,22 @@ bool PauseMenu::Unload()
     RELEASE(buttonItems);
     buttonSkills->UnLoad();
     RELEASE(buttonSkills);
-    buttonEquip->UnLoad();
-    RELEASE(buttonEquip);
     buttonSettings->UnLoad();
     RELEASE(buttonSettings);
     buttonQuest->UnLoad();
     RELEASE(buttonQuest);
     buttonSaveLoad->UnLoad();
     RELEASE(buttonSaveLoad);
+    buttonExitMenu->UnLoad();
+    RELEASE(buttonExitMenu);
     buttonSave->UnLoad();
     RELEASE(buttonSave);
     buttonLoad->UnLoad();
     RELEASE(buttonLoad);
+    buttonTitle->UnLoad();
+    RELEASE(buttonTitle);
+    buttonExit->UnLoad();
+    RELEASE(buttonExit);
     sceneManager->audio->UnloadFx(pauseFx);
   
 
@@ -286,7 +326,7 @@ bool PauseMenu::Unload()
 //----------------------------------------------------------
 bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
 {
-    if (saveloadmenu == false)
+    if (saveloadmenu == false && exitmenu == false)
     {
         switch (control->id)
         {
@@ -297,21 +337,24 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         case 2:
             break;
         case 3:
-            break;
-        case 4:
             questmenu = true;
             break;
-        case 5:
+        case 4:
             sceneManager->options->Load();
             sceneManager->openOptions = true;
             break;
-        case 6:
+        case 5:
             saveloadmenu = true;
+            f2 = f;
+            break;
+        case 6:
+            exitmenu = true;
+            f2 = f;
             break;
         default: break;
         }
     }
-    else
+    else if (saveloadmenu)
     {
         switch (control->id)
         {
@@ -328,14 +371,33 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             break;
         case 2:
             sceneManager->loadrequested = true;
-            loadAnimation = true;
             saveAnimation = false;
+            loadAnimation = true;
             stepedAnimation->Reset();
-            stepedAnimation->Pushback(83, 334, 571, 571, 334 - 83, 5);
-            stepedAnimation->Pushback(334, 334, 571, 665, 5, 94);
-            stepedAnimation->Pushback(339, 83, 665, 665, 334 - 83, 5);
-            stepedAnimation->Pushback(83, 83, 665, 571, 5, 94);
+            stepedAnimation->Pushback(83, 334, 476, 476, 334 - 83, 5);
+            stepedAnimation->Pushback(334, 334, 476, 570, 5, 94);
+            stepedAnimation->Pushback(339, 83, 570, 570, 334 - 83, 5);
+            stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
             alpha = 255;
+            break;
+        default:
+
+            break;
+        }
+    }
+    else
+    {
+        switch (control->id)
+        {
+        case 1:
+            sceneManager->saverequested = true;
+            sceneManager->isPause = false;
+            sceneManager->current->TransitionToScene(SceneType::TITLE);
+            sceneManager->render->camera.x = 0;
+            sceneManager->render->camera.y = 0;
+            break;
+        case 2:
+
             break;
         default:
             break;
