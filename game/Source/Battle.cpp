@@ -12,9 +12,11 @@
 #include "Log.h"
 
 // Constructor
-Battle::Battle(SceneManager* sceneManager)
+Battle::Battle(SceneManager* sceneManager, ParticleSystem* pSystem, Render* render)
 {
     this->sceneManager = sceneManager;
+    this->particleSystem = pSystem;
+    this->render = render;
 
     map = new Map(sceneManager->tex);
     
@@ -229,7 +231,7 @@ bool Battle::Update(float dt)
     if (sceneManager->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
     {
         LOG("Smoke emitter init");
-        smokes.Add(sceneManager->particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE));
+        smokes.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE,render));
     }
 
     //Player Turn

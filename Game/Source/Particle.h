@@ -12,13 +12,13 @@ class Particle
 {
 public:
 	// Constructor
-	Particle(fPoint pos, float initialSpeed, float finalSpeed, float angle, double rotSpeed, fPoint initialSize, fPoint finalSize, uint life, SDL_Rect texRect, SDL_Color initialColor, SDL_Color finalColor, SDL_BlendMode blendMode, bool vortexActive, bool halfTex);
+	Particle(fPoint pos, float initialSpeed, float finalSpeed, float angle, double rotSpeed, fPoint initialSize, fPoint finalSize, uint life, SDL_Rect texRect, SDL_Color initialColor, SDL_Color finalColor, SDL_BlendMode blendMode, bool vortexActive, bool halfTex, ParticleSystem* pSystem);
 
 	// Called each loop iteration
 	void Update(float dt);
 
 	// Draws the particle
-	bool Draw();
+	bool Draw(Render* render);
 
 	// Returns if the particle is considered alive or not
 	bool IsAlive();

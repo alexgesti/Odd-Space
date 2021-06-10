@@ -22,7 +22,7 @@ bool ParticleSystem::Awake(pugi::xml_node& config)
 bool ParticleSystem::Start()
 {
 	// Loads the particle atlas
-	particleAtlas = tex->Load("Assets/Textures/ParticlesAtlas.png");
+	particleAtlas = tex->Load("sprites/combat/particles_atlas.png");
 
 	// Clear the particle list
 	ListItem<Emitter*>* e = emittersList.start;
@@ -112,9 +112,9 @@ bool ParticleSystem::CleanUp()
 	return true;
 }
 
-Emitter* ParticleSystem::AddEmitter(fPoint pos, EmitterData::EmitterType type)
+Emitter* ParticleSystem::AddEmitter(fPoint pos, EmitterData::EmitterType type, Render* render)
 {
-	Emitter* e = new Emitter(pos, emittersData[type], this);
+	Emitter* e = new Emitter(pos, emittersData[type], this, render);
 	emittersList.Add(e);
 	return e;
 }

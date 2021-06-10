@@ -41,7 +41,7 @@ public:
 	bool CleanUp();
 
 	// Creates a type emitter
-	Emitter* AddEmitter(fPoint pos, EmitterData::EmitterType type);
+	Emitter* AddEmitter(fPoint pos, EmitterData::EmitterType type, Render* render);
 
 	// Deletes the given emitter
 	bool RemoveEmitter(Emitter* emitter);

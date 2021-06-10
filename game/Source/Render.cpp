@@ -60,6 +60,8 @@ bool Render::Start()
 	LOG("render start");
 	// back background
 	SDL_RenderGetViewport(renderer, &viewport);
+
+	debug = false;
 	return true;
 }
 

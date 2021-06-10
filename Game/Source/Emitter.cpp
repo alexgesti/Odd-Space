@@ -5,7 +5,7 @@
 #include "Particle.h"
 #include "Log.h"
 
-Emitter::Emitter(fPoint pos, EmitterData data, ParticleSystem* particleSystem)
+Emitter::Emitter(fPoint pos, EmitterData data, ParticleSystem* particleSystem, Render* render)
 {
 	srand(time(NULL));
 
@@ -13,6 +13,7 @@ Emitter::Emitter(fPoint pos, EmitterData data, ParticleSystem* particleSystem)
 	this->pos = pos;
 	this->data = data;
 	this->particleSystem = particleSystem;
+	this->render = render;
 
 	// Calculates the particle cap
 	maximumParticlesPerFrame = data.emitNumber + data.emitNumMult;
@@ -84,7 +85,7 @@ bool Emitter::Update(float dt)
 			pStartingSize.y = GenerateRandNum(pRandInitialSize.y, pRandFinalSize.y);
 			double randRotationSpeed = data.rotSpeed * GenerateRandNum(data.randRotSpeed.x, data.randRotSpeed.y);
 
-			Particle* p = new Particle(pos, pRandInitialSpeed, pRandFinalSpeed, pRandAngle, randRotationSpeed, pStartingSize, data.finalSize, data.maxParticleLife, data.texRect, data.initialColor, data.finalColor, data.blendMode, data.vortexActive, data.halfTex);
+			Particle* p = new Particle(pos, pRandInitialSpeed, pRandFinalSpeed, pRandAngle, randRotationSpeed, pStartingSize, data.finalSize, data.maxParticleLife, data.texRect, data.initialColor, data.finalColor, data.blendMode, data.vortexActive, data.halfTex, particleSystem);
 			particlePool.Add(p);
 		}
 	}
@@ -125,7 +126,7 @@ bool Emitter::PostUpdate()
 		}
 		else
 		{
-			if (!p->data->Draw())
+			if (!p->data->Draw(render))
 			{
 				ret = false;
 			}

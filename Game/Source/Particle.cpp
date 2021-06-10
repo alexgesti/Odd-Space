@@ -6,8 +6,9 @@
 #include "Log.h"
 
 
-Particle::Particle(fPoint pos, float initialSpeed, float finalSpeed, float angle, double rotSpeed, fPoint initialSize, fPoint finalSize, uint life, SDL_Rect texRect, SDL_Color initialColor, SDL_Color finalColor, SDL_BlendMode blendMode, bool vortexActive, bool halfTex) : life(0)
+Particle::Particle(fPoint pos, float initialSpeed, float finalSpeed, float angle, double rotSpeed, fPoint initialSize, fPoint finalSize, uint life, SDL_Rect texRect, SDL_Color initialColor, SDL_Color finalColor, SDL_BlendMode blendMode, bool vortexActive, bool halfTex, ParticleSystem* pSystem) : life(0)
 {
+	this->particleSystem = pSystem;
 	// Movement properties
 	this->pos = pos;
 	this->initialSpeed.x = initialSpeed * cos(DEG_2_RAD(angle));
@@ -64,7 +65,7 @@ void Particle::Update(float dt)
 	life--;
 }
 
-bool Particle::Draw()
+bool Particle::Draw(Render* render)
 {
 	bool ret = true;
 
@@ -84,6 +85,13 @@ bool Particle::Draw()
 
 	// Drawing particle on the screen
 	ret = render->DrawParticle(particleSystem->GetParticleAtlas(), (int)center.x, (int)center.y, &pRect, &rectSize, resColor, blendMode, 1.0f, curRotSpeed);
+
+	if (render->debug)
+	{
+		SDL_Color debugColor = resColor;
+		debugColor.a = 100;
+		render->DrawRectangle({ (int)pos.x - rectSize.w / 2,(int)pos.y - rectSize.h / 2,rectSize.w,rectSize.h }, debugColor.r, debugColor.g, debugColor.b, debugColor.a);
+	}
 
 	// Calculates the new rotation according to the rotation speed
 	curRotSpeed += rotSpeedIncrement;

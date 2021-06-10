@@ -29,7 +29,7 @@ class SceneManager : public Module
 public:
 
 	// Constructor
-	SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio, DialogueSystem* dialogueSystem, ParticleSystem* particleSystem);
+	SceneManager(Input* input, Render* render, Textures* tex, Window* win, EntityManager* entityManager, Audio* audio, DialogueSystem* dialogueSystem, ParticleSystem* pSystem);
 	// Destructor
 	virtual ~SceneManager();
 

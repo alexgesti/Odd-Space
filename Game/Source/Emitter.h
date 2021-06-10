@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "List.h"
 #include "SDL/include/SDL.h"
+#include "Render.h"
 
 class Particle;
 class ParticleSystem;
@@ -57,7 +58,7 @@ class Emitter
 {
 public:
 	// Constructor
-	Emitter(fPoint pos, EmitterData data, ParticleSystem* particleSystem);
+	Emitter(fPoint pos, EmitterData data, ParticleSystem* particleSystem, Render* render);
 
 	// Destructor
 	virtual ~Emitter();
@@ -89,6 +90,7 @@ private:
 	EmitterData data;
 	fPoint pos;
 	ParticleSystem* particleSystem;
+	Render* render;
 	uint maximumParticlesPerFrame;
 
 	List<Particle*> particlePool;

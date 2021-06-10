@@ -36,9 +36,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	render = new Render(win);
 	tex = new Textures(assets, render);
 	audio = new Audio(assets);
+	particleSystem = new ParticleSystem(tex);
 	entityManager = new EntityManager(input, render, tex);
 	dialogueSystem = new DialogueSystem(input, render, tex, audio);
-	particleSystem = new ParticleSystem(tex);
 	sceneManager = new SceneManager(input, render, tex, win, entityManager, audio, dialogueSystem, particleSystem);
 
 	// Not modules
@@ -53,8 +53,8 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	AddModule(entityManager);
 	AddModule(dialogueSystem);
-	AddModule(particleSystem);
 	AddModule(sceneManager);
+	AddModule(particleSystem);
 
 	// Render last to swap buffer
 	AddModule(render);
