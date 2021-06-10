@@ -32,7 +32,7 @@ Battle::~Battle()
 bool Battle::Load()
 {
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->prevPos = sceneManager->entityManager->CreateEntity(EntityType::HERO)->position;
-    sceneManager->render->prevCam.y = sceneManager->render->camera.y;
+    sceneManager->render->prevCam.x = sceneManager->render->camera.x;
     sceneManager->render->prevCam.y = sceneManager->render->camera.y;
 
     switch (*sceneManager->entityManager->previousScene)
