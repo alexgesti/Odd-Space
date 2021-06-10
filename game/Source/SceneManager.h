@@ -156,6 +156,7 @@ public:
 
 	// --- SCENE-SPECIFIC VARIABLES --- //
 	bool initialTextTextSaid = false;
+	float alphaP;
 
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)

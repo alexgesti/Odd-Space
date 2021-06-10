@@ -6,6 +6,7 @@
 PauseMenu::PauseMenu(SceneManager* sceneManager)
 {
     this->sceneManager = sceneManager;
+    sceneManager->alphaP = 1.0f;
 }
 // Destructor
 PauseMenu::~PauseMenu()
@@ -158,13 +159,17 @@ bool PauseMenu::Update(float dt)
         buttonSaveLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonExitMenu->Update(sceneManager->input, buttonMenuMax[f], dt);
     }
-
+ 
+  
+    if (sceneManager->alphaP < 0.01f)sceneManager->alphaP = 0.0f;
+    else   sceneManager->alphaP -= (1.0f * dt);
     return true;
 }
 
 bool PauseMenu::Draw()
 {
     SDL_Rect rect = { 1106, 0, 1105, 624 };
+    
     sceneManager->render->DrawTexture(pause, -sceneManager->render->camera.x + 80, -sceneManager->render->camera.y + 50, &rect);
 
     if (sceneManager->openOptions == false 
@@ -377,6 +382,9 @@ bool PauseMenu::Draw()
             stepedAnimation->Pushback(83, 83, 382, 288, 5, 94);
         }
     }
+
+    //black rectangle for fades in out
+    sceneManager->render->DrawRectangle({ -sceneManager->render->camera.x, -sceneManager->render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255 * sceneManager->alphaP));
 
     return true;
 }
