@@ -185,6 +185,12 @@ bool Battle::Load()
     buttons.buttonsMenu.buttonSkills->disabled = true;
 
     // Animaciones extras
+    stepedAnimation = new StepedAnimation();
+    stepedAnimation->speed = 60.0f;
+    stepedAnimation->Pushback(7, 486, 557, 557, 1083, 5);
+    stepedAnimation->Pushback(486, 486, 557, 708, 5, 572);
+    stepedAnimation->Pushback(491, 7, 708, 708, 1103 - 253, 5);
+    stepedAnimation->Pushback(7, 7, 708, 557, 5, 94);
 
     return false;
 }
@@ -444,6 +450,37 @@ bool Battle::Draw()
             std::string name = sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.info.name.GetString();
             sceneManager->render->DrawText(sceneManager->font, ("What will " + name + " do?").c_str(), 530, 625, 25, 0, { 255, 255, 255, 255 });
         }
+
+        int amountDisapeared = 0;
+
+        for (int i = 0; i < stepedAnimation->currentStep; i++)
+        {
+            SDL_Rect temp = stepedAnimation->GetStep(i);
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, stepedAnimation->steps[i].alpha, true, false);
+            if (stepedAnimation->steps[i].disapear) stepedAnimation->steps[i].alpha -= 3;
+            if (stepedAnimation->steps[i].alpha <= 0)
+            {
+                stepedAnimation->steps[i].alpha = 0;
+                stepedAnimation->steps[i].disapear = false;
+            }
+
+            if (!stepedAnimation->steps[i].disapear) amountDisapeared++;
+        }
+
+        if (!stepedAnimation->animationCompleted)
+        {
+            SDL_Rect temp = stepedAnimation->Update();
+            sceneManager->render->DrawRectangle(temp, 255, 255, 255, 255, true, false);
+        }
+
+        else if (amountDisapeared >= stepedAnimation->stepAmount)
+        {
+            stepedAnimation->Reset();
+            stepedAnimation->Pushback(7, 486, 557, 557, 1083, 5);
+            stepedAnimation->Pushback(486, 486, 557, 708, 5, 572);
+            stepedAnimation->Pushback(491, 7, 708, 708, 1103 - 253, 5);
+            stepedAnimation->Pushback(7, 7, 708, 557, 5, 94);
+        }
     }
     else
     {
@@ -532,6 +569,8 @@ bool Battle::Unload()
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
 	
     //*entityManager->previousScene = SceneType::BATTLE;
+
+    RELEASE(stepedAnimation);
 
     sceneManager = nullptr;
 
