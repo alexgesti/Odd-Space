@@ -297,10 +297,7 @@ bool EntityManager::DestroyEntity(int i)
 		{
 			Player::ResetInstance();
 			player = nullptr;
-			entities[0].Del(entities[0].At(0));
-			//delete entities[0].At(0);
-			//RELEASE(list->data);
-			
+			entities[0].Del(entities[0].At(0));			
 		}
 		else
 		{

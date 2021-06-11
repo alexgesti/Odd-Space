@@ -22,7 +22,7 @@ class Battle : public Scene
 public:
 
     // Constructor
-    Battle(SceneManager* sceneManager, ParticleSystem* pSystem, Render* render);
+    Battle(SceneManager* sceneManager);
     // Destructor
     virtual ~Battle();
 
@@ -62,13 +62,6 @@ private:
     Map* map;
 
     SceneManager* sceneManager;
-
-    ParticleSystem* particleSystem;
-    Render* render;
-
-    List<Emitter*> smokes;
-    List<Emitter*> heals;
-    List<Emitter*> blesses;
 
     SDL_Texture* UI;
     SDL_Texture* VorL;

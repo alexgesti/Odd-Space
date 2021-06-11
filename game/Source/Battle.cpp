@@ -12,11 +12,9 @@
 #include "Log.h"
 
 // Constructor
-Battle::Battle(SceneManager* sceneManager, ParticleSystem* pSystem, Render* render)
+Battle::Battle(SceneManager* sceneManager)
 {
     this->sceneManager = sceneManager;
-    this->particleSystem = pSystem;
-    this->render = render;
 
     map = new Map(sceneManager->tex);
     
@@ -203,34 +201,6 @@ bool Battle::Load()
     stepedAnimation->Pushback(491, 7, 708, 708, 1103 - 253, 5);
     stepedAnimation->Pushback(7, 7, 708, 557, 5, 94);
 
-    // Particles
-    ListItem<Emitter*>* smoke = smokes.start;
-    while (smoke != nullptr)
-    {
-        ListItem<Emitter*>* smokeNext = smoke->next;
-        RELEASE(smoke);
-        smoke = smokeNext;
-    }
-    smokes.Clear();
-
-    ListItem<Emitter*>* heal = heals.start;
-    while (heal != nullptr)
-    {
-        ListItem<Emitter*>* healNext = heal->next;
-        RELEASE(heal);
-        heal = healNext;
-    }
-    heals.Clear();
-
-    ListItem<Emitter*>* bless = blesses.start;
-    while (bless != nullptr)
-    {
-        ListItem<Emitter*>* blessNext = bless->next;
-        RELEASE(bless);
-        bless = blessNext;
-    }
-    blesses.Clear();
-
     return false;
 }
 
@@ -243,19 +213,19 @@ bool Battle::Update(float dt)
     if (sceneManager->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
     {
         LOG("Smoke emitter init");
-        smokes.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE,render));
+        sceneManager->particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::SMOKE, sceneManager->render);
     }
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
     {
         LOG("Heal emitter init");
-        heals.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::HEAL, render));
+        sceneManager->particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::HEAL, sceneManager->render);
     }
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
     {
         LOG("Smoke emitter init");
-        blesses.Add(particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::BLESS, render));
+        sceneManager->particleSystem->AddEmitter({ 350, 250 }, EmitterData::EmitterType::BLESS, sceneManager->render);
     }
 
 
@@ -625,36 +595,9 @@ bool Battle::Unload()
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
 	
-    ListItem<Emitter*>* smoke = smokes.start;
-    while (smoke != nullptr)
-    {
-        ListItem<Emitter*>* smokeNext = smoke->next;
-        RELEASE(smoke);
-        smoke = smokeNext;
-    }
-    smokes.Clear();
-
-    ListItem<Emitter*>* heal = heals.start;
-    while (heal != nullptr)
-    {
-        ListItem<Emitter*>* healNext = heal->next;
-        RELEASE(heal);
-        heal = healNext;
-    }
-    heals.Clear();
-
-    ListItem<Emitter*>* bless = blesses.start;
-    while (bless != nullptr)
-    {
-        ListItem<Emitter*>* blessNext = bless->next;
-        RELEASE(bless);
-        bless = blessNext;
-    }
-    blesses.Clear();
+    //sceneManager->particleSystem->RemoveAllEmitters;
 
     RELEASE(stepedAnimation);
-
-    sceneManager = nullptr;
 
     return false;
 }
@@ -817,16 +760,16 @@ void Battle::DamagePlayer(int player)
         {
             sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= (damageDealt * 2);
             sceneManager->audio->PlayFx(fx.debuffFx);
-            heals.Add(particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.x, (float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.y }, EmitterData::EmitterType::HEAL, render));
+            sceneManager->particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.x, (float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.y }, 
+                EmitterData::EmitterType::HEAL, sceneManager->render);
         }
 
         else
         {
             sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP -= damageDealt;
             sceneManager->audio->PlayFx(fx.hurtFx);
-            smokes.Add(particleSystem->AddEmitter({(float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.x, (float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.y }, EmitterData::EmitterType::SMOKE, render));
-            
-
+            sceneManager->particleSystem->AddEmitter({(float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.x, (float)sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->position.y }, 
+                EmitterData::EmitterType::SMOKE, sceneManager->render);
         }
     }
 
@@ -882,14 +825,16 @@ void Battle::DamageEnemy(int enemy)
         {
             sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= (damageDealt * 2);
             sceneManager->audio->PlayFx(fx.debuffFx);
-            heals.Add(particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.x, (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.y }, EmitterData::EmitterType::HEAL, render));
+            sceneManager->particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.x, (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.y },
+                EmitterData::EmitterType::HEAL, sceneManager->render);
         }
 
         else
         {
             sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->infoEntities.info.HP -= damageDealt;
             sceneManager->audio->PlayFx(fx.hurtFx);
-            smokes.Add(particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.x, (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.y }, EmitterData::EmitterType::SMOKE, render));
+            sceneManager->particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.x, (float)sceneManager->entityManager->entities[0].At(selectedCharacters[enemy])->data->position.y },
+                EmitterData::EmitterType::SMOKE, sceneManager->render);
         }
 
     }
@@ -922,7 +867,8 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
             //Defensa
             sceneManager->entityManager->entities[0].At(characterTurn)->data->infoEntities.defense = true;
             sceneManager->audio->PlayFx(fx.guardFx);
-            blesses.Add(particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[0].At(characterTurn)->data->position.x, (float)sceneManager->entityManager->entities[0].At(characterTurn)->data->position.y }, EmitterData::EmitterType::BLESS, render));
+            sceneManager->particleSystem->AddEmitter({ (float)sceneManager->entityManager->entities[0].At(characterTurn)->data->position.x, (float)sceneManager->entityManager->entities[0].At(characterTurn)->data->position.y },
+                EmitterData::EmitterType::BLESS, sceneManager->render);
             ChangeTurns();
             break;
 

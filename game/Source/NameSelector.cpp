@@ -155,6 +155,21 @@ bool NameSelector::Update(float dt)
     buttons.buttonBack->Update(sceneManager->input, controllerMenu[f][c], dt);
     buttons.buttonDone->Update(sceneManager->input, controllerMenu[f][c], dt);
 
+    //Back
+    if (sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+    {
+        if (name.length() > 0)
+            name.pop_back();
+    }
+
+    if (sceneManager->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN)
+    {
+        sceneManager->dialogueSystem->playerName = name;
+        sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
+        sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
+        TransitionToScene(SceneType::EXTERIOR);
+    }
+
     return ret;
 }
 

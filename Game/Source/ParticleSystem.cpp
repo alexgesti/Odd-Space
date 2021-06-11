@@ -65,11 +65,10 @@ bool ParticleSystem::PostUpdate()
 		ListItem<Emitter*>* e = emittersToDestroy.start;
 		while (e != nullptr)
 		{
-			ListItem<Emitter*>* eNext = e->next;
 			e->data->CleanUp();
 			emittersList.Del(emittersList.At(emittersList.Find(e->data)));
 			delete e->data;
-			e = eNext;
+			e = e->next;
 		}
 		emittersToDestroy.Clear();
 	}

@@ -358,7 +358,7 @@ bool SceneManager::Update(float dt)
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
 		case SceneType::BATTLE:
-			next = new Battle(this,particleSystem, render);
+			next = new Battle(this);
 			while (temp != NULL)
 			{
 				if(temp->data.type == QuestType::COLLECT)
