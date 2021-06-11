@@ -57,7 +57,7 @@
          <dialogue option="2: Sure, what's up friendly looking stranger?" returnCode="0" nextNode="16"/>
     </node>
     <node text="Not really, listen I have a job for you." id="15" hasOptions="false" name="Barman">
-        <dialogue option="X" returnCode="0" nextNode="16"/> 
+        <dialogue option="X" returnCode="0" nextNode="17"/> 
     </node>
     <node text="Well well, look who's trying to be funny." id="16" hasOptions="false" name="Barman">
         <dialogue option="X" returnCode="0" nextNode="17"/> 

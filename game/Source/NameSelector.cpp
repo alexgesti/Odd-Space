@@ -166,7 +166,12 @@ bool NameSelector::Update(float dt)
     {
         if (name.length() > 0)
         {
+            // Change player name on dialogues
             sceneManager->dialogueSystem->playerName = name;
+
+            // Change player name on stats menu and battle scenes
+            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.Substitute(sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.GetString(), name.c_str());
+            
             sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
             sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
             TransitionToScene(SceneType::EXTERIOR);
@@ -406,8 +411,12 @@ bool NameSelector::OnGuiMouseClickEvent(GuiControl* control)
     case 28:
         if (name.length() > 0)
         {
+            // Change player name on dialogues
             sceneManager->dialogueSystem->playerName = name;
-            sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
+
+            // Change player name on stats menu and battle scenes
+            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.Substitute(sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.GetString(), name.c_str());
+
             sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
             TransitionToScene(SceneType::EXTERIOR);
         }
