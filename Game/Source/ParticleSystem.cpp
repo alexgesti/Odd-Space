@@ -194,15 +194,15 @@ void ParticleSystem::LoadEmittersData()
 			EmitterData eData;
 			eData.rotSpeed = 5;
 			eData.angleRange = { 0,180 };
-			eData.initialSpeed = 90;
-			eData.finalSpeed = 90;
+			eData.initialSpeed = 50;
+			eData.finalSpeed = 30;
 			eData.initialSize = { 100,100 };
 			eData.finalSize = { 200,200 };
 
-			eData.emitNumber = 5;
+			eData.emitNumber = 3;
 			eData.emitNumMult = 2;
-			eData.maxParticleLife = 140;
-			eData.emitLifetime = 80;
+			eData.maxParticleLife = 80;
+			eData.emitLifetime = 60;
 
 			eData.texRect = { 512,768,256,256 };
 			eData.initialColor = { 210,210,210,50 };
@@ -217,7 +217,7 @@ void ParticleSystem::LoadEmittersData()
 			eData.randInitialSize = { 0,1 };
 			eData.randFinalSize = { 1,1 };
 
-			eData.vortexActive = true;
+			eData.vortexActive = false;
 			eData.halfTex = false;
 			eData.eType = EmitterData::EmitterType::SMOKE;
 			emittersData[type] = eData;
