@@ -204,6 +204,7 @@ void App::FinishUpdate()
 	{
 		saveFileManager->SaveGame();
 		sceneManager->saverequested = false;
+		sceneManager->savedataexist = true;
 		//sceneManager->newgamerequested = false;
 		//sceneManager->currentgamerequested = false;
 	}

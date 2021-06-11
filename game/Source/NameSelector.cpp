@@ -417,6 +417,7 @@ bool NameSelector::OnGuiMouseClickEvent(GuiControl* control)
             // Change player name on stats menu and battle scenes
             sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.Substitute(sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.GetString(), name.c_str());
 
+            sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
             sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
             TransitionToScene(SceneType::EXTERIOR);
         }
