@@ -159,6 +159,9 @@
     <ClCompile Include="Source\ParticleSystem.cpp">
       <Filter>Modules\ParticleEngine</Filter>
     </ClCompile>
+    <ClCompile Include="Source\NameSelector.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\App.h" />
@@ -369,6 +372,9 @@
     </ClInclude>
     <ClInclude Include="Source\ParticleSystem.h">
       <Filter>Modules\ParticleEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\NameSelector.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

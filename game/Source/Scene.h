@@ -9,6 +9,7 @@ enum class SceneType
 {
     LOGO,
     TITLE,
+    NAME_SELECTOR,
     CANTINA,
     WC,
     EXTERIOR,

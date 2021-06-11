@@ -2,6 +2,7 @@
 
 #include "Logo.h"
 #include "Title.h"
+#include "NameSelector.h"
 #include "Cantina.h"
 #include "Wc.h"
 #include "Battle.h"
@@ -352,6 +353,7 @@ bool SceneManager::Update(float dt)
 		{
 		case SceneType::LOGO: next = new Logo(this); break;
 		case SceneType::TITLE: next = new Title(this); break;
+		case SceneType::NAME_SELECTOR: next = new NameSelector(this); break;
 		case SceneType::CANTINA: next = new Cantina(this); break;
 		case SceneType::WC: next = new Wc(this); break;
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
@@ -421,4 +423,5 @@ void SceneManager::ResetGame()
 	remove(dialogFile.c_str());
 	initialTextTextSaid = false;
 	dialogueSystem->completedDialoguesId.Clear();
+	dialogueSystem->playerName.clear();
 }

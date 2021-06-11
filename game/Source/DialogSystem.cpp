@@ -16,8 +16,6 @@ DialogueSystem::~DialogueSystem() {}
 
 bool DialogueSystem::Start()
 {
-	LoadDialogue("dialogues.xml");
-	currentNode = dialogueTrees[id]->dialogueNodes[0];
 	//PerformDialogue(Id);
 	font = new Font("typo/Adore64.xml", tex);
 	optionsTex = tex->Load("sprites/ui/ui_text.png");
@@ -125,7 +123,10 @@ bool DialogueSystem::Draw()
 
 	if (speak->speaking || showOptions)
 	{
-		render->DrawText(font, currentNode->name.c_str(), 15, 508, 20, 0, { 255, 255, 255, 255 });
+		if(currentNode->name != "Hero")
+			render->DrawText(font, currentNode->name.c_str(), 15, 508, 20, 0, { 255, 255, 255, 255 });
+		else
+			render->DrawText(font, playerName.c_str(), 15, 508, 20, 0, { 255, 255, 255, 255 });
 	}
 
 	/*if (!speak->speaking && showOptions)
@@ -279,6 +280,7 @@ bool DialogueSystem::LoadNodes(pugi::xml_node& trees, DialogueTree* example)
 	{
 		DialogueNode* node = new DialogueNode;
 		node->text.assign(n.attribute("text").as_string());
+		CheckForName(&node->text);
 		node->nodeId = n.attribute("id").as_int();
 		node->hasOptions = n.attribute("hasOptions").as_bool(true);
 		node->lastSentence = n.attribute("lastSentence").as_bool(false);
@@ -363,4 +365,13 @@ bool DialogueSystem::OnGuiMouseClickEvent(GuiControl* control)
 	}
 
 	return true;
+}
+
+void DialogueSystem::CheckForName(string* text)
+{
+	while (text->find("@") != string::npos)
+	{
+		std::size_t i = text->find("@");
+		text->replace(i, 1, playerName);
+	}
 }

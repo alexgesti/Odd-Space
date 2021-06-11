@@ -159,7 +159,8 @@ bool Title::OnGuiMouseClickEvent(GuiControl* control)
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = true;
         sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
         sceneManager->ResetGame();
-        TransitionToScene(SceneType::EXTERIOR);
+        TransitionToScene(SceneType::NAME_SELECTOR);
+        //TransitionToScene(SceneType::EXTERIOR);
         break;
     case 2:
         sceneManager->exitToMainMenu = false;

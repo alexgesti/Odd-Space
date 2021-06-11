@@ -81,6 +81,8 @@ public:
 	bool LoadOptions(pugi::xml_node& text_node, DialogueNode* npc);
 	bool Draw();
 
+	void CheckForName(string*);
+
 	void SetConversation(int id);
 
 	void GetObserver(Scene* scene);
@@ -103,12 +105,15 @@ public:
 
 	bool createKillQuest = false;
 	bool createCollectQuest = false;
-	
+
+	string playerName;
+
+	int id = 0;
+	std::vector <DialogueTree*> dialogueTrees;
+
 private:
 
 	int playerInput = -1;
-	int id = 0;
-	std::vector <DialogueTree*> dialogueTrees;
 	pugi::xml_document	dialogues;
 
 	Input* input;
