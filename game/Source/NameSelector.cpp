@@ -164,10 +164,13 @@ bool NameSelector::Update(float dt)
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_X) == KEY_DOWN)
     {
-        sceneManager->dialogueSystem->playerName = name;
-        sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
-        sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
-        TransitionToScene(SceneType::EXTERIOR);
+        if (name.length() > 0)
+        {
+            sceneManager->dialogueSystem->playerName = name;
+            sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
+            sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
+            TransitionToScene(SceneType::EXTERIOR);
+        }
     }
 
     return ret;
@@ -401,10 +404,13 @@ bool NameSelector::OnGuiMouseClickEvent(GuiControl* control)
             name.pop_back();
         break;
     case 28:
-        sceneManager->dialogueSystem->playerName = name;
-        sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
-        sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
-        TransitionToScene(SceneType::EXTERIOR);
+        if (name.length() > 0)
+        {
+            sceneManager->dialogueSystem->playerName = name;
+            sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
+            sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
+            TransitionToScene(SceneType::EXTERIOR);
+        }
         break;
     default: break;
     }

@@ -595,7 +595,7 @@ bool Battle::Unload()
     sceneManager->entityManager->CreateEntity(EntityType::HERO)->inBattle = false;
     sceneManager->entityManager->CreateEntity(EntityType::CAPTAIN)->inBattle = false;
 	
-    //sceneManager->particleSystem->RemoveAllEmitters;
+    sceneManager->particleSystem->RemoveAllEmitters();
 
     RELEASE(stepedAnimation);
 
