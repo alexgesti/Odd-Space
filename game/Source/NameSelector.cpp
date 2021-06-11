@@ -94,12 +94,6 @@ bool NameSelector::Update(float dt)
         name.push_back(letter);
     }
 
-    /*if (titlePosX > 500.0f)
-    {
-        titlePosX = EaseBounceOut(currentTime, (float)(1280 + 718), 500.0f - (float)(1280 + 718), 3);
-        currentTime += dt;
-    }*/
-
     GamePad& pad = sceneManager->input->pads[0];
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_RIGHT) == KEY_DOWN)
@@ -116,7 +110,12 @@ bool NameSelector::Update(float dt)
     }
 
     if (sceneManager->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+    {
         controllerMenu[f--][c];
+        if (f < 0) f = 2;
+        // If going from 1st to 3rd or 2nd to 3rd row
+        if (f == 2 && c > 7) c = 7;
+    }
 
     //Establecer limites fila/columna botones
     if (f == 2 && c > 7) c = 0;
@@ -170,8 +169,9 @@ bool NameSelector::Update(float dt)
             sceneManager->dialogueSystem->playerName = name;
 
             // Change player name on stats menu and battle scenes
-            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.Substitute(sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.GetString(), name.c_str());
-            
+            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.Clear();
+            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name = name.c_str();
+
             sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
             sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
             TransitionToScene(SceneType::EXTERIOR);
@@ -290,8 +290,6 @@ bool NameSelector::Unload()
 
     return false;
 }
-
-
 
 //----------------------------------------------------------
 // Manage GUI events for this screen
@@ -415,7 +413,8 @@ bool NameSelector::OnGuiMouseClickEvent(GuiControl* control)
             sceneManager->dialogueSystem->playerName = name;
 
             // Change player name on stats menu and battle scenes
-            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.Substitute(sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.GetString(), name.c_str());
+            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name.Clear();
+            sceneManager->entityManager->CreateEntity(EntityType::HERO)->infoEntities.info.name = name.c_str();
 
             sceneManager->dialogueSystem->LoadDialogue("dialogues.xml");
             sceneManager->dialogueSystem->currentNode = sceneManager->dialogueSystem->dialogueTrees[sceneManager->dialogueSystem->id]->dialogueNodes[0];
