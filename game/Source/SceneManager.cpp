@@ -78,6 +78,7 @@ bool SceneManager::Start()
 	stairsFx = audio->LoadFx("audio/fx/world_stairs.wav");
 	xMarkFX = audio->LoadFx("audio/fx/xmark_fx.wav");
 	unPauseFx = audio->LoadFx("audio/fx/unpause_ui.wav");
+	temporalAppearTitle = audio->LoadFx("audio/fx/battle_strike.wav");
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
@@ -159,7 +160,7 @@ bool SceneManager::Update(float dt)
 		}
 
 		if ((input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_GUIDE) == KEY_DOWN) &&
-			(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE))
+			(currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && currentscenetype != SceneType::ENDDEMO))
 		{
 			isDebug = !isDebug;
 			if(isDebug) entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
@@ -282,6 +283,17 @@ bool SceneManager::Update(float dt)
 		}
 	}
 
+	if (pos1 <= 0)
+	{
+		pos1 = 2560;
+		if (!once)
+		{
+			audio->PlayFx(temporalAppearTitle);
+			once = true;
+		}
+	}
+	else pos1 -= 1 * dt;
+
 	// Draw current scene
 	current->Draw();
 	if (toDrawX)
@@ -400,12 +412,14 @@ bool SceneManager::CleanUp()
 	debug->Unload();
 	RELEASE(debug);
 
+	tex->UnLoad(bgTitle);
 	audio->UnloadFx(doorClose);
 	audio->UnloadFx(doorOpen);
 	audio->UnloadFx(battleEncounter);
 	audio->UnloadFx(stairsFx);
 	audio->UnloadFx(xMarkFX);
 	audio->UnloadFx(unPauseFx);
+	audio->UnloadFx(temporalAppearTitle);
 
 	tex->UnLoad(xMark);
 

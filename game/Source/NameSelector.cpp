@@ -183,7 +183,10 @@ bool NameSelector::Update(float dt)
 
 bool NameSelector::Draw()
 {
-    sceneManager->render->DrawTexture(bg, 0, 100, NULL);
+    SDL_Rect rect = { sceneManager->pos1, 0, 1280, 720 };
+    sceneManager->render->DrawTexture(sceneManager->bgTitle, -sceneManager->render->camera.x, -sceneManager->render->camera.y, &rect);
+
+    sceneManager->render->DrawText(sceneManager->font, "Name your spatula.", 350, 165 / 2, 40, 0, { 255, 255, 255, 255 });
 
     for (int i = 0; i < name.length(); i++)
     {

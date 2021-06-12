@@ -210,25 +210,6 @@ bool Battle::Update(float dt)
 
     GamePad& pad = sceneManager->input->pads[0];
 
-    if (sceneManager->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-    {
-        LOG("Smoke emitter init");
-        sceneManager->particleSystem->AddEmitter({ 375, 250 }, EmitterData::EmitterType::SMOKE, sceneManager->render);
-    }
-
-    if (sceneManager->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-    {
-        LOG("Heal emitter init");
-        sceneManager->particleSystem->AddEmitter({ 365, 250 }, EmitterData::EmitterType::HEAL, sceneManager->render);
-    }
-
-    if (sceneManager->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
-    {
-        LOG("Smoke emitter init");
-        sceneManager->particleSystem->AddEmitter({ 365, 250 }, EmitterData::EmitterType::BLESS, sceneManager->render);
-    }
-
-
     //Player Turn
     if (playerMenu && !sceneManager->wasBattle)
     {

@@ -25,7 +25,6 @@ bool ItemsMenu::Load()
     charButtons[1]->SetObserver(this);
     
     // Items select
-
     sceneManager->entityManager->GenerateListItems();
 
     itemsButtons[0] = new GuiButton(0, { 344, (0 * 79) + 110, 830, 79 }, "Raw meat", sceneManager->audio, false);

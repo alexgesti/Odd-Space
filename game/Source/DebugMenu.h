@@ -47,6 +47,8 @@ private:
         GuiCheckBox* colliders;
         GuiButton* battle;
         GuiButton* item;
+        GuiButton* scene;
+        GuiButton* particle;
     }debug;
 
     struct SceneButtons
@@ -59,8 +61,20 @@ private:
         GuiButton* dungeonF2;
     }scene;
 
+    struct ParticleButtons
+    {
+        GuiButton* smoke;
+        GuiButton* heal;
+        GuiButton* bless;
+    }particle;
+
     int c, f;
-    int controllerMenu[6][2];
+    int controllerMenu[4][2];
+    int controllerScene[6];
+    int controllerParticle[3];
+
+    bool debugscene = false;
+    bool debugparticle = false;
 };
 
 #endif // __DEBUGMENU_H__

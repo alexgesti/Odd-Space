@@ -156,6 +156,13 @@ public:
 	bool drawColliders = false;
 	bool beGod = false;
 
+	//Title
+	SDL_Texture* bgTitle;
+
+	bool once = false;
+	int temporalAppearTitle = 0;
+	int pos1 = 12;
+
 	// --- SCENE-SPECIFIC VARIABLES --- //
 	bool initialTextTextSaid = false;
 	float alphaP;

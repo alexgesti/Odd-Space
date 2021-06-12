@@ -40,7 +40,6 @@ private:
     
     SceneManager* sceneManager;
 
-    SDL_Texture* bgTitle;
     SDL_Texture* titleName;
     SDL_Texture* optionsTex;
 
@@ -52,14 +51,8 @@ private:
         GuiButton* buttonExit;
     }buttons;
 
-    bool once = false;
-
     int c;
     int controllerMenu[4] = { 1, 2, 3, 4 };
-
-    int temporalAppearTitle = 0;
-
-    int pos1 = 12;
 
     //float titlePosX = 1280 + 718;
     float initPosY = -350;

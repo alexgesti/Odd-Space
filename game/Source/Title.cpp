@@ -8,8 +8,6 @@
 Title::Title(SceneManager* sceneManager) : Scene()
 {
    this->sceneManager = sceneManager;
-
-   temporalAppearTitle = sceneManager->audio->LoadFx("audio/fx/battle_strike.wav");
 }
 // Destructor
 Title::~Title()
@@ -21,7 +19,7 @@ Title::~Title()
 
 bool Title::Load()
 {
-    bgTitle = sceneManager->tex->Load("sprites/mainscreen/title_screen.png");
+    sceneManager->bgTitle = sceneManager->tex->Load("sprites/mainscreen/title_screen.png");
     titleName = sceneManager->tex->Load("sprites/mainscreen/odd_space_logo.png");
     optionsTex = sceneManager->tex->Load("sprites/ui/ui_menupause.png");
 
@@ -85,34 +83,23 @@ bool Title::Update(float dt)
         buttons.buttonExit->Update(sceneManager->input, controllerMenu[c], dt);
     }
 
-    if (pos1 <= 0)
-    {
-        pos1 = 2560;
-        if (!once)
-        {
-            sceneManager->audio->PlayFx(temporalAppearTitle);
-            once = true;
-        }
-    }
-    else pos1 -= 1 * dt;
-
     return ret;
 }
 
 bool Title::Draw()
 {
-    SDL_Rect rect = { pos1, 0, 1280, 720 };
-    sceneManager->render->DrawTexture(bgTitle, -sceneManager->render->camera.x, -sceneManager->render->camera.y, &rect);
+    SDL_Rect rect = { sceneManager->pos1, 0, 1280, 720 };
+    sceneManager->render->DrawTexture(sceneManager->bgTitle, -sceneManager->render->camera.x, -sceneManager->render->camera.y, &rect);
     sceneManager->render->DrawTexture(titleName, 445, titlePosY, NULL);
      
     rect = { 0, 720, 224, 64 };
-    sceneManager->render->DrawTexture(bgTitle, 100, 183, &rect);
+    sceneManager->render->DrawTexture(sceneManager->bgTitle, 100, 183, &rect);
     buttons.buttonPlay->Draw(sceneManager->render, sceneManager->font);
-    sceneManager->render->DrawTexture(bgTitle, 100, 283, &rect);
+    sceneManager->render->DrawTexture(sceneManager->bgTitle, 100, 283, &rect);
     buttons.buttonContinue->Draw(sceneManager->render, sceneManager->font);
-    sceneManager->render->DrawTexture(bgTitle, 100, 383, &rect);
+    sceneManager->render->DrawTexture(sceneManager->bgTitle, 100, 383, &rect);
     buttons.buttonSettings->Draw(sceneManager->render, sceneManager->font);
-    sceneManager->render->DrawTexture(bgTitle, 100, 483, &rect);
+    sceneManager->render->DrawTexture(sceneManager->bgTitle, 100, 483, &rect);
     buttons.buttonExit->Draw(sceneManager->render, sceneManager->font);
 
     if (sceneManager->openOptions)
@@ -128,7 +115,6 @@ bool Title::Draw()
 bool Title::Unload()
 {
     // Delete buttons and textures
-    sceneManager->tex->UnLoad(bgTitle);
     sceneManager->tex->UnLoad(titleName);
 
     if (sceneManager->openOptions) sceneManager->options->Unload();
