@@ -168,23 +168,34 @@ bool SceneManager::Update(float dt)
 		}
 
 		if ((input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) &&
-			(currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && !isDebug))
+			(currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && currentscenetype != SceneType::NAME_SELECTOR && !isDebug))
 		{
 			isPause = !isPause;
+			dialogueSystem->paused = true;
+			dialogueSystem->speak->paused = true;
 			if (!isPause)
 			{
-				if (openItems) items->Unload();
-				if (openOptions) options->Unload();
-				entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
-				audio->PlayFx(unPauseFx);
-				alphaP = 1.0f;
+				pauseFadingOut = true; // Start fading out pause menu
 			}
 			else entityManager->CreateEntity(EntityType::HERO)->transitioning = true;
 			
 		}
 
+		// Unload pause menu when it has finished fading out
+		if (unloadPauseMenu)
+		{
+			if (openItems) items->Unload();
+			if (openOptions) options->Unload();
+			entityManager->CreateEntity(EntityType::HERO)->transitioning = false;
+			audio->PlayFx(unPauseFx);
+			alphaP = 1.0f;
+			unloadPauseMenu = false;
+			dialogueSystem->paused = false;
+			dialogueSystem->speak->paused = false;
+		}
+
 		if (isDebug) debug->Update(dt);
-		else if (isPause) pause->Update(dt);
+		else if (isPause || !isPause && pauseFadingOut) pause->Update(dt);
 		else
 		{
 			if (pauseMusicFaded && exitToMainMenu == false)
@@ -324,7 +335,7 @@ bool SceneManager::Update(float dt)
 	// Draw full screen rectangle in front of everything
 	if (onTransition) render->DrawRectangle({ -render->camera.x, -render->camera.y + altura, 1280, 720 }, 0, 0, 0, (unsigned char)(255.0f * transitionAlpha));
 
-	if (isPause) pause->Draw();
+	if (isPause || !isPause && pauseFadingOut) pause->Draw();
 
 	if (isDebug) debug->Draw();
 
@@ -435,7 +446,10 @@ void SceneManager::ResetGame()
 	entityManager->CreateEntity(EntityType::CAPTAIN);
 	string dialogFile = "save_completed_dialogues.xml";
 	remove(dialogFile.c_str());
+	dialogueSystem->dialogueTrees.clear();
 	initialTextTextSaid = false;
 	dialogueSystem->completedDialoguesId.Clear();
 	dialogueSystem->playerName.clear();
+	dialogueSystem->paused = false;
+	dialogueSystem->speak->paused = false;
 }

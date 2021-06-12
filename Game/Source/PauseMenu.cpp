@@ -159,10 +159,26 @@ bool PauseMenu::Update(float dt)
         buttonSaveLoad->Update(sceneManager->input, buttonMenuMax[f], dt);
         buttonExitMenu->Update(sceneManager->input, buttonMenuMax[f], dt);
     }
- 
-  
-    if (sceneManager->alphaP < 0.01f)sceneManager->alphaP = 0.0f;
-    else   sceneManager->alphaP -= (1.0f * dt);
+
+    // Fade out
+    if (sceneManager->pauseFadingOut)
+    {
+        if (sceneManager->alphaP > 1.0f)
+        {
+            sceneManager->alphaP = 1.0f;
+            sceneManager->unloadPauseMenu = true;
+            sceneManager->pauseFadingOut = false;
+        }
+        else sceneManager->alphaP += (1.0f * dt);
+    }
+
+    // Fade in
+    else
+    {
+        if (sceneManager->alphaP < 0.01f) sceneManager->alphaP = 0.0f;
+        else sceneManager->alphaP -= (1.0f * dt);
+    }
+
     return true;
 }
 
@@ -384,7 +400,7 @@ bool PauseMenu::Draw()
     }
 
     //black rectangle for fades in out
-    sceneManager->render->DrawRectangle({ -sceneManager->render->camera.x, -sceneManager->render->camera.y, 1280, 720 }, 0, 0, 0, (unsigned char)(255 * sceneManager->alphaP));
+    sceneManager->render->DrawRectangle({ -sceneManager->render->camera.x + 80, -sceneManager->render->camera.y + 50, 1105, 624 }, 0, 0, 0, (unsigned char)(255 * sceneManager->alphaP));
 
     return true;
 }
@@ -505,6 +521,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         {
         case 1:
             sceneManager->current->TransitionToScene(SceneType::TITLE);
+            sceneManager->dialogueSystem->inConversation = false;
             sceneManager->saverequested = true;
             sceneManager->isPause = false;
             sceneManager->exitToMainMenu = true;

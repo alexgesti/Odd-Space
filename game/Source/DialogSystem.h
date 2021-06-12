@@ -111,6 +111,8 @@ public:
 	int id = 0;
 	std::vector <DialogueTree*> dialogueTrees;
 
+	bool paused = false;
+
 private:
 
 	int playerInput = -1;

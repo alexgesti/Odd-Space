@@ -26,38 +26,41 @@ void Speak::Update(float dt)
 	{
 		//if (input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN) Finish();
 
-		if (timeWaited >= LETTERSPEED)
+		if (paused == false)
 		{
-			switch (rand() % 4)
+			if (timeWaited >= LETTERSPEED)
 			{
-			case 0:
-				audio->PlayFx(letter_1);
-				break;
-			case 1:
-				audio->PlayFx(letter_2);
-				break;
-			case 2:
-				audio->PlayFx(letter_3);
-				break;
-			case 3:
-				audio->PlayFx(letter_4);
-				break;
-			default: break;
+				switch (rand() % 4)
+				{
+				case 0:
+					audio->PlayFx(letter_1);
+					break;
+				case 1:
+					audio->PlayFx(letter_2);
+					break;
+				case 2:
+					audio->PlayFx(letter_3);
+					break;
+				case 3:
+					audio->PlayFx(letter_4);
+					break;
+				default: break;
+				}
+
+				letterAmount++;
+
+				timeWaited = 0.0f;
 			}
 
-			letterAmount++;
+			if (letterAmount >= text.Length() + 1)
+			{
+				textSaid = true;
+				timeWaited = 0.0f;
+				speaking = false;
+			}
 
-			timeWaited = 0.0f;
+			timeWaited += dt;
 		}
-
-		if (letterAmount >= text.Length() + 1)
-		{
-			textSaid = true;
-			timeWaited = 0.0f;
-			speaking = false;
-		}
-
-		timeWaited += dt;
 
 		Draw();
 	}
