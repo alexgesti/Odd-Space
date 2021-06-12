@@ -72,7 +72,7 @@ bool DialogueSystem::Update(float dt)
 			nextSentence = true;
 		}
 
-		if (input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP)
+		if ((input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) && paused == false)
 		{
 			// Finish speaking sentence
 			if (speak->speaking) speak->Finish();

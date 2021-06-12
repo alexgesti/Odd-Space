@@ -57,6 +57,8 @@ public:
 	bool speaking = false;
 
 	bool textSaid = false;
+
+	bool paused = false;
 };
 
 #endif // __SPEAK_H__

@@ -159,6 +159,8 @@ public:
 	// --- SCENE-SPECIFIC VARIABLES --- //
 	bool initialTextTextSaid = false;
 	float alphaP;
+	bool pauseFadingOut = false; // Checks if pause menu is fading out
+	bool unloadPauseMenu = false; // Tells scene manager to unload pause menu when it has faded out
 
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)
