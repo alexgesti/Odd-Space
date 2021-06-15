@@ -90,7 +90,7 @@
 </dialogue>
   
 <dialogue Id="3">
-    <node text="What, what do you want? I think i told your friends earlier that i'm not interested in knowing the truth of the creation of the universe."  id="27" hasOptions="false" name="Legendary Pirate">
+    <node text="What, what do you want? I think I told your friends earlier that I'm not interested in knowing the truth of the creation of the universe."  id="27" hasOptions="false" name="Legendary Pirate">
          <dialogue option="X" returnCode="0" nextNode="28"/> 
     </node>
  <node text="Now get away or suffer my legendary wrath!" id="28" hasOptions="false" lastSentence="true" name="Legendary Pirate">
@@ -108,7 +108,7 @@
  <node text="Look, you deadhead, you were the one floating in the middle and my ship's assisted direction broke yesterday, that's why i'm here." id="31" hasOptions="false" name="Old Captain">
          <dialogue option="X" returnCode="0" nextNode="32"/> 
     </node>
- <node text="I told you i have a name, I'm @." id="32" hasOptions="false" name="Hero">
+ <node text="I told you I have a name, I'm @." id="32" hasOptions="false" name="Hero">
          <dialogue option="X" returnCode="0" nextNode="33"/> 
     </node>
  <node text="Well then @, seems like you're stuck with me now, let's listen to my friend here, we could be rich in no time, pay attention." id="33" hasOptions="false" name="Old Captain">
@@ -160,7 +160,7 @@
   
   <dialogue Id="6">
   <node text="Those drunk bastards are tearing apart this place, ready for the job @?"  id="0"  hasOptions="true" name="Barman">
-    <dialogue option="1: No, i still have to do something else." returnCode="0" nextNode="1"/>
+    <dialogue option="1: No, I still have to do something else." returnCode="0" nextNode="1"/>
     <dialogue option="2: Yes, that's why I'm here." returnCode="0" nextNode="2"/>
   </node>
    <node text="Oh really? Then someone else will have to drink this beer I prepared for you."  id="1"  hasOptions="false" lastSentence="true" name="Barman">
@@ -181,7 +181,7 @@
 
  <dialogue Id="8">
   <node text="Hey, before you go on to battle do you mind doing me a favor?"  id="0"  hasOptions="true" name="Barman">
-    <dialogue option="1: No, i still have to do something else." returnCode="0" nextNode="1"/>
+    <dialogue option="1: No, I still have to do something else." returnCode="0" nextNode="1"/>
     <dialogue option="2: Yeah, what is it?." returnCode="0" nextNode="2"/>
   </node>
    <node text="Well okay, remember about our deal."  id="1"  hasOptions="false" lastSentence="true" name="Barman">

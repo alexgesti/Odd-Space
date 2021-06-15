@@ -20,7 +20,8 @@ bool NameSelector::Load()
 {
     bg = sceneManager->tex->Load("sprites/ui/name_selector.png");
 
-    sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
+    //sceneManager->audio->PlayMusic("audio/music/menu_music.ogg", 2);
+    sceneManager->audio->PlayMusic("audio/music/exterior_music.ogg", 2); // NO DEBERÍA DE SONAR
 
     // Buttons
     buttons.buttonA = new GuiButton(1, { 75, 333, 448, 128 }, "A", sceneManager->audio);

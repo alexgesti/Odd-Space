@@ -148,6 +148,7 @@ bool EndDemo::OnGuiMouseClickEvent(GuiControl* control)
         break;
     case 2:
         TransitionToScene(SceneType::TITLE);
+        sceneManager->once = false;
         break;
     default: break;
     }

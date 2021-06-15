@@ -82,8 +82,8 @@ bool SceneManager::Start()
 
 	previousScene = new SceneType;
 	entityManager->previousScene = previousScene;
-	//current = new Logo(this);
-	current = new Title(this);
+	current = new Logo(this);
+	//current = new Title(this);
 	//current = new Battle(win, input, render, tex, entityManager, font, speak);
 	//current = new Cantina(this);
 	//current = new Wc(this);
@@ -91,7 +91,7 @@ bool SceneManager::Start()
 	//current = new DungeonF1(this);
 	//current = new DungeonF2(this);
 	//current = new EndDemo(this);
-	currentscenetype = SceneType::TITLE;
+	currentscenetype = SceneType::LOGO;
 
 	current->Load();
 
@@ -294,15 +294,7 @@ bool SceneManager::Update(float dt)
 		}
 	}
 
-	if (pos1 <= 0)
-	{
-		pos1 = 2560;
-		if (!once)
-		{
-			audio->PlayFx(temporalAppearTitle);
-			once = true;
-		}
-	}
+	if (pos1 <= 0) pos1 = 2560;
 	else pos1 -= 1 * dt;
 
 	// Draw current scene

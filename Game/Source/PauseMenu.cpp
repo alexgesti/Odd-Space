@@ -525,6 +525,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             sceneManager->saverequested = true;
             sceneManager->isPause = false;
             sceneManager->exitToMainMenu = true;
+            sceneManager->once = false;
             sceneManager->render->camera.x = 0;
             sceneManager->render->camera.y = 0;
             break;

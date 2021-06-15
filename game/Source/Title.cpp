@@ -50,6 +50,12 @@ bool Title::Update(float dt)
         currentTime += dt;
     }*/
 
+    if (!sceneManager->once)
+    {
+        sceneManager->audio->PlayFx(sceneManager->temporalAppearTitle);
+        sceneManager->once = true;
+    }
+
     if (titlePosY < finalPosY)
    {
        titlePosY = EaseBounceOut(currentTime, initPosY, finalPosY - initPosY, 2.3f);
