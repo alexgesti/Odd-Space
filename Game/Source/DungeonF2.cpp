@@ -237,6 +237,10 @@ bool DungeonF2::Update(float dt)
 	// If there's no interaction and X is being drawn, stop drawing it
 	else if (sceneManager->toDrawX == true) sceneManager->toDrawX = false;
 
+	// If secret door or chest is open, don't draw X for interaction
+	if (sceneManager->seqESP && sceneManager->toDrawX && sceneManager->collision->currentInteraction == "palanca_2") sceneManager->toDrawX = false;
+	if (sceneManager->chestopen && sceneManager->toDrawX && sceneManager->collision->currentInteraction == "treasure_bonus") sceneManager->toDrawX = false;
+
 	// Lever Checker
 	// Plus 
 
