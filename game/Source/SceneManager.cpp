@@ -112,6 +112,8 @@ bool SceneManager::Start()
 	quest.text = "Talk with the captain";
 	questSystem->ChangeMainQuest(quest);
 
+	altura = 0;
+
 	return true;
 }
 
@@ -253,7 +255,10 @@ bool SceneManager::Update(float dt)
 					altura = 0;
 				}
 			}
-			else if (current->nextScene != SceneType::BATTLE) transitionAlpha += (FADEOUT_TRANSITION_SPEED * dt);
+			else if (current->nextScene != SceneType::BATTLE)
+			{
+				transitionAlpha += (FADEOUT_TRANSITION_SPEED * dt);
+			}
 
 			// NOTE: Due to float internal representation, condition jumps on 1.0f instead of 1.05f
 			// For that reason we compare against 1.01f, to avoid last frame loading stop

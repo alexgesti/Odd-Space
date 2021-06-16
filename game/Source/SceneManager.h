@@ -179,7 +179,7 @@ private:
 	//bool oneTime;
 	//int counterTimeDoit;
 	float transitionScreen;
-	int altura;
+	int altura = 0;
 
 	SDL_Texture* xMark;
 	Animation* animXMark = new Animation();
