@@ -174,7 +174,9 @@ bool DungeonF1::Update(float dt)
 		}
 
 		// If conversation and WCfx ended draw X to interact again
-		//if (!sceneManager->dialogueSystem->inConversation) sceneManager->toDrawX = true;
+		if (!sceneManager->dialogueSystem->inConversation && (sceneManager->collision->currentInteraction == "circular_lever" 
+			|| sceneManager->collision->currentInteraction == "triangular_lever"
+			|| sceneManager->collision->currentInteraction == "cross_lever")) sceneManager->toDrawX = true;
 	}
 
 	// If there's no interaction and X is being drawn, stop drawing it
