@@ -90,6 +90,8 @@ bool Wc::Load() /*EntityManager entityManager)*/
 	//player = new Player();
 	//player->position = iPoint(200, 400);
 
+	if (sceneManager->questSystem->currentStepType == QuestType::TRAVEL) sceneManager->questSystem->UpdateMain("WC");
+
 	return false;
 }
 

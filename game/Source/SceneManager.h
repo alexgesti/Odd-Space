@@ -169,6 +169,8 @@ public:
 	bool pauseFadingOut = false; // Checks if pause menu is fading out
 	bool unloadPauseMenu = false; // Tells scene manager to unload pause menu when it has faded out
 
+	//SString tempCurrentInteraction = "/0"; // Used to check INTERACT quests
+
 private:
 	// Required variables to manage screen transitions (fade-in, fade-out)
 	bool onTransition;
@@ -183,6 +185,8 @@ private:
 
 	SDL_Texture* xMark;
 	Animation* animXMark = new Animation();
+
+	bool checkInteractionQuest = false; // Decides if we should check for interaction
 };
 
 #endif // __SCENEMANAGER_H__

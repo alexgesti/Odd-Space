@@ -31,72 +31,75 @@ bool DialogueSystem::Start()
 
 bool DialogueSystem::Update(float dt)
 {	
-	GamePad& pad = input->pads[0];
-
-	/*if (playerInput >= 0 && playerInput <= 2)
+	if (!paused)
 	{
-		if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
-		if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
-		PerformDialogue(id);
+		GamePad& pad = input->pads[0];
 
-		nextSentence = true;
-		playerInput = -1;
-	}*/
-
-	if (inConversation)
-	{
-		if (!currentNode->lastSentence && currentNode->hasOptions)
+		/*if (playerInput >= 0 && playerInput <= 2)
 		{
-			if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
-				controllerMenu[c++];
-
-			if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
-				controllerMenu[c--];
-
-			if (c > 2) c = 0;
-			if (c < 0) c = 2;
-
-			buttonOpt1->Update(input, controllerMenu[c], dt);
-			buttonOpt2->Update(input, controllerMenu[c], dt);
-			buttonOpt3->Update(input, controllerMenu[c], dt);
-		}
-
-		// Restart conversation
-		if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		{
-			id = 0;
-			currentNode = dialogueTrees[id]->dialogueNodes[0];
-			playerInput = 9;
+			if (currentNode->dialogueOptions.at(playerInput)->returnCode == 1) triggerEvent = true;
+			if (currentNode->dialogueOptions.at(playerInput)->notRepeat == true) completedDialoguesId.Add(id);
 			PerformDialogue(id);
 
 			nextSentence = true;
-		}
+			playerInput = -1;
+		}*/
 
-		if ((input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) && paused == false)
+		if (inConversation)
 		{
-			// Finish speaking sentence
-			if (speak->speaking) speak->Finish();
-
-			// If it's last sentence disable dialogueSystem
-			else if (currentNode->lastSentence && speak->textSaid == true)
+			if (!currentNode->lastSentence && currentNode->hasOptions)
 			{
-				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
-				// A�adimos la opci�n 0 porque es la �nica que hay
-				if (currentNode->dialogueOptions.at(0)->notRepeat == true)
-					completedDialoguesId.Add(id);
-				inConversation = false;
+				if (input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_DOWN) == KEY_DOWN)
+					controllerMenu[c++];
+
+				if (input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_DPAD_UP) == KEY_DOWN)
+					controllerMenu[c--];
+
+				if (c > 2) c = 0;
+				if (c < 0) c = 2;
+
+				buttonOpt1->Update(input, controllerMenu[c], dt);
+				buttonOpt2->Update(input, controllerMenu[c], dt);
+				buttonOpt3->Update(input, controllerMenu[c], dt);
 			}
 
-			// If the sentence has no options continue with the next line of dialogue
-			else if(!currentNode->hasOptions && speak->textSaid == true)
+			// Restart conversation
+			if (input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
 			{
-				if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
-				playerInput = 0;
+				id = 0;
+				currentNode = dialogueTrees[id]->dialogueNodes[0];
+				playerInput = 9;
 				PerformDialogue(id);
+
 				nextSentence = true;
 			}
 
-			showOptions = true;
+			if ((input->GetKey(SDL_SCANCODE_X) == KEY_UP || pad.GetPadKey(SDL_CONTROLLER_BUTTON_A) == KEY_UP) && paused == false)
+			{
+				// Finish speaking sentence
+				if (speak->speaking) speak->Finish();
+
+				// If it's last sentence disable dialogueSystem
+				else if (currentNode->lastSentence && speak->textSaid == true)
+				{
+					if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
+					// A�adimos la opci�n 0 porque es la �nica que hay
+					if (currentNode->dialogueOptions.at(0)->notRepeat == true)
+						completedDialoguesId.Add(id);
+					inConversation = false;
+				}
+
+				// If the sentence has no options continue with the next line of dialogue
+				else if (!currentNode->hasOptions && speak->textSaid == true)
+				{
+					if (currentNode->dialogueOptions.at(0)->returnCode == 1) triggerEvent = true;
+					playerInput = 0;
+					PerformDialogue(id);
+					nextSentence = true;
+				}
+
+				showOptions = true;
+			}
 		}
 	}
 

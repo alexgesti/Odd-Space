@@ -79,6 +79,8 @@ bool DungeonF1::Load()
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
+	if (sceneManager->questSystem->currentStepType == QuestType::TRAVEL) sceneManager->questSystem->UpdateMain("DUNGEON_F1");
+
 	return false;
 
 }
@@ -238,19 +240,22 @@ bool DungeonF1::Update(float dt)
 			sceneManager->audio->PlayFx(sceneManager->doorClose);
 			sceneManager->doorOpening = true;
 		}
+
+		// Triggers quest step update
+		if (sceneManager->questSystem->currentStepType == QuestType::INTERACT) sceneManager->questSystem->UpdateMain("door1Open");
 	}
 
 	if (map->doorHit)
 	{
 		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < END_DOOR))
 		{
-			if (sceneManager->questSystem->mainQuest.interactionName == "endDungeon")
+			/*if (sceneManager->questSystem->mainQuest.interactionName == "endDungeon")
 			{
 				Quest quest;
 				quest.interactionName = "none";
 				quest.text = "Ended of the demo";
 				sceneManager->questSystem->ChangeMainQuest(quest);
-			}
+			}*/
 			sceneManager->saverequested = true;
 			TransitionToScene(SceneType::ENDDEMO);
 		}

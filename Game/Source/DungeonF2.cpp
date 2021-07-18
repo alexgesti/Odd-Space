@@ -74,6 +74,8 @@ bool DungeonF2::Load()
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
+	if (sceneManager->questSystem->currentStepType == QuestType::TRAVEL) sceneManager->questSystem->UpdateMain("DUNGEON_F2");
+
 	return false;
 
 }
@@ -309,6 +311,7 @@ bool DungeonF2::Update(float dt)
 
 	if (sceneManager->seq1 == true && sceneManager->seq2 == true && sceneManager->seq3 == true)
 	{
+		if (!sceneManager->door2Open && sceneManager->questSystem->currentStepType == QuestType::INTERACT) sceneManager->questSystem->UpdateMain("door2Open");
 		sceneManager->door2Open = true;
 		sceneManager->entityManager->CreateEntity(EntityType::HERO)->canCross2Door = true;
 		if (sceneManager->door2Opening == false)

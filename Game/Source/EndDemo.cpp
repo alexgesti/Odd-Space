@@ -37,11 +37,11 @@ bool EndDemo::Load()
         dead = true;
     }
 
-    Quest quest;
+    /*Quest quest;
     quest.interactionName = "captain";
     quest.text = "Talk with the captain";
     sceneManager->questSystem->ChangeMainQuest(quest);
-    sceneManager->questSystem->ClearQuests();
+    sceneManager->questSystem->ClearQuests();*/
     sceneManager->dialogueSystem->completedDialoguesId.Clear();
 
     sceneManager->leverCro = false;
@@ -69,6 +69,8 @@ bool EndDemo::Load()
     buttons.buttonExit->SetObserver(this);
 
     finalPosY = sceneManager->render->camera.y / 2+ 64;
+
+    if (sceneManager->questSystem->currentStepType == QuestType::TRAVEL) sceneManager->questSystem->UpdateMain("END_DEMO");
 
     return false;
 }

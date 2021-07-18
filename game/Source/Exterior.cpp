@@ -149,6 +149,8 @@ bool Exterior::Load() /*EntityManager entityManager)*/
 
 	if (sceneManager->dialogueSystem->completedDialoguesId.Find(1) != -1) crazyManExists = false;
 
+	if (sceneManager->questSystem->currentStepType == QuestType::TRAVEL) sceneManager->questSystem->UpdateMain("EXTERIOR");
+
 	return false;
 }
 

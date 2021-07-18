@@ -71,6 +71,8 @@ bool DungeonExt::Load()
 	sceneManager->render->camera.w = sceneManager->win->screenSurface->w;
 	sceneManager->render->camera.h = sceneManager->win->screenSurface->h;
 
+	if (sceneManager->questSystem->currentStepType == QuestType::TRAVEL) sceneManager->questSystem->UpdateMain("DUNGEON_EXT");
+
 	return false;
 }
 
@@ -99,13 +101,13 @@ bool DungeonExt::Update(float dt)
 		// A�adir feedback text y X button
 		if ((sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y < UPPER_DOOR))
 		{
-			if (sceneManager->questSystem->mainQuest.interactionName == "topDoorDungeonExt")
+			/*if (sceneManager->questSystem->mainQuest.interactionName == "topDoorDungeonExt")
 			{
 				Quest quest;
 				quest.interactionName = "endDungeon";
 				quest.text = "Finish the dungeon";
 				sceneManager->questSystem->ChangeMainQuest(quest);
-			}
+			}*/
 			TransitionToScene(SceneType::DUNGEON_F1);
 		}
 		else if (sceneManager->entityManager->CreateEntity(EntityType::HERO)->position.y > UPPER_DOOR) TransitionToScene(SceneType::EXTERIOR);

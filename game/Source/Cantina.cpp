@@ -131,6 +131,8 @@ bool Cantina::Load() /*EntityManager entityManager)*/
 	if (sceneManager->dialogueSystem->completedDialoguesId.Find(4) != -1) oldCapConv = true;
 	else oldCapConv = false;
 
+	if(sceneManager->questSystem->currentStepType == QuestType::TRAVEL) sceneManager->questSystem->UpdateMain("CANTINA");
+
 	return false;
 }
 
@@ -201,7 +203,7 @@ bool Cantina::Update(float dt)
 
 				sceneManager->toDrawX = false;
 
-				sceneManager->collision->currentInteraction = '/0';
+				//sceneManager->collision->currentInteraction = '/0';
 				barmanConv1 = true;
 			}
 
@@ -212,15 +214,15 @@ bool Cantina::Update(float dt)
 
 				sceneManager->toDrawX = false;
 
-				sceneManager->collision->currentInteraction = '/0';
+				//sceneManager->collision->currentInteraction = '/0';
 				oldCapConv = true;
-				if (sceneManager->questSystem->mainQuest.interactionName == "captain")
+				/*if (sceneManager->questSystem->mainQuest.interactionName == "captain")
 				{
 					Quest quest;
 					quest.interactionName = "topDoorDungeonExt";
 					quest.text = "Enter the dungeon";
 					sceneManager->questSystem->ChangeMainQuest(quest);
-				}
+				}*/
 			}
 
 			if (sceneManager->collision->currentInteraction == "legendary" && sceneManager->collision->Detect(sceneManager->collision->interactRect, playerRect) && !oldCapConv)
@@ -230,7 +232,7 @@ bool Cantina::Update(float dt)
 
 				sceneManager->toDrawX = false;
 
-				sceneManager->collision->currentInteraction = '/0';
+				//sceneManager->collision->currentInteraction = '/0';
 			}
 		}
 

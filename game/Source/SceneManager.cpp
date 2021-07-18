@@ -107,10 +107,10 @@ bool SceneManager::Start()
 	next = nullptr;
 
 	questSystem = new QuestSystem(this);
-	Quest quest;
+	/*Quest quest;
 	quest.interactionName = "captain";
 	quest.text = "Talk with the captain";
-	questSystem->ChangeMainQuest(quest);
+	questSystem->ChangeMainQuest(quest);*/
 
 	altura = 0;
 
@@ -210,7 +210,7 @@ bool SceneManager::Update(float dt)
 		}
 
 		//Create quests
-		if(dialogueSystem->createKillQuest)
+		/*if(dialogueSystem->createKillQuest)
 		{
 			Quest quest;
 			quest.type = QuestType::KILL;
@@ -230,7 +230,7 @@ bool SceneManager::Update(float dt)
 			quest.text.Create(("Collect " + amount + " items").c_str());
 			questSystem->AddSideQuest(quest);
 			dialogueSystem->createCollectQuest = false;
-		}
+		}*/
 	}
 
 	else
@@ -302,6 +302,25 @@ bool SceneManager::Update(float dt)
 	if (pos1 <= 0) pos1 = 2560;
 	else pos1 -= 1 * dt;
 
+	//Check for INTERACTION quests
+	if (questSystem->currentStepType == QuestType::INTERACT && entityManager->player != nullptr)
+	{
+		if (!checkInteractionQuest && entityManager->player->interacting)
+		{
+			checkInteractionQuest = true;
+			questSystem->UpdateMain(collision->currentInteraction);
+			collision->currentInteraction = '/0';
+		}
+
+		else if (!entityManager->player->interacting && checkInteractionQuest)
+		{
+			checkInteractionQuest = false;
+		}
+	}
+
+	// Sets currentInteraction to null even if we aren't ar an INTERACT quest to check for further interactions
+	else if (entityManager->player != nullptr && entityManager->player->interacting && collision->currentInteraction != '/0') collision->currentInteraction = '/0';
+
 	// Draw current scene
 	current->Draw();
 	if (toDrawX)
@@ -367,7 +386,7 @@ bool SceneManager::Update(float dt)
 		fadeOutCompleted = false;
 		transitionAlpha = 0.0f;
 
-		ListItem<Quest>* temp = questSystem->sideQuests.start;
+		//ListItem<Quest>* temp = questSystem->sideQuests.start;
 
 		switch (current->nextScene)
 		{
@@ -379,14 +398,14 @@ bool SceneManager::Update(float dt)
 		case SceneType::EXTERIOR: next = new Exterior(this); break;
 		case SceneType::BATTLE:
 			next = new Battle(this);
-			while (temp != NULL)
+			/*while (temp != NULL)
 			{
 				if(temp->data.type == QuestType::COLLECT)
 					questSystem->CheckSideQuests(temp->data, 3);
 				else if (temp->data.type == QuestType::COLLECT)
 					questSystem->CheckSideQuests(temp->data, entityManager->enemyKills);
 				temp = temp->next;
-			}
+			}*/
 			break;
 		case SceneType::DUNGEON_EXT: next = new DungeonExt(this); break;
 		case SceneType::DUNGEON_F1: next = new DungeonF1(this); break;

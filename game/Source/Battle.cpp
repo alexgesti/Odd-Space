@@ -758,6 +758,10 @@ void Battle::DamagePlayer(int player)
 	{
         sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.HP = 0;
 		sceneManager->audio->PlayFx(fx.deathFx);
+
+        // Check main quest for killing enemies
+        if (sceneManager->questSystem->currentStepType == QuestType::KILL)
+            sceneManager->questSystem->UpdateMain(sceneManager->entityManager->entities[1].At(selectedEnemies[player])->data->infoEntities.info.name);
 	}
 }
 

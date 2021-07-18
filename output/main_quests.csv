@@ -1,0 +1,16 @@
+M,0,The deadhead's encounter,"After a more than unconfortable landing you find yourself in a floating asteroid with a convenient bar, everyone knows a good space captain should be drinking here."
+S,TRAVEL,Search the captain in the bar,CANTINA
+S,INTERACT,Talk with the ship's captain in the bar,captain
+S,INTERACT,"The waiter is calling you out, see what he wants",barman
+S,KILL,After that offer you should try to fight some drunk customers and prove your strengh,4 Drunk Customer
+M,1,The legend of the Rat-Eye captain,"Those drunk customers were really trying, after that fight you didin't only strengthen your body but your bond with your partner, now you should be able to travell to the dungeon."
+S,TRAVEL,Enter the dungeon,DUNGEON_F1
+S,INTERACT,Solve the ancient locks,door1Open
+S,TRAVEL,"That will take care of the first door, we should check the second floor",DUNGEON_F2
+S,INTERACT,"More puzzle solving, this time there's a lot of levers, nice",door2Open
+S,TRAVEL,"Sounds like a big door opened, it's treasure time for sure",DUNGEON_F1
+S,KiILL,"That's a hell of a big rat, it's bound to be captain Rat-Eye the one who guards the legendary sword, he's not leaving without a fight",1 ratEye
+M,2,A legend reborn,"Captain Rat-Eye never had a chance, with the legendary sword in your power you should go back to the bar and relish on your findings"
+S,TRAVEL,go back to the surface and grab your ship,DUNGEON_EXT
+S,TRAVEL,Back to the Cantina we go,CANTINA
+S,INTERACT,"Everyone celebrates your return, especially the legendary pirate",legendary
