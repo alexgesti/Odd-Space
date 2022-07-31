@@ -73,18 +73,24 @@ bool PauseMenu::Update(float dt)
 
     if (sceneManager->openOptions)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
-            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN
             || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
             sceneManager->options->Unload();
+            sceneManager->menuOpen = false;
+        }
         else sceneManager->options->Update(dt);
     }
     else if (sceneManager->openItems)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
-            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN
             || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
             sceneManager->items->Unload();
+            sceneManager->menuOpen = false;
+        }
         else sceneManager->items->Update(dt);
     }
     else if (saveloadmenu)
@@ -108,14 +114,18 @@ bool PauseMenu::Update(float dt)
         {
             saveloadmenu = !saveloadmenu;
             f = f2;
+            sceneManager->menuOpen = false;
         }
     }
     else if (questmenu)
     {
-        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN 
-            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN 
+        if (sceneManager->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN
+            || sceneManager->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN
             || pad.GetPadKey(SDL_CONTROLLER_BUTTON_B) == KEY_DOWN)
+        {
             questmenu = !questmenu;
+            sceneManager->menuOpen = false;
+        }
     }
     else if (exitmenu)
     {
@@ -138,6 +148,7 @@ bool PauseMenu::Update(float dt)
         {
             exitmenu = !exitmenu;
             f = f2;
+            sceneManager->menuOpen = false;
         }
     }
     else
@@ -452,6 +463,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
         case 1:
             sceneManager->items->Load();
             sceneManager->openItems = true;
+            sceneManager->menuOpen = true;
             break;
         case 2:
             break;
@@ -466,10 +478,12 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             stepedAnimation->Pushback(334, 334, 668, 382, 5, 622 - 476);
             stepedAnimation->Pushback(334, 83, 382, 382, 233, 5);
             stepedAnimation->Pushback(83, 83, 382, 288, 5, 94);
+            sceneManager->menuOpen = true;
             break;
         case 4:
             sceneManager->options->Load();
             sceneManager->openOptions = true;
+            sceneManager->menuOpen = true;
             break;
         case 5:
             saveloadmenu = true;
@@ -483,6 +497,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             stepedAnimation->Pushback(334, 83, 570, 570, 233, 5);
             stepedAnimation->Pushback(83, 83, 570, 476, 5, 94);
             f2 = f;
+            sceneManager->menuOpen = true;
             break;
         case 6:
             exitmenu = true;
@@ -494,6 +509,7 @@ bool PauseMenu::OnGuiMouseClickEvent(GuiControl* control)
             stepedAnimation->Pushback(1177, 1177, 100, 664, 5, 572);
             stepedAnimation->Pushback(1182, 83, 664, 664, 1103 - 253, 5);
             stepedAnimation->Pushback(83, 83, 664, 570, 5, 94);
+            sceneManager->menuOpen = true;
             break;
         default: break;
         }

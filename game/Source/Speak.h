@@ -35,11 +35,8 @@ private:
 	Input* input;
 	Textures* texture;
 
-	//Needed vars for showing letter individually with sounds
-	int letter_1 = 0;
-	int letter_2 = 0;
-	int letter_3 = 0;
-	int letter_4 = 0;
+	//Needed var for showing letter individually with sounds
+	int letters[4] = { 0, 0, 0, 0 };
 
 	float timeWaited = LETTERSPEED;
 

@@ -172,7 +172,7 @@ bool SceneManager::Update(float dt)
 		if ((input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN || pad.GetPadKey(SDL_CONTROLLER_BUTTON_START) == KEY_DOWN) &&
 			(currentscenetype != SceneType::BATTLE && currentscenetype != SceneType::LOGO && currentscenetype != SceneType::TITLE && currentscenetype != SceneType::NAME_SELECTOR && !isDebug))
 		{
-			isPause = !isPause;
+			if(!menuOpen) isPause = !isPause;
 			dialogueSystem->paused = true;
 			dialogueSystem->speak->paused = true;
 			if (!isPause)

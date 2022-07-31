@@ -98,6 +98,7 @@ public:
 
 	bool wasBattle = false;
 
+	bool menuOpen = false;
 	bool openOptions = false;
 	bool openItems = false;
 

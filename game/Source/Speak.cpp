@@ -12,10 +12,10 @@ Speak::Speak(Audio* audio, Render* render, Font* font, Input* input, Textures* t
 	this->input = input;
 	this->texture = texture;
 
-	letter_1 = this->audio->LoadFx("audio/fx/world_textsound1_fx.wav");
-	letter_2 = this->audio->LoadFx("audio/fx/world_textsound2_fx.wav");
-	letter_3 = this->audio->LoadFx("audio/fx/world_textsound3_fx.wav");
-	letter_4 = this->audio->LoadFx("audio/fx/world_textsound4_fx.wav");
+	letters[0] = this->audio->LoadFx("audio/fx/world_textsound1_fx.wav");
+	letters[1] = this->audio->LoadFx("audio/fx/world_textsound2_fx.wav");
+	letters[2] = this->audio->LoadFx("audio/fx/world_textsound3_fx.wav");
+	letters[3] = this->audio->LoadFx("audio/fx/world_textsound4_fx.wav");
 
 	dialogueTex = texture->Load("sprites/ui/ui_text.png");
 }
@@ -28,24 +28,11 @@ void Speak::Update(float dt)
 
 		if (paused == false)
 		{
+			timeWaited += dt;
+
 			if (timeWaited >= LETTERSPEED)
 			{
-				switch (rand() % 4)
-				{
-				case 0:
-					audio->PlayFx(letter_1);
-					break;
-				case 1:
-					audio->PlayFx(letter_2);
-					break;
-				case 2:
-					audio->PlayFx(letter_3);
-					break;
-				case 3:
-					audio->PlayFx(letter_4);
-					break;
-				default: break;
-				}
+				audio->PlayFx(letters[rand() % 4]);
 
 				letterAmount++;
 
@@ -58,8 +45,6 @@ void Speak::Update(float dt)
 				timeWaited = 0.0f;
 				speaking = false;
 			}
-
-			timeWaited += dt;
 		}
 
 		Draw();
