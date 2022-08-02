@@ -57,6 +57,10 @@ public:
     // Declare on mouse click event
     bool OnGuiMouseClickEvent(GuiControl* control);
 
+    // Give XP to the characters
+    void GiveXP();
+
+
 private:
 
     Map* map;

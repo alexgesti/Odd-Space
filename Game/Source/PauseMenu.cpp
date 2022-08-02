@@ -216,7 +216,9 @@ bool PauseMenu::Draw()
         std::string level = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.LVL);
         sceneManager->render->DrawText(sceneManager->font, ("Level " + level).c_str(), 32 + (rect.w / 2), 48 + rect.h / 3.75f, 25, 0, { 255, 255, 255, 255 });
 
-        sceneManager->render->DrawText(sceneManager->font, "Exp. 0 / 100", 32 + rect.w / 2, 48 + (rect.h / 2.5f), 25, 0, { 255, 255, 255, 255 });
+        std::string xp = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.XP);
+        std::string maxXp = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxXP);
+        sceneManager->render->DrawText(sceneManager->font, ("Exp. "+ xp + " / " + maxXp).c_str(), 32 + rect.w / 2, 48 + (rect.h / 2.5f), 25, 0, { 255, 255, 255, 255 });
 
         std::string HP = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.HP);
         std::string maxHP = std::to_string(sceneManager->entityManager->entities[0].At(0)->data->infoEntities.info.maxHP);
@@ -237,7 +239,9 @@ bool PauseMenu::Draw()
         level = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.LVL);
         sceneManager->render->DrawText(sceneManager->font, ("Level " + level).c_str(), 32 + rect.w / 2, 48 + (rect.h / 1.4f), 25, 0, { 255, 255, 255, 255 });
 
-        sceneManager->render->DrawText(sceneManager->font, "Exp. 0 / 100", 32 + rect.w / 2, 48 + (rect.h / 1.2f), 25, 0, { 255, 255, 255, 255 });
+        xp = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.XP);
+        maxXp = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxXP);
+        sceneManager->render->DrawText(sceneManager->font, ("Exp. " + xp + " / " + maxXp).c_str(), 32 + rect.w / 2, 48 + (rect.h / 1.2f), 25, 0, { 255, 255, 255, 255 });
 
         HP = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.HP);
         maxHP = std::to_string(sceneManager->entityManager->entities[0].At(1)->data->infoEntities.info.maxHP);

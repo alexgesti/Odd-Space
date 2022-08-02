@@ -11,6 +11,8 @@
 #include <time.h> 
 #include "Log.h"
 
+#include "Enemy.h"
+
 // Constructor
 Battle::Battle(SceneManager* sceneManager)
 {
@@ -359,6 +361,8 @@ bool Battle::Update(float dt)
                     sceneManager->entityManager->CreateEntity(EntityType::RANDITEM);
                     win = true;
                     timerequired = 3;
+
+                    GiveXP();
                 }
 
                 animation = false;
@@ -1027,4 +1031,39 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
     }
 
     return true;
+}
+
+void Battle::GiveXP()
+{
+    int xp = 0;
+    for (int i = 0; i <= totalEnemies; i++)
+    {
+        switch (sceneManager->entityManager->entities[1].At(i)->data->GetSubtype())
+        {
+        case (int)EnemyType::GIANTBAT:
+            xp += 10;
+            break;
+        case (int)EnemyType::MUTANTRAT:
+            xp += 15;
+            break;
+        case (int)EnemyType::DRUNKCUSTOMER:
+            xp += 20;
+            break;
+        case (int)EnemyType::STANDARTPIRATE:
+            xp += 30;
+            break;
+        case (int)EnemyType::CAPTAINRATEYE:
+            xp += 150;
+            break;
+        default:
+            break;
+        }
+    }
+
+    // Loop because we unlock characters through the story
+    for (int i = 0; i < sceneManager->entityManager->entities[0].Count(); i++)
+    {
+        if (sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.HP > 0) //If not dead, add XP
+            sceneManager->entityManager->entities[0].At(i)->data->AddXP(xp);
+    }
 }

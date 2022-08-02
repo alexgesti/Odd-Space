@@ -21,6 +21,8 @@ public:
 
     Item(ItemType type) : Entity(EntityType::RANDITEM), itemType(type) {}
 
+    int GetSubtype() { return (int)itemType; }
+
 public:
 
     ItemType itemType;

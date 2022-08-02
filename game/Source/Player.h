@@ -50,12 +50,13 @@ public:
     void UpdateLogic(float dt);
     void ChangeState(HeroState previousState, HeroState newState);
 
-
     bool Draw();
 
     SDL_Rect GetBounds();
 
     static void SetCollision(Collision* collision, Player* player);
+
+    void AddXP(int xp);
 
 public:
 

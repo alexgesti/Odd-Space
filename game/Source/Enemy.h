@@ -3,7 +3,6 @@
 
 #include "Entity.h"
 
-
 enum class EnemyType
 {
     STANDARTPIRATE,
@@ -18,6 +17,8 @@ class Enemy : public Entity
 public:
 
     Enemy(EnemyType type) : Entity(EntityType::ENEMY), enemyType(type) {}
+
+    int GetSubtype() { return (int)enemyType; }
 
 public:
 

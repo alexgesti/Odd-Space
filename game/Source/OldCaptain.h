@@ -22,7 +22,7 @@ public:
 
     bool Draw();
 
-
+    void AddXP(int xp);
 
     SDL_Rect GetBounds();
 

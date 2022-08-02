@@ -16,6 +16,8 @@ struct Info
     int maxHP;
     int maxSP;
     int LVL;
+    int XP;
+    int maxXP;
 };
 
 struct Stat
@@ -87,6 +89,13 @@ public:
     }
 
     virtual void ItemFunction(int* HP, int* SP, int maxHP, int maxSP) {}
+
+    virtual void AddXP(int xp) {}
+
+    virtual int GetSubtype()
+    {
+        return 0;
+    }
 
 public:
 

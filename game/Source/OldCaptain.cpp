@@ -74,6 +74,8 @@ Captain::Captain(Render* render, Textures* tex) : Entity(EntityType::CAPTAIN)
     infoEntities.info.maxHP = 50;
     infoEntities.info.maxSP = 15;
     infoEntities.info.LVL = 1;
+    infoEntities.info.XP = 0;
+    infoEntities.info.maxXP = 50;
     infoEntities.stats.ATK = 6;
     infoEntities.stats.DEF = 10;
     infoEntities.stats.SPD = 4;
@@ -194,4 +196,19 @@ bool Captain::Draw()
 SDL_Rect Captain::GetBounds()
 {
     return { position.x, position.y, width, height };
+}
+
+void Captain::AddXP(int xp)
+{
+    int total = infoEntities.info.XP + xp;
+
+    // While loop in case we increase more than 1 level
+    while (total > infoEntities.info.maxXP)
+    {
+        infoEntities.info.LVL++;
+        total -= infoEntities.info.maxXP;
+        infoEntities.info.maxXP += 50 * infoEntities.info.LVL;
+    }
+
+    infoEntities.info.XP = total;
 }

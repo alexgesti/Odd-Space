@@ -104,6 +104,8 @@ Player::Player(Input* input, Render* render, Textures* tex) : Entity(EntityType:
     infoEntities.info.maxHP = 45;
     infoEntities.info.maxSP = 10;
     infoEntities.info.LVL = 1;
+    infoEntities.info.XP = 0;
+    infoEntities.info.maxXP = 50;
     infoEntities.stats.ATK = 8;
     infoEntities.stats.DEF = 4;
     infoEntities.stats.SPD = 9;
@@ -720,4 +722,19 @@ SDL_Rect Player::GetBounds()
 void Player::SetCollision(Collision* collision, Player* player)
 {
     player->collision = collision;
+}
+
+void Player::AddXP(int xp)
+{
+    int total = infoEntities.info.XP + xp;
+
+    // While loop in case we increase more than 1 level
+    while (total > infoEntities.info.maxXP)
+    {
+        infoEntities.info.LVL++;
+        total -= infoEntities.info.maxXP;
+        infoEntities.info.maxXP += 50 * infoEntities.info.LVL;
+    }
+
+    infoEntities.info.XP = total;
 }
