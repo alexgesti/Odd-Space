@@ -208,6 +208,7 @@ bool Battle::Load()
 
 bool Battle::Update(float dt)
 {
+    this->dt = dt;
     bool ret = false;
 
     GamePad& pad = sceneManager->input->pads[0];
@@ -363,6 +364,7 @@ bool Battle::Update(float dt)
                     timerequired = 3;
 
                     GiveXP();
+                    notifyXP = true;
                 }
 
                 animation = false;
@@ -382,7 +384,10 @@ bool Battle::Update(float dt)
                 sceneManager->wasBattle = false;
                 TransitionToScene(SceneType::ENDDEMO);
             }
-            else TransitionToScene(*sceneManager->entityManager->previousScene);
+            else
+            {
+                TransitionToScene(*sceneManager->entityManager->previousScene);
+            }
         }
     }
 
@@ -521,6 +526,12 @@ bool Battle::Draw()
     {
         rect = {0, 240, 480, 192};
         sceneManager->render->DrawTexture(VorL, 640 - (rect.w / 2) + 70, 0, &rect);
+    }
+
+    if (notifyXP)
+    {
+        XPnoti(xp);
+        notifyTime += dt;
     }
 
     return false;
@@ -1033,9 +1044,24 @@ bool Battle::OnGuiMouseClickEvent(GuiControl* control)
     return true;
 }
 
+
+void Battle::XPnoti(int xp)
+{
+    std::string text = ("+" + std::to_string(xp) + "xp");
+    if (notifyTime < 2.0f)
+    {
+        for (int i = 0; i < sceneManager->entityManager->entities[0].Count(); i++)
+        {
+            if (sceneManager->entityManager->entities[0].At(i)->data->infoEntities.info.HP > 0) //If not dead, add XP
+                sceneManager->render->DrawText(sceneManager->font, text.c_str(), sceneManager->entityManager->entities[0].At(i)->data->position.x - 16, sceneManager->entityManager->entities[0].At(i)->data->position.y + (int)notifyPos - 130, 20, 0, { 0, 255, 0, 255 }); // 16 is player's width/2
+        }
+        notifyPos -= notifyPos * 0.05;
+    }
+    else notifyXP = false;
+}
+
 void Battle::GiveXP()
 {
-    int xp = 0;
     for (int i = 0; i <= totalEnemies; i++)
     {
         switch (sceneManager->entityManager->entities[1].At(i)->data->GetSubtype())

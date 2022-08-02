@@ -5,6 +5,7 @@
 #include "Font.h"
 #include "Animation.h"
 #include "ParticleSystem.h"
+#include <thread>
 
 //#define MAX_ZOOM 3.0f
 //#define MIN_ZOOM 0.3f
@@ -59,6 +60,9 @@ public:
 
     // Give XP to the characters
     void GiveXP();
+
+    // Little XP notification above players
+    void XPnoti(int xp);
 
 
 private:
@@ -133,6 +137,12 @@ private:
 
     StepedAnimation* stepedAnimation;
     int alpha = 255;
+
+    int xp = 0;
+    bool notifyXP = false;
+    float notifyTime = 0.0f;
+    float notifyPos = 80.0f;
+    float dt = 0.0f;
 };
 
 #endif // __SCENEBATTLE_H__
